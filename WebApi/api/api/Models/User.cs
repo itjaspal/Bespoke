@@ -46,19 +46,19 @@ namespace api.Models
         public string updateUser { get; set; }
         public DateTime? updateDatetime { get; set; }
 
-        //[ForeignKey("departmentId")]
-        //public virtual Department department { get; set; }
+        [ForeignKey("departmentId")]
+        public virtual Department department { get; set; }
 
-        //[ForeignKey("userRoleId")]
-        //public virtual UserRole userRole { get; set; }
+        [ForeignKey("userRoleId")]
+        public virtual UserRole userRole { get; set; }
 
-        //[ForeignKey("statusId")]
-        //public virtual UserStatus userStatus { get; set; }
+        [ForeignKey("statusId")]
+        public virtual UserStatus userStatus { get; set; }
 
-        //// Null
-        //public virtual List<UserBranchGroupPrvlg> userBranchGroupPrvlgList { get; set; }
+        // Null
+        public virtual List<UserBranchGroupPrvlg> userBranchGroupPrvlgList { get; set; }
 
 
-        //public virtual List<UserBranchPrvlg> userBranchPrvlgList { get; set; }
+        public virtual List<UserBranchPrvlg> userBranchPrvlgList { get; set; }
     }
 }

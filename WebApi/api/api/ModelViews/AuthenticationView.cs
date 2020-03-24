@@ -1,4 +1,5 @@
-﻿using System;
+﻿using api.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -21,10 +22,10 @@ namespace api.ModelViews
         public int? departmentId { get; set; }
         public long? userRoleId { get; set; }
         public string statusId { get; set; }
-        //public virtual Department department { get; set; }
-        //public virtual List<UserBranchPrvlg> userBranchPrvlgList { get; set; }
-        //public virtual List<Dropdownlist> userBranchGroupes { get; set; }
-        //public virtual List<Dropdownlist> userBranches { get; set; }
+        public virtual Department department { get; set; }
+        public virtual List<UserBranchPrvlg> userBranchPrvlgList { get; set; }
+        public virtual List<Dropdownlist> userBranchGroupes { get; set; }
+        public virtual List<Dropdownlist> userBranches { get; set; }
 
 
         public List<menuFunctionGroupView> menuGroups { get; set; }

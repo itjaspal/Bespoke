@@ -1,4 +1,5 @@
-﻿using System;
+﻿using api.ModelViews;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,7 +9,7 @@ namespace api.Interfaces
 {
     interface IAuthenticationService
     {
-        //AuthenticationData login(string username, string password);
-        //List<menuFunctionGroupView> getUserRole(long userRoleId);
+        AuthenticationData login(string username, string password);
+        List<menuFunctionGroupView> getUserRole(long userRoleId);
     }
 }

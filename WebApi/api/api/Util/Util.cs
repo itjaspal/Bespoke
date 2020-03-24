@@ -1,4 +1,6 @@
-﻿using System;
+﻿using api.DataAccess;
+using api.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
@@ -312,5 +314,64 @@ namespace api.Util
             return id.ToString();
         }
 
+        public static string GetNextRunningDocId(long branchId, string docCode, ConXContext ctx)
+        {
+            string nextDocId = "";
+            DateTime dateNow = DateTime.Now;
+
+            Branch branch = ctx.Branchs.Where(z => z.branchId == branchId).SingleOrDefault();
+
+            DocControl docontrol = ctx.DocControls.Where(x => x.docCode == docCode).SingleOrDefault();
+
+            string preFix = docontrol.prefix + string.Format("{0:" + docontrol.dateFormat + "}", dateNow);
+
+            if (branch.docRunningPrefix != null)
+            {
+                preFix = branch.docRunningPrefix.Trim() + preFix;
+            }
+
+            string formatRuning = "00000000000000000000000";
+            formatRuning = formatRuning.Substring(1, docontrol.running);
+
+            List<DocIdRunning> docRunnings = ctx.DocIdRunnings.Where(d => d.branchId == branchId && d.Prefix == preFix).ToList();
+            if (docRunnings.Count() == 0)
+            {
+                int running = 1;
+
+                DocIdRunning newDocRunning = new DocIdRunning();
+                newDocRunning.branchId = branchId;
+                newDocRunning.Prefix = preFix;
+                newDocRunning.RunningNo = running.ToString(formatRuning);
+
+                ctx.DocIdRunnings.Add(newDocRunning);
+
+                nextDocId = newDocRunning.Prefix + newDocRunning.RunningNo;
+            }
+            else
+            {
+                if (preFix == docRunnings[0].Prefix.ToString())
+                {
+                    int running = Int32.Parse(docRunnings[0].RunningNo) + 1;
+
+                    docRunnings[0].Prefix = preFix;
+                    docRunnings[0].RunningNo = running.ToString(formatRuning);
+
+                    nextDocId = docRunnings[0].Prefix + docRunnings[0].RunningNo;
+                }
+                else
+                {
+                    int running = 1;
+
+                    docRunnings[0].Prefix = preFix;
+                    docRunnings[0].RunningNo = running.ToString(formatRuning);
+
+                    nextDocId = docRunnings[0].Prefix + docRunnings[0].RunningNo;
+                }
+            }
+
+            ctx.SaveChanges();
+
+            return nextDocId;
+        }
     }
 }

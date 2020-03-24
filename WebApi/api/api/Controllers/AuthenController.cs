@@ -1,4 +1,5 @@
 ﻿using api.Interfaces;
+using api.ModelViews;
 using api.Services;
 using System;
 using System.Collections.Generic;
@@ -20,21 +21,21 @@ namespace api.Controllers
         }
 
 
-        //[Route("authen/login")]
-        //public HttpResponseMessage PostLogin([FromBody]AuthenticationParam param)
-        //{
-        //    try
-        //    {
-        //        var user = authService.login(param.username, param.password);
+        [Route("authen/login")]
+        public HttpResponseMessage PostLogin([FromBody]AuthenticationParam param)
+        {
+            try
+            {
+                var user = authService.login(param.username, param.password);
 
 
-        //        return Request.CreateResponse(HttpStatusCode.OK, user);
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, ex.Message.ToString());
-        //    }
-        //}
+                return Request.CreateResponse(HttpStatusCode.OK, user);
+            }
+            catch (Exception ex)
+            {
+                return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, ex.Message.ToString());
+            }
+        }
 
         //[Route("pc/getUserRole")]
         //public HttpResponseMessage PostuserRole([FromBody]AuthenticationUserRoleParam param)

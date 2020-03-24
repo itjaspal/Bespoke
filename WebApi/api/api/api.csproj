@@ -117,6 +117,9 @@
     <Reference Include="Microsoft.Practices.Unity.Configuration, Version=2.1.505.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Unity.2.1.505.2\lib\NET35\Microsoft.Practices.Unity.Configuration.dll</HintPath>
     </Reference>
+    <Reference Include="SinaptIQPKCS7, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\SinaptIQPKCS7.1.0.1\lib\SinaptIQPKCS7.dll</HintPath>
+    </Reference>
     <Reference Include="Spire.License, Version=1.3.8.46, Culture=neutral, PublicKeyToken=b1144360237c8b3f, processorArchitecture=MSIL">
       <HintPath>..\packages\FreeSpire.XLS.10.1.0\lib\net46\Spire.License.dll</HintPath>
     </Reference>
@@ -159,6 +162,7 @@
     <Reference Include="System.Runtime.CompilerServices.Unsafe, Version=4.0.4.1, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Runtime.CompilerServices.Unsafe.4.5.2\lib\netstandard2.0\System.Runtime.CompilerServices.Unsafe.dll</HintPath>
     </Reference>
+    <Reference Include="System.Security" />
     <Reference Include="System.Security.Cryptography.Algorithms, Version=4.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Security.Cryptography.Algorithms.4.3.0\lib\net461\System.Security.Cryptography.Algorithms.dll</HintPath>
       <Private>True</Private>
@@ -181,6 +185,7 @@
     <Reference Include="System.Threading.Tasks.Extensions, Version=4.2.0.1, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Threading.Tasks.Extensions.4.5.3\lib\netstandard2.0\System.Threading.Tasks.Extensions.dll</HintPath>
     </Reference>
+    <Reference Include="System.Transactions" />
     <Reference Include="System.Web.Cors, Version=5.2.7.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.AspNet.Cors.5.2.7\lib\net45\System.Web.Cors.dll</HintPath>
     </Reference>
@@ -314,18 +319,91 @@
     <Compile Include="Areas\HelpPage\SampleGeneration\TextSample.cs" />
     <Compile Include="Areas\HelpPage\XmlDocumentationProvider.cs" />
     <Compile Include="Bootstrapper.cs" />
+    <Compile Include="Controllers\AttachFileController.cs" />
     <Compile Include="Controllers\AuthenController.cs" />
+    <Compile Include="Controllers\BranchGroupController.cs" />
+    <Compile Include="Controllers\CommonController.cs" />
+    <Compile Include="Controllers\CustomerController.cs" />
+    <Compile Include="Controllers\DepartmentController.cs" />
+    <Compile Include="Controllers\DropdownlistController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
-    <Compile Include="Controllers\ValuesController.cs" />
+    <Compile Include="Controllers\MenuController.cs" />
+    <Compile Include="Controllers\MenuGroupController.cs" />
+    <Compile Include="Controllers\OrganizationController.cs" />
+    <Compile Include="Controllers\UserController.cs" />
+    <Compile Include="Controllers\UserRoleController.cs" />
     <Compile Include="DataAccess\ConXContext.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Interfaces\IAttachFileService.cs" />
     <Compile Include="Interfaces\IAuthenticationService.cs" />
+    <Compile Include="Interfaces\IBranchGroupService.cs" />
+    <Compile Include="Interfaces\ICommonService.cs" />
+    <Compile Include="Interfaces\ICustomerService.cs" />
+    <Compile Include="Interfaces\IDepartmentService.cs" />
+    <Compile Include="Interfaces\IDropdownlistService.cs" />
+    <Compile Include="Interfaces\IMenuGroupService.cs" />
+    <Compile Include="Interfaces\IMenuService.cs" />
+    <Compile Include="Interfaces\IOrganizationService.cs" />
+    <Compile Include="Interfaces\ITokenService.cs" />
+    <Compile Include="Interfaces\IUserRoleService.cs" />
+    <Compile Include="Interfaces\IUserService.cs" />
+    <Compile Include="Models\AddressDB.cs" />
+    <Compile Include="Models\AttachFile.cs" />
+    <Compile Include="Models\AttachFileType.cs" />
+    <Compile Include="Models\Branch.cs" />
+    <Compile Include="Models\BranchGroup.cs" />
+    <Compile Include="Models\Customer.cs" />
+    <Compile Include="Models\Department.cs" />
+    <Compile Include="Models\DocControl.cs" />
+    <Compile Include="Models\ErrorMessage.cs" />
+    <Compile Include="Models\MenuFunction.cs" />
+    <Compile Include="Models\MenuFunctionAction.cs" />
+    <Compile Include="Models\MenuFunctionGroup.cs" />
+    <Compile Include="Models\Token.cs" />
     <Compile Include="Models\User.cs" />
+    <Compile Include="Models\UserBranchGroupPrvlg.cs" />
+    <Compile Include="Models\UserBranchPrvlg.cs" />
+    <Compile Include="Models\UserRole.cs" />
+    <Compile Include="Models\UserRoleFunctionAccess.cs" />
+    <Compile Include="Models\UserRoleFunctionAuthorization.cs" />
+    <Compile Include="Models\UserStatus.cs" />
+    <Compile Include="ModelViews\AddressDBView.cs" />
+    <Compile Include="ModelViews\AttachFileView.cs" />
     <Compile Include="ModelViews\AuthenticationView.cs" />
+    <Compile Include="ModelViews\BranchView.cs" />
+    <Compile Include="ModelViews\CommonResponseView.cs" />
+    <Compile Include="ModelViews\CommonSearchView.cs" />
+    <Compile Include="ModelViews\CustomerView.cs" />
+    <Compile Include="ModelViews\Dropdownlist.cs" />
+    <Compile Include="ModelViews\MasterBranchGroupView.cs" />
+    <Compile Include="ModelViews\MasterDepartmentView.cs" />
+    <Compile Include="ModelViews\MasterMenuGroupView.cs" />
+    <Compile Include="ModelViews\MasterMenuView.cs" />
+    <Compile Include="ModelViews\MasterUserRoleView.cs" />
+    <Compile Include="ModelViews\MasterUserView.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\AttachFileService.cs" />
     <Compile Include="Services\AuthenticationService.cs" />
+    <Compile Include="Services\BranchGroupService.cs" />
+    <Compile Include="Services\CommonService.cs" />
+    <Compile Include="Services\CustomerService.cs" />
+    <Compile Include="Services\DepartmentService.cs" />
+    <Compile Include="Services\DropdownlistService.cs" />
+    <Compile Include="Services\MenuGroupService.cs" />
+    <Compile Include="Services\MenuService.cs" />
+    <Compile Include="Services\OrganizationService.cs" />
+    <Compile Include="Services\TokenService.cs" />
+    <Compile Include="Services\UserRoleService.cs" />
+    <Compile Include="Services\UserService.cs" />
+    <Compile Include="Util\DataIgnoreAttribute.cs" />
+    <Compile Include="Util\DataNameAttribute.cs" />
+    <Compile Include="Util\DataTableMapping.cs" />
+    <Compile Include="Util\DBUtil.cs" />
+    <Compile Include="Util\EncryptionUtil.cs" />
+    <Compile Include="Util\ExportExcelUtil.cs" />
+    <Compile Include="Util\MappingHelper.cs" />
     <Compile Include="Util\Util.cs" />
   </ItemGroup>
   <ItemGroup>
