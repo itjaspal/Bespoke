@@ -141,6 +141,13 @@ import { MenuSearchComponent } from './master-menu/menu-search/menu-search.compo
 import { MenuUpdateComponent } from './master-menu/menu-update/menu-update.component';
 import { MenuViewComponent } from './master-menu/menu-view/menu-view.component';
 import { MenuService } from './_service/menu.service';
+import { SalesViewComponent } from './sales/sales-view/sales-view.component';
+import { SalesAddComponent } from './sales/sales-add/sales-add.component';
+import { SalesEditComponent } from './sales/sales-edit/sales-edit.component';
+import { SalesDesignComponent } from './sales/sales-design/sales-design.component';
+import { SalesProductComponent } from './sales/sales-product/sales-product.component';
+import { SalesSearchComponent } from './sales/sales-search/sales-search.component';
+import { SalesSummaryComponent } from './sales/sales-summary/sales-summary.component';
 
 
 
@@ -310,6 +317,13 @@ import { MenuService } from './_service/menu.service';
     MenuSearchComponent,
     MenuUpdateComponent,
     MenuViewComponent,
+    SalesViewComponent,
+    SalesAddComponent,
+    SalesEditComponent,
+    SalesDesignComponent,
+    SalesProductComponent,
+    SalesSearchComponent,
+    SalesSummaryComponent,
 
   ],
   entryComponents: [

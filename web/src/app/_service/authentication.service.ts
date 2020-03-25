@@ -21,8 +21,8 @@ export class AuthenticationService {
   public async login(username, password) {
     let param = {
       username: username,
-      //password: CryptoJS.SHA3(password).toString()
-      password: password
+      password: CryptoJS.SHA3(password).toString()
+      //password: password
     };
 
     let user: any = await this.http.post(environment.API_URL + 'authen/login', param).toPromise()

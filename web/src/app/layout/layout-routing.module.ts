@@ -37,6 +37,13 @@ import { MenuSearchComponent } from '../master-menu/menu-search/menu-search.comp
 import { MenuViewComponent } from '../master-menu/menu-view/menu-view.component';
 import { MenuCreateComponent } from '../master-menu/menu-create/menu-create.component';
 import { MenuUpdateComponent } from '../master-menu/menu-update/menu-update.component';
+import { SalesSearchComponent } from '../sales/sales-search/sales-search.component';
+import { SalesAddComponent } from '../sales/sales-add/sales-add.component';
+import { SalesViewComponent } from '../sales/sales-view/sales-view.component';
+import { SalesEditComponent } from '../sales/sales-edit/sales-edit.component';
+import { SalesDesignComponent } from '../sales/sales-design/sales-design.component';
+import { SalesProductComponent } from '../sales/sales-product/sales-product.component';
+import { SalesSummaryComponent } from '../sales/sales-summary/sales-summary.component';
 
  
 
@@ -96,7 +103,14 @@ const routes: Routes = [
       { path: 'menu/update/:menuFunctionId', component: MenuUpdateComponent, canActivate: [AuthenGuard], data: { parentUrl: "/app/menu" } },
       { path: 'menu/view/:menuFunctionId', component: MenuViewComponent, canActivate: [AuthenGuard], data: { parentUrl: "/app/menu" } },
 
-     
+      //Sales
+      { path: "sale", component: SalesSearchComponent, canActivate: [AuthenGuard], data: { parentUrl: "/app/sale" } },
+      { path: "sale/create", component: SalesAddComponent, canActivate: [AuthenGuard], data: { parentUrl: "/app/sale" } },
+      { path: "saleview/:id", component: SalesViewComponent, canActivate: [AuthenGuard], data: { parentUrl: "/app/sale" } },
+      { path: "sale/update/:id", component: SalesEditComponent, canActivate: [AuthenGuard], data: { parentUrl: "/app/sale" } },
+      { path: "sale/design", component: SalesDesignComponent, canActivate: [AuthenGuard], data: { parentUrl: "/app/sale" } },
+      { path: "sale/product", component: SalesProductComponent, canActivate: [AuthenGuard], data: { parentUrl: "/app/sale" } },
+      { path: "sale/summary", component: SalesSummaryComponent, canActivate: [AuthenGuard], data: { parentUrl: "/app/sale" } },
 
        { path: '**', redirectTo: 'home', pathMatch: 'full' },
     ]
