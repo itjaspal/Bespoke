@@ -1,0 +1,67 @@
+<div class="container-fluid no-breadcrumbs">
+
+  <mat-card class="mat-subcard">
+
+    <mat-card-subtitle>
+      <h6>รายการไฟล์แนบ</h6>
+      <button mat-fab type="button" color="primary" (click)="upload()">
+        <mat-icon class="material-icons">cloud_upload</mat-icon>
+      </button>
+    </mat-card-subtitle>
+
+    <mat-card-content>
+
+      <div class="row card-table-header">
+        <div class="col-12">
+          <hr>
+        </div>
+        <div class="col-sm-7">
+          <b>ชื่อไฟล์</b>
+        </div>
+        <div class="col-sm-3">
+          <b>ประเภท</b>
+        </div>
+        <div class="col-2"></div>
+      </div>
+      <div class="row card-table-body" *ngFor="let x of datas;let i = index;">
+        <div class="col-12">
+          <hr>
+        </div>
+
+        <div class="col-sm-7">
+          <small>ชื่อไฟล์</small>
+          <dd>{{x.fileName}}</dd>
+        </div>
+
+        <div class="col-sm-3 col-10">
+          <small>ประเภท</small>
+          <dd>{{x.attachFileTypeName}}</dd>
+        </div>
+
+        <div class="col-2 text-right">
+          <button type="button" mat-icon-button [matMenuTriggerFor]="appMenu">
+            <mat-icon class="material-icons">more_horiz</mat-icon>
+          </button>
+
+          <mat-menu #appMenu="matMenu">
+            <button type="button" mat-menu-item (click)="view(x)">
+              <mat-icon class="material-icons">search</mat-icon> <span>ดู</span>
+            </button>
+            <button type="button" mat-menu-item (click)="delete(x)">
+              <mat-icon class="material-icons">delete</mat-icon> <span>ลบ</span>
+            </button>
+          </mat-menu>
+        </div>
+      </div>
+    </mat-card-content>
+  </mat-card>
+
+  <div class="form-action">
+
+    <button mat-raised-button class="btn-w-md" type="button" (click)="close()">
+      <mat-icon class="material-icons">close</mat-icon> ปิด
+    </button>
+
+  </div>
+
+</div>

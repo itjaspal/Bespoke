@@ -148,7 +148,9 @@ import { SalesDesignComponent } from './sales/sales-design/sales-design.componen
 import { SalesProductComponent } from './sales/sales-product/sales-product.component';
 import { SalesSearchComponent } from './sales/sales-search/sales-search.component';
 import { SalesSummaryComponent } from './sales/sales-summary/sales-summary.component';
-
+import { AttachFileAddModalComponent } from './attachFile/attach-file-add-modal/attach-file-add-modal.component';
+import { AttachFileUpdateComponent } from './attachFile/attach-file-update/attach-file-update.component';
+import { AttachFileViewComponent } from './attachFile/attach-file-view/attach-file-view.component';
 
 
 
@@ -201,7 +203,11 @@ import { SalesSummaryComponent } from './sales/sales-summary/sales-summary.compo
 
     //3rd party
     NgxMatSelectSearchModule,
-    ZXingScannerModule.forRoot()
+    ZXingScannerModule.forRoot(),
+
+  
+
+    
   ],
   providers: [
     // AuthGuard,
@@ -324,6 +330,9 @@ import { SalesSummaryComponent } from './sales/sales-summary/sales-summary.compo
     SalesProductComponent,
     SalesSearchComponent,
     SalesSummaryComponent,
+    AttachFileAddModalComponent,
+    AttachFileUpdateComponent,
+    AttachFileViewComponent,
 
   ],
   entryComponents: [

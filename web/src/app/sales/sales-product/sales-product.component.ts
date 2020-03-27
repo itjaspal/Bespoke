@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-sales-product',
@@ -7,11 +8,18 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SalesProductComponent implements OnInit {
 
-  constructor() { }
+  constructor(
+    private router: Router
+  ) { }
 
   ngOnInit() {
   }
   
+  Confirm()
+  {
+    this.router.navigateByUrl('/app/sale/create');
+  }
+
   close()
   {
     window.history.back();

@@ -126,9 +126,9 @@ export class DropdownlistService {
   //   return await this.http.get<Dropdownlist[]>(environment.API_URL + 'dropdownlist/getDdlDocControlAddReturn').toPromise();
   // }
 
-  // public async getDdlFileUploadType() {
-  //   return await this.http.get<Dropdownlist[]>(environment.API_URL + 'dropdownlist/getDdlFileUploadType').toPromise();
-  // }
+  public async getDdlFileUploadType() {
+    return await this.http.get<Dropdownlist[]>(environment.API_URL + 'dropdownlist/getDdlFileUploadType').toPromise();
+  }
 
   // public async getDdlYear() {
   //   return await this.http.get<Dropdownlist[]>(environment.API_URL + 'dropdownlist/getDdlYear').toPromise();

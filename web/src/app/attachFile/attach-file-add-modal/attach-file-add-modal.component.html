@@ -1,0 +1,59 @@
+<div class="container-fluid no-breadcrumbs">
+
+  <form [formGroup]="validationForm">
+
+      <mat-card>
+
+          <mat-card-title>
+              <h6>อัพโหลดไฟล์แนบ</h6>
+          </mat-card-title>
+
+          <mat-card-content>
+              <div class="row">
+                  <div class="col-sm-4">
+                      <mat-form-field class="full-width">
+                          <mat-select placeholder="ประเภท *" [(ngModel)]="model.attachFileTypeId"
+                              name="attachFileTypeId" formControlName="attachFileTypeId">
+                              <mat-option *ngFor="let x of fileTypes" [value]="x.key">
+                                  {{x.value}}
+                              </mat-option>
+                          </mat-select>
+                      </mat-form-field>
+                      <mat-error class="error-message"
+                          *ngIf="validationForm.get('attachFileTypeId').hasError('required') && (validationForm.get('attachFileTypeId').dirty || validationForm.get('attachFileTypeId').touched)">
+                          โปรดระบุข้อมูล
+                      </mat-error>
+                  </div>
+                  <div class="col-12">
+                      <dt>เอกสาร *</dt>
+                      <dd>{{(model.file == null) ? "" : model.file.name}}</dd>
+                  </div>
+                  <div class="col-sm-4 ">
+                      <input type="file" #fileInput class="d-none" (change)="fileChange($event.target.files)">
+                      <button matPrefix mat-raised-button color="accent" class="btn-w-md" type="button"
+                          (click)="fileInput.click()">
+                          Choose file
+                      </button>
+
+                  </div>
+              </div>
+          </mat-card-content>
+
+      </mat-card>
+
+      <div class="form-action">
+
+          <button mat-raised-button class="btn-w-md" type="button" (click)="close()">
+              <mat-icon class="material-icons">close</mat-icon> ปิด
+          </button>
+
+          <button mat-raised-button color="primary" class="btn-w-md pull-right" type="button" (click)="save()"
+              [disabled]="!validationForm.valid || model.file == null">
+              <mat-icon class="material-icons">save</mat-icon> บันทึกข้อมูล
+          </button>
+
+      </div>
+
+  </form>
+
+</div>
