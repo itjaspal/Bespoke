@@ -151,6 +151,10 @@ import { SalesSummaryComponent } from './sales/sales-summary/sales-summary.compo
 import { AttachFileAddModalComponent } from './attachFile/attach-file-add-modal/attach-file-add-modal.component';
 import { AttachFileUpdateComponent } from './attachFile/attach-file-update/attach-file-update.component';
 import { AttachFileViewComponent } from './attachFile/attach-file-view/attach-file-view.component';
+import { BranchSearchAssignProductComponent } from './master-branch/branch-search-assignProduct/branch-search-assignProduct.component';
+import { TrackSearchComponent } from './sales-track/track-search/track-search.component';
+import { TrackViewComponent } from './sales-track/track-view/track-view.component';
+
 
 
 
@@ -275,7 +279,7 @@ import { AttachFileViewComponent } from './attachFile/attach-file-view/attach-fi
     BranchGroupCreateComponent,
     BranchGroupUpdateComponent,
     BranchGroupViewComponent,
-    //BranchSearchAssignProductComponent,
+    BranchSearchAssignProductComponent,
     DepartmentSearchComponent,
     DepartmentCreateComponent,
     DepartmentUpdateComponent,
@@ -333,6 +337,9 @@ import { AttachFileViewComponent } from './attachFile/attach-file-view/attach-fi
     AttachFileAddModalComponent,
     AttachFileUpdateComponent,
     AttachFileViewComponent,
+    TrackSearchComponent,
+    TrackViewComponent,
+
 
   ],
   entryComponents: [

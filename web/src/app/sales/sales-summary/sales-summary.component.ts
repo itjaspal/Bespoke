@@ -28,7 +28,7 @@ export class SalesSummaryComponent implements OnInit {
   print()
   {
     // window.open('file:///D:/Angular/Project/Bespoke/web/src/assets/images-prod/tel.pdf');
-    window.open('http://localhost:4200/assets/images-prod/tel.pdf','_blank');
+    window.open('http://192.168.9.50/bespoke/assets/images-prod/order.pdf','_blank');
   }
   points = [];
   signatureImage;
