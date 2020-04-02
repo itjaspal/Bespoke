@@ -154,6 +154,29 @@ import { AttachFileViewComponent } from './attachFile/attach-file-view/attach-fi
 import { BranchSearchAssignProductComponent } from './master-branch/branch-search-assignProduct/branch-search-assignProduct.component';
 import { TrackSearchComponent } from './sales-track/track-search/track-search.component';
 import { TrackViewComponent } from './sales-track/track-view/track-view.component';
+import { MenuActionCreateComponent } from './master-menu-action/menu-action-create/menu-action-create.component';
+import { MenuActionSearchComponent } from './master-menu-action/menu-action-search/menu-action-search.component';
+import { MenuActionUpdateComponent } from './master-menu-action/menu-action-update/menu-action-update.component';
+import { CustomerCreateComponent } from './customer/customer-create/customer-create.component';
+import { CustomerSearchComponent } from './customer/customer-search/customer-search.component';
+import { CustomerUpdateComponent } from './customer/customer-update/customer-update.component';
+import { CustomerViewComponent } from './customer/customer-view/customer-view.component';
+import { ColorFontrCreateComponent } from './master-color-font/color-fontr-create/color-fontr-create.component';
+import { ColorFontSearchComponent } from './master-color-font/color-font-search/color-font-search.component';
+import { ColorFontUpdateComponent } from './master-color-font/color-font-update/color-font-update.component';
+import { ColorFontViewComponent } from './master-color-font/color-font-view/color-font-view.component';
+import { EmbroideryCreateComponent } from './master-embroidery/embroidery-create/embroidery-create.component';
+import { EmbroiderySearchComponent } from './master-embroidery/embroidery-search/embroidery-search.component';
+import { EmbroideryUpdateComponent } from './master-embroidery/embroidery-update/embroidery-update.component';
+import { EmbroideryViewComponent } from './master-embroidery/embroidery-view/embroidery-view.component';
+import { ProductCatalogCreateComponent } from './master-product-catalog/product-catalog-create/product-catalog-create.component';
+import { ProductCatalogSearchComponent } from './master-product-catalog/product-catalog-search/product-catalog-search.component';
+import { ProductCatalogUpdateComponent } from './master-product-catalog/product-catalog-update/product-catalog-update.component';
+import { ProductCatalogViewComponent } from './master-product-catalog/product-catalog-view/product-catalog-view.component';
+import { ProductTypeCreateComponent } from './master-product-type/product-type-create/product-type-create.component';
+import { ProductTypeSearchComponent } from './master-product-type/product-type-search/product-type-search.component';
+import { ProductTypeUpdateComponent } from './master-product-type/product-type-update/product-type-update.component';
+import { ProductTypeViewComponent } from './master-product-type/product-type-view/product-type-view.component';
 
 
 
@@ -339,6 +362,29 @@ import { TrackViewComponent } from './sales-track/track-view/track-view.componen
     AttachFileViewComponent,
     TrackSearchComponent,
     TrackViewComponent,
+    MenuActionCreateComponent,
+    MenuActionSearchComponent,
+    MenuActionUpdateComponent,
+    CustomerCreateComponent,
+    CustomerSearchComponent,
+    CustomerUpdateComponent,
+    CustomerViewComponent,
+    ColorFontrCreateComponent,
+    ColorFontSearchComponent,
+    ColorFontUpdateComponent,
+    ColorFontViewComponent,
+    EmbroideryCreateComponent,
+    EmbroiderySearchComponent,
+    EmbroideryUpdateComponent,
+    EmbroideryViewComponent,
+    ProductCatalogCreateComponent,
+    ProductCatalogSearchComponent,
+    ProductCatalogUpdateComponent,
+    ProductCatalogViewComponent,
+    ProductTypeCreateComponent,
+    ProductTypeSearchComponent,
+    ProductTypeUpdateComponent,
+    ProductTypeViewComponent,
 
 
   ],
