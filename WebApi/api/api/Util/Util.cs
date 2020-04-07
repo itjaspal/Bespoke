@@ -373,5 +373,12 @@ namespace api.Util
 
             return nextDocId;
         }
+
+        public static string GetBase64StringForImage(string imgPath)
+        {
+            byte[] imageBytes = System.IO.File.ReadAllBytes(imgPath);
+            string base64String = Convert.ToBase64String(imageBytes);
+            return base64String;
+        }
     }
 }

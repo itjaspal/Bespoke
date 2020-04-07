@@ -10,7 +10,7 @@ namespace api.Interfaces
     interface IColorFontService
     {
         CommonSearchView<ColorFontView> Search(ColorFontSearchView model);
-        ColorFontView GetInfo(string code);
+        ColorFontView GetInfo(long code);
         void Create(ColorFontView model);
         void Update(ColorFontView model);
     }

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Web;
 
@@ -41,5 +42,8 @@ namespace api.Models
         public string updated_by { get; set; }
 
         public DateTime updated_at { get; set; }
+
+        public virtual List<CatalogColor> catalogColorList { get; set; }
+
     }
 }

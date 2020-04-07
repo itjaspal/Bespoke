@@ -10,23 +10,23 @@ using System.Web.Http;
 
 namespace api.Controllers
 {
-    public class EmbMastController : ApiController
+    public class CatalogMastController : ApiController
     {
-        IEmbMastService embSvc;
+        ICatalogMastService catMastSvc;
 
-        public EmbMastController()
+        public CatalogMastController()
         {
-            embSvc = new EmbMastService();
+            catMastSvc = new CatalogMastService();
         }
 
-        [Route("emb-mast/postSearch")]
-        public HttpResponseMessage postSearch(EmbMastSearchView model)
+        [Route("catalog-mast/postSearch")]
+        public HttpResponseMessage postSearch(CatalogMastSearchView model)
         {
             try
             {
 
 
-                var result = embSvc.Search(model);
+                var result = catMastSvc.Search(model);
 
                 return Request.CreateResponse(HttpStatusCode.OK, result);
             }
@@ -36,12 +36,12 @@ namespace api.Controllers
             }
         }
 
-        [Route("emb-mast/getInfo/{code}")]
+        [Route("catalog-mast/getInfo/{code}")]
         public HttpResponseMessage getInfo(long code)
         {
             try
             {
-                var result = embSvc.GetInfo(code);
+                var result = catMastSvc.GetInfo(code);
 
                 return Request.CreateResponse(HttpStatusCode.OK, result);
             }
@@ -52,8 +52,8 @@ namespace api.Controllers
         }
 
         //[POST("postCreate")]
-        [Route("emb-mast/postCreate")]
-        public HttpResponseMessage postCreate(EmbMastView model)
+        [Route("catalog-mast/postCreate")]
+        public HttpResponseMessage postCreate(CatalogMastView model)
         {
             try
             {
@@ -64,7 +64,7 @@ namespace api.Controllers
                 //    return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, string.Format("รหัสเมนู {0} มีอยู่ในระบบแล้ว", model.menuFunctionId));
                 //}
 
-                embSvc.Create(model);
+                catMastSvc.Create(model);
 
                 return Request.CreateResponse(HttpStatusCode.OK, "บันทึกข้อมูลสำเร็จ");
 
@@ -76,14 +76,14 @@ namespace api.Controllers
         }
 
         //[POST("postUpdate")]
-        [Route("emb-mast/postUpdate")]
-        public HttpResponseMessage postUpdate(EmbMastView model)
+        [Route("catalog-mast/postUpdate")]
+        public HttpResponseMessage postUpdate(CatalogMastView model)
         {
             try
             {
 
 
-                embSvc.Update(model);
+                catMastSvc.Update(model);
 
                 return Request.CreateResponse(HttpStatusCode.OK, "บันทึกข้อมูลสำเร็จ");
             }

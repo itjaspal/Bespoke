@@ -10,7 +10,7 @@ namespace api.Interfaces
     interface IEmbMastService
     {
         CommonSearchView<EmbMastView> Search(EmbMastSearchView model);
-        EmbMastView GetInfo(string code);
+        EmbMastView GetInfo(long code);
         void Create(EmbMastView model);
         void Update(EmbMastView model);
     }

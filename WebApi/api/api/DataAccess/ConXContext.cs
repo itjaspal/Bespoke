@@ -37,6 +37,14 @@ namespace api.DataAccess
         public DbSet<AttachFile> AttachFiles { get; set; }
         public DbSet<Customer> Customers { get; set; }
 
+        /********* BeSpoke Data **********/
+        public DbSet<ColorFontMast> ColorFontMasts { get; set; }
+        public DbSet<EmbMast> EmbMasts { get; set; }
+        public DbSet<CatalogMast> CatalogMasts { get; set; }
+        public DbSet<CatalogColor> CatalogColors { get; set; }
+
+
+
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
 

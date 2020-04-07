@@ -37,7 +37,7 @@ namespace api.Controllers
         }
 
         [Route("color-font/getInfo/{code}")]
-        public HttpResponseMessage getInfo(string code)
+        public HttpResponseMessage getInfo(long code)
         {
             try
             {

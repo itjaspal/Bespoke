@@ -1,4 +1,5 @@
-﻿using System;
+﻿using api.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -20,16 +21,17 @@ namespace api.ModelViews
         public string updated_by { get; set; }
         public DateTime updated_at { get; set; }
 
-        public List<DesignColorView> color { get; set; }
+        //public List<DesignColorView> color { get; set; }
+        public virtual List<CatalogColor> catalogColorList { get; set; }
     }
 
-    public class DesignColorView
-    {
-        public string pdcolor_code { get; set; }
-        public string pdcolor_name { get; set; }
-        public string pic_file_path { get; set; }
-        public string pic_base64 { get; set; }
-    }
+    //public class DesignColorView
+    //{
+    //    public string pdcolor_code { get; set; }
+    //    public string pdcolor_name { get; set; }
+    //    public string pic_file_path { get; set; }
+    //    public string pic_base64 { get; set; }
+    //}
 
     public class CatalogMastSearchView
     {

@@ -8,7 +8,7 @@ namespace api.ModelViews
     public class EmbMastView
     {
         public long emb_mast_id { get; set; }
-        public string color_name { get; set; }
+        public string font_name { get; set; }
         public string pic_file_path { get; set; }
         public string pic_base64 { get; set; }
         public float unit_price { get; set; }
@@ -23,6 +23,6 @@ namespace api.ModelViews
     {
         public int pageIndex { get; set; }
         public int itemPerPage { get; set; }
-        public string color_name { get; set; }
+        public string font_name { get; set; }
     }
 }
