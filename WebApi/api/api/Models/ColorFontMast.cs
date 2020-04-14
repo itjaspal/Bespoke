@@ -6,7 +6,7 @@ using System.Web;
 
 namespace api.Models
 {
-    public class ColorFontMast
+    public class COLOR_OF_FONT_MAST
     {
         [Key]
         public long emb_color_mast_id { get; set; }

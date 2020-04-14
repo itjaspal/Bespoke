@@ -160,11 +160,8 @@ import { MenuActionUpdateComponent } from './master-menu-action/menu-action-upda
 import { CustomerCreateComponent } from './customer/customer-create/customer-create.component';
 import { CustomerSearchComponent } from './customer/customer-search/customer-search.component';
 import { CustomerUpdateComponent } from './customer/customer-update/customer-update.component';
-import { CustomerViewComponent } from './customer/customer-view/customer-view.component';
-import { ColorFontrCreateComponent } from './master-color-font/color-fontr-create/color-fontr-create.component';
 import { ColorFontSearchComponent } from './master-color-font/color-font-search/color-font-search.component';
 import { ColorFontUpdateComponent } from './master-color-font/color-font-update/color-font-update.component';
-import { ColorFontViewComponent } from './master-color-font/color-font-view/color-font-view.component';
 import { EmbroideryCreateComponent } from './master-embroidery/embroidery-create/embroidery-create.component';
 import { EmbroiderySearchComponent } from './master-embroidery/embroidery-search/embroidery-search.component';
 import { EmbroideryUpdateComponent } from './master-embroidery/embroidery-update/embroidery-update.component';
@@ -177,6 +174,7 @@ import { ProductTypeCreateComponent } from './master-product-type/product-type-c
 import { ProductTypeSearchComponent } from './master-product-type/product-type-search/product-type-search.component';
 import { ProductTypeUpdateComponent } from './master-product-type/product-type-update/product-type-update.component';
 import { ProductTypeViewComponent } from './master-product-type/product-type-view/product-type-view.component';
+import { ColorFontService } from './_service/color-font.service';
 
 
 
@@ -261,6 +259,7 @@ import { ProductTypeViewComponent } from './master-product-type/product-type-vie
    
     MenuGroupService,
     MenuService,
+    ColorFontService,
   
 
   ],
@@ -368,11 +367,8 @@ import { ProductTypeViewComponent } from './master-product-type/product-type-vie
     CustomerCreateComponent,
     CustomerSearchComponent,
     CustomerUpdateComponent,
-    CustomerViewComponent,
-    ColorFontrCreateComponent,
     ColorFontSearchComponent,
     ColorFontUpdateComponent,
-    ColorFontViewComponent,
     EmbroideryCreateComponent,
     EmbroiderySearchComponent,
     EmbroideryUpdateComponent,
