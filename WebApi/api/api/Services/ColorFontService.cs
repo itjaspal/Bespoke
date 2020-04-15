@@ -17,17 +17,17 @@ namespace api.Services
             using (var ctx = new ConXContext())
             {
 
-                string imagePath = @model.pic_file_path;
-                string imgBase64String = Util.Util.GetBase64StringForImage(imagePath);
+                //string imagePath = @model.pic_file_path;
+                //string imgBase64String = Util.Util.GetBase64StringForImage(imagePath);
 
                 using (TransactionScope scope = new TransactionScope())
                 {
-                    ColorFontMast newObj = new ColorFontMast()
+                    COLOR_OF_FONT_MAST newObj = new COLOR_OF_FONT_MAST()
                     {
                         color_code = model.color_code,
                         color_name = model.color_name,
                         pic_file_path = model.pic_file_path,
-                        pic_base64 = imgBase64String,
+                        pic_base64 = model.pic_base64,
                         created_by = model.created_by,
                         created_at = DateTime.Now,
                         updated_by = model.updated_by,
@@ -48,7 +48,7 @@ namespace api.Services
 
             using (var ctx = new ConXContext())
             {
-                ColorFontMast model = ctx.ColorFontMasts
+                COLOR_OF_FONT_MAST model = ctx.ColorFontMasts
                     .Where(z => z.emb_color_mast_id == code).SingleOrDefault();
 
                 return new ColorFontView
@@ -78,7 +78,7 @@ namespace api.Services
                 };
 
                 //query data
-                List<ColorFontMast> ColorFontMasts = ctx.ColorFontMasts
+                List<COLOR_OF_FONT_MAST> ColorFontMasts = ctx.ColorFontMasts
                     .Where(x => (x.color_code.Contains(model.color_code) || model.color_code == "")
                     && (x.color_name.Contains(model.color_name) || model.color_name == "")
                     )
@@ -114,17 +114,17 @@ namespace api.Services
         {
             using (var ctx = new ConXContext())
             {
-                string imagePath = @model.pic_file_path;
-                string imgBase64String = Util.Util.GetBase64StringForImage(imagePath);
+                //string imagePath = @model.pic_file_path;
+                //string imgBase64String = Util.Util.GetBase64StringForImage(imagePath);
 
                 using (TransactionScope scope = new TransactionScope())
                 {
-                    ColorFontMast updateObj = ctx.ColorFontMasts.Where(z => z.emb_color_mast_id == model.emb_color_mast_id).SingleOrDefault();
+                    COLOR_OF_FONT_MAST updateObj = ctx.ColorFontMasts.Where(z => z.emb_color_mast_id == model.emb_color_mast_id).SingleOrDefault();
 
                     updateObj.color_code = model.color_code;
                     updateObj.color_name = model.color_name;
                     updateObj.pic_file_path = model.pic_file_path;
-                    updateObj.pic_base64 = imgBase64String;
+                    updateObj.pic_base64 = model.pic_base64;
                     updateObj.updated_by = model.updated_by;
                     updateObj.updated_at = DateTime.Now;
 

@@ -1,3 +1,61 @@
-<p>
-  color-font-update works!
-</p>
+<div class="container-fluid no-breadcrumbs">
+  <mat-card>
+      <mat-card-title>
+          <h6> แก้ไข Color of Font</h6>
+      </mat-card-title>
+      <mat-card-content>
+          <form [formGroup]="validationForm">
+              
+
+              <div class="row">
+                <div class="col-12 col-sm-6">
+                    <mat-form-field class="full-width">
+                        <input matInput placeholder="รหัสสี *" formControlName="color_code"
+                            [(ngModel)]="model.color_code" name="color_code">
+                    </mat-form-field>
+                    <mat-error class="error-message"
+                        *ngIf="validationForm.get('color_code').hasError('required') && (validationForm.get('color_code').dirty || validationForm.get('menuFunctionId').touched)">
+                        โปรดระบุข้อมูล
+                    </mat-error>
+                    <!-- <small>รหัสกลุ่มเมนู</small>
+                    <dd>{{model.menuFunctionGroupId}}</dd> -->
+                </div>
+                <div class="col-12 col-sm-5">
+                    <mat-form-field class="full-width">
+                        <input matInput placeholder="ชื่อสี *" formControlName="color_name"
+                            [(ngModel)]="model.color_name" name="color_name">
+                    </mat-form-field>
+                    <mat-error class="error-message"
+                        *ngIf="validationForm.get('color_name').hasError('required') && (validationForm.get('color_name').dirty || validationForm.get('menuFunctionName').touched)">
+                        โปรดระบุข้อมูล
+                    </mat-error>
+                </div>   
+                        
+            </div>
+
+            <div class="row">
+              <div class="col-12 col-sm-12">
+                <input type='file' #file (change)="preview($event)">
+                <img [src]="imgURL" height="100" *ngIf="imgURL">
+              </div>
+              <!-- <div class="col-12 col-sm-5">
+                <img src="{{model.pic_base64}}" />
+              </div> -->
+              
+            </div>
+                        
+           
+          </form>
+      </mat-card-content>
+      <mat-card-actions>
+          <button mat-raised-button class="btn-w-md" type="button" (click)="close()">
+              <mat-icon class="material-icons">close</mat-icon> ปิด
+          </button>
+
+          <button mat-raised-button color="primary" class="btn-w-md pull-right" type="button" (click)="save()"
+              [disabled]="!validationForm.valid">
+              <mat-icon class="material-icons">save</mat-icon> บันทึกข้อมูล
+          </button>
+      </mat-card-actions>
+  </mat-card>
+</div>

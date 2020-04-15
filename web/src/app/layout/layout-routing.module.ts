@@ -46,6 +46,8 @@ import { SalesProductComponent } from '../sales/sales-product/sales-product.comp
 import { SalesSummaryComponent } from '../sales/sales-summary/sales-summary.component';
 import { TrackSearchComponent } from '../sales-track/track-search/track-search.component';
 import { TrackViewComponent } from '../sales-track/track-view/track-view.component';
+import { ColorFontSearchComponent } from '../master-color-font/color-font-search/color-font-search.component';
+import { ColorFontUpdateComponent } from '../master-color-font/color-font-update/color-font-update.component';
 
  
 
@@ -105,6 +107,10 @@ const routes: Routes = [
       { path: 'menu/update/:menuFunctionId', component: MenuUpdateComponent, canActivate: [AuthenGuard], data: { parentUrl: "/app/menu" } },
       { path: 'menu/view/:menuFunctionId', component: MenuViewComponent, canActivate: [AuthenGuard], data: { parentUrl: "/app/menu" } },
 
+      //Master Color of Font
+      { path: "color-font", component: ColorFontSearchComponent, canActivate: [AuthenGuard], data: { parentUrl: "/app/color-font" } },
+      { path: "color-font/update/:id", component: ColorFontUpdateComponent, canActivate: [AuthenGuard], data: { parentUrl: "/app/color-font" } },
+      
       //Sales
       { path: "sale", component: SalesSearchComponent, canActivate: [AuthenGuard], data: { parentUrl: "/app/sale" } },
       { path: "sale/create", component: SalesAddComponent, canActivate: [AuthenGuard], data: { parentUrl: "/app/sale" } },
