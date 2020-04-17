@@ -36,7 +36,7 @@ namespace api.Services
                 };
 
                 //query data
-                List<CatalogMast> CatalogMasts = ctx.CatalogMasts
+                List<CATALOG_MAST> CatalogMasts = ctx.CatalogMasts
                     .Include("catalogColorList.pdcolor_name")
                     .Include("catalogColorList.pic_base64")
                     .Where(x => (x.pddsgn_code.Contains(model.pddsgn_code) || model.pddsgn_code == "")

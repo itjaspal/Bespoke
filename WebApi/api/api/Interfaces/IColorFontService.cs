@@ -13,5 +13,7 @@ namespace api.Interfaces
         ColorFontView GetInfo(long code);
         void Create(ColorFontView model);
         void Update(ColorFontView model);
+
+        void delete(ColorFontView color);
     }
 }

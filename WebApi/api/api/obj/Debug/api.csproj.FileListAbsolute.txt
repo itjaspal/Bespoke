@@ -1,5 +1,4 @@
 D:\Angular\Project\Bespoke\WebApi\api\api\obj\Debug\api.csproj.App.config
-D:\Angular\Project\Bespoke\WebApi\api\api\obj\Debug\api.csprojResolveAssemblyReference.cache
 D:\Angular\Project\Bespoke\WebApi\api\api\obj\Debug\api.csproj.CoreCompileInputs.cache
 D:\Angular\Project\Bespoke\WebApi\api\api\bin\ApplicationInsights.config
 D:\Angular\Project\Bespoke\WebApi\api\api\bin\api.dll.config
@@ -216,3 +215,5 @@ D:\Angular\Project\Bespoke\WebApi\api\api\bin\Microsoft.AI.Web.xml
 D:\Angular\Project\Bespoke\WebApi\api\api\obj\Debug\api.dll
 D:\Angular\Project\Bespoke\WebApi\api\api\obj\Debug\api.pdb
 D:\Angular\Project\Bespoke\WebApi\api\api\bin\SinaptIQPKCS7.dll
+D:\Angular\project\Bespoke\WebApi\api\api\obj\Debug\api.csprojAssemblyReference.cache
+D:\Angular\project\Bespoke\WebApi\api\api\obj\Debug\api.csproj.CopyComplete

@@ -13,14 +13,15 @@ namespace api.Services
 {
     public class CustomerService : ICustomerService
     {
-        public long IsExitingCustomer(Customer cust)
+        public long IsExitingCustomer(cust_mast cust)
         {
             using (var ctx = new ConXContext())
             {
-                Customer customer = ctx.Customers
+                cust_mast customer = ctx.CustMasts
                     .Where(x =>
-                    x.name == cust.name
-                    && x.addressName == cust.addressName
+                    x.cust_name == cust.cust_name
+                    && x.address1 == cust.address1
+                    && x.address2 == cust.address2
                     && x.subDistrict == cust.subDistrict
                     && x.district == cust.district
                     && x.province == cust.province
@@ -32,17 +33,18 @@ namespace api.Services
             }
         }
 
-        public long Create(Customer customer)
+        public long Create(cust_mast customer)
         {
             using (var ctx = new ConXContext())
             {
                 using (TransactionScope scope = new TransactionScope())
                 {
-                    Customer newCust = new Customer()
+                    cust_mast newCust = new cust_mast()
                     {
-                        name = customer.name,
-                        surname = customer.surname,
-                        addressName = customer.addressName,
+                        cust_name = customer.cust_name,
+                        //surname = customer.surname,
+                        address1 = customer.address1,
+                        address2 = customer.address2,
                         subDistrict = customer.subDistrict,
                         district = customer.district,
                         province = customer.province,
@@ -53,7 +55,7 @@ namespace api.Services
                         sex = customer.sex,
                         line = customer.line,
                     };
-                    ctx.Customers.Add(newCust);
+                    ctx.CustMasts.Add(newCust);
                     ctx.SaveChanges();
                     scope.Complete();
 
@@ -62,7 +64,18 @@ namespace api.Services
             }
         }
 
-        public void SyncUpdate(Customer customer)
+        //public void SyncUpdate(cust_mast customer)
+        //{
+        //    using (var ctx = new ConXContext())
+        //    {
+        //        using (TransactionScope scope = new TransactionScope())
+        //        {
+
+        //        }
+        //    }
+        //}
+
+        public void Update(cust_mast customer)
         {
             using (var ctx = new ConXContext())
             {
@@ -73,18 +86,7 @@ namespace api.Services
             }
         }
 
-        public void Update(Customer customer)
-        {
-            using (var ctx = new ConXContext())
-            {
-                using (TransactionScope scope = new TransactionScope())
-                {
-
-                }
-            }
-        }
-
-        public List<Customer> InquiryCustomerByText(CustomerAutoCompleteSearchView model)
+        public List<cust_mast> InquiryCustomerByText(CustomerAutoCompleteSearchView model)
         {
             using (var ctx = new ConXContext())
             {
@@ -92,7 +94,7 @@ namespace api.Services
 
                 if (model.type == "name")
                 {
-                    sql += " where name like @txt_name";
+                    sql += " where cust_name like @txt_name";
                     sql += " order by name asc";
                 }
                 else
@@ -101,13 +103,18 @@ namespace api.Services
                     sql += " order by tel asc";
                 }
 
-                List<Customer> customer = ctx.Database.SqlQuery<Customer>(sql,
+                List<cust_mast> customer = ctx.Database.SqlQuery<cust_mast>(sql,
                     new SqlParameter("@txt_name", "%" + model.txt + "%"),
                     new SqlParameter("@txt_tel", "%" + model.txt + "%")
                     ).ToList();
 
                 return customer;
             }
+        }
+
+        public void Delete(cust_mast customer)
+        {
+            throw new NotImplementedException();
         }
     }
 }

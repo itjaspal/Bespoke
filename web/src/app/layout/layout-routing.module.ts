@@ -48,6 +48,8 @@ import { TrackSearchComponent } from '../sales-track/track-search/track-search.c
 import { TrackViewComponent } from '../sales-track/track-view/track-view.component';
 import { ColorFontSearchComponent } from '../master-color-font/color-font-search/color-font-search.component';
 import { ColorFontUpdateComponent } from '../master-color-font/color-font-update/color-font-update.component';
+import { EmbroideryUpdateComponent } from '../master-embroidery/embroidery-update/embroidery-update.component';
+import { EmbroiderySearchComponent } from '../master-embroidery/embroidery-search/embroidery-search.component';
 
  
 
@@ -111,6 +113,12 @@ const routes: Routes = [
       { path: "color-font", component: ColorFontSearchComponent, canActivate: [AuthenGuard], data: { parentUrl: "/app/color-font" } },
       { path: "color-font/update/:id", component: ColorFontUpdateComponent, canActivate: [AuthenGuard], data: { parentUrl: "/app/color-font" } },
       
+      //Master Emb Mast
+      { path: "emb-mast", component: EmbroiderySearchComponent, canActivate: [AuthenGuard], data: { parentUrl: "/app/emb-mast" } },
+      { path: "emb-mast/update/:id", component: EmbroideryUpdateComponent, canActivate: [AuthenGuard], data: { parentUrl: "/app/emb-mast" } },
+      
+
+
       //Sales
       { path: "sale", component: SalesSearchComponent, canActivate: [AuthenGuard], data: { parentUrl: "/app/sale" } },
       { path: "sale/create", component: SalesAddComponent, canActivate: [AuthenGuard], data: { parentUrl: "/app/sale" } },

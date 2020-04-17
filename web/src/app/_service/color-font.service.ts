@@ -28,4 +28,8 @@ export class ColorFontService {
     return await this.http.get<ColorFontView>(environment.API_URL + 'color-font/getInfo/' + _id).toPromise();
   }
 
+  public async delete(params) {
+    return await this.http.post(environment.API_URL + 'color-font/post/Delete',params).toPromise();
+  }
+
 }

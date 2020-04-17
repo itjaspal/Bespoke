@@ -7,7 +7,7 @@ using System.Web;
 
 namespace api.Models
 {
-    public class CatalogMast
+    public class CATALOG_MAST
     {
         [Key]
         public long catalog_id { get; set; }
@@ -43,7 +43,7 @@ namespace api.Models
 
         public DateTime updated_at { get; set; }
 
-        public virtual List<CatalogColor> catalogColorList { get; set; }
+        //public virtual List<CatalogColor> catalogColorList { get; set; }
 
     }
 }

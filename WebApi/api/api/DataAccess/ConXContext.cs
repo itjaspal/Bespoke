@@ -35,13 +35,13 @@ namespace api.DataAccess
 
         public DbSet<AttachFileType> AttachFileTypes { get; set; }
         public DbSet<AttachFile> AttachFiles { get; set; }
-        public DbSet<Customer> Customers { get; set; }
+        public DbSet<cust_mast> CustMasts { get; set; }
 
         /********* BeSpoke Data **********/
         public DbSet<COLOR_OF_FONT_MAST> ColorFontMasts { get; set; }
-        public DbSet<EmbMast> EmbMasts { get; set; }
-        public DbSet<CatalogMast> CatalogMasts { get; set; }
-        public DbSet<CatalogColor> CatalogColors { get; set; }
+        public DbSet<EMB_MAST> EmbMasts { get; set; }
+        public DbSet<CATALOG_MAST> CatalogMasts { get; set; }
+        public DbSet<CATALOG_COLOR> CatalogColors { get; set; }
 
 
 

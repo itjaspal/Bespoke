@@ -6,7 +6,7 @@ using System.Web;
 
 namespace api.Models
 {
-    public class CatalogColor
+    public class CATALOG_COLOR
     {
         [Key]
         public long catalog_color_id { get; set; }

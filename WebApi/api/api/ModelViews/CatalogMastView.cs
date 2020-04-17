@@ -22,7 +22,7 @@ namespace api.ModelViews
         public DateTime updated_at { get; set; }
 
         //public List<DesignColorView> color { get; set; }
-        public virtual List<CatalogColor> catalogColorList { get; set; }
+        //public virtual List<CatalogColor> catalogColorList { get; set; }
     }
 
     //public class DesignColorView

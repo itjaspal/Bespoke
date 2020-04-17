@@ -10,13 +10,15 @@ namespace api.Interfaces
 {
     interface ICustomerService
     {
-        long IsExitingCustomer(Customer cust);
-        long Create(Customer customer);
+        long IsExitingCustomer(cust_mast cust);
+        long Create(cust_mast customer);
 
-        void Update(Customer customer);
+        void Update(cust_mast customer);
+        void Delete(cust_mast customer);
 
-        void SyncUpdate(Customer customer);
 
-        List<Customer> InquiryCustomerByText(CustomerAutoCompleteSearchView model);
+        //void SyncUpdate(cust_mast customer);
+
+        List<cust_mast> InquiryCustomerByText(CustomerAutoCompleteSearchView model);
     }
 }

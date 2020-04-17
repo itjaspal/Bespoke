@@ -9,24 +9,41 @@
 
               <div class="row">
                 <div class="col-12 col-sm-6">
-                    <mat-form-field class="full-width">
+                    <!-- <mat-form-field class="full-width">
                         <input matInput placeholder="รหัสสี *" formControlName="color_code"
                             [(ngModel)]="model.color_code" name="color_code">
                     </mat-form-field>
                     <mat-error class="error-message"
                         *ngIf="validationForm.get('color_code').hasError('required') && (validationForm.get('color_code').dirty || validationForm.get('menuFunctionId').touched)">
                         โปรดระบุข้อมูล
+                    </mat-error> -->
+
+                    <mat-form-field class="full-width">
+                        <input matInput placeholder="รหัสสี *" formControlName="color_code" [(ngModel)]="model.color_code"
+                            name="color_code">
+                    </mat-form-field>
+                    <mat-error class="error-message"
+                        *ngIf="validationForm.get('color_code').hasError('required') && (validationForm.get('color_code').dirty || validationForm.get('color_code').touched)">
+                        โปรดระบุข้อมูล
                     </mat-error>
                     <!-- <small>รหัสกลุ่มเมนู</small>
                     <dd>{{model.menuFunctionGroupId}}</dd> -->
                 </div>
                 <div class="col-12 col-sm-5">
-                    <mat-form-field class="full-width">
+                    <!-- <mat-form-field class="full-width">
                         <input matInput placeholder="ชื่อสี *" formControlName="color_name"
                             [(ngModel)]="model.color_name" name="color_name">
                     </mat-form-field>
                     <mat-error class="error-message"
                         *ngIf="validationForm.get('color_name').hasError('required') && (validationForm.get('color_name').dirty || validationForm.get('menuFunctionName').touched)">
+                        โปรดระบุข้อมูล
+                    </mat-error> -->
+                    <mat-form-field class="full-width">
+                        <input matInput placeholder="ชื่อสี *" formControlName="color_name" [(ngModel)]="model.color_name"
+                            name="color_name">
+                    </mat-form-field>
+                    <mat-error class="error-message"
+                        *ngIf="validationForm.get('color_name').hasError('required') && (validationForm.get('color_name').dirty || validationForm.get('color_name').touched)">
                         โปรดระบุข้อมูล
                     </mat-error>
                 </div>   

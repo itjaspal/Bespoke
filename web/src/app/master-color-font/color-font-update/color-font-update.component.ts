@@ -23,6 +23,7 @@ export class ColorFontUpdateComponent implements OnInit {
   ) { }
 
   public model: ColorFontView = new ColorFontView();
+  formGroup: FormGroup;
   public validationForm: FormGroup;
   public code : number = undefined;
   public user: any;

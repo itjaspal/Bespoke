@@ -162,10 +162,8 @@ import { CustomerSearchComponent } from './customer/customer-search/customer-sea
 import { CustomerUpdateComponent } from './customer/customer-update/customer-update.component';
 import { ColorFontSearchComponent } from './master-color-font/color-font-search/color-font-search.component';
 import { ColorFontUpdateComponent } from './master-color-font/color-font-update/color-font-update.component';
-import { EmbroideryCreateComponent } from './master-embroidery/embroidery-create/embroidery-create.component';
 import { EmbroiderySearchComponent } from './master-embroidery/embroidery-search/embroidery-search.component';
 import { EmbroideryUpdateComponent } from './master-embroidery/embroidery-update/embroidery-update.component';
-import { EmbroideryViewComponent } from './master-embroidery/embroidery-view/embroidery-view.component';
 import { ProductCatalogCreateComponent } from './master-product-catalog/product-catalog-create/product-catalog-create.component';
 import { ProductCatalogSearchComponent } from './master-product-catalog/product-catalog-search/product-catalog-search.component';
 import { ProductCatalogUpdateComponent } from './master-product-catalog/product-catalog-update/product-catalog-update.component';
@@ -369,10 +367,8 @@ import { ColorFontService } from './_service/color-font.service';
     CustomerUpdateComponent,
     ColorFontSearchComponent,
     ColorFontUpdateComponent,
-    EmbroideryCreateComponent,
     EmbroiderySearchComponent,
     EmbroideryUpdateComponent,
-    EmbroideryViewComponent,
     ProductCatalogCreateComponent,
     ProductCatalogSearchComponent,
     ProductCatalogUpdateComponent,

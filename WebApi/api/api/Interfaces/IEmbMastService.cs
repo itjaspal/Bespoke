@@ -13,5 +13,6 @@ namespace api.Interfaces
         EmbMastView GetInfo(long code);
         void Create(EmbMastView model);
         void Update(EmbMastView model);
+        void delete(EmbMastView color);
     }
 }

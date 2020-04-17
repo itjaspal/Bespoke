@@ -17,16 +17,16 @@ namespace api.Services
             using (var ctx = new ConXContext())
             {
 
-                string imagePath = @model.pic_file_path;
-                string imgBase64String = Util.Util.GetBase64StringForImage(imagePath);
+                //string imagePath = @model.pic_file_path;
+                //string imgBase64String = Util.Util.GetBase64StringForImage(imagePath);
 
                 using (TransactionScope scope = new TransactionScope())
                 {
-                    EmbMast newObj = new EmbMast()
+                    EMB_MAST newObj = new EMB_MAST()
                     {
                         font_name = model.font_name,
                         pic_file_path = model.pic_file_path,
-                        pic_base64 = imgBase64String,
+                        pic_base64 = model.pic_base64,
                         created_by = model.created_by,
                         unit_price = model.unit_price,
                         created_at = DateTime.Now,
@@ -46,7 +46,7 @@ namespace api.Services
         {
             using (var ctx = new ConXContext())
             {
-                EmbMast model = ctx.EmbMasts
+                EMB_MAST model = ctx.EmbMasts
                     .Where(z => z.emb_mast_id == code).SingleOrDefault();
 
                 return new EmbMastView
@@ -76,7 +76,7 @@ namespace api.Services
                 };
 
                 //query data
-                List<EmbMast> EmbMasts = ctx.EmbMasts
+                List<EMB_MAST> EmbMasts = ctx.EmbMasts
                     .Where(x => (x.font_name.Contains(model.font_name) || model.font_name == "")
                     )
                     .OrderBy(o => o.emb_mast_id)
@@ -111,22 +111,45 @@ namespace api.Services
         {
             using (var ctx = new ConXContext())
             {
-                string imagePath = @model.pic_file_path;
-                string imgBase64String = Util.Util.GetBase64StringForImage(imagePath);
+                //string imagePath = @model.pic_file_path;
+                //string imgBase64String = Util.Util.GetBase64StringForImage(imagePath);
 
                 using (TransactionScope scope = new TransactionScope())
                 {
-                    EmbMast updateObj = ctx.EmbMasts.Where(z => z.emb_mast_id == model.emb_mast_id).SingleOrDefault();
+                    EMB_MAST updateObj = ctx.EmbMasts.Where(z => z.emb_mast_id == model.emb_mast_id).SingleOrDefault();
 
                     updateObj.font_name = model.font_name;
                     updateObj.pic_file_path = model.pic_file_path;
-                    updateObj.pic_base64 = imgBase64String;
+                    updateObj.pic_base64 = model.pic_base64 ;
                     updateObj.unit_price = model.unit_price;
                     updateObj.updated_by = model.updated_by;
                     updateObj.updated_at = DateTime.Now;
 
 
                     ctx.SaveChanges();
+                    scope.Complete();
+                }
+            }
+        }
+
+        public void delete(EmbMastView embView)
+        {
+            using (var ctx = new ConXContext())
+            {
+                using (TransactionScope scope = new TransactionScope())
+                {
+
+                    EMB_MAST emb = ctx.EmbMasts
+                        .Where(z => z.emb_mast_id == embView.emb_mast_id)
+                        .SingleOrDefault();
+
+                    //ctx.UserBranchPrvlgs.RemoveRange(ctx.UserBranchPrvlgs.Where(z => z.username == colorView.emb_color_mast_id));
+                    //ctx.SaveChanges();
+
+                    ctx.EmbMasts.Remove(emb);
+
+                    ctx.SaveChanges();
+
                     scope.Complete();
                 }
             }

@@ -6,15 +6,15 @@ using System.Web;
 
 namespace api.Models
 {
-    public class Customer
+    public class cust_mast
     {
         [Key]
         public long customerId { get; set; }
-        [StringLength(255)]
-        public string name { get; set; }
-        [StringLength(255)]
-        public string surname { get; set; }
-        [StringLength(1)]
+        [StringLength(15)]
+        public string cust_code { get; set; }
+        [StringLength(150)]
+        public string cust_name { get; set; }
+        [StringLength(15)]
         public string sex { get; set; }   // M-Male , F-Female
         [StringLength(100)]
         public string tel { get; set; }
@@ -22,8 +22,10 @@ namespace api.Models
         public string fax { get; set; }
         [StringLength(100)]
         public string line { get; set; }
-        [StringLength(255)]
-        public string addressName { get; set; }
+        [StringLength(100)]
+        public string address1 { get; set; }
+        [StringLength(100)]
+        public string address2 { get; set; }
         [StringLength(255)]
         public string district { get; set; }
         [StringLength(255)]

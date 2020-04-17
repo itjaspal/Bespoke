@@ -86,7 +86,8 @@ export class ColorFontSearchComponent implements OnInit {
       await this._colorSvc.create(this.model);
      
       await this._msgSvc.successPopup("บันทึกข้อมูลเรียบร้อย");
-      this._router.navigateByUrl('/app/color-font');
+      await this.search();
+      //this._router.navigateByUrl('/app/color-font');
     }
 
     
@@ -107,6 +108,21 @@ export class ColorFontSearchComponent implements OnInit {
       }
 
     }
+  }
+
+
+  async delete(color) {
+
+    this._msgSvc.confirmPopup("ยืนยันลบข้อมูล", async result => {
+      if (result) {
+        let res: any = await this._colorSvc.delete(color);
+
+        this._msgSvc.successPopup(res.message);
+
+        await this.search();
+      }
+    })
+
   }
 
 }

@@ -135,6 +135,29 @@ namespace api.Services
             }
         }
 
-     
+
+        public void delete(ColorFontView colorView)
+        {
+            using (var ctx = new ConXContext())
+            {
+                using (TransactionScope scope = new TransactionScope())
+                {
+
+                    COLOR_OF_FONT_MAST color = ctx.ColorFontMasts
+                        .Where(z => z.emb_color_mast_id == colorView.emb_color_mast_id)
+                        .SingleOrDefault();
+
+                    //ctx.UserBranchPrvlgs.RemoveRange(ctx.UserBranchPrvlgs.Where(z => z.username == colorView.emb_color_mast_id));
+                    //ctx.SaveChanges();
+
+                    ctx.ColorFontMasts.Remove(color);
+
+                    ctx.SaveChanges();
+
+                    scope.Complete();
+                }
+            }
+        }
+
     }
 }

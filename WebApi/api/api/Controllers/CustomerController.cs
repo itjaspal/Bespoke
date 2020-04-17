@@ -13,8 +13,8 @@ using System.Web.Http;
 
 namespace api.Controllers
 {
-    [AuthorizationRequired]
-    [RoutePrefix("/master-customer")]
+    //[AuthorizationRequired]
+    //[RoutePrefix("/master-customer")]
     public class MasterCustomerController : ApiController
     {
         ICustomerService customerService;
@@ -25,19 +25,37 @@ namespace api.Controllers
         }
 
 
-        [POST("syncUpdate")]
-        public HttpResponseMessage syncUpdate(Customer model)
+        //[POST("syncUpdate")]
+        //[Route("master-customer/postsyncUpdate")]
+        //public HttpResponseMessage syncUpdate(cust_mast model)
+        //{
+        //    try
+        //    {
+
+        //        customerService.Update(model);
+
+        //        CommonResponseView res = new CommonResponseView()
+        //        {
+        //            status = CommonStatus.SUCCESS,
+        //            message = "ปรับปรุงข้อมูลลูกค้าเรียบร้อยแล้ว"
+        //        };
+
+        //        return Request.CreateResponse(HttpStatusCode.OK, res);
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, ex.ToString());
+        //    }
+        //}
+
+        //[POST("postInquiryCustomerByText")]
+        [Route("master-customer/postInquiryCustomerByText")]
+        public HttpResponseMessage postInquiryCustomerByText(CustomerAutoCompleteSearchView model)
         {
             try
             {
 
-                customerService.Update(model);
-
-                CommonResponseView res = new CommonResponseView()
-                {
-                    status = CommonStatus.SUCCESS,
-                    message = "ปรับปรุงข้อมูลลูกค้าเรียบร้อยแล้ว"
-                };
+                var res = customerService.InquiryCustomerByText(model);
 
                 return Request.CreateResponse(HttpStatusCode.OK, res);
             }
@@ -47,13 +65,60 @@ namespace api.Controllers
             }
         }
 
-        [POST("postInquiryCustomerByText")]
-        public HttpResponseMessage postInquiryCustomerByText(CustomerAutoCompleteSearchView model)
+        [Route("master-customer/postCreate")]
+        public HttpResponseMessage postCreate(cust_mast model)
+        {
+            try
+            {
+                //check dupplicate Code
+                //var isDupplicate = colorSvc.CheckDupplicate(model.menuFunctionId);
+                //if (isDupplicate)
+                //{
+                //    return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, string.Format("รหัสเมนู {0} มีอยู่ในระบบแล้ว", model.menuFunctionId));
+                //}
+
+                customerService.Create(model);
+
+                return Request.CreateResponse(HttpStatusCode.OK, "บันทึกข้อมูลสำเร็จ");
+
+            }
+            catch (Exception ex)
+            {
+                return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, ex.ToString());
+            }
+        }
+
+        //[POST("postUpdate")]
+        [Route("master-customer/postUpdate")]
+        public HttpResponseMessage postUpdate(cust_mast model)
         {
             try
             {
 
-                var res = customerService.InquiryCustomerByText(model);
+
+                customerService.Update(model);
+
+                return Request.CreateResponse(HttpStatusCode.OK, "บันทึกข้อมูลสำเร็จ");
+            }
+            catch (Exception ex)
+            {
+                return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, ex.ToString());
+            }
+        }
+
+        [Route("master-customer/post/Delete")]
+        public HttpResponseMessage postDelete(cust_mast model)
+        {
+            try
+            {
+
+                customerService.Delete(model);
+
+                CommonResponseView res = new CommonResponseView()
+                {
+                    status = CommonStatus.SUCCESS,
+                    message = "ลบข้อมูลสำเร็จ"
+                };
 
                 return Request.CreateResponse(HttpStatusCode.OK, res);
             }

@@ -6,7 +6,7 @@ using System.Web;
 
 namespace api.Models
 {
-    public class EmbMast
+    public class EMB_MAST
     {
         [Key]
         public long emb_mast_id { get; set; }
@@ -20,7 +20,7 @@ namespace api.Models
         [StringLength(int.MaxValue)]
         public string pic_base64 { get; set; }
 
-        public float unit_price { get; set; }
+        public decimal unit_price { get; set; }
         [StringLength(15)]
         public string created_by { get; set; }
 

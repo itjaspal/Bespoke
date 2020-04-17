@@ -11,7 +11,7 @@ namespace api.ModelViews
         public string font_name { get; set; }
         public string pic_file_path { get; set; }
         public string pic_base64 { get; set; }
-        public float unit_price { get; set; }
+        public decimal unit_price { get; set; }
         public string created_by { get; set; }
         public DateTime created_at { get; set; }
         public string updated_by { get; set; }
