@@ -211,5 +211,43 @@ namespace api.Services
         }
 
 
+        public List<Dropdownlist> GetDdlCatalogDesign()
+        {
+            using (var ctx = new ConXContext())
+            {
+                List<Dropdownlist> ddl = ctx.CatalogMasts
+                    .OrderBy(o => o.pddsgn_code)
+                    .Select(x => new Dropdownlist()
+                    {
+                        key = x.catalog_id,
+                        value = x.pddsgn_code + " " + x.dsgn_name
+                    })
+                    .ToList();
+                return ddl;
+            }
+        }
+
+
+        
+        public List<Dropdownlists> GetDdlProductBrand()
+        {
+            using (var ctx = new ConXContext())
+            {
+                List<Dropdownlists> ddl = ctx.BrandMasts
+                    .Where(z => z.status == "A")
+                    .OrderBy(o => o.pdbrnd_code)
+                    .Select(x => new Dropdownlists()
+                    {
+                        key = x.pdbrnd_code,
+                        value = x.pdbrnd_code + " - " + x.pdbrnd_tname
+                    })
+                    .ToList();
+                return ddl;
+            }
+
+
+        }
+
+       
     }
 }

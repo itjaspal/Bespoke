@@ -1,3 +1,82 @@
-<p>
-  customer-search works!
-</p>
+<div class="container-fluid no-breadcrumbs">
+  <mat-card>
+      <mat-card-title>
+          <h6>บันทึก / แก้ไขลูดค้า</h6>
+      </mat-card-title>
+      <mat-card-content>
+
+          <form>
+              <mat-card-content class="no-margin">
+                  <div class="row">
+                      <div class="col-sm-6 col-lg-3">
+                          <mat-form-field class="full-width">
+                              <input matInput placeholder="ค้นหาชื่อ ที่อยู่" [(ngModel)]="model.name"
+                                  name="name">
+                          </mat-form-field>
+                      </div>
+                   
+                  </div>
+                  
+              
+              </mat-card-content>
+              <mat-card-actions class="no-margin">
+                  <button mat-raised-button color="primary" class="btn-w-md" type="button" (click)="search()">
+                      <mat-icon class="material-icons">search</mat-icon> ค้นหา
+                  </button>
+                  <button mat-raised-button type="button" mat-button class="btn-w-md pull-right"
+                      [routerLink]="['/app/customer/create']" >
+                      <mat-icon class="material-icons">add</mat-icon> เพิ่มลูกค้า
+                  </button>
+              </mat-card-actions>
+          </form>
+
+          <mat-card>
+              <mat-card-content>
+                  
+                  <div class="row card-table-body" *ngFor="let x of data.datas">
+                      <div class="col-3 col-sm-3">
+                          <small>ชื่อลูกค้า</small>
+                          <dd>{{x.name}}</dd>
+                      </div>
+                      <div class="col-6 col-sm-6">
+                          <small>ที่อยู่</small>
+                          <dd>{{x.addressName}}</dd>
+                      </div>
+                      
+                      <div class="col-1 col-sm-3 text-right">
+                          <button mat-icon-button [matMenuTriggerFor]="appMenu">
+                              <mat-icon class="material-icons">more_horiz</mat-icon>
+                          </button>
+
+                          <mat-menu #appMenu="matMenu">
+                              <button mat-menu-item [routerLink]="['/app/customer/view/'+x.customerId]">
+                                  <mat-icon class="material-icons">search</mat-icon> <span>แสดง</span>
+                              </button>
+                              <button mat-menu-item [routerLink]="['/app/customer/update/'+x.customerId]">
+                                  <mat-icon class="material-icons">edit</mat-icon> <span>แก้ไข</span>
+                              </button>
+                              <button mat-menu-item ng-click="delete(x)">
+                                <mat-icon class="material-icons">delete</mat-icon> <span>ลบ</span>
+                              </button>
+                          </mat-menu>
+
+                      </div>
+                      <div class="col-12">
+                          <hr />
+                      </div>
+                  </div>
+              </mat-card-content>
+          </mat-card>
+
+          <!-- <mat-paginator [length]="data.totalItem" [pageIndex]="model.pageIndex" [pageSize]="model.itemPerPage"
+              [pageSizeOptions]="pageSizeOptions" (page)="pageEvent = $event; search($event)">
+          </mat-paginator> -->
+
+      </mat-card-content>
+      <mat-card-content *ngIf="data.datas != undefined">
+          <ngb-pagination [collectionSize]="data.totalItem" [pageSize]="model.itemPerPage" [maxSize]="5"
+              [(page)]="model.pageIndex" (pageChange)="search()" [boundaryLinks]="true"></ngb-pagination>
+      </mat-card-content>
+  </mat-card>
+</div>
+

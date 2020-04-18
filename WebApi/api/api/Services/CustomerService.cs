@@ -116,5 +116,52 @@ namespace api.Services
         {
             throw new NotImplementedException();
         }
+
+        public CommonSearchView<CustomerView> Search(CustomerSearchView model)
+        {
+            using (var ctx = new ConXContext())
+            {
+                //define model view
+                CommonSearchView<CustomerView> view = new ModelViews.CommonSearchView<ModelViews.CustomerView>()
+                {
+                    pageIndex = model.pageIndex - 1,
+                    itemPerPage = model.itemPerPage,
+                    totalItem = 0,
+
+                    datas = new List<ModelViews.CustomerView>()
+                };
+
+                //query data
+                List<cust_mast> CustMasts = ctx.CustMasts
+                    .Where(x => (x.cust_name.Contains(model.name) || model.name == "")
+                    || (x.address1.Contains(model.name)) 
+                    || (x.address2.Contains(model.name))
+                    )
+                    .OrderBy(o => o.customerId)
+                    .ToList();
+
+                //count , select data from pageIndex, itemPerPage
+                view.totalItem = CustMasts.Count;
+                CustMasts = CustMasts.Skip(view.pageIndex * view.itemPerPage)
+                    .Take(view.itemPerPage)
+                    .ToList();
+
+                //prepare model to modelView
+                foreach (var i in CustMasts)
+                {
+                    view.datas.Add(new ModelViews.CustomerView()
+                    {
+                        customerId = i.customerId,
+                        customerName = i.cust_code,
+                        address1 = i.address1,
+                        address2 = i.address2
+
+                    });
+                }
+
+                //return data to contoller
+                return view;
+            }
+        }
     }
 }

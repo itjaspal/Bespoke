@@ -154,7 +154,35 @@ namespace api.Controllers
             }
         }
 
+        [Route("dropdownlist/getDdlCatalogDesign")]
+        public HttpResponseMessage getDdlCatalogDesign()
+        {
+            try
+            {
+                var result = ddlSvc.GetDdlCatalogDesign();
 
+                return Request.CreateResponse(HttpStatusCode.OK, result);
+            }
+            catch (Exception ex)
+            {
+                return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, ex.ToString());
+            }
+        }
+
+        [Route("dropdownlist/getDdlProductBrand")]
+        public HttpResponseMessage getDdlProductBrand()
+        {
+            try
+            {
+                var result = ddlSvc.GetDdlProductBrand();
+
+                return Request.CreateResponse(HttpStatusCode.OK, result);
+            }
+            catch (Exception ex)
+            {
+                return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, ex.ToString());
+            }
+        }
 
     }
 }

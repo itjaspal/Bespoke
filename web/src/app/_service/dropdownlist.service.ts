@@ -61,40 +61,40 @@ export class DropdownlistService {
   //   return await this.http.get<Dropdownlist[]>(environment.API_URL + 'dropdownlist/getDdlProductAttribute', { params }).toPromise();
   // }
 
-  public async getDdlProductGroup() { 
+  // public async getDdlProductGroup() { 
     
-    return await this.http.get<Dropdownlist[]>(environment.API_URL + 'dropdownlist/getDdlProductGroup').toPromise();
-  }
+  //   return await this.http.get<Dropdownlist[]>(environment.API_URL + 'dropdownlist/getDdlProductGroup').toPromise();
+  // }
 
-  public async getDdlProductType() { 
+  // public async getDdlProductType() { 
     
-    return await this.http.get<Dropdownlist[]>(environment.API_URL + 'dropdownlist/getDdlProductType').toPromise();
-  }
+  //   return await this.http.get<Dropdownlist[]>(environment.API_URL + 'dropdownlist/getDdlProductType').toPromise();
+  // }
 
-  public async getDdlProductBrand() { 
+  // public async getDdlProductBrand() { 
     
-    return await this.http.get<Dropdownlist[]>(environment.API_URL + 'dropdownlist/getDdlProductBrand').toPromise();
-  }
+  //   return await this.http.get<Dropdownlist[]>(environment.API_URL + 'dropdownlist/getDdlProductBrand').toPromise();
+  // }
 
-  public async getDdlProductDesign() { 
+  // public async getDdlProductDesign() { 
     
-    return await this.http.get<Dropdownlist[]>(environment.API_URL + 'dropdownlist/getDdlProductDesign').toPromise();
-  }
+  //   return await this.http.get<Dropdownlist[]>(environment.API_URL + 'dropdownlist/getDdlProductDesign').toPromise();
+  // }
 
-  public async getDdlProductModel() { 
+  // public async getDdlProductModel() { 
     
-    return await this.http.get<Dropdownlist[]>(environment.API_URL + 'dropdownlist/getDdlProductModel').toPromise();
-  }
+  //   return await this.http.get<Dropdownlist[]>(environment.API_URL + 'dropdownlist/getDdlProductModel').toPromise();
+  // }
 
-  public async getDdlProductColor() { 
+  // public async getDdlProductColor() { 
     
-    return await this.http.get<Dropdownlist[]>(environment.API_URL + 'dropdownlist/getDdlProductColor').toPromise();
-  }
+  //   return await this.http.get<Dropdownlist[]>(environment.API_URL + 'dropdownlist/getDdlProductColor').toPromise();
+  // }
 
-  public async getDdlProductSize() { 
+  // public async getDdlProductSize() { 
     
-    return await this.http.get<Dropdownlist[]>(environment.API_URL + 'dropdownlist/getDdlProductSize').toPromise();
-  }
+  //   return await this.http.get<Dropdownlist[]>(environment.API_URL + 'dropdownlist/getDdlProductSize').toPromise();
+  // }
   
   public async getDdlProductAttributeRpt(productAttributeTypeCode) {
     const params = new HttpParams()
@@ -141,4 +141,14 @@ export class DropdownlistService {
   // public async getDdlStockLocations() {
   //   return await this.http.get<Dropdownlist[]>(environment.API_URL + 'dropdownlist/getDdlStockLocation').toPromise();
   // }
+
+  public async getDdlCatalogDesign() { 
+    
+    return await this.http.get<Dropdownlist[]>(environment.API_URL + 'dropdownlist/getDdlCatalogDesign').toPromise();
+  }
+
+  public async getDdlProductBrand() { 
+    
+    return await this.http.get<Dropdownlist[]>(environment.API_URL + 'dropdownlist/getDdlProductBrand').toPromise();
+  }
 }

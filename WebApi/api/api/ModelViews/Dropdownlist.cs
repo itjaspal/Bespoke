@@ -18,4 +18,12 @@ namespace api.ModelViews
         public T key { get; set; }
         public string value { get; set; }
     }
+
+    public class Dropdownlists
+    {
+        public string key { get; set; }
+        public string value { get; set; }
+        public string parentKey { get; set; }
+
+    }
 }

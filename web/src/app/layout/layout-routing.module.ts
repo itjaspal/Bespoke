@@ -50,6 +50,11 @@ import { ColorFontSearchComponent } from '../master-color-font/color-font-search
 import { ColorFontUpdateComponent } from '../master-color-font/color-font-update/color-font-update.component';
 import { EmbroideryUpdateComponent } from '../master-embroidery/embroidery-update/embroidery-update.component';
 import { EmbroiderySearchComponent } from '../master-embroidery/embroidery-search/embroidery-search.component';
+import { CustomerSearchComponent } from '../customer/customer-search/customer-search.component';
+import { CustomerCreateComponent } from '../customer/customer-create/customer-create.component';
+import { CatalogDesignSearchComponent } from '../master-catalog-design/catalog-design-search/catalog-design-search.component';
+import { CatalogDesignCreateComponent } from '../master-catalog-design/catalog-design-create/catalog-design-create.component';
+import { CatalogDesignUpdateComponent } from '../master-catalog-design/catalog-design-update/catalog-design-update.component';
 
  
 
@@ -116,8 +121,15 @@ const routes: Routes = [
       //Master Emb Mast
       { path: "emb-mast", component: EmbroiderySearchComponent, canActivate: [AuthenGuard], data: { parentUrl: "/app/emb-mast" } },
       { path: "emb-mast/update/:id", component: EmbroideryUpdateComponent, canActivate: [AuthenGuard], data: { parentUrl: "/app/emb-mast" } },
+        
+      //Master Customer
+      { path: "customer", component: CustomerSearchComponent, canActivate: [AuthenGuard], data: { parentUrl: "/app/customer" } },
+      { path: "customer/create", component: CustomerCreateComponent, canActivate: [AuthenGuard], data: { parentUrl: "/app/customer" } },
       
-
+      //Master Catalog Design
+      { path: "catalog", component: CatalogDesignSearchComponent, canActivate: [AuthenGuard], data: { parentUrl: "/app/catalog" } },
+      { path: "catalog/create", component: CatalogDesignCreateComponent, canActivate: [AuthenGuard], data: { parentUrl: "/app/catalog" } },
+      { path: "catalog/update/:id", component: CatalogDesignUpdateComponent, canActivate: [AuthenGuard], data: { parentUrl: "/app/catalog" } },
 
       //Sales
       { path: "sale", component: SalesSearchComponent, canActivate: [AuthenGuard], data: { parentUrl: "/app/sale" } },

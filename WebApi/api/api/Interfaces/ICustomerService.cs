@@ -20,5 +20,6 @@ namespace api.Interfaces
         //void SyncUpdate(cust_mast customer);
 
         List<cust_mast> InquiryCustomerByText(CustomerAutoCompleteSearchView model);
+        CommonSearchView<CustomerView> Search(CustomerSearchView model);
     }
 }

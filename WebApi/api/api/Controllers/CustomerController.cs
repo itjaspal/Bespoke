@@ -127,5 +127,22 @@ namespace api.Controllers
                 return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, ex.ToString());
             }
         }
+
+        [Route("master-customer/postSearch")]
+        public HttpResponseMessage postSearch(CustomerSearchView model)
+        {
+            try
+            {
+
+
+                var result = customerService.Search(model);
+
+                return Request.CreateResponse(HttpStatusCode.OK, result);
+            }
+            catch (Exception ex)
+            {
+                return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, ex.ToString());
+            }
+        }
     }
 }

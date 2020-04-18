@@ -5,6 +5,7 @@ using api.ModelViews;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Transactions;
 using System.Web;
 
 namespace api.Services
@@ -13,12 +14,57 @@ namespace api.Services
     {
         public void Create(CatalogMastView model)
         {
-            throw new NotImplementedException();
+            using (var ctx = new ConXContext())
+            {
+                //PDBRND_MAST brand = ctx.BrandMasts
+                //    .Where(z => z.id == model.pdbrnd_code)
+                //    .SingleOrDefault();
+
+                using (TransactionScope scope = new TransactionScope())
+                {
+                    CATALOG_MAST newObj = new CATALOG_MAST()
+                    {
+                        pdbrnd_code = model.pdbrnd_code,
+                        pddsgn_code = model.pddsgn_code,
+                        dsgn_name = model.dsgn_name,
+                        dsgn_desc = model.dsgn_desc,
+                        pic_file_path = model.pic_file_path,
+                        pic_base64 = model.pic_base64,
+                        status = "A",
+                        created_by = model.created_by,
+                        created_at = DateTime.Now,
+                        updated_by = model.updated_by,
+                        updated_at = DateTime.Now
+
+                    };
+
+                    ctx.CatalogMasts.Add(newObj);
+                    ctx.SaveChanges();
+                    scope.Complete();
+                }
+            }
+
         }
 
         public CatalogMastView GetInfo(long code)
         {
-            throw new NotImplementedException();
+            using (var ctx = new ConXContext())
+            {
+                CATALOG_MAST model = ctx.CatalogMasts
+                    .Where(z => z.catalog_id == code).SingleOrDefault();
+
+                return new CatalogMastView
+                {
+                    catalog_id = model.catalog_id,
+                    pdbrnd_code = model.pdbrnd_code,
+                    pddsgn_code = model.pddsgn_code,
+                    dsgn_name = model.dsgn_name,
+                    dsgn_desc = model.dsgn_desc,
+                    pic_file_path = model.pic_file_path,
+                    pic_base64 = model.pic_base64,
+                    status = model.status
+                };
+            }
         }
 
         public CommonSearchView<CatalogMastView> Search(CatalogMastSearchView model)
@@ -37,8 +83,8 @@ namespace api.Services
 
                 //query data
                 List<CATALOG_MAST> CatalogMasts = ctx.CatalogMasts
-                    .Include("catalogColorList.pdcolor_name")
-                    .Include("catalogColorList.pic_base64")
+                    //.Include("catalogColorList.pdcolor_name")
+                    //.Include("catalogColorList.pic_base64")
                     .Where(x => (x.pddsgn_code.Contains(model.pddsgn_code) || model.pddsgn_code == "")
                     && (x.dsgn_name.Contains(model.dsgn_name) || model.dsgn_name == null)
                     && (x.status == "A")
@@ -75,7 +121,28 @@ namespace api.Services
 
         public void Update(CatalogMastView model)
         {
-            throw new NotImplementedException();
+            using (var ctx = new ConXContext())
+            {
+
+                using (TransactionScope scope = new TransactionScope())
+                {
+                    CATALOG_MAST updateObj = ctx.CatalogMasts.Where(z => z.catalog_id == model.catalog_id).SingleOrDefault();
+
+                    updateObj.pdbrnd_code = model.pdbrnd_code;
+                    updateObj.pddsgn_code = model.pddsgn_code;
+                    updateObj.dsgn_name = model.dsgn_name;
+                    updateObj.dsgn_desc = model.dsgn_desc;
+                    updateObj.pic_file_path = model.pic_file_path;
+                    updateObj.pic_base64 = model.pic_base64;
+                    updateObj.updated_by = model.updated_by;
+                    updateObj.updated_at = DateTime.Now;
+                    updateObj.status = model.status;
+
+
+                    ctx.SaveChanges();
+                    scope.Complete();
+                }
+            }
         }
     }
 }

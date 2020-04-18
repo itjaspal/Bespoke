@@ -32,5 +32,8 @@ namespace api.Interfaces
         List<Dropdownlist> GetDdlMonth();
         //object GetDdlTransferBranch(long branchId);
         //List<Dropdownlist> GetDdlStockLocation();
+
+        List<Dropdownlist> GetDdlCatalogDesign();
+        List<Dropdownlists> GetDdlProductBrand();
     }
 }

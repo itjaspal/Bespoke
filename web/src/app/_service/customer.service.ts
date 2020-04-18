@@ -3,7 +3,8 @@ import { Injectable } from '@angular/core';
 import { environment } from '../../environments/environment';
 import { map } from 'rxjs/operators';
 import { Observable } from 'rxjs';
-import { CustomerView } from '../_model/customer-view';
+import { CustomerView, CustomerSearchView } from '../_model/customer-view';
+import { CommonSearchView } from '../_model/common-search-view';
 
 @Injectable({
   providedIn: 'root'
@@ -22,5 +23,9 @@ export class CustomerService {
           return res;
         })
       );
+  }
+
+  public async search(_model: CustomerSearchView) { 
+    return await this.http.post<CommonSearchView<CustomerView>>(environment.API_URL + 'master-customer/postSearch',_model).toPromise();
   }
 }

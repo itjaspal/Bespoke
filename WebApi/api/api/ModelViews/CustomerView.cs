@@ -13,6 +13,7 @@ namespace api.ModelViews
 
     public class CustomerView
     {
+        public long customerId { get; set; }
         public string customerName { get; set; }
         public string address1 { get; set; }
         public string address2 { get; set; }
@@ -23,4 +24,10 @@ namespace api.ModelViews
         public string tel { get; set; }
     }
 
+    public class CustomerSearchView
+    {
+        public int pageIndex { get; set; }
+        public int itemPerPage { get; set; }
+        public string name { get; set; }
+    }
 }

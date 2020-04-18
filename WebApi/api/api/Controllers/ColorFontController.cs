@@ -1,4 +1,5 @@
-﻿using api.Interfaces;
+﻿using api.ActionFilters;
+using api.Interfaces;
 using api.ModelViews;
 using api.Services;
 using System;
@@ -10,6 +11,7 @@ using System.Web.Http;
 
 namespace api.Controllers
 {
+    [AuthorizationRequired]
     public class ColorFontController : ApiController
     {
         IColorFontService colorSvc;

@@ -164,15 +164,27 @@ import { ColorFontSearchComponent } from './master-color-font/color-font-search/
 import { ColorFontUpdateComponent } from './master-color-font/color-font-update/color-font-update.component';
 import { EmbroiderySearchComponent } from './master-embroidery/embroidery-search/embroidery-search.component';
 import { EmbroideryUpdateComponent } from './master-embroidery/embroidery-update/embroidery-update.component';
-import { ProductCatalogCreateComponent } from './master-product-catalog/product-catalog-create/product-catalog-create.component';
-import { ProductCatalogSearchComponent } from './master-product-catalog/product-catalog-search/product-catalog-search.component';
-import { ProductCatalogUpdateComponent } from './master-product-catalog/product-catalog-update/product-catalog-update.component';
-import { ProductCatalogViewComponent } from './master-product-catalog/product-catalog-view/product-catalog-view.component';
-import { ProductTypeCreateComponent } from './master-product-type/product-type-create/product-type-create.component';
-import { ProductTypeSearchComponent } from './master-product-type/product-type-search/product-type-search.component';
-import { ProductTypeUpdateComponent } from './master-product-type/product-type-update/product-type-update.component';
-import { ProductTypeViewComponent } from './master-product-type/product-type-view/product-type-view.component';
 import { ColorFontService } from './_service/color-font.service';
+import { CatalogDesignSearchComponent } from './master-catalog-design/catalog-design-search/catalog-design-search.component';
+import { CatalogDesignCreateComponent } from './master-catalog-design/catalog-design-create/catalog-design-create.component';
+import { CatalogDesignUpdateComponent } from './master-catalog-design/catalog-design-update/catalog-design-update.component';
+import { CatalogDesignViewComponent } from './master-catalog-design/catalog-design-view/catalog-design-view.component';
+import { CatalogEmbColorSearchComponent } from './master-catalog-emb-color/catalog-emb-color-search/catalog-emb-color-search.component';
+import { CatalogEmbColorCreateComponent } from './master-catalog-emb-color/catalog-emb-color-create/catalog-emb-color-create.component';
+import { CatalogEmbColorUpdateComponent } from './master-catalog-emb-color/catalog-emb-color-update/catalog-emb-color-update.component';
+import { CatalogEmbColorViewComponent } from './master-catalog-emb-color/catalog-emb-color-view/catalog-emb-color-view.component';
+import { CatalogTypeSearchComponent } from './master-catalog-type/catalog-type-search/catalog-type-search.component';
+import { CatalogTypeCreateComponent } from './master-catalog-type/catalog-type-create/catalog-type-create.component';
+import { CatalogTypeUpdateComponent } from './master-catalog-type/catalog-type-update/catalog-type-update.component';
+import { CatalogTypeViewComponent } from './master-catalog-type/catalog-type-view/catalog-type-view.component';
+import { CatalogBorderColorSearchComponent } from './master-catalog-border-color/catalog-border-color-search/catalog-border-color-search.component';
+import { CatalogBorderColorCreateComponent } from './master-catalog-border-color/catalog-border-color-create/catalog-border-color-create.component';
+import { CatalogBorderColorUpdateComponent } from './master-catalog-border-color/catalog-border-color-update/catalog-border-color-update.component';
+import { CatalogBorderColorViewComponent } from './master-catalog-border-color/catalog-border-color-view/catalog-border-color-view.component';
+import { CatalogColorSearchComponent } from './master-catalog-color/catalog-color-search/catalog-color-search.component';
+import { CatalogColorCreateComponent } from './master-catalog-color/catalog-color-create/catalog-color-create.component';
+import { CatalogColorUpdateComponent } from './master-catalog-color/catalog-color-update/catalog-color-update.component';
+import { CatalogColorViewComponent } from './master-catalog-color/catalog-color-view/catalog-color-view.component';
 
 
 
@@ -369,14 +381,26 @@ import { ColorFontService } from './_service/color-font.service';
     ColorFontUpdateComponent,
     EmbroiderySearchComponent,
     EmbroideryUpdateComponent,
-    ProductCatalogCreateComponent,
-    ProductCatalogSearchComponent,
-    ProductCatalogUpdateComponent,
-    ProductCatalogViewComponent,
-    ProductTypeCreateComponent,
-    ProductTypeSearchComponent,
-    ProductTypeUpdateComponent,
-    ProductTypeViewComponent,
+    CatalogDesignSearchComponent,
+    CatalogDesignCreateComponent,
+    CatalogDesignUpdateComponent,
+    CatalogDesignViewComponent,
+    CatalogEmbColorSearchComponent,
+    CatalogEmbColorCreateComponent,
+    CatalogEmbColorUpdateComponent,
+    CatalogEmbColorViewComponent,
+    CatalogTypeSearchComponent,
+    CatalogTypeCreateComponent,
+    CatalogTypeUpdateComponent,
+    CatalogTypeViewComponent,
+    CatalogBorderColorSearchComponent,
+    CatalogBorderColorCreateComponent,
+    CatalogBorderColorUpdateComponent,
+    CatalogBorderColorViewComponent,
+    CatalogColorSearchComponent,
+    CatalogColorCreateComponent,
+    CatalogColorUpdateComponent,
+    CatalogColorViewComponent,
 
 
   ],

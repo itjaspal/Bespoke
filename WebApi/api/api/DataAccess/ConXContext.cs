@@ -42,6 +42,7 @@ namespace api.DataAccess
         public DbSet<EMB_MAST> EmbMasts { get; set; }
         public DbSet<CATALOG_MAST> CatalogMasts { get; set; }
         public DbSet<CATALOG_COLOR> CatalogColors { get; set; }
+        public DbSet<PDBRND_MAST> BrandMasts { get; set; }
 
 
 
