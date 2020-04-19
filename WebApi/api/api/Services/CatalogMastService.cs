@@ -101,6 +101,26 @@ namespace api.Services
                 //prepare model to modelView
                 foreach (var i in CatalogMasts)
                 {
+
+                    List<DesignColorView> colorViews = new List<DesignColorView>();
+
+                    List<CATALOG_COLOR> color = ctx.CatalogColors
+                                                .Where(x => x.catalog_id == i.catalog_id)
+                                                .ToList();
+
+                    foreach (var y in color)
+                    {
+                        DesignColorView cView = new DesignColorView()
+                        {
+                            pdcolor_code = y.pdcolor_code,
+                            pic_base64 = y.pic_base64
+
+                        };
+
+                        colorViews.Add(cView);
+
+                    }
+
                     view.datas.Add(new ModelViews.CatalogMastView()
                     {
                         catalog_id = i.catalog_id,
@@ -109,9 +129,28 @@ namespace api.Services
                         dsgn_name = i.dsgn_name,
                         dsgn_desc = i.dsgn_desc,
                         pic_file_path = i.pic_file_path,
-                        pic_base64 = i.pic_base64
+                        pic_base64 = i.pic_base64,
+                        status = i.status,
+                        //catalogColors = new List<ModelViews.DesignColorView>()
+                        catalogColors = colorViews
+
+
 
                     });
+
+                    
+
+                    
+
+                    
+                    
+
+                    //List<DesignColorView> colorViews = new List<DesignColorView>();
+                    //foreach (var y in color)
+                    //{
+                    //     = y.pic_base64
+                    //};
+
                 }
 
                 //return data to contoller

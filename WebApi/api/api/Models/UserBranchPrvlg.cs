@@ -28,5 +28,7 @@ namespace api.Models
 
         [ForeignKey("userRoleId")]
         public virtual UserRole userRole { get; set; }
+
+       
     }
 }

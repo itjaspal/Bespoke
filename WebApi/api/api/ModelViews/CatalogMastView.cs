@@ -23,15 +23,16 @@ namespace api.ModelViews
 
         //public List<DesignColorView> color { get; set; }
         //public virtual List<CatalogColor> catalogColorList { get; set; }
+        public List<DesignColorView> catalogColors { get; set; }
     }
 
-    //public class DesignColorView
-    //{
-    //    public string pdcolor_code { get; set; }
-    //    public string pdcolor_name { get; set; }
-    //    public string pic_file_path { get; set; }
-    //    public string pic_base64 { get; set; }
-    //}
+    public class DesignColorView
+    {
+        public string pdcolor_code { get; set; }
+        public string pdcolor_name { get; set; }
+        public string pic_file_path { get; set; }
+        public string pic_base64 { get; set; }
+    }
 
     public class CatalogMastSearchView
     {

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Web;
 
@@ -20,6 +21,7 @@ namespace api.Models
 
         [StringLength(int.MaxValue)]
         public string pic_base64 { get; set; }
+
         [StringLength(15)]
         public string created_by { get; set; }
 
@@ -28,5 +30,7 @@ namespace api.Models
         public string updated_by { get; set; }
 
         public DateTime updated_at { get; set; }
+
+        
     }
 }

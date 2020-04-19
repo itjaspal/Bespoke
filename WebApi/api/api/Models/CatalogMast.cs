@@ -43,7 +43,7 @@ namespace api.Models
 
         public DateTime updated_at { get; set; }
 
-        //public virtual List<CatalogColor> catalogColorList { get; set; }
+        
 
     }
 }
