@@ -22,6 +22,9 @@ namespace api.Models
         [StringLength(int.MaxValue)]
         public string pic_base64 { get; set; }
 
+        [StringLength(200)]
+        public string catalog_file_path { get; set; }
+
         [StringLength(15)]
         public string created_by { get; set; }
 
