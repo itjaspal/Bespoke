@@ -44,9 +44,27 @@ namespace api.Services
             }
         }
 
-        public void delete(CatalogColorView color)
+        public void delete(CatalogColorView colorView)
         {
-            throw new NotImplementedException();
+            using (var ctx = new ConXContext())
+            {
+                using (TransactionScope scope = new TransactionScope())
+                {
+
+                    CATALOG_COLOR color = ctx.CatalogColors
+                        .Where(z => z.catalog_color_id == colorView.catalog_color_id && z.catalog_id == colorView.catalog_id)
+                        .SingleOrDefault();
+
+                    //ctx.UserBranchPrvlgs.RemoveRange(ctx.UserBranchPrvlgs.Where(z => z.username == colorView.emb_color_mast_id));
+                    //ctx.SaveChanges();
+
+                    ctx.CatalogColors.Remove(color);
+
+                    ctx.SaveChanges();
+
+                    scope.Complete();
+                }
+            }
         }
 
         public CatalogColorView GetInfo(long code , long catalog)

@@ -6,7 +6,7 @@ using System.Web;
 
 namespace api.Models
 {
-    public class CatalogType
+    public class CATALOG_TYPE
     {
         [Key]
         public long catalog_type_id { get; set; }

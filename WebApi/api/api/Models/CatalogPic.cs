@@ -6,7 +6,7 @@ using System.Web;
 
 namespace api.Models
 {
-    public class CatalogPic
+    public class CATALOG_PIC
     {
         [Key]
         public long catalog_pic_id { get; set; }

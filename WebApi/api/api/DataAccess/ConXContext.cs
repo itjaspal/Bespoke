@@ -43,6 +43,12 @@ namespace api.DataAccess
         public DbSet<CATALOG_MAST> CatalogMasts { get; set; }
         public DbSet<CATALOG_COLOR> CatalogColors { get; set; }
         public DbSet<PDBRND_MAST> BrandMasts { get; set; }
+        public DbSet<CATALOG_EMB_COLOR> CatalogEmbColors { get; set; }
+        public DbSet<CATALOG_BORDER_COLOR> CatalogBorderColors { get; set; }
+        public DbSet<CATALOG_SIZE> CatalogSizes { get; set; }
+        public DbSet<CATALOG_TYPE> CatalogTypes { get; set; }
+        public DbSet<CATALOG_PIC> CatalogPics { get; set; }
+        public DbSet<PDSIZE_MAST> SizeMasts { get; set; }
 
 
 

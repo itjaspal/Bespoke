@@ -6,7 +6,7 @@ using System.Web;
 
 namespace api.Models
 {
-    public class CatalogBorderColor
+    public class CATALOG_BORDER_COLOR
     {
         [Key]
         public long catalog_border_color_id { get; set; }

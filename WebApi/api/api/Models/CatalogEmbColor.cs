@@ -6,7 +6,7 @@ using System.Web;
 
 namespace api.Models
 {
-    public class CatalogEmbColor
+    public class CATALOG_EMB_COLOR
     {
         [Key]
         public long catalog_emb_color_id { get; set; }

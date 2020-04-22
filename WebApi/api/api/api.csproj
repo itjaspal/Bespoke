@@ -345,9 +345,11 @@
     <Compile Include="Interfaces\IAttachFileService.cs" />
     <Compile Include="Interfaces\IAuthenticationService.cs" />
     <Compile Include="Interfaces\IBranchGroupService.cs" />
+    <Compile Include="Interfaces\ICatalogBorderColorService.cs" />
     <Compile Include="Interfaces\ICatalogColorService.cs" />
     <Compile Include="Interfaces\ICatalogEmbColorService.cs" />
     <Compile Include="Interfaces\ICatalogMastService.cs" />
+    <Compile Include="Interfaces\ICatalogSizeService.cs" />
     <Compile Include="Interfaces\ICatalogTypeService.cs" />
     <Compile Include="Interfaces\IColorFontService.cs" />
     <Compile Include="Interfaces\ICommonService.cs" />
@@ -406,10 +408,12 @@
     <Compile Include="ModelViews\AttachFileView.cs" />
     <Compile Include="ModelViews\AuthenticationView.cs" />
     <Compile Include="ModelViews\BranchView.cs" />
-    <Compile Include="ModelViews\CalalogTypeView.cs" />
+    <Compile Include="ModelViews\CatalogBorderColorView.cs" />
     <Compile Include="ModelViews\CatalogColorView.cs" />
     <Compile Include="ModelViews\CatalogEmbColorView.cs" />
     <Compile Include="ModelViews\CatalogMastView.cs" />
+    <Compile Include="ModelViews\CatalogSizeView.cs" />
+    <Compile Include="ModelViews\CatalogTypeView.cs" />
     <Compile Include="ModelViews\ColorFontView.cs" />
     <Compile Include="ModelViews\CommonResponseView.cs" />
     <Compile Include="ModelViews\CommonSearchView.cs" />
@@ -426,9 +430,11 @@
     <Compile Include="Services\AttachFileService.cs" />
     <Compile Include="Services\AuthenticationService.cs" />
     <Compile Include="Services\BranchGroupService.cs" />
+    <Compile Include="Services\CatalogBorderColorService.cs" />
     <Compile Include="Services\CatalogColorService.cs" />
     <Compile Include="Services\CatalogEmbColorService.cs" />
     <Compile Include="Services\CatalogMastService.cs" />
+    <Compile Include="Services\CatalogSizeService.cs" />
     <Compile Include="Services\CatalogTypeService.cs" />
     <Compile Include="Services\ColorFontService.cs" />
     <Compile Include="Services\CommonService.cs" />
