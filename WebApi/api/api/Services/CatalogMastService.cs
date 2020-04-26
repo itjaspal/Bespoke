@@ -30,7 +30,7 @@ namespace api.Services
                         dsgn_desc = model.dsgn_desc,
                         pic_file_path = model.pic_file_path,
                         pic_base64 = model.pic_base64,
-                        status = "A",
+                        status = "Active",
                         created_by = model.created_by,
                         created_at = DateTime.Now,
                         updated_by = model.updated_by,
@@ -87,7 +87,7 @@ namespace api.Services
                     //.Include("catalogColorList.pic_base64")
                     .Where(x => (x.pddsgn_code.Contains(model.pddsgn_code) || model.pddsgn_code == "")
                     && (x.dsgn_name.Contains(model.dsgn_name) || model.dsgn_name == null)
-                    && (x.status == "A")
+                    //&& (x.status == "A")
                     )
                     .OrderBy(o => o.catalog_id)
                     .ToList();

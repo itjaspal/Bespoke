@@ -94,16 +94,16 @@ namespace api.Services
                 //define model view
                 CommonSearchView<CatalogColorView> view = new ModelViews.CommonSearchView<ModelViews.CatalogColorView>()
                 {
-                    //pageIndex = model.pageIndex - 1,
-                    //itemPerPage = model.itemPerPage,
-                    //totalItem = 0,
+                    pageIndex = model.pageIndex - 1,
+                    itemPerPage = model.itemPerPage,
+                    totalItem = 0,
 
                     datas = new List<ModelViews.CatalogColorView>()
                 };
 
                 //query data
                 List<CATALOG_COLOR> CatalogColors = ctx.CatalogColors
-                    .Where(x => (model.catalog_id == model.catalog_id)
+                    .Where(x => (x.catalog_id == model.catalog_id)
                     )
                     .OrderBy(o => o.catalog_color_id)
                     .ToList();
@@ -117,10 +117,22 @@ namespace api.Services
                 //prepare model to modelView
                 foreach (var i in CatalogColors)
                 {
+
+                    PDCOLOR_MAST color = ctx.ColorMasts
+                    .Where(z => z.pdcolor_code == i.pdcolor_code).SingleOrDefault();
+
+                   
+                    CATALOG_MAST design = ctx.CatalogMasts
+                        .Where(z => z.catalog_id == i.catalog_id).SingleOrDefault();
+
+                    
                     view.datas.Add(new ModelViews.CatalogColorView()
                     {
+                        catalog_id = i.catalog_id,
                         catalog_color_id = i.catalog_color_id,
+                        pddsgn_name = design.dsgn_name,
                         pdcolor_code = i.pdcolor_code,
+                        pdcolor_name = color.pdcolor_tname,
                         pic_file_path = i.pic_file_path,
                         pic_base64 = i.pic_base64,
                         catalog_file_path = i.catalog_file_path

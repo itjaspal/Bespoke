@@ -55,6 +55,16 @@ import { CustomerCreateComponent } from '../customer/customer-create/customer-cr
 import { CatalogDesignSearchComponent } from '../master-catalog-design/catalog-design-search/catalog-design-search.component';
 import { CatalogDesignCreateComponent } from '../master-catalog-design/catalog-design-create/catalog-design-create.component';
 import { CatalogDesignUpdateComponent } from '../master-catalog-design/catalog-design-update/catalog-design-update.component';
+import { CatalogDesignViewComponent } from '../master-catalog-design/catalog-design-view/catalog-design-view.component';
+import { CatalogColorSearchComponent } from '../master-catalog-color/catalog-color-search/catalog-color-search.component';
+import { CatalogColorCreateComponent } from '../master-catalog-color/catalog-color-create/catalog-color-create.component';
+import { CatalogColorUpdateComponent } from '../master-catalog-color/catalog-color-update/catalog-color-update.component';
+import { CatalogEmbColorSearchComponent } from '../master-catalog-emb-color/catalog-emb-color-search/catalog-emb-color-search.component';
+import { CatalogEmbColorCreateComponent } from '../master-catalog-emb-color/catalog-emb-color-create/catalog-emb-color-create.component';
+import { CatalogBorderColorSearchComponent } from '../master-catalog-border-color/catalog-border-color-search/catalog-border-color-search.component';
+import { CatalogBorderColorCreateComponent } from '../master-catalog-border-color/catalog-border-color-create/catalog-border-color-create.component';
+import { CatalogTypeSearchComponent } from '../master-catalog-type/catalog-type-search/catalog-type-search.component';
+import { CatalogTypeCreateComponent } from '../master-catalog-type/catalog-type-create/catalog-type-create.component';
 
  
 
@@ -130,6 +140,30 @@ const routes: Routes = [
       { path: "catalog", component: CatalogDesignSearchComponent, canActivate: [AuthenGuard], data: { parentUrl: "/app/catalog" } },
       { path: "catalog/create", component: CatalogDesignCreateComponent, canActivate: [AuthenGuard], data: { parentUrl: "/app/catalog" } },
       { path: "catalog/update/:id", component: CatalogDesignUpdateComponent, canActivate: [AuthenGuard], data: { parentUrl: "/app/catalog" } },
+      { path: "catalog/view/:id", component: CatalogDesignViewComponent, canActivate: [AuthenGuard], data: { parentUrl: "/app/catalog" } },
+
+      //Master Catalog Color
+      { path: "catalog-color/:catalog_id", component: CatalogColorSearchComponent, canActivate: [AuthenGuard], data: { parentUrl: "/app/catalog-color" } },
+      { path: "catalog-color/:catalog_id/create", component: CatalogColorCreateComponent, canActivate: [AuthenGuard], data: { parentUrl: "/app/catalog-color" } },
+      //{ path: "catalog-color/update/:id", component: CatalogColorUpdateComponent, canActivate: [AuthenGuard], data: { parentUrl: "/app/catalog-color" } },
+
+      //Master Catalog Embroidery
+      { path: "catalog-emb/:catalog_id", component: CatalogEmbColorSearchComponent, canActivate: [AuthenGuard], data: { parentUrl: "/app/catalog-emb" } },
+      { path: "catalog-emb/:catalog_id/create", component: CatalogEmbColorCreateComponent, canActivate: [AuthenGuard], data: { parentUrl: "/app/catalog-emb" } },
+      //{ path: "catalog-emb/update/:id", component: CatalogEmbUpdateComponent, canActivate: [AuthenGuard], data: { parentUrl: "/app/catalog-emb" } },
+
+      //Master Catalog Border
+      { path: "catalog-border/:catalog_id", component: CatalogBorderColorSearchComponent, canActivate: [AuthenGuard], data: { parentUrl: "/app/catalog-border" } },
+      { path: "catalog-border/:catalog_id/create", component: CatalogBorderColorCreateComponent, canActivate: [AuthenGuard], data: { parentUrl: "/app/catalog-border" } },
+      //{ path: "catalog-border/update/:id", component: CatalogBorderUpdateComponent, canActivate: [AuthenGuard], data: { parentUrl: "/app/catalog-emb" } },
+
+
+      //Master Catalog Type
+      { path: "catalog-type/:catalog_id", component: CatalogTypeSearchComponent, canActivate: [AuthenGuard], data: { parentUrl: "/app/catalog-type" } },
+      { path: "catalog-type/:catalog_id/create", component: CatalogTypeCreateComponent, canActivate: [AuthenGuard], data: { parentUrl: "/app/catalog-type" } },
+      //{ path: "catalog-border/update/:id", component: CatalogTypeUpdateComponent, canActivate: [AuthenGuard], data: { parentUrl: "/app/catalog-emb" } },
+
+
 
       //Sales
       { path: "sale", component: SalesSearchComponent, canActivate: [AuthenGuard], data: { parentUrl: "/app/sale" } },

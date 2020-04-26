@@ -185,6 +185,7 @@ import { CatalogColorSearchComponent } from './master-catalog-color/catalog-colo
 import { CatalogColorCreateComponent } from './master-catalog-color/catalog-color-create/catalog-color-create.component';
 import { CatalogColorUpdateComponent } from './master-catalog-color/catalog-color-update/catalog-color-update.component';
 import { CatalogColorViewComponent } from './master-catalog-color/catalog-color-view/catalog-color-view.component';
+import { CatalogSizeService } from './_service/catalog-size.service';
 
 
 
@@ -270,6 +271,7 @@ import { CatalogColorViewComponent } from './master-catalog-color/catalog-color-
     MenuGroupService,
     MenuService,
     ColorFontService,
+    CatalogSizeService,
   
 
   ],

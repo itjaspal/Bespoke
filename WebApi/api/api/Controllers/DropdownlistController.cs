@@ -12,8 +12,8 @@ using System.Web.Http;
 
 namespace api.Controllers
 {
-    [AuthorizationRequired]
-    //[Route("/dropdownlist")]
+    //[AuthorizationRequired]
+   
     public class DropdownlistController : ApiController
     {
 
@@ -71,7 +71,7 @@ namespace api.Controllers
             }
         }
 
-       
+
         //[GET("getDdlBranchInGroup/{branchGropupId}")]
         [Route("dropdownlist/getDdlBranchInGroup/{branchGropupId}")]
         public HttpResponseMessage getDdlBranchInGroup(int branchGropupId)
@@ -183,6 +183,24 @@ namespace api.Controllers
                 return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, ex.ToString());
             }
         }
+
+
+        [Route("dropdownlist/getDdlProductColor")]
+        public HttpResponseMessage getDdlProductColor()
+        {
+            try
+            {
+                var result = ddlSvc.GetDdlProductColor();
+
+                return Request.CreateResponse(HttpStatusCode.OK, result);
+            }
+            catch (Exception ex)
+            {
+                return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, ex.ToString());
+            }
+        }
+
+
 
     }
 }

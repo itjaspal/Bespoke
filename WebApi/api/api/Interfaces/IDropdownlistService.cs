@@ -35,5 +35,6 @@ namespace api.Interfaces
 
         List<Dropdownlist> GetDdlCatalogDesign();
         List<Dropdownlists> GetDdlProductBrand();
+        List<Dropdownlists> GetDdlProductColor();
     }
 }

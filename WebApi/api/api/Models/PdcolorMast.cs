@@ -6,7 +6,7 @@ using System.Web;
 
 namespace api.Models
 {
-    public class PdcolorMast
+    public class PDCOLOR_MAST
     {
         [Key]
         public long id { get; set; }

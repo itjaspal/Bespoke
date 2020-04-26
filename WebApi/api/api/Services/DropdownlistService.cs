@@ -227,8 +227,6 @@ namespace api.Services
             }
         }
 
-
-        
         public List<Dropdownlists> GetDdlProductBrand()
         {
             using (var ctx = new ConXContext())
@@ -248,6 +246,24 @@ namespace api.Services
 
         }
 
-       
+        public List<Dropdownlists> GetDdlProductColor()
+        {
+            using (var ctx = new ConXContext())
+            {
+                List<Dropdownlists> ddl = ctx.ColorMasts
+                    .Where(z => z.status == "A")
+                    .OrderBy(o => o.pdcolor_code)
+                    .Select(x => new Dropdownlists()
+                    {
+                        key = x.pdcolor_code,
+                        value = x.pdcolor_code + " - " + x.pdcolor_tname
+                    })
+                    .ToList();
+                return ddl;
+            }
+
+
+        }
+
     }
 }

@@ -1,3 +1,155 @@
-<p>
-  catalog-emb-color-search works!
-</p>
+<div class="container-fluid no-breadcrumbs">
+  <mat-card>
+      <mat-card-title>
+          <h6>Product Color</h6>
+      </mat-card-title>
+      <mat-card-content>
+
+          <form [formGroup]="validationForm">
+              <mat-card-content class="no-margin">
+                
+                  <!-- <div class="row">
+                      <div class="col-sm-6 col-lg-3">
+                        <mat-form-field class="full-width">
+                            
+                            <mat-select #catalog_id  placeholder="Product Design"  [(ngModel)]="model_search.catalog_id"  name="catalog_id">
+                              <mat-option>ทั้งหมด</mat-option>
+                              <mat-option *ngFor="let x of catalogDesignLists" [value]="x.key">{{x.value}}</mat-option>
+                            </mat-select>
+
+                        </mat-form-field>
+                      </div>
+                  
+                  </div> -->
+                  <div class="row">
+                    <div class="col-6 col-sm-3">
+                      
+                      <mat-form-field class="full-width">
+                        <mat-select placeholder="Product Design" formControlName="catalog_id"  [(ngModel)]="model_search.catalog_id"  name="catalog_id">
+                         
+                        <mat-option *ngFor="let catalog_id of catalogDesignLists" [value]="catalog_id.key">{{catalog_id.value}}</mat-option>
+                        
+                        </mat-select>
+
+                       </mat-form-field>
+                    </div>
+                    <div class="col-6 col-sm-9">
+
+                        <button mat-raised-button color="primary" class="btn-w-md" type="button"  (click)="search()">
+                            <mat-icon class="material-icons">search</mat-icon> ค้นหา
+                        </button>
+                    
+                        <button mat-raised-button type="button" mat-button class="btn-w-md pull-right" (click)="add()" >
+                            <mat-icon class="material-icons">add</mat-icon> เพิ่ม Embroidery Color
+                        </button>
+                    </div>
+
+                </div>
+                
+              </mat-card-content>
+              <mat-card-actions class="no-margin">
+                  <button mat-raised-button color="primary" class="btn-w-md" type="button" (click)="color_search()" >
+                      <mat-icon class="material-icons">view_array</mat-icon> Prouct Color
+                  </button>
+                  <button mat-raised-button color="primary" class="btn-w-md" type="button"  (click)="emb_search()" disabled>
+                    <mat-icon class="material-icons">text_format</mat-icon> Embroidery Color
+                  </button>
+                  <button mat-raised-button color="primary" class="btn-w-md" type="button"  (click)="border_search()">
+                    <mat-icon class="material-icons">web_asset</mat-icon> Border Color
+                  </button>
+                  <button mat-raised-button color="primary" class="btn-w-md" type="button"  (click)="type_search()">
+                    <mat-icon class="material-icons">art_track</mat-icon> Product Type
+                  </button>
+
+                  
+              </mat-card-actions>
+          </form>
+          
+          <mat-card>
+
+            
+              <mat-card-content>
+                  
+               
+                  <div class="row card-table-body" *ngFor="let x of data.datas">
+                      <div class="col-4 col-sm-4">
+                          <small>Color</small>
+                          <dd>{{x.pdcolor_name}}</dd>
+                      </div>
+
+                      <div class ="col-3 col-sm-3">
+                        <img src="{{x.pic_base64}}" />
+                      </div>
+
+
+                      <!-- <div class="col-1 col-sm-1">
+                        <button mat-icon-button [matMenuTriggerFor]="appMenu">
+                            <mat-icon class="material-icons">more_horiz</mat-icon>
+                        </button>
+
+                        <mat-menu #appMenu="matMenu">
+                            <button mat-menu-item [routerLink]="['/app/catalog/view/'+x.catalog_id]">
+                                <mat-icon class="material-icons">search</mat-icon> <span>แสดง</span>
+                            </button>
+                            <button mat-menu-item [routerLink]="['/app/catalog/update/'+x.catalog_id]">
+                                <mat-icon class="material-icons">edit</mat-icon> <span>แก้ไข</span>
+                            </button>
+                         
+                            <button mat-menu-item (click)="delete(x)">
+                                <mat-icon class="material-icons">delete</mat-icon> <span>ลบ</span>
+                            </button>
+                        </mat-menu>
+
+                    </div> -->
+                      
+                        <!-- <div class="col-9 col-sm-9" >
+                            <small>สี</small>
+                            <dd *ngFor="let y of x.catalogColors">   
+                                <img src="{{y.pic_base64}}" />
+                            </dd>     
+                                
+                        </div> -->
+                       
+                          
+                            
+                           
+                       
+                                <!-- <div class="col-1 col-sm-1" *ngFor="let y of x.catalogColors" >
+                                    <div style="display:inline-block;height:50px;"  [ngStyle]="{'width': '30%'}" >
+                                        <img src="{{y.pic_base64}}" />
+                                    </div>
+                                </div> -->
+                        
+                    
+                      
+                      <div class="col-12">
+                          <hr />
+                      </div>
+                  </div>
+              </mat-card-content>
+          </mat-card>
+
+          <!-- <mat-paginator [length]="data.totalItem" [pageIndex]="model.pageIndex" [pageSize]="model.itemPerPage"
+              [pageSizeOptions]="pageSizeOptions" (page)="pageEvent = $event; search($event)">
+          </mat-paginator> -->
+
+      </mat-card-content>
+      <!-- <mat-card-content *ngIf="data.datas != undefined">
+          <ngb-pagination [collectionSize]="data.totalItem" [pageSize]="model.itemPerPage" [maxSize]="5"
+              [(page)]="model.pageIndex" (pageChange)="search()" [boundaryLinks]="true"></ngb-pagination>
+      </mat-card-content> -->
+
+      <mat-card-actions>
+        <button mat-raised-button class="btn-w-md" type="button" (click)="close()">
+            <mat-icon class="material-icons">close</mat-icon> ปิด
+        </button>
+
+        <!-- <button mat-raised-button color="primary" class="btn-w-md pull-right" type="button" (click)="save()"
+            [disabled]="!validationForm.valid">
+            <mat-icon class="material-icons">save</mat-icon> บันทึกข้อมูล
+        </button> -->
+    </mat-card-actions>
+  </mat-card>
+</div>
+
+

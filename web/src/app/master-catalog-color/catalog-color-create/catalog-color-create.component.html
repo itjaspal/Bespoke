@@ -1,3 +1,53 @@
-<p>
-  catalog-color-create works!
-</p>
+<div class="container-fluid no-breadcrumbs">
+  <mat-card>
+      <mat-card-title>
+          <h6>เพิ่ม Color</h6>
+      </mat-card-title>
+      <mat-card-content>
+        <form [formGroup]="validationForm">
+          <mat-card-content class="no-margin">
+              <div class="row">
+                  <div class="col-12 col-sm-6">
+                    <mat-form-field class="full-width">
+                      <mat-select placeholder="Product Color" formControlName="pdcolor_code" [(ngModel)]="model.pdcolor_code"  name="pdcolor_code">
+                        <!-- <mat-option>ทั้งหมด</mat-option> -->
+                        <mat-option *ngFor="let x of ProductColorLists" [value]="x.key">
+                          {{x.value}}
+                        </mat-option>
+                      </mat-select>
+
+                  </mat-form-field>
+                  </div>
+                 
+              </div>
+
+
+              
+            <div class="row">
+              <div class="col-12">
+
+                <input type='file' #file (change)="preview($event)">
+                <img [src]="imgURL" height="100" *ngIf="imgURL">
+                
+              </div>
+            </div>
+
+           
+
+        </mat-card-content>
+        </form>
+      </mat-card-content>
+      <mat-card-actions>
+          <button mat-raised-button class="btn-w-md" type="button" (click)="close()">
+              <mat-icon class="material-icons">close</mat-icon> ปิด
+          </button>
+
+          <button mat-raised-button color="primary" class="btn-w-md pull-right" type="button" (click)="save()"
+              [disabled]="!validationForm.valid">
+              <mat-icon class="material-icons">save</mat-icon> บันทึกข้อมูล
+          </button>
+      </mat-card-actions>
+  </mat-card>
+</div>
+
+

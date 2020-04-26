@@ -1,3 +1,113 @@
-<p>
-  catalog-design-update works!
-</p>
+<div class="container-fluid no-breadcrumbs">
+  <mat-card>
+      <mat-card-title>
+          <h6> แก้ไข Catalog Design</h6>
+      </mat-card-title>
+      <mat-card-content>
+        <form [formGroup]="validationForm">
+              
+            <div class="row">
+              <div class="col-12 col-sm-6">
+                
+                <mat-form-field class="full-width">
+                  <mat-select placeholder="Product Brand" formControlName="pdbrnd_code" [(ngModel)]="model.pdbrnd_code"  name="pdbrnd_code">
+                   
+                    <mat-option *ngFor="let pdbrnd_code of ProductBrandLists"  [value]="pdbrnd_code.key" >
+                      {{pdbrnd_code.value}}
+                    </mat-option>
+                  </mat-select>
+
+                </mat-form-field>
+
+              <!-- <mat-select [(ngModel)]="model.pdbrnd_code" placeholder="Brand *" name="pdbrnd_code"
+                    formControlName="pdbrnd_code">
+                    <mat-option>
+                      <ngx-mat-select-search [(ngModel)]="brandFilter" name="brandFilter"
+                        formControlName="brandFilter" placeholderLabel="ค้นหา ..." noEntriesFoundLabel="ไม่พบ Brand">
+                      </ngx-mat-select-search>
+                    </mat-option>
+                    <mat-option *ngFor="let x of ProductBrandLists | listFilter:'value:brandFilter" [value]="x.key">
+                       {{x.value}}
+                    </mat-option>
+                  </mat-select> -->
+
+              <!-- Brand : {{model.pdbrnd_code}} -->
+              </div>
+             
+            </div>
+
+            <div class="row">
+              <div class="col-12 col-sm-6">
+                  <mat-form-field class="full-width">
+                      <input matInput placeholder="รหัส Design *" formControlName="pddsgn_code"
+                          [(ngModel)]="model.pddsgn_code" name="pddsgn_code">
+                  </mat-form-field>
+                  <mat-error class="error-message"
+                      *ngIf="validationForm.get('pddsgn_code').hasError('required') && (validationForm.get('pddsgn_code').dirty || validationForm.get('pddsgn_code').touched)">
+                      โปรดระบุข้อมูล
+                  </mat-error>
+              </div>
+              <div class="col-12 col-sm-6">
+                  <mat-form-field class="full-width">
+                      <input matInput placeholder="ชื่อ Design *" formControlName="dsgn_name"
+                          [(ngModel)]="model.dsgn_name" name="dsgn_name">
+                  </mat-form-field>
+                  <mat-error class="error-message"
+                      *ngIf="validationForm.get('dsgn_name').hasError('required') && (validationForm.get('dsgn_name').dirty || validationForm.get('dsgn_name').touched)">
+                      โปรดระบุข้อมูล
+                  </mat-error>
+              </div>                    
+            </div>
+
+            <div class="row">
+              <div class="col-12">
+
+                <input type='file' #file (change)="preview($event)">
+                <img [src]="imgURL" height="100" *ngIf="imgURL">
+                
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-12">
+                <mat-form-field class="full-width">
+                  <textarea matInput placeholder="รายละเอียด" formControlName="dsgn_desc" [(ngModel)]="model.dsgn_desc"
+                    name="remark" maxlength="400" rows="4"></textarea>
+                  <mat-hint align="end">{{model.dsgn_desc.length}} / 400</mat-hint>
+                </mat-form-field>
+              </div>
+                          
+            </div>
+            
+            <div class="row">
+              <div class="col-12 col-sm-6">
+                
+                <mat-form-field class="full-width">
+                  <mat-select placeholder="Status" formControlName="status" [(ngModel)]="model.status"   name="status">
+                    <mat-option>ทั้งหมด</mat-option>
+                    <mat-option value="Active">Active</mat-option>
+                    <mat-option value="Inactive">Inactive</mat-option>
+                    <!-- <mat-option *ngFor="let pdbrnd_code of ProductBrandLists"  [value]="pdbrnd_code.key" >
+                      {{pdbrnd_code.value}}
+                    </mat-option> -->
+                  </mat-select>
+
+                </mat-form-field>
+              </div>
+            </div>
+           
+          </form>
+      </mat-card-content>
+      <mat-card-actions>
+          <button mat-raised-button class="btn-w-md" type="button" (click)="close()">
+              <mat-icon class="material-icons">close</mat-icon> ปิด
+          </button>
+
+          <button mat-raised-button color="primary" class="btn-w-md pull-right" type="button" (click)="save()"
+              [disabled]="!validationForm.valid">
+              <mat-icon class="material-icons">save</mat-icon> บันทึกข้อมูล
+          </button>
+      </mat-card-actions>
+  </mat-card>
+</div>
+

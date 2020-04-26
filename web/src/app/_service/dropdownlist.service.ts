@@ -151,4 +151,10 @@ export class DropdownlistService {
     
     return await this.http.get<Dropdownlist[]>(environment.API_URL + 'dropdownlist/getDdlProductBrand').toPromise();
   }
+
+  public async getDdlProductColor() { 
+    
+    return await this.http.get<Dropdownlist[]>(environment.API_URL + 'dropdownlist/getDdlProductColor').toPromise();
+  }
+
 }

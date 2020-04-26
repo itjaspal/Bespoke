@@ -12,7 +12,7 @@ export class CatalogDesignService {
   constructor(private http: HttpClient) { }
 
   public async search(_model: CatalogMastSearchView) { 
-    return await this.http.post<CommonSearchView<CatalogMastSearchView>>(environment.API_URL + 'color-font/postSearch',_model).toPromise();
+    return await this.http.post<CommonSearchView<CatalogMastView>>(environment.API_URL + 'catalog-mast/postSearch',_model).toPromise();
   }
 
   public async create(_model: CatalogMastView) {

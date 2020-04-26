@@ -49,6 +49,7 @@ namespace api.DataAccess
         public DbSet<CATALOG_TYPE> CatalogTypes { get; set; }
         public DbSet<CATALOG_PIC> CatalogPics { get; set; }
         public DbSet<PDSIZE_MAST> SizeMasts { get; set; }
+        public DbSet<PDCOLOR_MAST> ColorMasts { get; set; }
 
 
 

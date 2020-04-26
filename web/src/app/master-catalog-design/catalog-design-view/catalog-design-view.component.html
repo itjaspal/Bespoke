@@ -1,3 +1,59 @@
-<p>
-  catalog-design-view works!
-</p>
+<div class="container-fluid no-breadcrumbs">
+  <mat-card>
+      <mat-card-title>
+          <h6>แสดงข้อมูล Design</h6>
+      </mat-card-title>
+      <mat-card-content>
+        
+        <div class="row">
+          <div class="col-6 col-lg-2">
+            <small>Brand</small>
+            <dd>{{model.pdbrnd_code}}</dd>
+          </div>
+        </div>
+
+        
+
+        <div class="row">
+          <div class="col-6 col-lg-2">
+            <small>Design Code</small>
+            <dd>{{model.pddsgn_code}}</dd>
+          </div>
+          <div class="col-6 col-lg-2">
+            <small>Design Name</small>
+            <dd>{{model.dsgn_name}}</dd>
+          </div>                  
+        </div>
+
+        <div class="row">
+          <div class="col-12 col-lg-12">
+            <small>Description</small>
+            <dd>{{model.dsgn_desc}}</dd>
+          </div>
+                      
+        </div>
+
+        <div class="row">
+          <div class="col-12 col-lg-12">
+            <small>Status</small>
+            <dd>{{model.status}}</dd>
+          </div>
+                      
+        </div>
+
+        <div class="row">
+          <div class="col-6 col-lg-6">
+            <img src="{{model.pic_base64}}" />
+          </div>
+        </div>
+ 
+      </mat-card-content>
+      
+      <mat-card-actions>
+          <button mat-raised-button class="btn-w-md" type="button" (click)="close()">
+              <mat-icon class="material-icons">close</mat-icon> ปิด
+          </button>         
+      </mat-card-actions>
+  </mat-card>
+</div>
+

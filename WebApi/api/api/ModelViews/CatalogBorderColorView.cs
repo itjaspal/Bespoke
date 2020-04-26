@@ -19,6 +19,8 @@ namespace api.ModelViews
 
     public class CatalogBorderColorSearchView
     {
+        public int pageIndex { get; set; }
+        public int itemPerPage { get; set; }
         public long catalog_id { get; set; }
     }
 }

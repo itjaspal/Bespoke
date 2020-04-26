@@ -322,9 +322,11 @@
     <Compile Include="Controllers\AttachFileController.cs" />
     <Compile Include="Controllers\AuthenController.cs" />
     <Compile Include="Controllers\BranchGroupController.cs" />
+    <Compile Include="Controllers\CatalogBorderColorController.cs" />
     <Compile Include="Controllers\CatalogColorController.cs" />
     <Compile Include="Controllers\CatalogEmbColorController.cs" />
     <Compile Include="Controllers\CatalogMastController.cs" />
+    <Compile Include="Controllers\CatalogSizeController.cs" />
     <Compile Include="Controllers\CatalogTypeController.cs" />
     <Compile Include="Controllers\ColorFontController.cs" />
     <Compile Include="Controllers\CommonController.cs" />

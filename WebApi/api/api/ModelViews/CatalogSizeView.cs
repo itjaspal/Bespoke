@@ -21,6 +21,8 @@ namespace api.ModelViews
 
     public class CatalogSizeSearchView
     {
+        public int pageIndex { get; set; }
+        public int itemPerPage { get; set; }
         public long catalog_id { get; set; }
         public long catalog_type_id { get; set; }
     }
