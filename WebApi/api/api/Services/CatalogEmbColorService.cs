@@ -77,6 +77,20 @@ namespace api.Services
             }
         }
 
+        public List<COLOR_OF_FONT_MAST> InquiryColors()
+        {
+            using (var ctx = new ConXContext())
+            {
+                
+                //query data
+                List<COLOR_OF_FONT_MAST> groups = ctx.ColorFontMasts
+                   .OrderBy(o => o.emb_color_mast_id)
+                    .ToList();
+
+                return groups;
+            }
+        }
+
         public CommonSearchView<CatalogEmbColorView> Search(CatalogEmbColorSearchView model)
         {
             using (var ctx = new ConXContext())

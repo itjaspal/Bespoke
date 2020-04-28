@@ -79,6 +79,10 @@ export class CatalogColorSearchComponent implements OnInit {
     this._router.navigateByUrl('/app/catalog-type/'+this.model_search.catalog_id);
   }
 
+  async color_search() {
+    this._router.navigateByUrl('/app/catalog-color/'+this.model_search.catalog_id);
+  }
+
 
 
   async delete(color) {

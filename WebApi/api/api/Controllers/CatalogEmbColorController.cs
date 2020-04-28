@@ -114,5 +114,20 @@ namespace api.Controllers
                 return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, ex.ToString());
             }
         }
+
+        [Route("catalog-embcolor/get-color")]
+        public HttpResponseMessage getColors()
+        {
+            try
+            {
+                var result = colorSvc.InquiryColors();
+
+                return Request.CreateResponse(HttpStatusCode.OK, result);
+            }
+            catch (Exception ex)
+            {
+                return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, ex.ToString());
+            }
+        }
     }
 }

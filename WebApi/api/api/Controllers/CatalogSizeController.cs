@@ -36,7 +36,7 @@ namespace api.Controllers
             }
         }
 
-        [Route("catalog-size/getInfo/{code}/{catalog}")]
+        [Route("catalog-size/getInfo/{code}/{catalog}/{type}")]
         public HttpResponseMessage getInfo(long code, long catalog , long type)
         {
             try

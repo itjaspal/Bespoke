@@ -1,4 +1,5 @@
-﻿using api.ModelViews;
+﻿using api.Models;
+using api.ModelViews;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,5 +16,6 @@ namespace api.Interfaces
         void Update(CatalogEmbColorView model);
 
         void delete(CatalogEmbColorView color);
+        List<COLOR_OF_FONT_MAST> InquiryColors();
     }
 }
