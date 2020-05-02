@@ -16,6 +16,9 @@ namespace api.Interfaces
         void Update(CatalogEmbColorView model);
 
         void delete(CatalogEmbColorView color);
-        List<COLOR_OF_FONT_MAST> InquiryColors();
+        //List<COLOR_OF_FONT_MAST> InquiryColors();
+
+        
+        List<ColorFontSelectedView> GetSelectedEmbColor();
     }
 }

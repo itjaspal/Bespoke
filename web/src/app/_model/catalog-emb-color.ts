@@ -11,6 +11,7 @@ export class CatalogEmbColorView
     public created_at: any = null;
     public updated_by: string = "";
     public updated_at :any= null;
+    //public isSelected :boolean = false;
 
 }
 

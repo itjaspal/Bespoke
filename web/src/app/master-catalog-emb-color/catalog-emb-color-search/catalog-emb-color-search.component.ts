@@ -17,6 +17,10 @@ import { ColorFontService } from '../../_service/color-font.service';
 })
 export class CatalogEmbColorSearchComponent implements OnInit {
 
+  masterSelected:boolean = false;
+  checklist:any;
+  checkedList:any;
+
   constructor(
     private _catalogEmbColorSvc: CatalogEmbColorService,
     private _ddlSvc: DropdownlistService,
@@ -26,6 +30,7 @@ export class CatalogEmbColorSearchComponent implements OnInit {
     private _authSvc: AuthenticationService,
     private sanitizer: DomSanitizer, 
     private _router: Router
+    
   ) { }
 
   public model: CatalogEmbColorView = new CatalogEmbColorView();
@@ -37,10 +42,13 @@ export class CatalogEmbColorSearchComponent implements OnInit {
   
   public catalogDesignLists: any;
   public color: any = [];
+  public selectColor;
 
   // master_checked: boolean = false;
   // master_indeterminate: boolean = false;
   // checkbox_list = [];
+  
+  
 
   async ngOnInit() {
     this.buildForm();
@@ -49,10 +57,37 @@ export class CatalogEmbColorSearchComponent implements OnInit {
   
     //console.log(this.model.catalog_id);
     this.color = await this._catalogEmbColorSvc.getColor();
-    //this.data = await this._catalogEmbColorSvc.search(this.model_search);
+    this.data = await this._catalogEmbColorSvc.search(this.model_search);
+
+    //console.log(this.color);
+    //console.log(this.data);
+
+    
+    this.checkedList = [];
+    for (var i = 0; i < this.color.length; i++) {
+      for(var j = 0; j < this.data.datas.length; j++){
+        if(this.color[i].color_code == this.data.datas[j].emb_color_code )
+        {
+          this.color.isSelected = true;
+        }
+        else
+        {
+          this.color.isSelected = false;
+        }
+          
+
+        
+      }
+      this.checkedList.push(this.color[i]);
+      
+    }
+
+    console.log(this.color.isSelected);
+   
+    
 
     //this.catalog_id.nativeElement.value = this.model_search.catalog_id;
-    
+    //this.getCheckedItemList();
   }
 
   buildForm() {
@@ -105,33 +140,52 @@ export class CatalogEmbColorSearchComponent implements OnInit {
 
   }
 
-  // master_change() {
-  //   for (let value of Object.values(this.checkbox_list)) {
-  //     value.checked = this.master_checked;
-  //   }
-  // }
+  
 
-  // list_change(){
-  //   let checked_count = 0;
-  //   //Get total checked items
-  //   for (let value of Object.values(this.checkbox_list)) {
-  //     if(value.checked)
-  //     checked_count++;
-  //   }
+  onChangeSelectAll(event) {
+    if (event.checked) {
+        this.color.forEach(obj => {
+            obj.isSelected = true;
+        });
+    }
+    else {
+        this.color.forEach(obj => {
+            obj.isSelected = false;
+        });
+    }
+
+    this.getCheckedItemList();
+}
+
+
+// checked(item){
+//   if(this.data.datas.indexOf(item) != -1){
+//     return true;
+//   }
+// }
+
+// // when checkbox change, add/remove the item from the array
+// onChange(checked, item){
+//   if(checked){
+//   this.data.datas.push(item);
+//   } else {
+//     this.data.datas.splice(this.data.datas.indexOf(item), 1)
+//   }
+// }
+
+  getCheckedItemList(){
+    console.log(this.color);
+    this.checkedList = [];
+    for (var i = 0; i < this.color.length; i++) {
+      if(this.color[i].emb_color_mast_id)
+      this.checkedList.push(this.color[i]);
+    }
+    this.checkedList = JSON.stringify(this.checkedList);
+
+    console.log(this.checkedList);
+  }
+
  
-  //   if(checked_count>0 && checked_count<this.checkbox_list.length){
-  //     // If some checkboxes are checked but not all; then set Indeterminate state of the master to true.
-  //     this.master_indeterminate = true;
-  //   }else if(checked_count == this.checkbox_list.length){
-  //     //If checked count is equal to total items; then check the master checkbox and also set Indeterminate state to false.
-  //     this.master_indeterminate = false;
-  //     this.master_checked = true;
-  //   }else{
-  //     //If none of the checkboxes in the list is checked then uncheck master also set Indeterminate to false.
-  //     this.master_indeterminate = false;
-  //     this.master_checked = false;
-  //   }
-  // }
 
   close() {
     this._router.navigateByUrl('/app/catalog');

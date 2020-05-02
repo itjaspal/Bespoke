@@ -73,30 +73,43 @@
  
                     <mat-list>
                
-                      <!-- <mat-list-item>
-                        <mat-checkbox
-                        [(ngModel)]="master_checked"
-                        [(indeterminate)]="master_indeterminate"
-                        (change)="master_change()"
-                        ><b>Check/ Uncheck All</b></mat-checkbox>
-                      </mat-list-item> -->
-                      <mat-list-item>
-                        <mat-checkbox
-                       
+                      <mat-list-item >
+                        <!-- [(ngModel)]="masterSelected" name="list_name" value="m1" (change)="checkUncheckAll()" -->
+                        <mat-checkbox (change)="onChangeSelectAll($event)"
                         ><b>เลือกทั้งหมด</b></mat-checkbox>
                       </mat-list-item>
-               
-                      <mat-list-item *ngFor="let item of color">
-                        <mat-checkbox
-                        [(ngModel)]="item.emb_color_mast_id"
-                        [disabled]="item.disabled"
-                        [labelPosition]=""
+                      
+                    <!-- </mat-list> -->
+
+                    <mat-list-item *ngFor="let item of color">
+                      <mat-checkbox 
+                        [(ngModel)]= "item.isSelected"
+                        value="{{item.emb_color_mast_id}}"
+                        (change)="getCheckedItemList()">
+                        &nbsp;
+                        <img src="{{item.pic_base64}}" />
+                      </mat-checkbox>
+                    </mat-list-item>
+                  </mat-list>
+                    <!-- <mat-list >
+                      
+                        <mat-list-item *ngFor="let item of color">
+                          <mat-checkbox
+                          [(ngModel)]="item.emb_color_mast_id"
+                          name="list_name"
+                          value="{{item.emb_color_mast_id}}"
+                          (change)="isAllSelected()"
+                          
+                          >  &nbsp; <img src="{{item.pic_base64}}" /></mat-checkbox> 
+
+                     
                         
-                        >  &nbsp; <img src="{{item.pic_base64}}" /></mat-checkbox> 
+                         
                       </mat-list-item>
+                     
                
                     </mat-list>
-               
+                -->
                   </mat-card-content>
                
                  

@@ -12,6 +12,7 @@ export class ColorFontView
     public updated_by: string = "";
     public updated_at :any= null;
     public file : any = null;
+    public isSelected :boolean = false;
 }
 
 export class ColorFontSearchView

@@ -120,7 +120,7 @@ namespace api.Controllers
         {
             try
             {
-                var result = colorSvc.InquiryColors();
+                var result = colorSvc.GetSelectedEmbColor();
 
                 return Request.CreateResponse(HttpStatusCode.OK, result);
             }

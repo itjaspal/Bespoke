@@ -77,17 +77,58 @@ namespace api.Services
             }
         }
 
-        public List<COLOR_OF_FONT_MAST> InquiryColors()
+        public List<ColorFontSelectedView> GetSelectedEmbColor()
         {
             using (var ctx = new ConXContext())
             {
                 
                 //query data
-                List<COLOR_OF_FONT_MAST> groups = ctx.ColorFontMasts
+                List<COLOR_OF_FONT_MAST> color = ctx.ColorFontMasts
                    .OrderBy(o => o.emb_color_mast_id)
                     .ToList();
 
-                return groups;
+                List<ColorFontSelectedView> colorViews = new List<ColorFontSelectedView>();
+
+                foreach (var i in color)
+                {
+                    CATALOG_EMB_COLOR emb = ctx.CatalogEmbColors
+                        .Where(z => z.emb_color_code == i.color_code)
+                        .SingleOrDefault();
+
+                   
+
+                    if (emb == null)
+                    {
+                        ColorFontSelectedView view = new ColorFontSelectedView()
+                        {
+                            emb_color_mast_id = i.emb_color_mast_id,
+                            color_code = i.color_code,
+                            color_name = i.color_name,
+                            pic_file_path = i.pic_file_path,
+                            pic_base64 = i.pic_base64,
+                            isSelected = false
+                        };
+
+                        colorViews.Add(view);
+                    }
+                    else
+                    {
+                        ColorFontSelectedView view = new ColorFontSelectedView()
+                        {
+                            emb_color_mast_id = i.emb_color_mast_id,
+                            color_code = i.color_code,
+                            color_name = i.color_name,
+                            pic_file_path = i.pic_file_path,
+                            pic_base64 = i.pic_base64,
+                            isSelected = true
+                        };
+
+                        colorViews.Add(view);
+                }
+
+                }
+
+                return colorViews;
             }
         }
 
