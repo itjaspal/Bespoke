@@ -68,66 +68,35 @@
           <mat-card>
 
             
-              <mat-card-content>
-                  
-               
-                  <div class="row card-table-body" *ngFor="let x of data.datas">
-                      <div class="col-4 col-sm-4">
-                          <small>Color</small>
-                          <dd>{{x.pdcolor_name}}</dd>
-                      </div>
+            <mat-card-content>
+              <!-- <mat-card-content> -->
 
-                      <div class ="col-3 col-sm-3">
-                        <img src="{{x.pic_base64}}" />
-                      </div>
-
-
-                      <!-- <div class="col-1 col-sm-1">
-                        <button mat-icon-button [matMenuTriggerFor]="appMenu">
-                            <mat-icon class="material-icons">more_horiz</mat-icon>
-                        </button>
-
-                        <mat-menu #appMenu="matMenu">
-                            <button mat-menu-item [routerLink]="['/app/catalog/view/'+x.catalog_id]">
-                                <mat-icon class="material-icons">search</mat-icon> <span>แสดง</span>
-                            </button>
-                            <button mat-menu-item [routerLink]="['/app/catalog/update/'+x.catalog_id]">
-                                <mat-icon class="material-icons">edit</mat-icon> <span>แก้ไข</span>
-                            </button>
-                         
-                            <button mat-menu-item (click)="delete(x)">
-                                <mat-icon class="material-icons">delete</mat-icon> <span>ลบ</span>
-                            </button>
-                        </mat-menu>
-
-                    </div> -->
-                      
-                        <!-- <div class="col-9 col-sm-9" >
-                            <small>สี</small>
-                            <dd *ngFor="let y of x.catalogColors">   
-                                <img src="{{y.pic_base64}}" />
-                            </dd>     
-                                
-                        </div> -->
-                       
-                          
-                            
-                           
-                       
-                                <!-- <div class="col-1 col-sm-1" *ngFor="let y of x.catalogColors" >
-                                    <div style="display:inline-block;height:50px;"  [ngStyle]="{'width': '30%'}" >
-                                        <img src="{{y.pic_base64}}" />
-                                    </div>
-                                </div> -->
-                        
+                  <mat-list>
+             
+                    <mat-list-item >
+                      <!-- [(ngModel)]="masterSelected" name="list_name" value="m1" (change)="checkUncheckAll()" -->
+                      <mat-checkbox (change)="onChangeSelectAll($event)"
+                      ><b>เลือกทั้งหมด</b></mat-checkbox>
+                    </mat-list-item>
                     
-                      
-                      <div class="col-12">
-                          <hr />
-                      </div>
-                  </div>
-              </mat-card-content>
-          </mat-card>
+                  <!-- </mat-list> -->
+
+                  <mat-list-item *ngFor="let item of color">
+                    <mat-checkbox 
+                      [(ngModel)]= "item.isSelected"
+                      value="{{item.emb_color_mast_id}}"
+                      (change)="getCheckedItemList()">
+                      &nbsp;
+                      <img src="{{item.pic_base64}}" />
+                    </mat-checkbox>
+                  </mat-list-item>
+                </mat-list>
+                
+                <!-- </mat-card-content> -->
+             
+               
+            </mat-card-content>
+        </mat-card>
 
           <!-- <mat-paginator [length]="data.totalItem" [pageIndex]="model.pageIndex" [pageSize]="model.itemPerPage"
               [pageSizeOptions]="pageSizeOptions" (page)="pageEvent = $event; search($event)">

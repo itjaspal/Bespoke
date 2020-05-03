@@ -27,6 +27,10 @@ export class CatalogBorderColorSearchComponent implements OnInit {
     private _router: Router
   ) { }
 
+  masterSelected:boolean = false;
+  checklist:any;
+  checkedList:any;
+
   public model: CatalogBorderColorView = new CatalogBorderColorView();
   public model_search: CatalogBorderColorSearchView = new CatalogBorderColorSearchView();
   
@@ -35,6 +39,9 @@ export class CatalogBorderColorSearchComponent implements OnInit {
   public validationForm: FormGroup;
   
   public catalogDesignLists: any;
+  
+  public color: any = [];
+  //public selectColor;
 
   async ngOnInit() {
     this.buildForm();
@@ -42,10 +49,19 @@ export class CatalogBorderColorSearchComponent implements OnInit {
     this.catalogDesignLists = await this._ddlSvc.getDdlCatalogDesign();
   
     //console.log(this.model.catalog_id);
-   
-    this.data = await this._catalogBorderColorSvc.search(this.model_search);
+    this.color = await this._catalogBorderColorSvc.getColor();
+    //this.data = await this._catalogBorderColorSvc.search(this.model_search);
 
     //this.catalog_id.nativeElement.value = this.model_search.catalog_id;
+
+    this.checkedList = [];
+    for (var i = 0; i < this.color.length; i++) {
+      if(this.color[i].emb_color_mast_id)
+      this.checkedList.push(this.color[i]);
+    }
+    this.checkedList = JSON.stringify(this.checkedList);
+    console.log(this.checkedList);
+    
   }
 
   buildForm() {
@@ -96,6 +112,35 @@ export class CatalogBorderColorSearchComponent implements OnInit {
       }
     })
 
+  }
+
+
+  onChangeSelectAll(event) {
+    if (event.checked) {
+        this.color.forEach(obj => {
+            obj.isSelected = true;
+        });
+    }
+    else {
+        this.color.forEach(obj => {
+            obj.isSelected = false;
+        });
+    }
+
+    this.getCheckedItemList();
+  }
+
+
+  getCheckedItemList(){
+    console.log(this.color);
+    this.checkedList = [];
+    for (var i = 0; i < this.color.length; i++) {
+      if(this.color[i].emb_color_mast_id)
+      this.checkedList.push(this.color[i]);
+    }
+    this.checkedList = JSON.stringify(this.checkedList);
+
+    console.log(this.checkedList);
   }
 
   close() {

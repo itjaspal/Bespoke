@@ -76,6 +76,61 @@ namespace api.Services
             }
         }
 
+        public List<ColorFontSelectedView> GetSelectedBorderColor()
+        {
+            using (var ctx = new ConXContext())
+            {
+
+                //query data
+                List<COLOR_OF_FONT_MAST> color = ctx.ColorFontMasts
+                   .OrderBy(o => o.emb_color_mast_id)
+                    .ToList();
+
+                List<ColorFontSelectedView> colorViews = new List<ColorFontSelectedView>();
+
+                foreach (var i in color)
+                {
+                    CATALOG_BORDER_COLOR emb = ctx.CatalogBorderColors
+                        .Where(z => z.border_color_code == i.color_code)
+                        .SingleOrDefault();
+
+
+
+                    if (emb == null)
+                    {
+                        ColorFontSelectedView view = new ColorFontSelectedView()
+                        {
+                            emb_color_mast_id = i.emb_color_mast_id,
+                            color_code = i.color_code,
+                            color_name = i.color_name,
+                            pic_file_path = i.pic_file_path,
+                            pic_base64 = i.pic_base64,
+                            isSelected = false
+                        };
+
+                        colorViews.Add(view);
+                    }
+                    else
+                    {
+                        ColorFontSelectedView view = new ColorFontSelectedView()
+                        {
+                            emb_color_mast_id = i.emb_color_mast_id,
+                            color_code = i.color_code,
+                            color_name = i.color_name,
+                            pic_file_path = i.pic_file_path,
+                            pic_base64 = i.pic_base64,
+                            isSelected = true
+                        };
+
+                        colorViews.Add(view);
+                    }
+
+                }
+
+                return colorViews;
+            }
+        }
+
         public CommonSearchView<CatalogBorderColorView> Search(CatalogBorderColorSearchView model)
         {
             using (var ctx = new ConXContext())

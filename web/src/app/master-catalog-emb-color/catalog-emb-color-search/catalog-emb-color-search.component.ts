@@ -42,7 +42,7 @@ export class CatalogEmbColorSearchComponent implements OnInit {
   
   public catalogDesignLists: any;
   public color: any = [];
-  public selectColor;
+  //public selectColor;
 
   // master_checked: boolean = false;
   // master_indeterminate: boolean = false;
@@ -57,37 +57,16 @@ export class CatalogEmbColorSearchComponent implements OnInit {
   
     //console.log(this.model.catalog_id);
     this.color = await this._catalogEmbColorSvc.getColor();
-    this.data = await this._catalogEmbColorSvc.search(this.model_search);
 
-    //console.log(this.color);
-    //console.log(this.data);
-
-    
     this.checkedList = [];
     for (var i = 0; i < this.color.length; i++) {
-      for(var j = 0; j < this.data.datas.length; j++){
-        if(this.color[i].color_code == this.data.datas[j].emb_color_code )
-        {
-          this.color.isSelected = true;
-        }
-        else
-        {
-          this.color.isSelected = false;
-        }
-          
-
-        
-      }
+      if(this.color[i].emb_color_mast_id)
       this.checkedList.push(this.color[i]);
-      
     }
+    this.checkedList = JSON.stringify(this.checkedList);
 
-    console.log(this.color.isSelected);
-   
+    console.log(this.checkedList);
     
-
-    //this.catalog_id.nativeElement.value = this.model_search.catalog_id;
-    //this.getCheckedItemList();
   }
 
   buildForm() {
@@ -123,7 +102,25 @@ export class CatalogEmbColorSearchComponent implements OnInit {
     this._router.navigateByUrl('/app/catalog-emb/'+this.model_search.catalog_id);
   }
 
+  async save()
+  {
+    console.log(this.checkedList);
+    if(this.checkedList.length == 0)
+    {
+      await this._msgSvc.warningPopup("ต้องเลือกข้อมูล");
+    }
+    else
+    {
+      await this._catalogEmbColorSvc.create(this.checkedList);
+     
+      await this._msgSvc.successPopup("บันทึกข้อมูลเรียบร้อย");
+      await this.search();
+      //this._router.navigateByUrl('/app/color-font');
+    }
 
+  }
+
+  
 
   async delete(color) {
     console.log(color); 
@@ -158,21 +155,6 @@ export class CatalogEmbColorSearchComponent implements OnInit {
 }
 
 
-// checked(item){
-//   if(this.data.datas.indexOf(item) != -1){
-//     return true;
-//   }
-// }
-
-// // when checkbox change, add/remove the item from the array
-// onChange(checked, item){
-//   if(checked){
-//   this.data.datas.push(item);
-//   } else {
-//     this.data.datas.splice(this.data.datas.indexOf(item), 1)
-//   }
-// }
-
   getCheckedItemList(){
     console.log(this.color);
     this.checkedList = [];
@@ -182,7 +164,7 @@ export class CatalogEmbColorSearchComponent implements OnInit {
     }
     this.checkedList = JSON.stringify(this.checkedList);
 
-    console.log(this.checkedList);
+    //console.log(this.checkedList);
   }
 
  

@@ -93,7 +93,7 @@ namespace api.Controllers
             }
         }
 
-        [Route("catalog-embcolor/post/Delete")]
+        [Route("catalog-bordercolor/post/Delete")]
         public HttpResponseMessage postDelete(CatalogBorderColorView model)
         {
             try
@@ -108,6 +108,21 @@ namespace api.Controllers
                 };
 
                 return Request.CreateResponse(HttpStatusCode.OK, res);
+            }
+            catch (Exception ex)
+            {
+                return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, ex.ToString());
+            }
+        }
+
+        [Route("catalog-bordercolor/get-color")]
+        public HttpResponseMessage getColors()
+        {
+            try
+            {
+                var result = colorSvc.GetSelectedBorderColor();
+
+                return Request.CreateResponse(HttpStatusCode.OK, result);
             }
             catch (Exception ex)
             {

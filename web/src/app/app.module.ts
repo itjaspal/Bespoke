@@ -186,6 +186,10 @@ import { CatalogColorCreateComponent } from './master-catalog-color/catalog-colo
 import { CatalogColorUpdateComponent } from './master-catalog-color/catalog-color-update/catalog-color-update.component';
 import { CatalogColorViewComponent } from './master-catalog-color/catalog-color-view/catalog-color-view.component';
 import { CatalogSizeService } from './_service/catalog-size.service';
+import { CatalogSizeCreateComponent } from './master-catalog-size/catalog-size-create/catalog-size-create.component';
+import { CatalogSizeSearchComponent } from './master-catalog-size/catalog-size-search/catalog-size-search.component';
+import { CatalogSizeUpdateComponent } from './master-catalog-size/catalog-size-update/catalog-size-update.component';
+import { CatalogSizeViewComponent } from './master-catalog-size/catalog-size-view/catalog-size-view.component';
 
 
 
@@ -403,6 +407,10 @@ import { CatalogSizeService } from './_service/catalog-size.service';
     CatalogColorCreateComponent,
     CatalogColorUpdateComponent,
     CatalogColorViewComponent,
+    CatalogSizeCreateComponent,
+    CatalogSizeSearchComponent,
+    CatalogSizeUpdateComponent,
+    CatalogSizeViewComponent,
 
 
   ],

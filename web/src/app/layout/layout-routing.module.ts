@@ -65,6 +65,8 @@ import { CatalogBorderColorSearchComponent } from '../master-catalog-border-colo
 import { CatalogBorderColorCreateComponent } from '../master-catalog-border-color/catalog-border-color-create/catalog-border-color-create.component';
 import { CatalogTypeSearchComponent } from '../master-catalog-type/catalog-type-search/catalog-type-search.component';
 import { CatalogTypeCreateComponent } from '../master-catalog-type/catalog-type-create/catalog-type-create.component';
+import { CatalogSizeSearchComponent } from '../master-catalog-size/catalog-size-search/catalog-size-search.component';
+import { CatalogSizeCreateComponent } from '../master-catalog-size/catalog-size-create/catalog-size-create.component';
 
  
 
@@ -161,6 +163,12 @@ const routes: Routes = [
       //Master Catalog Type
       { path: "catalog-type/:catalog_id", component: CatalogTypeSearchComponent, canActivate: [AuthenGuard], data: { parentUrl: "/app/catalog-type" } },
       { path: "catalog-type/:catalog_id/create", component: CatalogTypeCreateComponent, canActivate: [AuthenGuard], data: { parentUrl: "/app/catalog-type" } },
+      //{ path: "catalog-border/update/:id", component: CatalogTypeUpdateComponent, canActivate: [AuthenGuard], data: { parentUrl: "/app/catalog-emb" } },
+
+
+      //Master Catalog Size
+      { path: "catalog-size/:catalog_id", component: CatalogSizeSearchComponent, canActivate: [AuthenGuard], data: { parentUrl: "/app/catalog-size" } },
+      { path: "catalog-size/:catalog_id/create", component: CatalogSizeCreateComponent, canActivate: [AuthenGuard], data: { parentUrl: "/app/catalog-size" } },
       //{ path: "catalog-border/update/:id", component: CatalogTypeUpdateComponent, canActivate: [AuthenGuard], data: { parentUrl: "/app/catalog-emb" } },
 
 

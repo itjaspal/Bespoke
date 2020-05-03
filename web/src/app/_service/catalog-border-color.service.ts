@@ -10,6 +10,10 @@ import { CatalogBorderColorSearchView, CatalogBorderColorView } from '../_model/
 export class CatalogBorderColorService {
 
   constructor(private http: HttpClient) { }
+  
+  public async getColor() {
+    return await this.http.get(environment.API_URL + 'catalog-bordercolor/get-color').toPromise();
+  }
 
   public async search(_model: CatalogBorderColorSearchView) { 
     return await this.http.post<CommonSearchView<CatalogBorderColorView>>(environment.API_URL + 'catalog-bordercolor/postSearch',_model).toPromise();

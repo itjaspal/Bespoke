@@ -65,69 +65,161 @@
               </mat-card-actions>
           </form>
           
-          <mat-card>
+          <div class="row">
 
-            
-              <mat-card-content>
-                  
-               
-                  <div class="row card-table-body" *ngFor="let x of data.datas">
-                      <div class="col-4 col-sm-4">
-                          <small>Color</small>
-                          <dd>{{x.pdcolor_name}}</dd>
-                      </div>
+            <div class="col-12 col-lg-6">
+                <div class="row">
+                    <div class="col-12" style="margin-bottom: 30px">
+                        <!-- <button mat-raised-button color="primary" class="btn-w-md pull-right" type="button"
+                            (click)="search()">
+                            <mat-icon class="material-icons">add</mat-icon> เพิ่ม Type
+                        </button> -->
 
-                      <div class ="col-3 col-sm-3">
-                        <img src="{{x.pic_base64}}" />
-                      </div>
-
-
-                      <!-- <div class="col-1 col-sm-1">
-                        <button mat-icon-button [matMenuTriggerFor]="appMenu">
-                            <mat-icon class="material-icons">more_horiz</mat-icon>
-                        </button>
-
-                        <mat-menu #appMenu="matMenu">
-                            <button mat-menu-item [routerLink]="['/app/catalog/view/'+x.catalog_id]">
-                                <mat-icon class="material-icons">search</mat-icon> <span>แสดง</span>
-                            </button>
-                            <button mat-menu-item [routerLink]="['/app/catalog/update/'+x.catalog_id]">
-                                <mat-icon class="material-icons">edit</mat-icon> <span>แก้ไข</span>
-                            </button>
-                         
-                            <button mat-menu-item (click)="delete(x)">
-                                <mat-icon class="material-icons">delete</mat-icon> <span>ลบ</span>
-                            </button>
-                        </mat-menu>
-
-                    </div> -->
-                      
-                        <!-- <div class="col-9 col-sm-9" >
-                            <small>สี</small>
-                            <dd *ngFor="let y of x.catalogColors">   
-                                <img src="{{y.pic_base64}}" />
-                            </dd>     
+                    </div>
+                    <div class="col-12" style="margin-bottom: 30px">
+                        <mat-card>
+                            <mat-card-title>
+                                <h6>Type <button mat-raised-button color="primary"  class="btn-w-md pull-right" type="button"
+                                    (click)="add_type()">
+                                    <mat-icon class="material-icons">add</mat-icon>เพิ่ม Type</button></h6>
                                 
-                        </div> -->
-                       
-                          
-                            
-                           
-                       
-                                <!-- <div class="col-1 col-sm-1" *ngFor="let y of x.catalogColors" >
-                                    <div style="display:inline-block;height:50px;"  [ngStyle]="{'width': '30%'}" >
-                                        <img src="{{y.pic_base64}}" />
+                            </mat-card-title>
+                            <mat-card-content>
+                             
+                                <!-- <div class="row">
+                                    <div class="col-2 col-lg-1">
+                                        <mat-checkbox [(ngModel)]="isSelectAll" (click)="setSelection()">
+                                        </mat-checkbox>
                                     </div>
                                 </div> -->
-                        
-                    
-                      
-                      <div class="col-12">
-                          <hr />
-                      </div>
-                  </div>
-              </mat-card-content>
-          </mat-card>
+                                <div class="row card-table-body" *ngFor="let x of products.datas">
+                                    <!-- <div class="col-12 col-sm-2">
+                                        <mat-checkbox [(ngModel)]="x.isSelected" (click)="updateTempSelection(x)"></mat-checkbox>
+                                    </div> -->
+                                    <div class="col-6 col-sm-5">
+                                        <small>รหัสสินค้า</small>
+                                        <dd>{{x.productCode}}</dd>
+                                    </div>
+                                    <div class="col-6 col-sm-5">
+                                        <small>บาร์โค้ด</small>
+                                        <dd>{{x.barcode}}</dd>
+                                    </div>
+                                    <div class="col-12 col-sm-12">
+                                        <small>ชื่อสินค้า</small>
+                                        <dd>{{x.productName}}</dd>
+                                    </div>
+                                    <div class="col-12 col-sm-12 text-right">
+                                        <button mat-icon-button [matMenuTriggerFor]="appMenu">
+                                            <mat-icon class="material-icons">more_horiz</mat-icon>
+                                        </button>
+
+                                        <mat-menu #appMenu="matMenu">
+                                            <button mat-menu-item (click)="delete_type(x)">
+                                                <mat-icon class="material-icons">delete</mat-icon> <span>ลบ</span>
+                                            </button>
+                                        </mat-menu>
+
+                                    </div>
+                                    <div class="col-12">
+                                        <hr />
+                                    </div>
+                                </div>
+                                <!-- <mat-card-content *ngIf="products.datas != undefined">
+                                    <ngb-pagination [collectionSize]="products.totalItem"
+                                        [pageSize]="productSearch.itemPerPage" [maxSize]="5"
+                                        [(page)]="productSearch.pageIndex" (pageChange)="searchProduct()"
+                                        [boundaryLinks]="true"></ngb-pagination>
+                                </mat-card-content> -->
+                            </mat-card-content>
+                        </mat-card>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="col-12 col-lg-6">
+                <div class="row">
+                    <div class="col-12" style="margin-bottom: 30px">
+                        <!-- <button mat-raised-button color="primary" class="btn-w-md pull-right" type="button"
+                            (click)="addProductSKU()">
+                            <mat-icon class="material-icons">add</mat-icon>เพิ่ม Size
+                        </button> -->
+                    </div>
+                    <div class="col-12">
+                        <mat-card>
+                            <mat-card-title>
+                                <h6>Size <button mat-raised-button color="primary"  class="btn-w-md pull-right" type="button"
+                                    (click)="add_size()">
+                                    <mat-icon class="material-icons">add</mat-icon>เพิ่ม Size</button></h6>   
+                            </mat-card-title>
+
+                            <mat-card-content>
+                                <!-- <div class="row card-table-header">                                       
+                                    <div class="col-2 col-lg-2">
+                                        <b>รหัสสินค้า</b>
+                                    </div>
+                                    <div class="col-2 col-lg-2">
+                                        <b>รหัสบาร์โค้ด</b>
+                                    </div>
+                                    <div class="col-6 col-lg-6">
+                                        <b>ชื่อสินค้า</b>
+                                    </div>                                       
+                                    <div class="col-2 col-lg-2"></div>
+                                    <div class="col-12">
+                                        <hr />
+                                    </div>
+                                </div> -->
+                                <div class="row card-table-body" *ngFor="let x of productAssignSKU.datas">
+                                    <div class="col-6 col-sm-6">
+                                        <small>รหัสสินค้า</small>
+                                        <dd>{{x.productCode}}</dd>
+                                    </div>
+                                    <div class="col-6 col-sm-6">
+                                        <small>บาร์โค้ด</small>
+                                        <dd>{{x.barcode}}</dd>
+                                    </div>
+                                    <div class="col-12 col-sm-12">
+                                        <small>ชื่อสินค้า</small>
+                                        <dd>{{x.productName}}</dd>
+                                    </div>
+                                    <div class="col-12 col-sm-12 text-right">
+                                        <button mat-icon-button [matMenuTriggerFor]="appMenu">
+                                            <mat-icon class="material-icons">more_horiz</mat-icon>
+                                        </button>
+
+                                        <mat-menu #appMenu="matMenu">
+                                            <button mat-menu-item (click)="delete_size(x)">
+                                                <mat-icon class="material-icons">delete</mat-icon> <span>ลบ</span>
+                                            </button>
+                                        </mat-menu>
+
+                                    </div>
+                                    <div class="col-12">
+                                        <hr />
+                                    </div>
+                                </div>
+                                <!-- <mat-card-content *ngIf="productAssignSKU.datas != undefined">
+                                        <ngb-pagination [collectionSize]="productAssignSKU.totalItem"
+                                          [pageSize]="productAssignedSearch.itemPerPage" [maxSize]="5"
+                                          [(page)]="productAssignedSearch.pageIndex" (pageChange)="loadProductAssigned()"
+                                          [boundaryLinks]="true"></ngb-pagination>
+                                      </mat-card-content> -->
+                            </mat-card-content>
+                            <!-- <div class="col-12">
+                                <button mat-raised-button color="primary" class="btn-w-md pull-right" type="button"
+                                    style="margin-top: -20px" (click)="save()"
+                                    [disabled]="productAssignSKU.datas.length==0">
+                                    <mat-icon class="material-icons">save</mat-icon> บันทึกข้อมูล
+                                </button>
+                            </div> -->
+                        </mat-card>
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
 
           <!-- <mat-paginator [length]="data.totalItem" [pageIndex]="model.pageIndex" [pageSize]="model.itemPerPage"
               [pageSizeOptions]="pageSizeOptions" (page)="pageEvent = $event; search($event)">
