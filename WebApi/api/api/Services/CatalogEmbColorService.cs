@@ -19,14 +19,16 @@ namespace api.Services
 
                 using (TransactionScope scope = new TransactionScope())
                 {
-                    CATALOG_EMB_COLOR newObj = new CATALOG_EMB_COLOR()
+                    //foreach (var i in model)
+
+                        CATALOG_EMB_COLOR newObj = new CATALOG_EMB_COLOR()
                     {
-                        catalog_emb_color_id = model.catalog_emb_color_id,
+                        //catalog_emb_color_id = model.catalog_emb_color_id,
                         catalog_id = model.catalog_id,
                         emb_color_code = model.emb_color_code,
                         created_by = model.created_by,
                         created_at = DateTime.Now,
-                        updated_by = model.updated_by,
+                        updated_by = model.created_by,
                         updated_at = DateTime.Now
 
                     };
@@ -77,7 +79,7 @@ namespace api.Services
             }
         }
 
-        public List<ColorFontSelectedView> GetSelectedEmbColor()
+        public List<ColorFontSelectedView> GetSelectedEmbColor(long catalog)
         {
             using (var ctx = new ConXContext())
             {
@@ -92,7 +94,7 @@ namespace api.Services
                 foreach (var i in color)
                 {
                     CATALOG_EMB_COLOR emb = ctx.CatalogEmbColors
-                        .Where(z => z.emb_color_code == i.color_code)
+                        .Where(z => z.emb_color_code == i.color_code && z.catalog_id == catalog)
                         .SingleOrDefault();
 
                    
@@ -196,6 +198,30 @@ namespace api.Services
 
                     ctx.SaveChanges();
                     scope.Complete();
+                }
+            }
+        }
+
+        public void UpdateEmbColor(List<CatalogEmbColorView> colors)
+        {
+            using (var ctx = new ConXContext())
+            {
+                using (TransactionScope scope = new TransactionScope())
+                {
+                    if (colors.Count > 0)
+                    {
+                        //int y = saleTargets[0].year;
+                        //int g = saleTargets[0].branch.branchGroupId;
+                        //ctx.SaleTargets.RemoveRange(ctx.SaleTargets.Where(z => z.year == y && (ctx.Branchs.Any(p => p.branchId == z.branchId && p.branchGroupId == g))));
+                        //ctx.SaveChanges();
+                        //foreach (SaleTarget sTarget in saleTargets)
+                        //{
+                        //    sTarget.branch = null;
+                        //    ctx.SaleTargets.Add(sTarget);
+                        //}
+                        ctx.SaveChanges();
+                        scope.Complete();
+                    }
                 }
             }
         }

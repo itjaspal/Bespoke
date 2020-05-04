@@ -15,6 +15,7 @@ namespace api.Interfaces
         void Update(CatalogBorderColorView model);
 
         void delete(CatalogBorderColorView color);
-        List<ColorFontSelectedView> GetSelectedBorderColor();
+        List<ColorFontSelectedView> GetSelectedBorderColor(long catalog);
+        void UpdateEmbColor(List<CatalogBorderColorView> colors);
     }
 }

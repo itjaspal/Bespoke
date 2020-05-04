@@ -75,8 +75,7 @@ namespace api.Services
                 };
             }
         }
-
-        public List<ColorFontSelectedView> GetSelectedBorderColor()
+        public List<ColorFontSelectedView> GetSelectedBorderColor(long catalog)
         {
             using (var ctx = new ConXContext())
             {
@@ -91,7 +90,7 @@ namespace api.Services
                 foreach (var i in color)
                 {
                     CATALOG_BORDER_COLOR emb = ctx.CatalogBorderColors
-                        .Where(z => z.border_color_code == i.color_code)
+                        .Where(z => z.border_color_code == i.color_code && z.catalog_id == catalog)
                         .SingleOrDefault();
 
 
@@ -130,6 +129,8 @@ namespace api.Services
                 return colorViews;
             }
         }
+
+        
 
         public CommonSearchView<CatalogBorderColorView> Search(CatalogBorderColorSearchView model)
         {
@@ -197,6 +198,11 @@ namespace api.Services
                     scope.Complete();
                 }
             }
+        }
+
+        public void UpdateEmbColor(List<CatalogBorderColorView> colors)
+        {
+            throw new NotImplementedException();
         }
     }
 }

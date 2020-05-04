@@ -47,25 +47,27 @@ export class CatalogEmbColorSearchComponent implements OnInit {
   // master_checked: boolean = false;
   // master_indeterminate: boolean = false;
   // checkbox_list = [];
-  
+  public user: any;
   
 
   async ngOnInit() {
     this.buildForm();
+    this.user = this._authSvc.getLoginUser();
     this.model_search.catalog_id = this._actRoute.snapshot.params.catalog_id;
     this.catalogDesignLists = await this._ddlSvc.getDdlCatalogDesign();
   
     //console.log(this.model.catalog_id);
-    this.color = await this._catalogEmbColorSvc.getColor();
+    this.color = await this._catalogEmbColorSvc.getColor(this.model_search.catalog_id);
 
     this.checkedList = [];
+    //let newcolor: CatalogEmbColorView = new CatalogEmbColorView();
     for (var i = 0; i < this.color.length; i++) {
-      if(this.color[i].emb_color_mast_id)
+      if(this.color[i].emb_color_mast_id && this.color[i].isSelected == true)
       this.checkedList.push(this.color[i]);
     }
-    this.checkedList = JSON.stringify(this.checkedList);
+    //this.checkedList = JSON.stringify(this.checkedList);
 
-    console.log(this.checkedList);
+    //console.log(this.checkedList);
     
   }
 
@@ -79,7 +81,7 @@ export class CatalogEmbColorSearchComponent implements OnInit {
     console.log(this.model_search);
     //this.model_search.catalog_id = this.model.catalog_id;
     this.data = await this._catalogEmbColorSvc.search(this.model_search);
-    console.log(this.data); 
+    //console.log(this.data); 
   }
 
   async add() {
@@ -104,14 +106,30 @@ export class CatalogEmbColorSearchComponent implements OnInit {
 
   async save()
   {
-    console.log(this.checkedList);
+     console.log(this.checkedList);
+    // let newColor: CatalogEmbColorView = new CatalogEmbColorView();
+    
+    // for (var i = 0; i < this.color.length; i++) {
+    //   if(this.color[i].emb_color_mast_id){
+    //     newColor.catalog_id = this.model_search.catalog_id;
+    //     newColor.emb_color_code = this.color[i].color_code;
+    //     newColor.pic_base64 = this.color[i].pic_base64;
+    //     newColor.isSelected = this.color[i].isSelected;
+    //     newColor.created_by = this.user.username;
+    //     newColor.updated_by = this.user.username;
+    //   }
+    // }
+
+    // console.log(newColor);
+
+
     if(this.checkedList.length == 0)
     {
       await this._msgSvc.warningPopup("ต้องเลือกข้อมูล");
     }
     else
     {
-      await this._catalogEmbColorSvc.create(this.checkedList);
+      await this._catalogEmbColorSvc.updateEmbColor(this.checkedList);
      
       await this._msgSvc.successPopup("บันทึกข้อมูลเรียบร้อย");
       await this.search();
@@ -159,10 +177,10 @@ export class CatalogEmbColorSearchComponent implements OnInit {
     console.log(this.color);
     this.checkedList = [];
     for (var i = 0; i < this.color.length; i++) {
-      if(this.color[i].emb_color_mast_id)
+      if(this.color[i].emb_color_mast_id && this.color[i].isSelected == true)
       this.checkedList.push(this.color[i]);
     }
-    this.checkedList = JSON.stringify(this.checkedList);
+    //this.checkedList = JSON.stringify(this.checkedList);
 
     //console.log(this.checkedList);
   }

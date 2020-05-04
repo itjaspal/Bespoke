@@ -14,11 +14,8 @@ namespace api.Interfaces
         CatalogEmbColorView GetInfo(long code, long catalog);
         void Create(CatalogEmbColorView model);
         void Update(CatalogEmbColorView model);
-
         void delete(CatalogEmbColorView color);
-        //List<COLOR_OF_FONT_MAST> InquiryColors();
-
-        
-        List<ColorFontSelectedView> GetSelectedEmbColor();
+        List<ColorFontSelectedView> GetSelectedEmbColor(long catalog);
+        void UpdateEmbColor(List<CatalogEmbColorView> colors);
     }
 }

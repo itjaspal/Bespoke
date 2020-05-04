@@ -15,7 +15,7 @@ namespace api.ModelViews
         public DateTime created_at { get; set; }
         public string updated_by { get; set; }
         public DateTime updated_at { get; set; }
-        //public bool isSelected { get; set; }
+        public bool isSelected { get; set; }
     }
 
 
@@ -27,6 +27,7 @@ namespace api.ModelViews
         public string pic_file_path { get; set; }
         public string pic_base64 { get; set; }
         public bool isSelected { get; set; }
+        
     }
 
     public class CatalogEmbColorSearchView

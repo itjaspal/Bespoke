@@ -115,14 +115,29 @@ namespace api.Controllers
             }
         }
 
-        [Route("catalog-embcolor/get-color")]
-        public HttpResponseMessage getColors()
+        [Route("catalog-embcolor/get-color/{catalog}")]
+        public HttpResponseMessage getColors(long catalog)
         {
             try
             {
-                var result = colorSvc.GetSelectedEmbColor();
+                var result = colorSvc.GetSelectedEmbColor(catalog);
 
                 return Request.CreateResponse(HttpStatusCode.OK, result);
+            }
+            catch (Exception ex)
+            {
+                return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, ex.ToString());
+            }
+        }
+
+        //[POST("postUpdateSaleTarget")]
+        [Route("catalog-embcolor/postUpdateEmbColor")]
+        public HttpResponseMessage postUpdateEmbColor(List<CatalogEmbColorView> model)
+        {
+            try
+            {
+                colorSvc.UpdateEmbColor(model);
+                return Request.CreateResponse(HttpStatusCode.OK, "SUCCESS");
             }
             catch (Exception ex)
             {

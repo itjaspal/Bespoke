@@ -11,10 +11,9 @@ export class CatalogEmbColorService {
 
   constructor(private http: HttpClient) { }
 
-  public async getColor() {
+  public async getColor(_id: number) {
     //return await this.http.get(environment.API_URL + 'master-user-role/function-group/get/'+isPC).toPromise();
-    return await this.http.get(environment.API_URL + 'catalog-embcolor/get-color').toPromise();
-    
+    return await this.http.get(environment.API_URL + 'catalog-embcolor/get-color/'+ _id).toPromise();
   }
 
   public async search(_model: CatalogEmbColorSearchView) { 
@@ -35,5 +34,9 @@ export class CatalogEmbColorService {
 
   public async delete(params) {
     return await this.http.post(environment.API_URL + 'catalog-embcolor/post/Delete',params).toPromise();
+  }
+
+  public async updateEmbColor(model) {
+    return await this.http.post(environment.API_URL + 'catalog-embcolor/postUpdateEmbColor', model).toPromise();
   }
 }
