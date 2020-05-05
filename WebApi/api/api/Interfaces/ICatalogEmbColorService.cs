@@ -16,6 +16,6 @@ namespace api.Interfaces
         void Update(CatalogEmbColorView model);
         void delete(CatalogEmbColorView color);
         List<ColorFontSelectedView> GetSelectedEmbColor(long catalog);
-        void UpdateEmbColor(List<CatalogEmbColorView> colors);
+        void UpdateEmbColor(List<ColorFontSelectedView> colors);
     }
 }

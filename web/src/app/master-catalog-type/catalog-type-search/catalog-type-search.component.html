@@ -8,19 +8,6 @@
           <form [formGroup]="validationForm">
               <mat-card-content class="no-margin">
                 
-                  <!-- <div class="row">
-                      <div class="col-sm-6 col-lg-3">
-                        <mat-form-field class="full-width">
-                            
-                            <mat-select #catalog_id  placeholder="Product Design"  [(ngModel)]="model_search.catalog_id"  name="catalog_id">
-                              <mat-option>ทั้งหมด</mat-option>
-                              <mat-option *ngFor="let x of catalogDesignLists" [value]="x.key">{{x.value}}</mat-option>
-                            </mat-select>
-
-                        </mat-form-field>
-                      </div>
-                  
-                  </div> -->
                   <div class="row">
                     <div class="col-6 col-sm-3">
                       
@@ -79,23 +66,14 @@
                     <div class="col-12" style="margin-bottom: 30px">
                         <mat-card>
                             <mat-card-title>
-                                <h6>Type <button mat-raised-button color="primary"  class="btn-w-md pull-right" type="button"
+                                <h6>Type <button mat-raised-button   class="btn-w-md pull-right" type="button"
                                     (click)="add_type()">
                                     <mat-icon class="material-icons">add</mat-icon>เพิ่ม Type</button></h6>
                                 
                             </mat-card-title>
                             <mat-card-content>
                              
-                                <!-- <div class="row">
-                                    <div class="col-2 col-lg-1">
-                                        <mat-checkbox [(ngModel)]="isSelectAll" (click)="setSelection()">
-                                        </mat-checkbox>
-                                    </div>
-                                </div> -->
-                                <div class="row card-table-body" *ngFor="let x of products.datas">
-                                    <!-- <div class="col-12 col-sm-2">
-                                        <mat-checkbox [(ngModel)]="x.isSelected" (click)="updateTempSelection(x)"></mat-checkbox>
-                                    </div> -->
+                                <!-- <div class="row card-table-body" *ngFor="let x of products.datas">
                                     <div class="col-6 col-sm-5">
                                         <small>รหัสสินค้า</small>
                                         <dd>{{x.productCode}}</dd>
@@ -123,7 +101,7 @@
                                     <div class="col-12">
                                         <hr />
                                     </div>
-                                </div>
+                                </div> -->
                                 <!-- <mat-card-content *ngIf="products.datas != undefined">
                                     <ngb-pagination [collectionSize]="products.totalItem"
                                         [pageSize]="productSearch.itemPerPage" [maxSize]="5"
@@ -148,7 +126,7 @@
                     <div class="col-12">
                         <mat-card>
                             <mat-card-title>
-                                <h6>Size <button mat-raised-button color="primary"  class="btn-w-md pull-right" type="button"
+                                <h6>Size <button mat-raised-button  class="btn-w-md pull-right" type="button"
                                     (click)="add_size()">
                                     <mat-icon class="material-icons">add</mat-icon>เพิ่ม Size</button></h6>   
                             </mat-card-title>
@@ -169,7 +147,7 @@
                                         <hr />
                                     </div>
                                 </div> -->
-                                <div class="row card-table-body" *ngFor="let x of productAssignSKU.datas">
+                                <!-- <div class="row card-table-body" *ngFor="let x of productAssignSKU.datas">
                                     <div class="col-6 col-sm-6">
                                         <small>รหัสสินค้า</small>
                                         <dd>{{x.productCode}}</dd>
@@ -197,7 +175,7 @@
                                     <div class="col-12">
                                         <hr />
                                     </div>
-                                </div>
+                                </div> -->
                                 <!-- <mat-card-content *ngIf="productAssignSKU.datas != undefined">
                                         <ngb-pagination [collectionSize]="productAssignSKU.totalItem"
                                           [pageSize]="productAssignedSearch.itemPerPage" [maxSize]="5"

@@ -14,6 +14,15 @@ export class CatalogMastView
     public created_at: any = null;
     public updated_by: string = "";
     public updated_at :any= null;
+    public catalogColors: DesignColorView[] = [];
+}
+
+export class DesignColorView
+{
+    public pdcolor_code:string ="";
+    public pdcolor_name:string ="";
+    public pic_file_path:string ="";
+    public pic_base64:string ="";
 }
 
 export class CatalogMastSearchView

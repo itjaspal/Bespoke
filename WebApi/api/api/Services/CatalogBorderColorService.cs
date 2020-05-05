@@ -100,6 +100,7 @@ namespace api.Services
                         ColorFontSelectedView view = new ColorFontSelectedView()
                         {
                             emb_color_mast_id = i.emb_color_mast_id,
+                            catalog_id = catalog,
                             color_code = i.color_code,
                             color_name = i.color_name,
                             pic_file_path = i.pic_file_path,
@@ -114,6 +115,7 @@ namespace api.Services
                         ColorFontSelectedView view = new ColorFontSelectedView()
                         {
                             emb_color_mast_id = i.emb_color_mast_id,
+                            catalog_id = catalog,
                             color_code = i.color_code,
                             color_name = i.color_name,
                             pic_file_path = i.pic_file_path,
@@ -200,9 +202,42 @@ namespace api.Services
             }
         }
 
-        public void UpdateEmbColor(List<CatalogBorderColorView> colors)
+        public void UpdateBorderColor(List<ColorFontSelectedView> colors)
         {
-            throw new NotImplementedException();
+            using (var ctx = new ConXContext())
+            {
+                using (TransactionScope scope = new TransactionScope())
+                {
+                    if (colors.Count > 0)
+                    {
+                        long y = colors[0].catalog_id;
+                        //int g = saleTargets[0].branch.branchGroupId;
+                        ctx.CatalogBorderColors.RemoveRange(ctx.CatalogBorderColors.Where(z => z.catalog_id == y));
+                        ctx.SaveChanges();
+
+                        //Insert Data
+                        foreach (ColorFontSelectedView sColors in colors)
+                        {
+                            CATALOG_BORDER_COLOR newObj = new CATALOG_BORDER_COLOR()
+                            {
+                                //catalog_emb_color_id = model.catalog_emb_color_id,
+                                catalog_id = sColors.catalog_id,
+                                border_color_code = sColors.color_code,
+                                created_by = sColors.user_code,
+                                created_at = DateTime.Now,
+                                updated_by = sColors.user_code,
+                                updated_at = DateTime.Now
+
+                            };
+
+                            ctx.CatalogBorderColors.Add(newObj);
+
+                        }
+                        ctx.SaveChanges();
+                        scope.Complete();
+                    }
+                }
+            }
         }
     }
 }

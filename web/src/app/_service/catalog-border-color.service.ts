@@ -11,8 +11,8 @@ export class CatalogBorderColorService {
 
   constructor(private http: HttpClient) { }
   
-  public async getColor() {
-    return await this.http.get(environment.API_URL + 'catalog-bordercolor/get-color').toPromise();
+  public async getColor(_id: number) {
+    return await this.http.get(environment.API_URL + 'catalog-bordercolor/get-color/'+ _id).toPromise();
   }
 
   public async search(_model: CatalogBorderColorSearchView) { 
@@ -33,5 +33,9 @@ export class CatalogBorderColorService {
 
   public async delete(params) {
     return await this.http.post(environment.API_URL + 'catalog-bordercolor/post/Delete',params).toPromise();
+  }
+
+  public async updateBorderColor(model) {
+    return await this.http.post(environment.API_URL + 'catalog-bordercolor/postUpdateBorderColor', model).toPromise();
   }
 }

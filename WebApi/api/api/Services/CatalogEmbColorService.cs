@@ -21,7 +21,7 @@ namespace api.Services
                 {
                     //foreach (var i in model)
 
-                        CATALOG_EMB_COLOR newObj = new CATALOG_EMB_COLOR()
+                    CATALOG_EMB_COLOR newObj = new CATALOG_EMB_COLOR()
                     {
                         //catalog_emb_color_id = model.catalog_emb_color_id,
                         catalog_id = model.catalog_id,
@@ -104,6 +104,7 @@ namespace api.Services
                         ColorFontSelectedView view = new ColorFontSelectedView()
                         {
                             emb_color_mast_id = i.emb_color_mast_id,
+                            catalog_id = catalog,
                             color_code = i.color_code,
                             color_name = i.color_name,
                             pic_file_path = i.pic_file_path,
@@ -118,6 +119,7 @@ namespace api.Services
                         ColorFontSelectedView view = new ColorFontSelectedView()
                         {
                             emb_color_mast_id = i.emb_color_mast_id,
+                            catalog_id = catalog,
                             color_code = i.color_code,
                             color_name = i.color_name,
                             pic_file_path = i.pic_file_path,
@@ -202,7 +204,7 @@ namespace api.Services
             }
         }
 
-        public void UpdateEmbColor(List<CatalogEmbColorView> colors)
+        public void UpdateEmbColor(List<ColorFontSelectedView> colors)
         {
             using (var ctx = new ConXContext())
             {
@@ -210,15 +212,29 @@ namespace api.Services
                 {
                     if (colors.Count > 0)
                     {
-                        //int y = saleTargets[0].year;
+                        long y = colors[0].catalog_id;
                         //int g = saleTargets[0].branch.branchGroupId;
-                        //ctx.SaleTargets.RemoveRange(ctx.SaleTargets.Where(z => z.year == y && (ctx.Branchs.Any(p => p.branchId == z.branchId && p.branchGroupId == g))));
-                        //ctx.SaveChanges();
-                        //foreach (SaleTarget sTarget in saleTargets)
-                        //{
-                        //    sTarget.branch = null;
-                        //    ctx.SaleTargets.Add(sTarget);
-                        //}
+                        ctx.CatalogEmbColors.RemoveRange(ctx.CatalogEmbColors.Where(z => z.catalog_id == y ));
+                        ctx.SaveChanges();
+
+                        //Insert Data
+                        foreach (ColorFontSelectedView sColors in colors)
+                        {
+                            CATALOG_EMB_COLOR newObj = new CATALOG_EMB_COLOR()
+                            {
+                                //catalog_emb_color_id = model.catalog_emb_color_id,
+                                catalog_id = sColors.catalog_id,
+                                emb_color_code = sColors.color_code,
+                                created_by = sColors.user_code,
+                                created_at = DateTime.Now,
+                                updated_by = sColors.user_code,
+                                updated_at = DateTime.Now
+
+                            };
+
+                            ctx.CatalogEmbColors.Add(newObj);
+                           
+                        }
                         ctx.SaveChanges();
                         scope.Complete();
                     }

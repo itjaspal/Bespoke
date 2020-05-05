@@ -41,26 +41,29 @@ export class CatalogBorderColorSearchComponent implements OnInit {
   public catalogDesignLists: any;
   
   public color: any = [];
-  //public selectColor;
+  public user: any;
 
   async ngOnInit() {
     this.buildForm();
+    this.user = this._authSvc.getLoginUser();
     this.model_search.catalog_id = this._actRoute.snapshot.params.catalog_id;
     this.catalogDesignLists = await this._ddlSvc.getDdlCatalogDesign();
   
     //console.log(this.model.catalog_id);
-    this.color = await this._catalogBorderColorSvc.getColor();
-    //this.data = await this._catalogBorderColorSvc.search(this.model_search);
+    this.color = await this._catalogBorderColorSvc.getColor(this.model_search.catalog_id);
 
-    //this.catalog_id.nativeElement.value = this.model_search.catalog_id;
+    console.log(this.color);
 
     this.checkedList = [];
+    //let newcolor: CatalogEmbColorView = new CatalogEmbColorView();
     for (var i = 0; i < this.color.length; i++) {
-      if(this.color[i].emb_color_mast_id)
-      this.checkedList.push(this.color[i]);
+      if(this.color[i].border_color_mast_id && this.color[i].isSelected == true)
+      {
+        this.color[i].user_code = this.user.username;
+        this.checkedList.push(this.color[i]);
+      }
+      
     }
-    this.checkedList = JSON.stringify(this.checkedList);
-    console.log(this.checkedList);
     
   }
 
@@ -71,10 +74,16 @@ export class CatalogBorderColorSearchComponent implements OnInit {
   }
 
   async search() {
-    console.log(this.model_search);
-    //this.model_search.catalog_id = this.model.catalog_id;
-    this.data = await this._catalogBorderColorSvc.search(this.model_search);
-    console.log(this.data); 
+    this.color = await this._catalogBorderColorSvc.getColor(this.model_search.catalog_id);
+
+    this.checkedList = [];
+    for (var i = 0; i < this.color.length; i++) {
+      if(this.color[i].border_color_mast_id && this.color[i].isSelected == true)
+      {
+        this.color[i].user_code = this.user.username;
+        this.checkedList.push(this.color[i]);
+      }
+    }
   }
 
   async add() {
@@ -135,13 +144,37 @@ export class CatalogBorderColorSearchComponent implements OnInit {
     console.log(this.color);
     this.checkedList = [];
     for (var i = 0; i < this.color.length; i++) {
-      if(this.color[i].emb_color_mast_id)
-      this.checkedList.push(this.color[i]);
+      if(this.color[i].emb_color_mast_id && this.color[i].isSelected == true)
+      {
+        this.color[i].user_code = this.user.username;
+        this.checkedList.push(this.color[i]);
+      }
+      
     }
-    this.checkedList = JSON.stringify(this.checkedList);
+    //this.checkedList = JSON.stringify(this.checkedList);
 
     console.log(this.checkedList);
   }
+
+  async save()
+  {
+      console.log(this.checkedList);
+      if(this.checkedList.length == 0)
+      {
+        await this._msgSvc.warningPopup("ต้องเลือกข้อมูล");
+      }
+      else
+      {
+        await this._catalogBorderColorSvc.updateBorderColor(this.checkedList);
+      
+        await this._msgSvc.successPopup("บันทึกข้อมูลเรียบร้อย");
+        await this.search();
+        //this._router.navigateByUrl('/app/color-font');
+      }
+
+  }
+
+  
 
   close() {
     this._router.navigateByUrl('/app/catalog');

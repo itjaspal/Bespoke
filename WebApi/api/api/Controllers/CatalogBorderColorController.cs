@@ -131,11 +131,11 @@ namespace api.Controllers
         }
 
         [Route("catalog-bordercolor/postUpdateBorderColor")]
-        public HttpResponseMessage postUpdateEmbColor(List<CatalogBorderColorView> model)
+        public HttpResponseMessage postUpdateEmbColor(List<ColorFontSelectedView> model)
         {
             try
             {
-                colorSvc.UpdateEmbColor(model);
+                colorSvc.UpdateBorderColor(model);
                 return Request.CreateResponse(HttpStatusCode.OK, "SUCCESS");
             }
             catch (Exception ex)

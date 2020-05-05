@@ -12,7 +12,6 @@ export class CatalogEmbColorService {
   constructor(private http: HttpClient) { }
 
   public async getColor(_id: number) {
-    //return await this.http.get(environment.API_URL + 'master-user-role/function-group/get/'+isPC).toPromise();
     return await this.http.get(environment.API_URL + 'catalog-embcolor/get-color/'+ _id).toPromise();
   }
 

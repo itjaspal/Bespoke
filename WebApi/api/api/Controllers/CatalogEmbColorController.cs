@@ -132,7 +132,7 @@ namespace api.Controllers
 
         //[POST("postUpdateSaleTarget")]
         [Route("catalog-embcolor/postUpdateEmbColor")]
-        public HttpResponseMessage postUpdateEmbColor(List<CatalogEmbColorView> model)
+        public HttpResponseMessage postUpdateEmbColor(List<ColorFontSelectedView> model)
         {
             try
             {
