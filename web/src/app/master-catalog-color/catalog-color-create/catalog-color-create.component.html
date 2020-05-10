@@ -25,16 +25,69 @@
               
             <div class="row">
               <div class="col-12">
+                <dt>รูปสี</dt><br>
+                <input type="file" #file class="d-none" (change)="preview($event)">
+                      <button matPrefix mat-raised-button color="accent" class="btn-w-md" type="button"
+                          (click)="file.click()">
+                          Choose file
+                      </button>
 
-                <input type='file' #file (change)="preview($event)">
+                <!-- <input type='file' #file (change)="preview($event)"> -->
+                <br>
                 <img [src]="imgURL" height="100" *ngIf="imgURL">
                 
               </div>
             </div>
 
-           
+            <div class="row" style="margin-top: 15px;">
+              
+              <div class="col-12">
+                  <dt>รูป Catalog </dt>
+                  <dd>{{(model.catalog_file_path == null) ? "" : model.catalog_file_path.name}}</dd>
+              </div>
+              <div class="col-sm-12 ">
+                  <!-- <input type="file" #fileInput class="d-none" (change)="fileChange($event.target.files)"> -->
+                  <input type="file" #fileInput class="d-none" (change)="fileChange($event)">
+                  <button matPrefix mat-raised-button color="accent" class="btn-w-md" type="button"
+                      (click)="fileInput.click()">
+                      Choose file
+                  </button>
+                  <br>
+                  <div class="output">ไฟล์ที่เลือก: {{ fileName }} </div>
+              </div>
+          </div>
 
         </mat-card-content>
+
+        
+
+        <!-- <mat-card-subtitle>
+          <h6>รายการไฟล์แนบ</h6>
+          <button mat-fab type="button" color="primary" (click)="upload()">
+            <mat-icon class="material-icons">cloud_upload</mat-icon>
+          </button>
+        </mat-card-subtitle> -->
+
+          <!-- <mat-card-content>
+              <div class="row">
+                  <br>
+                  <br>
+                  <div class="col-12">
+                      <dt>รูป Catalog</dt>
+                      <dd>{{(model.catalog_file_path == null) ? "" : model.catalog_file_path.name}}</dd>
+                  </div>
+                  <div class="col-sm-4 ">
+                      <input type="file" #fileInput class="d-none" (change)="fileChange($event.target.files)">
+                      <button matPrefix mat-raised-button color="accent" class="btn-w-md" type="button"
+                          (click)="fileInput.click()">
+                          Choose file
+                      </button>
+                      <p>{{ fileInput?.files[0]?.name }}</p>
+
+                  </div>
+              </div>
+          </mat-card-content> -->
+
         </form>
       </mat-card-content>
       <mat-card-actions>

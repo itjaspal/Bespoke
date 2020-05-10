@@ -8,6 +8,8 @@ import { AuthenticationService } from '../../_service/authentication.service';
 import { DomSanitizer } from '@angular/platform-browser';
 import { CatalogColorView, CatalogColorSearchView } from '../../_model/catalog-color';
 import { CommonSearchView } from '../../_model/common-search-view';
+import { CatalogDesignService } from '../../_service/catalog-design.service';
+import { CatalogMastView } from '../../_model/catalog-mast';
 
 @Component({
   selector: 'app-catalog-color-search',
@@ -20,6 +22,7 @@ export class CatalogColorSearchComponent implements OnInit {
 
   constructor(
     private _catalogColorSvc: CatalogColorService,
+    private _catalgDesignSvc: CatalogDesignService,
     private _ddlSvc: DropdownlistService,
     private _msgSvc: MessageService,
     private _formBuilder: FormBuilder,
@@ -31,23 +34,30 @@ export class CatalogColorSearchComponent implements OnInit {
 
   public model: CatalogColorView = new CatalogColorView();
   public model_search: CatalogColorSearchView = new CatalogColorSearchView();
-  
+  public model_design: CatalogMastView = new CatalogMastView();
   //actions: any = {};
   public data: CommonSearchView<CatalogColorView> = new CommonSearchView<CatalogColorView>();
   public validationForm: FormGroup;
   
   public catalogDesignLists: any;
+  public designName : any;
 
   async ngOnInit() {
     this.buildForm();
     this.model_search.catalog_id = this._actRoute.snapshot.params.catalog_id;
     this.catalogDesignLists = await this._ddlSvc.getDdlCatalogDesign();
-  
+    
     //console.log(this.model.catalog_id);
    
     this.data = await this._catalogColorSvc.search(this.model_search);
 
     //this.catalog_id.nativeElement.value = this.model_search.catalog_id;
+    if(this.model_search.catalog_id != undefined)
+    {
+      this.model_design = await this._catalgDesignSvc.getInfo(this.model_search.catalog_id);
+    }
+    this.designName = this.model_design.dsgn_name;
+    console.log(this.model_design);
   }
 
   buildForm() {
@@ -58,9 +68,13 @@ export class CatalogColorSearchComponent implements OnInit {
 
   async search() {
     console.log(this.model_search);
-    //this.model_search.catalog_id = this.model.catalog_id;
-    this.data = await this._catalogColorSvc.search(this.model_search);
-    console.log(this.data); 
+  
+    // this.data = await this._catalogColorSvc.search(this.model_search);
+    // console.log(this.data); 
+
+    //this._router.navigateByUrl('/app/catalog-color/'+this.model_search.catalog_id);
+    this._router.navigateByUrl('/', {skipLocationChange: true}).then(()=>
+    this._router.navigate(["/app/catalog-color/"+this.model_search.catalog_id]));
   }
 
   async add() {

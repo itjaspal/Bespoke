@@ -6,7 +6,7 @@ using System.Web;
 
 namespace api.Models
 {
-    public class PdtypeMast
+    public class PDTYPE_MAST
     {
         [Key]
         public long id { get; set; }

@@ -1,6 +1,7 @@
 ﻿using api.Models;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
 using System.Web;
 
@@ -32,6 +33,15 @@ namespace api.ModelViews
         public string pdcolor_name { get; set; }
         public string pic_file_path { get; set; }
         public string pic_base64 { get; set; }
+        public string catalog_file_path { get; set; }
+        public string fullPath
+        {
+            get
+            {
+                string urlPrefix = ConfigurationManager.AppSettings["upload.urlPrefix"];
+                return urlPrefix + this.catalog_file_path;
+            }
+        }
     }
 
     public class CatalogMastSearchView

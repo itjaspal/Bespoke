@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using api.App_Start;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,7 +15,7 @@ namespace api
     {
         protected void Application_Start()
         {
-            
+
             AreaRegistration.RegisterAllAreas();
             GlobalConfiguration.Configure(WebApiConfig.Register);
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
@@ -27,6 +28,40 @@ namespace api
             };
             GlobalConfiguration.Configuration.Formatters.JsonFormatter.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
 
+
+
+
+            ////
+
+            //AreaRegistration.RegisterAllAreas();
+
+            //WebApiConfig.Register(GlobalConfiguration.Configuration);
+            //FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
+            //RouteConfig.RegisterRoutes(RouteTable.Routes);
+            //BundleConfig.RegisterBundles(BundleTable.Bundles);
+            //Initialise Bootstrapper
+            //Bootstrapper.Initialise();
+
+            //Define Formatters
+            //var formatters = GlobalConfiguration.Configuration.Formatters;
+            //var jsonFormatter = formatters.JsonFormatter;
+            //var settings = jsonFormatter.SerializerSettings;
+            //settings.Formatting = Formatting.Indented;
+
+
+            //settings.ContractResolver = new CamelCasePropertyNamesContractResolver();
+            //var appXmlType = formatters.XmlFormatter.SupportedMediaTypes.FirstOrDefault(t => t.MediaType == "application/xml");
+            //formatters.XmlFormatter.SupportedMediaTypes.Remove(appXmlType);
+
+            //var jsonSerializerSettings = new JsonSerializerSettings
+            //{
+            //    PreserveReferencesHandling = PreserveReferencesHandling.Objects
+            //};
+
+            //GlobalConfiguration.Configuration.Formatters.JsonFormatter.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
+
+            //Add CORS Handler
+            //GlobalConfiguration.Configuration.MessageHandlers.Add(new CorsHandler());
         }
     }
 }

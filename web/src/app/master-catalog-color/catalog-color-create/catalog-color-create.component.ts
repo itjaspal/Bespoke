@@ -29,6 +29,8 @@ export class CatalogColorCreateComponent implements OnInit {
   public ProductColorLists: any;
   public user: any;
   imgURL: any;
+  selectedFiles: FileList;
+  fileName: any;
 
   async ngOnInit() {
      
@@ -57,6 +59,7 @@ export class CatalogColorCreateComponent implements OnInit {
     this.model.created_by = this.user.username;
     this.model.updated_by = this.user.username;
     this.model.catalog_id = this._actRoute.snapshot.params.catalog_id;
+    this.model.catalog_file_path = this.model.file.name;
 
     if(this.model.pdcolor_code == "")
     {
@@ -69,10 +72,27 @@ export class CatalogColorCreateComponent implements OnInit {
       await this._msgSvc.successPopup("บันทึกข้อมูลเรียบร้อย");
       this._router.navigateByUrl('/app/catalog-color/'+ this.model.catalog_id); 
     }
+    console.log(this.model.file);
 
   }
 
+  // fileChange(file: File[]) {
+  fileChange(event) {
+    this.selectedFiles = event.target.files;
+    this.selectedFiles = event.target.files;
+    this.fileName = this.selectedFiles[0].name;
+    //console.log('selectedFiles: ' + this.fileName );
+    if (this.selectedFiles.length > 0) {
+      this.model.file = this.selectedFiles[0];
+    } else {
+      this.model.file = null;
+    }
+  
+   
+    console.log(this.model.file);
+  }
 
+  
 
   preview(event) {
     if (event.target.files && event.target.files[0]) {

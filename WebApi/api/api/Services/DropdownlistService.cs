@@ -265,5 +265,42 @@ namespace api.Services
 
         }
 
+        public List<Dropdownlists> GetDdlProductType()
+        {
+            using (var ctx = new ConXContext())
+            {
+                List<Dropdownlists> ddl = ctx.TypeMasts
+                    .Where(z => z.status == "A")
+                    .OrderBy(o => o.pdtype_code)
+                    .Select(x => new Dropdownlists()
+                    {
+                        key = x.pdtype_code,
+                        value = x.pdtype_code + " - " + x.pdtype_tname
+                    })
+                    .ToList();
+                return ddl;
+            }
+
+
+        }
+
+        public List<Dropdownlist> GetDdlColorInCatalog(long catalog_id)
+        {
+            using (var ctx = new ConXContext())
+            {
+                List<Dropdownlist> ddl = ctx.CatalogColors
+                    .Where(z => z.catalog_id == catalog_id)
+                    .OrderBy(o => o.pdcolor_code)
+                    .Select(x => new Dropdownlist()
+                    {
+                        key = x.catalog_color_id,
+                        value = x.pdcolor_code // + "-" + x.pic_base64
+                        //value = x.pic_base64
+                    })
+                    .ToList();
+                return ddl;
+            }
+        }
+
     }
 }

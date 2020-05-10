@@ -9,10 +9,13 @@ export class CatalogColorView
     public pdcolor_name: string = "";
     public pic_file_path: string = "";
     public pic_base64: string = "";
+    public catalog_file_path: string = "";
     public created_by: string = "";
     public created_at: any = null;
     public updated_by: string = "";
     public updated_at :any= null;
+    public fullPath: string = "";
+    public file:any = null;
 
 }
 

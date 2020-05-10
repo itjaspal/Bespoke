@@ -16,7 +16,17 @@ export class CatalogColorService {
   }
 
   public async create(_model: CatalogColorView) {
-    return await this.http.post<number>(environment.API_URL + 'catalog-color/postCreate', _model).toPromise();
+    var fd = new FormData();
+    fd.append('file', _model.file);
+    fd.append('pic_base64',_model.pic_base64);
+    fd.append('created_by',_model.created_by);
+    fd.append('updated_by',_model.updated_by);
+    fd.append('catalog_id', _model.catalog_id.toString());
+    fd.append('catalog_file_path',_model.catalog_file_path);
+    fd.append('pdcolor_code',_model.pdcolor_code);
+    
+    return await this.http.post<number>(environment.API_URL + 'catalog-color/postCreate', fd).toPromise();
+    
   }
 
   public async update(_model: CatalogColorView) {

@@ -80,7 +80,8 @@
                        
                           
                             <div class ="col-1 col-sm-1" *ngFor="let y of x.catalogColors">
-                                <img src="{{y.pic_base64}}" />
+                                <img src="{{y.pic_base64}}"  (click)="view(y.fullPath)">
+                                
                             </div>
                            
                        

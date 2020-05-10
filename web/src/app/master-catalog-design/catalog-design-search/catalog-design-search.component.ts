@@ -10,6 +10,7 @@ import { CommonSearchView } from '../../_model/common-search-view';
 import { CatalogMastSearchView, CatalogMastView } from '../../_model/catalog-mast';
 import { CatalogColorSearchView, CatalogColorView } from '../../_model/catalog-color';
 import { CatalogColorService } from '../../_service/catalog-color.service';
+import { AttachFileView } from '../../_model/attach-file-view';
 
 
 @Component({
@@ -34,6 +35,7 @@ export class CatalogDesignSearchComponent implements OnInit {
   public model: CatalogMastView = new CatalogMastView();
   public model_search: CatalogMastSearchView = new CatalogMastSearchView();
   public model_search_color: CatalogColorSearchView = new CatalogColorSearchView();
+  
   //actions: any = {};
   public data: CommonSearchView<CatalogMastView> = new CommonSearchView<CatalogMastView>();
 
@@ -65,6 +67,8 @@ export class CatalogDesignSearchComponent implements OnInit {
     
   }
 
-
+  view(y) {
+    window.open(y);
+  }
 
 }

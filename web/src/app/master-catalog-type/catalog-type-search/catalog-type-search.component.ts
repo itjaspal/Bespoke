@@ -10,6 +10,8 @@ import { DomSanitizer } from '@angular/platform-browser';
 import { CatalogTypeView, CatalogTypeSearchView } from '../../_model/catalog-type';
 import { CatalogSizeView, CatalogSizeSearchView } from '../../_model/catalog-size';
 import { CommonSearchView } from '../../_model/common-search-view';
+import { CatalogDesignService } from '../../_service/catalog-design.service';
+import { CatalogMastView } from '../../_model/catalog-mast';
 
 @Component({
   selector: 'app-catalog-type-search',
@@ -21,6 +23,7 @@ export class CatalogTypeSearchComponent implements OnInit {
   constructor(
     private _catalogTypeSvc: CatalogTypeService,
     private _catalogSizeSvc: CatalogSizeService,
+    private _catalgDesignSvc: CatalogDesignService,
     private _ddlSvc: DropdownlistService,
     private _msgSvc: MessageService,
     private _formBuilder: FormBuilder,
@@ -32,7 +35,7 @@ export class CatalogTypeSearchComponent implements OnInit {
 
   public model: CatalogTypeView = new CatalogTypeView();
   public model_search: CatalogTypeSearchView = new CatalogTypeSearchView();
-
+  public model_design: CatalogMastView = new CatalogMastView();
   public model_size: CatalogSizeView = new CatalogSizeView();
   public model_size_search: CatalogSizeSearchView = new CatalogSizeSearchView();
   
@@ -41,6 +44,7 @@ export class CatalogTypeSearchComponent implements OnInit {
   public validationForm: FormGroup;
   
   public catalogDesignLists: any;
+  public designName : any;
 
   async ngOnInit() {
     this.buildForm();
@@ -50,6 +54,12 @@ export class CatalogTypeSearchComponent implements OnInit {
     //console.log(this.model.catalog_id);
    
     this.data = await this._catalogTypeSvc.search(this.model_search);
+
+    if(this.model_search.catalog_id != undefined)
+    {
+      this.model_design = await this._catalgDesignSvc.getInfo(this.model_search.catalog_id);
+    }
+    this.designName = this.model_design.dsgn_name;
 
     //this.catalog_id.nativeElement.value = this.model_search.catalog_id;
   }

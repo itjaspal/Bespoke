@@ -30,10 +30,10 @@ export class CommonService {
 
     var fd = new FormData();
     fd.append('file', _model.file);
-    fd.append('userId', _model.createUser);
-    fd.append('docCode', _model.docCode);
-    fd.append('refId', _model.refTransactionId.toString());
-    fd.append('typeId', _model.attachFileTypeId.toString());
+    // fd.append('userId', _model.createUser);
+    // fd.append('docCode', _model.docCode);
+    // fd.append('refId', _model.refTransactionId.toString());
+    // fd.append('typeId', _model.attachFileTypeId.toString());
 
     return await this.http.post<AttachFileView[]>(environment.API_URL + 'attach/postUploadAttachFile', fd).toPromise();
   }

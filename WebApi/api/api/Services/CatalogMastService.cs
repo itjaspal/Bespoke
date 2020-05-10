@@ -113,7 +113,9 @@ namespace api.Services
                         DesignColorView cView = new DesignColorView()
                         {
                             pdcolor_code = y.pdcolor_code,
-                            pic_base64 = y.pic_base64
+                            pic_base64 = y.pic_base64,
+                            catalog_file_path = y.catalog_file_path
+                           
 
                         };
 

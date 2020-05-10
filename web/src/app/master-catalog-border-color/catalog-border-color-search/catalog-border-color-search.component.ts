@@ -8,6 +8,8 @@ import { AuthenticationService } from '../../_service/authentication.service';
 import { DomSanitizer } from '@angular/platform-browser';
 import { CatalogBorderColorView, CatalogBorderColorSearchView } from '../../_model/catalog-border-color';
 import { CommonSearchView } from '../../_model/common-search-view';
+import { CatalogDesignService } from '../../_service/catalog-design.service';
+import { CatalogMastView } from '../../_model/catalog-mast';
 
 @Component({
   selector: 'app-catalog-border-color-search',
@@ -18,6 +20,7 @@ export class CatalogBorderColorSearchComponent implements OnInit {
 
   constructor(
     private _catalogBorderColorSvc: CatalogBorderColorService,
+    private _catalgDesignSvc: CatalogDesignService,
     private _ddlSvc: DropdownlistService,
     private _msgSvc: MessageService,
     private _formBuilder: FormBuilder,
@@ -33,7 +36,7 @@ export class CatalogBorderColorSearchComponent implements OnInit {
 
   public model: CatalogBorderColorView = new CatalogBorderColorView();
   public model_search: CatalogBorderColorSearchView = new CatalogBorderColorSearchView();
-  
+  public model_design: CatalogMastView = new CatalogMastView();
   //actions: any = {};
   public data: CommonSearchView<CatalogBorderColorView> = new CommonSearchView<CatalogBorderColorView>();
   public validationForm: FormGroup;
@@ -42,6 +45,7 @@ export class CatalogBorderColorSearchComponent implements OnInit {
   
   public color: any = [];
   public user: any;
+  public designName : any;
 
   async ngOnInit() {
     this.buildForm();
@@ -53,6 +57,13 @@ export class CatalogBorderColorSearchComponent implements OnInit {
     this.color = await this._catalogBorderColorSvc.getColor(this.model_search.catalog_id);
 
     console.log(this.color);
+
+    if(this.model_search.catalog_id != undefined)
+    {
+      this.model_design = await this._catalgDesignSvc.getInfo(this.model_search.catalog_id);
+    }
+    this.designName = this.model_design.dsgn_name;
+    
 
     this.checkedList = [];
     //let newcolor: CatalogEmbColorView = new CatalogEmbColorView();
@@ -74,16 +85,18 @@ export class CatalogBorderColorSearchComponent implements OnInit {
   }
 
   async search() {
-    this.color = await this._catalogBorderColorSvc.getColor(this.model_search.catalog_id);
+    // this.color = await this._catalogBorderColorSvc.getColor(this.model_search.catalog_id);
 
-    this.checkedList = [];
-    for (var i = 0; i < this.color.length; i++) {
-      if(this.color[i].border_color_mast_id && this.color[i].isSelected == true)
-      {
-        this.color[i].user_code = this.user.username;
-        this.checkedList.push(this.color[i]);
-      }
-    }
+    // this.checkedList = [];
+    // for (var i = 0; i < this.color.length; i++) {
+    //   if(this.color[i].border_color_mast_id && this.color[i].isSelected == true)
+    //   {
+    //     this.color[i].user_code = this.user.username;
+    //     this.checkedList.push(this.color[i]);
+    //   }
+    // }
+    this._router.navigateByUrl('/', {skipLocationChange: true}).then(()=>
+    this._router.navigate(["/app/catalog-border/"+this.model_search.catalog_id]));
   }
 
   async add() {

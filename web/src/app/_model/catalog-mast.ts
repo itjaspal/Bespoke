@@ -23,6 +23,7 @@ export class DesignColorView
     public pdcolor_name:string ="";
     public pic_file_path:string ="";
     public pic_base64:string ="";
+    public catalog_file_path:string = "";
 }
 
 export class CatalogMastSearchView

@@ -29,13 +29,13 @@ export class AttachFileUpdateComponent implements OnInit {
 
   async ngOnInit() {
 
-    this.refId = this._actRoute.snapshot.params.refId;
-    this.docCode = this._actRoute.snapshot.params.docCode;
-    this.user = this._authSvc.getLoginUser();
+    // this.refId = this._actRoute.snapshot.params.refId;
+    // this.docCode = this._actRoute.snapshot.params.docCode;
+    // this.user = this._authSvc.getLoginUser();
 
     let model: AttachFileView = new AttachFileView();
-      model.refTransactionId = this.refId;
-      model.docCode = this.docCode;
+      // model.refTransactionId = this.refId;
+      // model.docCode = this.docCode;
       this.datas = await this._commonSvc.postInquiryAttachFile(model);
   }
 
@@ -51,9 +51,9 @@ export class AttachFileUpdateComponent implements OnInit {
       if (result) {
         // this.datas = result;
 
-        result.createUser = this.user.username;
-        result.docCode = this.docCode;
-        result.refTransactionId = this.refId;
+        // result.createUser = this.user.username;
+        // result.docCode = this.docCode;
+        // result.refTransactionId = this.refId;
         this.datas = await this._commonSvc.postUploadAttachFile(result);
       }
     });

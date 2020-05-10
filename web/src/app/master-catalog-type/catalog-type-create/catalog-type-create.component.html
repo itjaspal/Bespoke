@@ -1,3 +1,154 @@
-<p>
-  catalog-type-create works!
-</p>
+<div class="container-fluid no-breadcrumbs">
+  <mat-card>
+      <mat-card-title>
+          <h6>Product Type</h6>
+      </mat-card-title>
+      <mat-card-content>
+
+          <form [formGroup]="validationForm">
+              <mat-card-content class="no-margin">
+                  <div class="row">
+                    <div class="col-6 col-sm-3">
+                      
+                      <mat-form-field class="full-width">
+                        <mat-select placeholder="Product Type" formControlName="pdtype_code"  [(ngModel)]="model.pdtype_code"  name="pdtype_Code">
+                         
+                        <mat-option *ngFor="let pdtype_Code of ProductTypeLists" [value]="pdtype_Code.key">{{pdtype_Code.value}}</mat-option>
+                        
+                        </mat-select>
+
+                       </mat-form-field>
+                    </div>
+                    <div class="col-4 col-sm-2">
+                      <section style="margin-top: 17px;">
+                        <mat-checkbox (change)="changeisBorder($event.checked);" [(ngModel)]="model.isBorder" formControlName="isBorder">Is Border
+                        </mat-checkbox>
+                      </section>
+                     
+                    </div>
+                      <div class="col-sm-3 col-lg-2">
+                          <mat-form-field class="full-width">
+                              <input matInput placeholder="ลำดับการเรียง *" formControlName="sort_seq" [(ngModel)]="model.sort_seq"
+                                  name="sort_seq">
+                          </mat-form-field>
+                          <mat-error class="error-message"
+                              *ngIf="validationForm.get('sort_seq').hasError('required') && (validationForm.get('sort_seq').dirty || validationForm.get('sort_seq').touched)">
+                              โปรดระบุข้อมูล
+                          </mat-error>
+                      </div>
+                     
+                      <div class="col-sm-6 col-lg-4">
+
+                        <input type='file' #file (change)="preview($event)">
+                        <img [src]="imgURL" height="100" *ngIf="imgURL">
+                        
+                      </div>
+
+                     
+
+                      
+                  </div>
+                  <div class="row">
+                    <div class="col-3 col-lg-3">
+                      <mat-form-field class="full-width">
+                        <mat-select placeholder="Design Color" formControlName="catalog_color_id"  [(ngModel)]="model.catalog_color_id"  name="catalog_color_id">
+                        
+                        <mat-option *ngFor="let catalog_color_id of catalogColorLists" [value]="catalog_color_id.key">{{catalog_color_id.value}}</mat-option>
+                        
+                        </mat-select>
+
+                      </mat-form-field>
+                    </div>
+
+                    <div class="col-9 col-lg-9" >
+                      <mat-card-actions class="no-margin">
+                        <button mat-raised-button color="primary" class="btn-w-md pull-right" type="button" (click)="save()">
+                            <mat-icon class="material-icons">save</mat-icon> บันทึกข้อมูล
+                        </button>
+                       
+                      </mat-card-actions>
+                    </div>
+                  </div>
+                  <!-- <div class="row">
+                    <div class="col-sm-6 col-lg-3">
+                      <dt>เอกสาร *</dt>
+                      <dd>{{(model.file == null) ? "" : model.file.name}}</dd>
+                      <input type="file" #fileInput class="d-none" (change)="fileChange($event.target.files)">
+                      <button matPrefix mat-raised-button color="accent" class="btn-w-md" type="button"
+                          (click)="fileInput.click()">
+                          Choose file
+                      </button>
+                      <span style="color:red;" *ngIf="message">{{message}}</span>
+                      <input #file type="file"  accept='image/*' (change)="preview(file.files)" />
+                      
+                      <img [src]="imgURL" height="100" *ngIf="imgURL">
+                    </div>
+                  
+                </div> -->
+              </mat-card-content>
+              <!-- <mat-card-actions class="no-margin">
+                  <button mat-raised-button color="primary" class="btn-w-md" type="button" (click)="add()">
+                      <mat-icon class="material-icons">save</mat-icon> บันทึกข้อมูล
+                  </button>
+                  <button mat-raised-button type="button" mat-button class="btn-w-md pull-right"
+                      [routerLink]="['/app/menu/create']" >
+                      <mat-icon class="material-icons">add</mat-icon> เพิ่มเมนู
+                  </button>
+              </mat-card-actions> -->
+          </form>
+
+          <mat-card>
+              <mat-card-content>
+                 
+                  <div class="row card-table-body" *ngFor="let x of data.datas">
+                      <div class="col-2 col-sm-2">
+                          <small>รหัสสี</small>
+                          <dd>{{x.color_code}}</dd>
+                      </div>
+                      <div class="col-2 col-sm-2">
+                          <small>ชื่อสี</small>
+                          <dd>{{x.color_name}}</dd>
+                      </div>
+                      <div class="col-5 col-sm-4">
+                          <small>รูป</small>
+                          <dd><img src="{{x.pic_base64}}" /></dd>
+                      </div>
+                     
+                      <div class="col-1 col-sm-3 text-right">
+                          <button mat-icon-button [matMenuTriggerFor]="appMenu">
+                              <mat-icon class="material-icons">more_horiz</mat-icon>
+                          </button>
+
+                          <mat-menu #appMenu="matMenu">
+                              <!-- <button mat-menu-item [routerLink]="['/app/menu/view/'+x.emb_color_mast_id]">
+                                  <mat-icon class="material-icons">search</mat-icon> <span>แสดง</span>
+                              </button> -->
+                              <button mat-menu-item [routerLink]="['/app/color-font/update/'+x.emb_color_mast_id]">
+                                  <mat-icon class="material-icons">edit</mat-icon> <span>แก้ไข</span>
+                              </button>
+                              <button mat-menu-item (click)="delete(x)">
+                                <mat-icon class="material-icons">delete</mat-icon> <span>ลบ</span>
+                              </button>
+                          </mat-menu>
+
+                      </div>
+                      <div class="col-12">
+                          <hr />
+                      </div>
+                  </div>
+              </mat-card-content>
+          </mat-card>
+
+          <!-- <mat-paginator [length]="data.totalItem" [pageIndex]="model.pageIndex" [pageSize]="model.itemPerPage"
+              [pageSizeOptions]="pageSizeOptions" (page)="pageEvent = $event; search($event)">
+          </mat-paginator> -->
+
+      </mat-card-content>
+      <mat-card-content *ngIf="data.datas != undefined">
+          <ngb-pagination [collectionSize]="data.totalItem" [pageSize]="model_search.itemPerPage" [maxSize]="5"
+              [(page)]="model_search.pageIndex" (pageChange)="search()" [boundaryLinks]="true"></ngb-pagination>
+      </mat-card-content>
+  </mat-card>
+</div>
+
+

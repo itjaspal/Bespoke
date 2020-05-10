@@ -9,6 +9,8 @@ import { DomSanitizer } from '@angular/platform-browser';
 import { CommonSearchView } from '../../_model/common-search-view';
 import { CatalogEmbColorView, CatalogEmbColorSearchView } from '../../_model/catalog-emb-color';
 import { ColorFontService } from '../../_service/color-font.service';
+import { CatalogDesignService } from '../../_service/catalog-design.service';
+import { CatalogMastView } from '../../_model/catalog-mast';
 
 @Component({
   selector: 'app-catalog-emb-color-search',
@@ -23,6 +25,7 @@ export class CatalogEmbColorSearchComponent implements OnInit {
 
   constructor(
     private _catalogEmbColorSvc: CatalogEmbColorService,
+    private _catalgDesignSvc: CatalogDesignService,
     private _ddlSvc: DropdownlistService,
     private _msgSvc: MessageService,
     private _formBuilder: FormBuilder,
@@ -35,13 +38,14 @@ export class CatalogEmbColorSearchComponent implements OnInit {
 
   public model: CatalogEmbColorView = new CatalogEmbColorView();
   public model_search: CatalogEmbColorSearchView = new CatalogEmbColorSearchView();
+  public model_design: CatalogMastView = new CatalogMastView();
   public data: CommonSearchView<CatalogEmbColorView> = new CommonSearchView<CatalogEmbColorView>();
   public validationForm: FormGroup;
   
   public catalogDesignLists: any;
   public color: any = [];
   public user: any;
-  
+  public designName : any;
 
   async ngOnInit() {
     this.buildForm();
@@ -51,6 +55,13 @@ export class CatalogEmbColorSearchComponent implements OnInit {
   
     //console.log(this.model.catalog_id);
     this.color = await this._catalogEmbColorSvc.getColor(this.model_search.catalog_id);
+
+    if(this.model_search.catalog_id != undefined)
+    {
+      this.model_design = await this._catalgDesignSvc.getInfo(this.model_search.catalog_id);
+    }
+    this.designName = this.model_design.dsgn_name;
+    console.log(this.model_design);
 
     this.checkedList = [];
     //let newcolor: CatalogEmbColorView = new CatalogEmbColorView();
@@ -75,18 +86,22 @@ export class CatalogEmbColorSearchComponent implements OnInit {
   }
 
   async search() {
-  
-    this.color = await this._catalogEmbColorSvc.getColor(this.model_search.catalog_id);
+    // console.log(this.model_search);
+    // this.color = await this._catalogEmbColorSvc.getColor(this.model_search.catalog_id);
+    // console.log(this.color);
 
-    this.checkedList = [];
-    //let newcolor: CatalogEmbColorView = new CatalogEmbColorView();
-    for (var i = 0; i < this.color.length; i++) {
-      if(this.color[i].emb_color_mast_id && this.color[i].isSelected == true)
-      {
-        this.color[i].user_code = this.user.username;
-        this.checkedList.push(this.color[i]);
-      }
-    }
+    // this.checkedList = [];
+    // //let newcolor: CatalogEmbColorView = new CatalogEmbColorView();
+    // for (var i = 0; i < this.color.length; i++) {
+    //   if(this.color[i].emb_color_mast_id && this.color[i].isSelected == true)
+    //   {
+    //     this.color[i].user_code = this.user.username;
+    //     this.checkedList.push(this.color[i]);
+    //   }
+    // }
+
+    this._router.navigateByUrl('/', {skipLocationChange: true}).then(()=>
+    this._router.navigate(["/app/catalog-emb/"+this.model_search.catalog_id]));
   }
 
   async add() {

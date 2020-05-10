@@ -3,11 +3,12 @@ import { ColorFontView, ColorFontSearchView } from '../../_model/color-font';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AuthenticationService } from '../../_service/authentication.service';
 import { ColorFontService } from '../../_service/color-font.service';
-import { PageEvent } from '@angular/material';
+import { PageEvent, MAT_DIALOG_DATA } from '@angular/material';
 import { CommonSearchView } from '../../_model/common-search-view';
 import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
 import { DomSanitizer } from '@angular/platform-browser';
 import { MessageService } from '../../_service/message.service';
+import { Inject } from '@angular/core';
 
 @Component({
   selector: 'app-color-font-search',
@@ -23,6 +24,7 @@ export class ColorFontSearchComponent implements OnInit {
     private _actRoute:ActivatedRoute,
     private _authSvc: AuthenticationService,
     private sanitizer: DomSanitizer, 
+    //@Inject(MAT_DIALOG_DATA) public data: any,
     private _router: Router
   ) { }
 
@@ -67,7 +69,7 @@ export class ColorFontSearchComponent implements OnInit {
   async search() {
     //console.log(this.model_search);
     this.data = await this._colorSvc.search(this.model_search);
-    //console.log(this.data);
+    console.log(this.data);
   }
 
   async save()

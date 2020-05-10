@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
 using System.Web;
 
@@ -19,6 +20,16 @@ namespace api.ModelViews
         public DateTime created_at { get; set; }
         public string updated_by { get; set; }
         public DateTime updated_at { get; set; }
+
+
+        public string fullPath
+        {
+            get
+            {
+                string urlPrefix = ConfigurationManager.AppSettings["upload.urlPrefix"];
+                return urlPrefix + this.catalog_file_path;
+            }
+        }
     }
 
     public class CatalogColorSearchView
