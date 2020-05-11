@@ -21,9 +21,10 @@ namespace api.Services
                 {
                     CATALOG_TYPE newObj = new CATALOG_TYPE()
                     {
-                        catalog_type_id = model.catalog_type_id,
+                        //catalog_type_id = model.catalog_type_id,
                         catalog_id = model.catalog_id,
                         pdtype_code = model.pdtype_code,
+                        is_border = model.is_border,
                         sort_seq = model.sort_seq,
                         status = model.status,
                         created_by = model.created_by,
@@ -35,7 +36,29 @@ namespace api.Services
 
                     ctx.CatalogTypes.Add(newObj);
                     ctx.SaveChanges();
+
+                    //Get the inserted id
+                    int insertedid = Convert.ToInt32(newObj.catalog_type_id);
+
+                    CATALOG_PIC newObjpic = new CATALOG_PIC()
+                    {
+                        catalog_type_id = insertedid,
+                        catalog_id = model.catalog_id,
+                        catalog_color_id = model.catalog_color_id,
+                        catalog_type_code = model.catalog_type_code,
+                        pic_base64 = model.pic_base64,
+                        created_by = model.created_by,
+                        created_at = DateTime.Now,
+                        updated_by = model.updated_by,
+                        updated_at = DateTime.Now
+
+                    };
+
+                    ctx.CatalogPics.Add(newObjpic);
+                    ctx.SaveChanges();
+
                     scope.Complete();
+
                 }
             }
         }
@@ -97,10 +120,13 @@ namespace api.Services
 
                 //query data
                 List<CATALOG_TYPE> CatalogTypes = ctx.CatalogTypes
-                    .Where(x => (model.catalog_id == model.catalog_id)
-                    )
+                    .Where(x => (x.catalog_id == model.catalog_id))
                     .OrderBy(o => o.sort_seq)
                     .ToList();
+
+                
+
+
 
                 //count , select data from pageIndex, itemPerPage
                 view.totalItem = CatalogTypes.Count;

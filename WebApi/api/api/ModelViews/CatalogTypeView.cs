@@ -12,6 +12,8 @@ namespace api.ModelViews
         public long catalog_id { get; set; }
         public long catalog_color_id { get; set; }
         public string pdtype_code { get; set; }
+        public string catalog_type_code { get; set; }
+        public Boolean is_border { get; set; }
         public string pic_base64 { get; set; }
         public int sort_seq { get; set; }
         public string status { get; set; }

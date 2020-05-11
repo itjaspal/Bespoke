@@ -14,6 +14,7 @@ namespace api.Models
         
         [StringLength(10)]
         public string pdtype_code { get; set; }
+        public bool is_border  { get; set; }
 
         public int sort_seq { get; set; }
 

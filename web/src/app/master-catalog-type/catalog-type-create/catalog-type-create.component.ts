@@ -52,7 +52,8 @@ export class CatalogTypeCreateComponent implements OnInit {
       pdtype_code: [null, [Validators.required]],
       sort_seq: [null, [Validators.required]],
       catalog_color_id: [null, [Validators.required]],
-      isBorder: [null, []],    
+      catalog_type_code: [null, [Validators.required]],
+      is_border: [null, []],    
     
       
     });
@@ -60,6 +61,7 @@ export class CatalogTypeCreateComponent implements OnInit {
 
   async search() {
     //console.log(this.model_search);
+    this.model_search.catalog_id = this._actRoute.snapshot.params.catalog_id;
     this.data = await this._typeSvc.search(this.model_search);
     console.log(this.data);
   }
@@ -67,10 +69,13 @@ export class CatalogTypeCreateComponent implements OnInit {
   async save()
   {
     console.log(this.model);
+    this.model.catalog_id = this._actRoute.snapshot.params.catalog_id;
     this.model.pic_base64 = this.imgURL;
     this.model.created_by = this.user.username;
     this.model.updated_by = this.user.username;
-
+    this.model.status = 'A';
+    this.model.catalog_type_code = this.model.catalog_type_code.toUpperCase();
+    
     if(this.model.pdtype_code == "" )
     {
       await this._msgSvc.warningPopup("ต้องใส่ข้อมูล");
@@ -80,8 +85,9 @@ export class CatalogTypeCreateComponent implements OnInit {
       await this._typeSvc.create(this.model);
      
       await this._msgSvc.successPopup("บันทึกข้อมูลเรียบร้อย");
-      await this.search();
-      //this._router.navigateByUrl('/app/color-font');
+      
+      //this._router.navigateByUrl('/app/catalog-type/'+this.model.catalog_id);
+      
     }
 
     
@@ -117,6 +123,10 @@ export class CatalogTypeCreateComponent implements OnInit {
       }
     })
 
+  }
+
+  close() {
+    window.history.back();
   }
 
 }

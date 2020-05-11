@@ -21,7 +21,7 @@
                     </div>
                     <div class="col-4 col-sm-2">
                       <section style="margin-top: 17px;">
-                        <mat-checkbox (change)="changeisBorder($event.checked);" [(ngModel)]="model.isBorder" formControlName="isBorder">Is Border
+                        <mat-checkbox  [(ngModel)]="model.is_border" formControlName="is_border">Is Border
                         </mat-checkbox>
                       </section>
                      
@@ -60,7 +60,18 @@
                       </mat-form-field>
                     </div>
 
-                    <div class="col-9 col-lg-9" >
+                    <div class="col-sm-3 col-lg-3">
+                      <mat-form-field class="full-width">
+                          <input matInput placeholder="แบบ *" formControlName="catalog_type_code" [(ngModel)]="model.catalog_type_code"
+                              name="catalog_type_code" style="text-transform: uppercase;">
+                      </mat-form-field>
+                      <mat-error class="error-message"
+                          *ngIf="validationForm.get('catalog_type_code').hasError('required') && (validationForm.get('catalog_type_code').dirty || validationForm.get('catalog_type_code').touched)">
+                          โปรดระบุข้อมูล
+                      </mat-error>
+                  </div>
+
+                    <div class="col-6 col-lg-6" >
                       <mat-card-actions class="no-margin">
                         <button mat-raised-button color="primary" class="btn-w-md pull-right" type="button" (click)="save()">
                             <mat-icon class="material-icons">save</mat-icon> บันทึกข้อมูล
@@ -148,6 +159,17 @@
           <ngb-pagination [collectionSize]="data.totalItem" [pageSize]="model_search.itemPerPage" [maxSize]="5"
               [(page)]="model_search.pageIndex" (pageChange)="search()" [boundaryLinks]="true"></ngb-pagination>
       </mat-card-content>
+
+      <mat-card-actions>
+        <button mat-raised-button class="btn-w-md" type="button" (click)="close()">
+            <mat-icon class="material-icons">close</mat-icon> ปิด
+        </button>
+
+        <!-- <button mat-raised-button color="primary" class="btn-w-md pull-right" type="button" (click)="save()"
+            [disabled]="!validationForm.valid">
+            <mat-icon class="material-icons">save</mat-icon> บันทึกข้อมูล
+        </button> -->
+    </mat-card-actions>
   </mat-card>
 </div>
 

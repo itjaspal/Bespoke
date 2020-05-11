@@ -62,6 +62,7 @@ export class CatalogTypeSearchComponent implements OnInit {
     this.designName = this.model_design.dsgn_name;
 
     //this.catalog_id.nativeElement.value = this.model_search.catalog_id;
+    this.search();
   }
 
   buildForm() {
