@@ -45,6 +45,7 @@ export class CatalogTypeSearchComponent implements OnInit {
   
   public catalogDesignLists: any;
   public designName : any;
+  public type: any = [];
 
   async ngOnInit() {
     this.buildForm();
@@ -62,7 +63,9 @@ export class CatalogTypeSearchComponent implements OnInit {
     this.designName = this.model_design.dsgn_name;
 
     //this.catalog_id.nativeElement.value = this.model_search.catalog_id;
-    this.search();
+    //this.search();
+    this.type = await this._catalogTypeSvc.getTypeCatalog(this.model_search.catalog_id);
+    console.log(this.type);
   }
 
   buildForm() {
@@ -104,18 +107,10 @@ export class CatalogTypeSearchComponent implements OnInit {
 
 
 
-  async delete_type(color) {
-    console.log(color); 
+  async get_size(type) {
+    console.log(type); 
 
-    this._msgSvc.confirmPopup("ยืนยันลบข้อมูล", async result => {
-      if (result) {
-        let res: any = await this._catalogTypeSvc.delete(color);
-
-        this._msgSvc.successPopup(res.message);
-
-        await this.search();
-      }
-    })
+    
 
   }
 

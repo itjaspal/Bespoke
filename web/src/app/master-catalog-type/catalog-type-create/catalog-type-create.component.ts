@@ -36,6 +36,7 @@ export class CatalogTypeCreateComponent implements OnInit {
   public user: any;
   public ProductTypeLists: any;
   public catalogColorLists: any;
+  public type: any = [];
 
   async ngOnInit() {
     this.buildForm();
@@ -43,7 +44,9 @@ export class CatalogTypeCreateComponent implements OnInit {
     this.model_search.catalog_id = this._actRoute.snapshot.params.catalog_id;
     this.ProductTypeLists = await this._ddlSvc.getDdlProductType();
     this.catalogColorLists = await this._ddlSvc.getDdlColorInCatalog(this.model_search.catalog_id);
-    //this.search();
+    
+    this.type = await this._typeSvc.getType(this.model_search.catalog_id);
+    console.log(this.type);
   }
 
   buildForm() {
@@ -53,6 +56,7 @@ export class CatalogTypeCreateComponent implements OnInit {
       sort_seq: [null, [Validators.required]],
       catalog_color_id: [null, [Validators.required]],
       catalog_type_code: [null, [Validators.required]],
+      type_sort_seq: [null, [Validators.required]],
       is_border: [null, []],    
     
       
@@ -86,7 +90,8 @@ export class CatalogTypeCreateComponent implements OnInit {
      
       await this._msgSvc.successPopup("บันทึกข้อมูลเรียบร้อย");
       
-      //this._router.navigateByUrl('/app/catalog-type/'+this.model.catalog_id);
+      this._router.navigateByUrl('/', {skipLocationChange: true}).then(()=>
+      this._router.navigate(["/app/catalog-type/"+this._actRoute.snapshot.params.catalog_id+"/create"]));
       
     }
 
@@ -111,15 +116,16 @@ export class CatalogTypeCreateComponent implements OnInit {
   }
 
 
-  async delete(color) {
+  async delete(type) {
 
     this._msgSvc.confirmPopup("ยืนยันลบข้อมูล", async result => {
       if (result) {
-        let res: any = await this._typeSvc.delete(color);
+        let res: any = await this._typeSvc.delete(type);
 
         this._msgSvc.successPopup(res.message);
 
-        await this.search();
+        this._router.navigateByUrl('/', {skipLocationChange: true}).then(()=>
+        this._router.navigate(["/app/catalog-type/"+this._actRoute.snapshot.params.catalog_id+"/create"]));
       }
     })
 

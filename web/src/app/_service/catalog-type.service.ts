@@ -11,6 +11,15 @@ export class CatalogTypeService {
 
   constructor(private http: HttpClient) { }
 
+  public async getTypeCatalog(_id: number) {
+    return await this.http.get(environment.API_URL + 'catalog-type/get-type-catalog/'+ _id).toPromise();
+  }
+
+  public async getType(_id: number) {
+    return await this.http.get(environment.API_URL + 'catalog-type/get-type/'+ _id).toPromise();
+  }
+
+
   public async search(_model: CatalogTypeSearchView) { 
     return await this.http.post<CommonSearchView<CatalogTypeView>>(environment.API_URL + 'catalog-type/postSearch',_model).toPromise();
   }

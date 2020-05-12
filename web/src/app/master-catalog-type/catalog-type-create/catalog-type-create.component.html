@@ -70,8 +70,18 @@
                           โปรดระบุข้อมูล
                       </mat-error>
                   </div>
+                  <div class="col-sm-2 col-lg-2">
+                    <mat-form-field class="full-width">
+                        <input matInput placeholder="ลำดับการเรียง *" formControlName="type_sort_seq" [(ngModel)]="model.type_sort_seq"
+                            name="type_sort_seq">
+                    </mat-form-field>
+                    <mat-error class="error-message"
+                        *ngIf="validationForm.get('type_sort_seq').hasError('required') && (validationForm.get('type_sort_seq').dirty || validationForm.get('type_sort_seq').touched)">
+                        โปรดระบุข้อมูล
+                    </mat-error>
+                </div>
 
-                    <div class="col-6 col-lg-6" >
+                    <div class="col-4 col-lg-4" >
                       <mat-card-actions class="no-margin">
                         <button mat-raised-button color="primary" class="btn-w-md pull-right" type="button" (click)="save()">
                             <mat-icon class="material-icons">save</mat-icon> บันทึกข้อมูล
@@ -111,21 +121,32 @@
           <mat-card>
               <mat-card-content>
                  
-                  <div class="row card-table-body" *ngFor="let x of data.datas">
-                      <div class="col-2 col-sm-2">
-                          <small>รหัสสี</small>
-                          <dd>{{x.color_code}}</dd>
+                  <div class="row card-table-body" *ngFor="let x of type">
+                      <div class="col-1 col-sm-1">
+                          <small>ลำดับ</small>
+                          <dd>{{x.sort_seq}}</dd>
                       </div>
+
                       <div class="col-2 col-sm-2">
-                          <small>ชื่อสี</small>
-                          <dd>{{x.color_name}}</dd>
+                        <small>ประเภท</small>
+                        <dd>{{x.pdtype_tname}}</dd>
+                    </div>
+
+                      <div class="col-2 col-sm-2">
+                          <small>สี</small>
+                          <dd><img src="{{x.pic_color}}" /></dd>
                       </div>
-                      <div class="col-5 col-sm-4">
+                      <div class="col-1 col-sm-1">
+                          <small>แบบ</small>
+                          <dd>{{x.catalog_type_code}}</dd>
+                      </div>
+
+                      <div class="col-2 col-sm-2">
                           <small>รูป</small>
-                          <dd><img src="{{x.pic_base64}}" /></dd>
+                          <dd><img src="{{x.pic_type}}" /></dd>
                       </div>
                      
-                      <div class="col-1 col-sm-3 text-right">
+                      <div class="col-3 col-sm-3 text-right">
                           <button mat-icon-button [matMenuTriggerFor]="appMenu">
                               <mat-icon class="material-icons">more_horiz</mat-icon>
                           </button>
@@ -133,10 +154,10 @@
                           <mat-menu #appMenu="matMenu">
                               <!-- <button mat-menu-item [routerLink]="['/app/menu/view/'+x.emb_color_mast_id]">
                                   <mat-icon class="material-icons">search</mat-icon> <span>แสดง</span>
-                              </button> -->
+                              </button>
                               <button mat-menu-item [routerLink]="['/app/color-font/update/'+x.emb_color_mast_id]">
                                   <mat-icon class="material-icons">edit</mat-icon> <span>แก้ไข</span>
-                              </button>
+                              </button> -->
                               <button mat-menu-item (click)="delete(x)">
                                 <mat-icon class="material-icons">delete</mat-icon> <span>ลบ</span>
                               </button>

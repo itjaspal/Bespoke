@@ -91,7 +91,7 @@ namespace api.Controllers
         }
 
         [Route("catalog-type/post/Delete")]
-        public HttpResponseMessage postDelete(CatalogTypeView model)
+        public HttpResponseMessage postDelete(CatalogTypeSelectView model)
         {
             try
             {
@@ -105,6 +105,36 @@ namespace api.Controllers
                 };
 
                 return Request.CreateResponse(HttpStatusCode.OK, res);
+            }
+            catch (Exception ex)
+            {
+                return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, ex.ToString());
+            }
+        }
+
+        [Route("catalog-type/get-type/{catalog}")]
+        public HttpResponseMessage getTypeInCatalog(long catalog)
+        {
+            try
+            {
+                var result = typeSvc.GetTypeInCatalog(catalog);
+
+                return Request.CreateResponse(HttpStatusCode.OK, result);
+            }
+            catch (Exception ex)
+            {
+                return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, ex.ToString());
+            }
+        }
+
+        [Route("catalog-type/get-type-catalog/{catalog}")]
+        public HttpResponseMessage getTypes(long catalog)
+        {
+            try
+            {
+                var result = typeSvc.GetType(catalog);
+
+                return Request.CreateResponse(HttpStatusCode.OK, result);
             }
             catch (Exception ex)
             {

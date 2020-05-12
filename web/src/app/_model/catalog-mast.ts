@@ -24,6 +24,9 @@ export class DesignColorView
     public pic_file_path:string ="";
     public pic_base64:string ="";
     public catalog_file_path:string = "";
+    public fullPath: string = "";
+
+    
 }
 
 export class CatalogMastSearchView

@@ -15,6 +15,7 @@ namespace api.Interfaces
         void Update(CatalogSizeView model);
 
         void delete(CatalogSizeView size);
+        List<CatalogSizeView> GetSize(long catalog , long type);
     }
 }
 

@@ -14,6 +14,8 @@ namespace api.Interfaces
         void Create(CatalogTypeView model);
         void Update(CatalogTypeView model);
 
-        void delete(CatalogTypeView type);
+        void delete(CatalogTypeSelectView type);
+        List<CatalogTypeSelectView> GetTypeInCatalog(long catalog);
+        List<CatalogTypeSelectView> GetType(long catalog);
     }
 }

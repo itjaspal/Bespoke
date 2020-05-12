@@ -25,7 +25,7 @@ namespace api.Services
                         catalog_id = model.catalog_id,
                         catalog_type_id = model.catalog_type_id,
                         pdsize_code = model.pdsize_code,
-                        sort_seq = model.sortseq,
+                        sort_seq = model.sort_seq,
                         created_by = model.created_by,
                         created_at = DateTime.Now,
                         updated_by = model.updated_by,
@@ -76,9 +76,42 @@ namespace api.Services
                     catalog_id = model.catalog_id,
                     catalog_type_id = model.catalog_type_id,
                     pdsize_code = model.pdsize_code,
-                    sortseq = model.sort_seq
+                    sort_seq = model.sort_seq
                    
                 };
+            }
+        }
+
+        public List<CatalogSizeView> GetSize(long catalog, long type)
+        {
+            using (var ctx = new ConXContext())
+            {
+
+                //query data
+
+                string sql = "select a.catalog_id , a.catalog_type_id , a.pdsize_code , b.pdsize_tname , a.sort_seq  from CATALOG_SIZE a , PDSIZE_MAST b where a.pdsize_code=b.pdsize_code and catalod_id = @p_catalog_id and catalog_id = @p_catalog_type_id  order by a.sort_seq ";
+
+                List<CatalogSizeView> size = ctx.Database.SqlQuery<CatalogSizeView>(sql, new System.Data.SqlClient.SqlParameter("@p_catalog_id", catalog), new System.Data.SqlClient.SqlParameter("@p_catalog_type_id", type)).ToList();
+
+
+                List<CatalogSizeView> sizeViews = new List<CatalogSizeView>();
+
+                foreach (var i in size)
+                {
+                    CatalogSizeView view = new CatalogSizeView()
+                    {
+                        catalog_type_id = i.catalog_type_id,
+                        catalog_id = i.catalog_id,
+                        catalog_size_id = i.catalog_size_id,
+                        pdsize_code = i.pdsize_code,
+                        pdsize_name = i.pdsize_name,
+                        sort_seq = i.sort_seq
+                    };
+
+                    sizeViews.Add(view);
+                }
+
+                return sizeViews;
             }
         }
 

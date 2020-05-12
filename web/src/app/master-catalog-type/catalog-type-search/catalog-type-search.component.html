@@ -82,31 +82,33 @@
                             </mat-card-title>
                             <mat-card-content>
                              
-                                <div class="row card-table-body" *ngFor="let x of data.datas">
-                                    <div class="col-6 col-sm-5">
-                                        <small>ลำดับ</small>
+                                <div class="row card-table-body" *ngFor="let x of type">
+                                    <!-- <div class="col-1 col-sm-1">
+                                        <small></small>
                                         <dd>{{x.sort_seq}}</dd>
+                                    </div> -->
+                                    <div class="col-6 col-sm-6">
+                                        <small>Type</small>
+                                        <dd (click)="get_size(x)">{{x.sort_seq}}. {{x.pdtype_tname}}</dd>
                                     </div>
-                                    <div class="col-6 col-sm-5">
-                                        <small>สี</small>
-                                        <!-- <dd>{{x.catalog_id}}</dd> -->
+                                    <div class="col-2 col-sm-2">
+                                        <small>Border</small>
+                                        <section style="margin-top: 3px;">
+                                            <mat-checkbox [checked]="x.is_border"></mat-checkbox>
+                                          </section>
                                     </div>
-                                    <div class="col-12 col-sm-12">
-                                        <small>แบบ</small>
-                                        <!-- <dd>{{x.productName}}</dd> -->
-                                    </div>
-                                    <div class="col-12 col-sm-12">
-                                        <small>รูป</small>
-                                        <dd>{{x.pic_base64}}</dd>
-                                    </div>
-                                    <div class="col-12 col-sm-12 text-right">
+                                    
+                                    <div class="col-3 col-sm-3 text-right">
                                         <button mat-icon-button [matMenuTriggerFor]="appMenu">
                                             <mat-icon class="material-icons">more_horiz</mat-icon>
                                         </button>
 
                                         <mat-menu #appMenu="matMenu">
-                                            <button mat-menu-item (click)="delete_type(x)">
-                                                <mat-icon class="material-icons">delete</mat-icon> <span>ลบ</span>
+                                            <!-- <button mat-menu-item [routerLink]="['/app/color-font/update/'+x.emb_color_mast_id]">
+                                                <mat-icon class="material-icons">edit</mat-icon> <span>แก้ไข</span>
+                                            </button> -->
+                                            <button mat-menu-item (click)="get_size(x)">
+                                                <mat-icon class="material-icons">edit</mat-icon> <span>แก้ไข</span>
                                             </button>
                                         </mat-menu>
 
