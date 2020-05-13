@@ -11,6 +11,7 @@ namespace api.ModelViews
         public long catalog_id { get; set; }
         public long catalog_type_id { get; set; }
         public int sort_seq { get; set; }
+        public string pdtype_name { get; set; }
         public string pdsize_code { get; set; }
         public string pdsize_name { get; set; }
         public string created_by { get; set; }

@@ -34,12 +34,12 @@ namespace api.Controllers
             }
         }
 
-        [Route("catalog-type/getInfo/{code}/{catalog}")]
-        public HttpResponseMessage getInfo(long code , long catalog)
+        [Route("catalog-type/getInfo/{code}")]
+        public HttpResponseMessage getInfo(long code)
         {
             try
             {
-                var result = typeSvc.GetInfo(code,catalog);
+                var result = typeSvc.GetInfo(code);
 
                 return Request.CreateResponse(HttpStatusCode.OK, result);
             }

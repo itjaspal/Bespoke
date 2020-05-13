@@ -190,6 +190,9 @@ import { CatalogSizeCreateComponent } from './master-catalog-size/catalog-size-c
 import { CatalogSizeSearchComponent } from './master-catalog-size/catalog-size-search/catalog-size-search.component';
 import { CatalogSizeUpdateComponent } from './master-catalog-size/catalog-size-update/catalog-size-update.component';
 import { CatalogSizeViewComponent } from './master-catalog-size/catalog-size-view/catalog-size-view.component';
+import { ProductCreateComponent } from './master-product/product-create/product-create.component';
+import { ProductUpdateComponent } from './master-product/product-update/product-update.component';
+import { ProductSearchComponent } from './master-product/product-search/product-search.component';
 
 
 
@@ -411,6 +414,9 @@ import { CatalogSizeViewComponent } from './master-catalog-size/catalog-size-vie
     CatalogSizeSearchComponent,
     CatalogSizeUpdateComponent,
     CatalogSizeViewComponent,
+    ProductCreateComponent,
+    ProductUpdateComponent,
+    ProductSearchComponent,
 
 
   ],

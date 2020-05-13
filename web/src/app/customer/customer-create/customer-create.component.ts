@@ -60,7 +60,7 @@ export class CustomerCreateComponent implements OnInit {
 
   private buildForm() {
     this.validationForm = this._fb.group({
-      customerName: [null, [Validators.required]],
+      name: [null, [Validators.required]],
       addressName: [null, [Validators.required]],
       subDistrict: [null, [Validators.required]],
       district: [null, [Validators.required]],

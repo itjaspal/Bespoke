@@ -5,6 +5,7 @@ export class CatalogTypeView
     public catalog_type_id: number = undefined;
     public catalog_id: number = undefined;
     public catalog_color_id: number = undefined;
+    public catalog_pic_id: number = undefined;
     public pdtype_code: string = "";
     public catalog_type_code: string = "";
     public is_border : boolean = false;

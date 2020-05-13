@@ -67,6 +67,7 @@ import { CatalogTypeSearchComponent } from '../master-catalog-type/catalog-type-
 import { CatalogTypeCreateComponent } from '../master-catalog-type/catalog-type-create/catalog-type-create.component';
 import { CatalogSizeSearchComponent } from '../master-catalog-size/catalog-size-search/catalog-size-search.component';
 import { CatalogSizeCreateComponent } from '../master-catalog-size/catalog-size-create/catalog-size-create.component';
+import { CatalogTypeUpdateComponent } from '../master-catalog-type/catalog-type-update/catalog-type-update.component';
 
  
 
@@ -163,7 +164,7 @@ const routes: Routes = [
       //Master Catalog Type
       { path: "catalog-type/:catalog_id", component: CatalogTypeSearchComponent, canActivate: [AuthenGuard], data: { parentUrl: "/app/catalog-type" } },
       { path: "catalog-type/:catalog_id/create", component: CatalogTypeCreateComponent, canActivate: [AuthenGuard], data: { parentUrl: "/app/catalog-type" } },
-      //{ path: "catalog-border/update/:id", component: CatalogTypeUpdateComponent, canActivate: [AuthenGuard], data: { parentUrl: "/app/catalog-emb" } },
+      { path: "catalog-type/:catalog_id/update/:id", component: CatalogTypeUpdateComponent, canActivate: [AuthenGuard], data: { parentUrl: "/app/catalog-type" } },
 
 
       //Master Catalog Size

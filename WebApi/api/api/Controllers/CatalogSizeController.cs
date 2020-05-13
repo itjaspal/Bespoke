@@ -129,5 +129,20 @@ namespace api.Controllers
                 return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, ex.ToString());
             }
         }
+
+        [Route("catalog-size/get-size-catalog/{catalog}")]
+        public HttpResponseMessage getSizeInCatalog(long catalog)
+        {
+            try
+            {
+                var result = sizeSvc.GetSizeInCatalog(catalog);
+
+                return Request.CreateResponse(HttpStatusCode.OK, result);
+            }
+            catch (Exception ex)
+            {
+                return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, ex.ToString());
+            }
+        }
     }
 }

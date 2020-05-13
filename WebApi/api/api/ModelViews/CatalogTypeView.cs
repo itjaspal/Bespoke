@@ -11,6 +11,7 @@ namespace api.ModelViews
         public long catalog_type_id { get; set; }
         public long catalog_id { get; set; }
         public long catalog_color_id { get; set; }
+        public long catalog_pic_id { get; set; }
         public string pdtype_code { get; set; }
         public string catalog_type_code { get; set; }
         public Boolean is_border { get; set; }

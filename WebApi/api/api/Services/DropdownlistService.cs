@@ -302,5 +302,38 @@ namespace api.Services
             }
         }
 
+        public List<Dropdownlist> GetDdlTypeInCatalog(long catalog_id)
+        {
+            using (var ctx = new ConXContext())
+            {
+                string sql = "select a.catalog_type_id 'key' , b.pdtype_tname value from CATALOG_TYPE a , PDTYPE_MAST b where a.pdtype_code=b.pdtype_code and a.catalog_id = @p_catalog_id";
+
+                List<Dropdownlist> ddl = ctx.Database.SqlQuery<Dropdownlist>(sql, new System.Data.SqlClient.SqlParameter("@p_catalog_id", catalog_id))
+                                            .Select(x => new Dropdownlist()
+                                            {
+                                                key = x.key,
+                                                value = x.value,
+                                            })
+                                            .ToList();
+                return ddl;
+            }
+        }
+
+        public List<Dropdownlists> GetDdlProductSize()
+        {
+            using (var ctx = new ConXContext())
+            {
+                List<Dropdownlists> ddl = ctx.SizeMasts
+                    .Where(z => z.status == "A")
+                    .OrderBy(o => o.pdsize_code)
+                    .Select(x => new Dropdownlists()
+                    {
+                        key = x.pdsize_code,
+                        value = x.pdsize_code + " - " + x.pdsize_tname
+                    })
+                    .ToList();
+                return ddl;
+            }
+        }
     }
 }

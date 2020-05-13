@@ -1,3 +1,145 @@
-<p>
-  catalog-size-create works!
-</p>
+<div class="container-fluid no-breadcrumbs">
+  <mat-card>
+      <mat-card-title>
+          <h6>Product Type</h6>
+      </mat-card-title>
+      <mat-card-content>
+
+          <form [formGroup]="validationForm">
+              <mat-card-content class="no-margin">
+                
+                    <div class="row">
+                        <div class="col-6 col-sm-3">
+                            <h6> Design : {{designName}} </h6>
+                        </div>
+                    </div>
+                  
+                  <div class="row">
+                    <div class="col-6 col-sm-3">
+                      
+                      <mat-form-field class="full-width">
+                        <mat-select placeholder="Catalog Type" formControlName="catalog_type_id"  [(ngModel)]="model.catalog_type_id"  name="catalog_type_id">
+                         
+                        <mat-option *ngFor="let catalog_type_id of CatalogTypeLists" [value]="catalog_type_id.key">{{catalog_type_id.value}}</mat-option>
+                        
+                        </mat-select>
+
+                       </mat-form-field>
+                    </div>
+
+                   
+                     
+                      
+                  </div>
+                  <div class="row">
+                    <div class="col-3 col-lg-3">
+                      <mat-form-field class="full-width">
+                        <mat-select placeholder="Size" formControlName="pdsize_code"  [(ngModel)]="model.pdsize_code"  name="pdsize_code">
+                        
+                        <mat-option *ngFor="let pdsize_code of ProductSizeLists" [value]="pdsize_code.key">{{pdsize_code.value}}</mat-option>
+                        
+                        </mat-select>
+
+                      </mat-form-field>
+                    </div>
+
+                    <div class="col-sm-3 col-lg-2">
+                      <mat-form-field class="full-width">
+                          <input matInput placeholder="ลำดับการเรียง *" formControlName="sort_seq" [(ngModel)]="model.sort_seq"
+                              name="sort_seq">
+                      </mat-form-field>
+                      <mat-error class="error-message"
+                          *ngIf="validationForm.get('sort_seq').hasError('required') && (validationForm.get('sort_seq').dirty || validationForm.get('sort_seq').touched)">
+                          โปรดระบุข้อมูล
+                      </mat-error>
+                  </div>
+
+                    <div class="col-4 col-lg-4" >
+                      <mat-card-actions class="no-margin">
+                        <button mat-raised-button color="primary" class="btn-w-md pull-right" type="button" (click)="save()">
+                            <mat-icon class="material-icons">save</mat-icon> บันทึกข้อมูล
+                        </button>
+                       
+                      </mat-card-actions>
+                    </div>
+                  </div>
+                 
+              </mat-card-content>
+              <!-- <mat-card-actions class="no-margin">
+                  <button mat-raised-button color="primary" class="btn-w-md" type="button" (click)="add()">
+                      <mat-icon class="material-icons">save</mat-icon> บันทึกข้อมูล
+                  </button>
+                  <button mat-raised-button type="button" mat-button class="btn-w-md pull-right"
+                      [routerLink]="['/app/menu/create']" >
+                      <mat-icon class="material-icons">add</mat-icon> เพิ่มเมนู
+                  </button>
+              </mat-card-actions> -->
+          </form>
+
+          <mat-card>
+              <mat-card-content>
+                 
+                  <div class="row card-table-body" *ngFor="let x of size">
+                      
+
+                    <div class="col-3 col-sm-3">
+                        <small>ประเภท</small>
+                        <dd>{{x.pdtype_name}}</dd>
+                    </div>
+                    <div class="col-1 col-sm-1">
+                      <small>ลำดับ</small>
+                      <dd>{{x.sort_seq}}</dd>
+                    </div>
+
+                      
+                      <div class="col-2 col-sm-2">
+                          <small>Size</small>
+                          <dd>{{x.pdsize_name}}</dd>
+                      </div>
+
+                      
+                     
+                      <div class="col-5 col-sm-5 text-right">
+                          <button mat-icon-button [matMenuTriggerFor]="appMenu">
+                              <mat-icon class="material-icons">more_horiz</mat-icon>
+                          </button>
+
+                          <mat-menu #appMenu="matMenu">
+                             
+                              <button mat-menu-item (click)="delete(x)">
+                                <mat-icon class="material-icons">delete</mat-icon> <span>ลบ</span>
+                              </button>
+                          </mat-menu>
+
+                      </div>
+                      <div class="col-12">
+                          <hr />
+                      </div>
+                  </div>
+              </mat-card-content>
+          </mat-card>
+
+          <!-- <mat-paginator [length]="data.totalItem" [pageIndex]="model.pageIndex" [pageSize]="model.itemPerPage"
+              [pageSizeOptions]="pageSizeOptions" (page)="pageEvent = $event; search($event)">
+          </mat-paginator> -->
+
+      </mat-card-content>
+      <mat-card-content *ngIf="data.datas != undefined">
+          <ngb-pagination [collectionSize]="data.totalItem" [pageSize]="model_search.itemPerPage" [maxSize]="5"
+              [(page)]="model_search.pageIndex" (pageChange)="search()" [boundaryLinks]="true"></ngb-pagination>
+      </mat-card-content>
+
+      <mat-card-actions>
+        <button mat-raised-button class="btn-w-md" type="button" (click)="close()">
+            <mat-icon class="material-icons">close</mat-icon> ปิด
+        </button>
+
+        <!-- <button mat-raised-button color="primary" class="btn-w-md pull-right" type="button" (click)="save()"
+            [disabled]="!validationForm.valid">
+            <mat-icon class="material-icons">save</mat-icon> บันทึกข้อมูล
+        </button> -->
+    </mat-card-actions>
+  </mat-card>
+</div>
+
+

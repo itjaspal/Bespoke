@@ -10,7 +10,7 @@ namespace api.Interfaces
     interface ICatalogTypeService
     {
         CommonSearchView<CatalogTypeView> Search(CatalogTypeSearchView model);
-        CatalogTypeView GetInfo(long code, long catalog);
+        CatalogTypeView GetInfo(long code);
         void Create(CatalogTypeView model);
         void Update(CatalogTypeView model);
 

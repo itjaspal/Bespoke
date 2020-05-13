@@ -151,20 +151,27 @@ namespace api.Services
             }
         }
 
-        public CatalogTypeView GetInfo(long code, long catalog)
+        public CatalogTypeView GetInfo(long code)
         {
             using (var ctx = new ConXContext())
             {
-                CATALOG_TYPE model = ctx.CatalogTypes
-                    .Where(z => z.catalog_type_id == code && z.catalog_id == catalog).SingleOrDefault();
+                string sql = "select c.catalog_id , c.catalog_type_id ,a.catalog_color_id, c.pdtype_code , d.pdtype_tname  , a.catalog_type_code , a.pic_base64  , a.sort_seq type_sort_seq , c.sort_seq , a.catalog_pic_id , c.status , c.is_border from CATALOG_PIC a , CATALOG_COLOR b ,CATALOG_TYPE c , PDTYPE_MAST d where a.catalog_id=b.catalog_id  and a.catalog_color_id=b.catalog_color_id and a.catalog_id=c.catalog_id and a.catalog_type_id=c.catalog_type_id and c.pdtype_code=d.pdtype_code and c.catalog_type_id = @p_catalog_type_id";
+
+                CatalogTypeView type = ctx.Database.SqlQuery<CatalogTypeView>(sql, new System.Data.SqlClient.SqlParameter("@p_catalog_type_id", code)).SingleOrDefault();
 
                 return new CatalogTypeView
                 {
-                    catalog_type_id = model.catalog_type_id,
-                    catalog_id = model.catalog_id,
-                    pdtype_code = model.pdtype_code,
-                    sort_seq = model.sort_seq,
-                    status = model.status
+                    catalog_type_id = type.catalog_type_id,
+                    catalog_id = type.catalog_id,
+                    catalog_color_id = type.catalog_color_id,
+                    catalog_pic_id = type.catalog_pic_id,
+                    pdtype_code = type.pdtype_code,
+                    catalog_type_code = type.catalog_type_code,
+                    is_border = type.is_border,
+                    pic_base64 = type.pic_base64,
+                    sort_seq = type.sort_seq,
+                    type_sort_seq = type.type_sort_seq,
+                    status = type.status
                 };
             }
         }
@@ -297,16 +304,37 @@ namespace api.Services
             {
                 using (TransactionScope scope = new TransactionScope())
                 {
-                    CATALOG_TYPE updateObj = ctx.CatalogTypes.Where(z => z.catalog_type_id == model.catalog_type_id && z.catalog_id == model.catalog_id).SingleOrDefault();
+                    //CATALOG_TYPE updateObj = ctx.CatalogTypes.Where(z => z.catalog_type_id == model.catalog_type_id && z.catalog_id == model.catalog_id).SingleOrDefault();
 
-                    updateObj.pdtype_code = model.pdtype_code;
-                    updateObj.sort_seq = model.sort_seq;
-                    updateObj.status = model.status;
-                    updateObj.updated_by = model.updated_by;
-                    updateObj.updated_at = DateTime.Now;
+                    //updateObj.pdtype_code = model.pdtype_code;
+                    //updateObj.sort_seq = model.sort_seq;
+                    //updateObj.status = model.status;
+                    //updateObj.updated_by = model.updated_by;
+                    //updateObj.updated_at = DateTime.Now;
 
+                    //ctx.SaveChanges();
+
+                    CATALOG_TYPE updateType = ctx.CatalogTypes.Where(z => z.catalog_type_id == model.catalog_type_id && z.catalog_id == model.catalog_id).SingleOrDefault();
+
+                    updateType.pdtype_code = model.pdtype_code;
+                    updateType.is_border = model.is_border;
+                    updateType.sort_seq = model.sort_seq;
+                    updateType.status = model.status;
+                    updateType.updated_by = model.updated_by;
+                    updateType.updated_at = DateTime.Now;
+                    ctx.SaveChanges();
+
+                    CATALOG_PIC updatePic = ctx.CatalogPics.Where(z => z.catalog_type_id == model.catalog_type_id && z.catalog_id == model.catalog_id && z.catalog_color_id == model.catalog_color_id).SingleOrDefault();
+
+                    updatePic.catalog_type_code = model.catalog_type_code;
+                    updatePic.sort_seq = model.sort_seq;
+                    updatePic.pic_base64 = model.pic_base64;
+                    updatePic.updated_by = model.updated_by;
+                    updatePic.updated_at = DateTime.Now;
 
                     ctx.SaveChanges();
+
+
                     scope.Complete();
                 }
             }

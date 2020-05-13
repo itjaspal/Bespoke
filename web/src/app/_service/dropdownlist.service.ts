@@ -166,4 +166,13 @@ export class DropdownlistService {
     return await this.http.get<Dropdownlist[]>(environment.API_URL + 'dropdownlist/getDdlColorInCatalog/' + catalog_id).toPromise();
   }
 
+  public async getDdlProductSize() { 
+    
+    return await this.http.get<Dropdownlist[]>(environment.API_URL + 'dropdownlist/getDdlProductSize').toPromise();
+  }
+
+  public async getDdlTypeInCatalog(catalog_id) {
+    return await this.http.get<Dropdownlist[]>(environment.API_URL + 'dropdownlist/getDdlTypeInCatalog/' + catalog_id).toPromise();
+  }
+
 }

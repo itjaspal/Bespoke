@@ -1,3 +1,120 @@
-<p>
-  catalog-type-update works!
-</p>
+<div class="container-fluid no-breadcrumbs">
+  <mat-card>
+      <mat-card-title>
+          <h6> แก้ไข Color of Font</h6>
+      </mat-card-title>
+      <mat-card-content>
+          <form [formGroup]="validationForm">
+            <div class="row">
+              <div class="col-6 col-sm-3">
+                  <h6> Design : {{designName}} </h6>
+              </div>
+          </div>
+
+              <div class="row">
+                <div class="col-6 col-sm-3">
+                
+                  <mat-form-field class="full-width">
+                    <mat-select placeholder="Product Type" formControlName="pdtype_code" [(ngModel)]="model.pdtype_code"  name="pdtype_code">
+                     
+                      <mat-option *ngFor="let pdtype_code of ProductTypeLists"  [value]="pdtype_code.key" >
+                        {{pdtype_code.value}}
+                      </mat-option>
+                    </mat-select>
+  
+                  </mat-form-field>
+  
+                </div>
+
+                <div class="col-4 col-sm-2">
+                  <section style="margin-top: 17px;">
+                    <mat-checkbox  [(ngModel)]="model.is_border"  [checked]="model.is_border" formControlName="is_border">Is Border
+                    </mat-checkbox>
+                  </section>
+                 
+                </div>
+                  <div class="col-sm-3 col-lg-2">
+                      <mat-form-field class="full-width">
+                          <input matInput placeholder="ลำดับการเรียง *" formControlName="sort_seq" [(ngModel)]="model.sort_seq"
+                              name="sort_seq">
+                      </mat-form-field>
+                      <mat-error class="error-message"
+                          *ngIf="validationForm.get('sort_seq').hasError('required') && (validationForm.get('sort_seq').dirty || validationForm.get('sort_seq').touched)">
+                          โปรดระบุข้อมูล
+                      </mat-error>
+                  </div>
+                 
+                  <div class="col-sm-6 col-lg-4">
+
+                    <input type='file' #file (change)="preview($event)">
+                    <img [src]="imgURL" height="100" *ngIf="imgURL">
+                    
+                  </div>
+
+                        
+            </div>
+
+            <div class="row">
+              <div class="col-3 col-lg-3">
+                <mat-form-field class="full-width">
+                  <mat-select placeholder="Design Color" formControlName="catalog_color_id"  [(ngModel)]="model.catalog_color_id"  name="catalog_color_id">
+                  
+                  <mat-option *ngFor="let catalog_color_id of catalogColorLists" [value]="catalog_color_id.key">{{catalog_color_id.value}}</mat-option>
+                  
+                  </mat-select>
+
+                </mat-form-field>
+              </div>
+
+              <div class="col-sm-3 col-lg-3">
+                <mat-form-field class="full-width">
+                    <input matInput placeholder="แบบ *" formControlName="catalog_type_code" [(ngModel)]="model.catalog_type_code"
+                        name="catalog_type_code" style="text-transform: uppercase;">
+                </mat-form-field>
+                <mat-error class="error-message"
+                    *ngIf="validationForm.get('catalog_type_code').hasError('required') && (validationForm.get('catalog_type_code').dirty || validationForm.get('catalog_type_code').touched)">
+                    โปรดระบุข้อมูล
+                </mat-error>
+            </div>
+            <div class="col-sm-2 col-lg-2">
+              <mat-form-field class="full-width">
+                  <input matInput placeholder="ลำดับการเรียง *" formControlName="type_sort_seq" [(ngModel)]="model.type_sort_seq"
+                      name="type_sort_seq">
+              </mat-form-field>
+              <mat-error class="error-message"
+                  *ngIf="validationForm.get('type_sort_seq').hasError('required') && (validationForm.get('type_sort_seq').dirty || validationForm.get('type_sort_seq').touched)">
+                  โปรดระบุข้อมูล
+              </mat-error>
+          </div>
+             
+              
+            </div>
+                        
+            <div class="row">
+              <div class="col-6 col-sm-3">
+                
+                <mat-form-field class="full-width">
+                  <mat-select placeholder="Status" formControlName="status" [(ngModel)]="model.status"   name="status">
+                    <mat-option>ทั้งหมด</mat-option>
+                    <mat-option value="Active">Active</mat-option>
+                    <mat-option value="Inactive">Inactive</mat-option>
+               
+                  </mat-select>
+
+                </mat-form-field>
+              </div>
+            </div>
+          </form>
+      </mat-card-content>
+      <mat-card-actions>
+          <button mat-raised-button class="btn-w-md" type="button" (click)="close()">
+              <mat-icon class="material-icons">close</mat-icon> ปิด
+          </button>
+
+          <button mat-raised-button color="primary" class="btn-w-md pull-right" type="button" (click)="save()"
+              [disabled]="!validationForm.valid">
+              <mat-icon class="material-icons">save</mat-icon> บันทึกข้อมูล
+          </button>
+      </mat-card-actions>
+  </mat-card>
+</div>

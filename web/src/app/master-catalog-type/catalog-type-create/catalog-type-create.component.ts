@@ -8,6 +8,8 @@ import { DomSanitizer } from '@angular/platform-browser';
 import { CatalogTypeView, CatalogTypeSearchView } from '../../_model/catalog-type';
 import { CommonSearchView } from '../../_model/common-search-view';
 import { DropdownlistService } from '../../_service/dropdownlist.service';
+import { CatalogMastView } from '../../_model/catalog-mast';
+import { CatalogDesignService } from '../../_service/catalog-design.service';
 
 @Component({
   selector: 'app-catalog-type-create',
@@ -18,6 +20,7 @@ export class CatalogTypeCreateComponent implements OnInit {
 
   constructor(
     private _typeSvc: CatalogTypeService,
+    private _catalgDesignSvc: CatalogDesignService,
     private _msgSvc: MessageService,
     private _ddlSvc: DropdownlistService,
     private _formBuilder: FormBuilder,
@@ -29,6 +32,7 @@ export class CatalogTypeCreateComponent implements OnInit {
 
   public model: CatalogTypeView = new CatalogTypeView();
   public model_search: CatalogTypeSearchView = new CatalogTypeSearchView();
+  public model_design: CatalogMastView = new CatalogMastView();
   public data: CommonSearchView<CatalogTypeView> = new CommonSearchView<CatalogTypeView>();
   imgURL: any;
   formGroup: FormGroup;
@@ -37,6 +41,7 @@ export class CatalogTypeCreateComponent implements OnInit {
   public ProductTypeLists: any;
   public catalogColorLists: any;
   public type: any = [];
+  public designName : any;
 
   async ngOnInit() {
     this.buildForm();
@@ -44,6 +49,12 @@ export class CatalogTypeCreateComponent implements OnInit {
     this.model_search.catalog_id = this._actRoute.snapshot.params.catalog_id;
     this.ProductTypeLists = await this._ddlSvc.getDdlProductType();
     this.catalogColorLists = await this._ddlSvc.getDdlColorInCatalog(this.model_search.catalog_id);
+    
+    if(this.model_search.catalog_id != undefined)
+    {
+      this.model_design = await this._catalgDesignSvc.getInfo(this.model_search.catalog_id);
+    }
+    this.designName = this.model_design.dsgn_name;
     
     this.type = await this._typeSvc.getType(this.model_search.catalog_id);
     console.log(this.type);
@@ -77,7 +88,7 @@ export class CatalogTypeCreateComponent implements OnInit {
     this.model.pic_base64 = this.imgURL;
     this.model.created_by = this.user.username;
     this.model.updated_by = this.user.username;
-    this.model.status = 'A';
+    this.model.status = 'Active';
     this.model.catalog_type_code = this.model.catalog_type_code.toUpperCase();
     
     if(this.model.pdtype_code == "" )

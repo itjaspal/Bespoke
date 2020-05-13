@@ -19,22 +19,42 @@ namespace api.Services
 
                 using (TransactionScope scope = new TransactionScope())
                 {
-                    CATALOG_SIZE newObj = new CATALOG_SIZE()
+                    CATALOG_SIZE size = ctx.CatalogSizes
+                        .Where(z => z.pdsize_code == model.pdsize_code && z.catalog_id == model.catalog_id && z.catalog_type_id == model.catalog_type_id)
+                        .SingleOrDefault();
+
+                    if(size == null)
                     {
-                        catalog_size_id = model.catalog_size_id,
-                        catalog_id = model.catalog_id,
-                        catalog_type_id = model.catalog_type_id,
-                        pdsize_code = model.pdsize_code,
-                        sort_seq = model.sort_seq,
-                        created_by = model.created_by,
-                        created_at = DateTime.Now,
-                        updated_by = model.updated_by,
-                        updated_at = DateTime.Now
+                        CATALOG_SIZE newObj = new CATALOG_SIZE()
+                        {
+                            catalog_size_id = model.catalog_size_id,
+                            catalog_id = model.catalog_id,
+                            catalog_type_id = model.catalog_type_id,
+                            pdsize_code = model.pdsize_code,
+                            sort_seq = model.sort_seq,
+                            created_by = model.created_by,
+                            created_at = DateTime.Now,
+                            updated_by = model.updated_by,
+                            updated_at = DateTime.Now
 
-                    };
+                        };
 
-                    ctx.CatalogSizes.Add(newObj);
-                    ctx.SaveChanges();
+                        ctx.CatalogSizes.Add(newObj);
+                        ctx.SaveChanges();
+                    }
+                    else
+                    {
+                        CATALOG_SIZE updateObj = ctx.CatalogSizes.Where(z => z.pdsize_code == model.pdsize_code && z.catalog_id == model.catalog_id && z.catalog_type_id == model.catalog_type_id).SingleOrDefault();
+
+                        updateObj.pdsize_code = model.pdsize_code;
+                        updateObj.sort_seq = model.sort_seq;
+                        updateObj.updated_by = model.updated_by;
+                        updateObj.updated_at = DateTime.Now;
+
+
+                        ctx.SaveChanges();
+                    }
+                    
                     scope.Complete();
                 }
             }
@@ -48,7 +68,7 @@ namespace api.Services
                 {
 
                     CATALOG_SIZE size = ctx.CatalogSizes
-                        .Where(z => z.catalog_size_id == sizeView.catalog_size_id && z.catalog_id == sizeView.catalog_id && z.catalog_type_id == sizeView.catalog_type_id)
+                        .Where(z => z.catalog_size_id == sizeView.catalog_size_id)
                         .SingleOrDefault();
 
                     //ctx.UserBranchPrvlgs.RemoveRange(ctx.UserBranchPrvlgs.Where(z => z.username == colorView.emb_color_mast_id));
@@ -89,7 +109,7 @@ namespace api.Services
 
                 //query data
 
-                string sql = "select a.catalog_id , a.catalog_type_id , a.pdsize_code , b.pdsize_tname , a.sort_seq  from CATALOG_SIZE a , PDSIZE_MAST b where a.pdsize_code=b.pdsize_code and catalod_id = @p_catalog_id and catalog_id = @p_catalog_type_id  order by a.sort_seq ";
+                string sql = "select a.catalog_size_id , a.catalog_id , a.catalog_type_id , a.pdsize_code , b.pdsize_tname pdsize_name , a.sort_seq  from CATALOG_SIZE a , PDSIZE_MAST b where a.pdsize_code=b.pdsize_code and catalog_id = @p_catalog_id and catalog_type_id = @p_catalog_type_id  order by a.sort_seq ";
 
                 List<CatalogSizeView> size = ctx.Database.SqlQuery<CatalogSizeView>(sql, new System.Data.SqlClient.SqlParameter("@p_catalog_id", catalog), new System.Data.SqlClient.SqlParameter("@p_catalog_type_id", type)).ToList();
 
@@ -105,6 +125,42 @@ namespace api.Services
                         catalog_size_id = i.catalog_size_id,
                         pdsize_code = i.pdsize_code,
                         pdsize_name = i.pdsize_name,
+                        sort_seq = i.sort_seq
+                    };
+
+                    sizeViews.Add(view);
+                }
+
+                return sizeViews;
+            }
+        }
+
+        public List<CatalogSizeView> GetSizeInCatalog(long catalog)
+        {
+            using (var ctx = new ConXContext())
+            {
+
+                //query data
+
+                string sql = "select a.catalog_size_id , a.catalog_id , a.catalog_type_id , a.pdsize_code , b.pdsize_tname pdsize_name, a.sort_seq , d.pdtype_tname pdtype_name from CATALOG_SIZE a , PDSIZE_MAST b , CATALOG_TYPE c , PDTYPE_MAST d where a.pdsize_code=b.pdsize_code and a.catalog_type_id=c.catalog_type_id and c.pdtype_code = d.pdtype_code and a.catalog_id = @p_catalog_id  order by a.sort_seq ";
+
+                List<CatalogSizeView> size = ctx.Database.SqlQuery<CatalogSizeView>(sql, new System.Data.SqlClient.SqlParameter("@p_catalog_id", catalog)).ToList();
+
+
+                List<CatalogSizeView> sizeViews = new List<CatalogSizeView>();
+
+                foreach (var i in size)
+                {
+                    
+
+                    CatalogSizeView view = new CatalogSizeView()
+                    {
+                        catalog_type_id = i.catalog_type_id,
+                        catalog_id = i.catalog_id,
+                        catalog_size_id = i.catalog_size_id,
+                        pdsize_code = i.pdsize_code,
+                        pdsize_name = i.pdsize_name,
+                        pdtype_name = i.pdtype_name,
                         sort_seq = i.sort_seq
                     };
 

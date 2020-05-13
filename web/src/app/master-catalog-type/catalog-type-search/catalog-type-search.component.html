@@ -104,12 +104,12 @@
                                         </button>
 
                                         <mat-menu #appMenu="matMenu">
-                                            <!-- <button mat-menu-item [routerLink]="['/app/color-font/update/'+x.emb_color_mast_id]">
-                                                <mat-icon class="material-icons">edit</mat-icon> <span>แก้ไข</span>
-                                            </button> -->
-                                            <button mat-menu-item (click)="get_size(x)">
+                                            <button mat-menu-item [routerLink]="['/app/catalog-type/'+x.catalog_id+'/update/'+x.catalog_type_id]">
                                                 <mat-icon class="material-icons">edit</mat-icon> <span>แก้ไข</span>
                                             </button>
+                                            <!-- <button mat-menu-item (click)="get_size(x)">
+                                                <mat-icon class="material-icons">edit</mat-icon> <span>แก้ไข</span>
+                                            </button> -->
                                         </mat-menu>
 
                                     </div>
@@ -141,7 +141,7 @@
                     <div class="col-12">
                         <mat-card>
                             <mat-card-title>
-                                <h6>Size <button mat-raised-button  class="btn-w-md pull-right" type="button"
+                                <h6>Size : {{typeName}} <button mat-raised-button  class="btn-w-md pull-right" type="button"
                                     (click)="add_size()">
                                     <mat-icon class="material-icons">add</mat-icon>เพิ่ม Size</button></h6>   
                             </mat-card-title>
@@ -162,20 +162,17 @@
                                         <hr />
                                     </div>
                                 </div> -->
-                                <!-- <div class="row card-table-body" *ngFor="let x of productAssignSKU.datas">
-                                    <div class="col-6 col-sm-6">
-                                        <small>รหัสสินค้า</small>
-                                        <dd>{{x.productCode}}</dd>
+                                <div class="row card-table-body" *ngFor="let x of size">
+                                    <div class="col-3 col-sm-3">
+                                        <small>ลำดับ</small>
+                                        <dd>{{x.sort_seq}}</dd>
                                     </div>
                                     <div class="col-6 col-sm-6">
-                                        <small>บาร์โค้ด</small>
-                                        <dd>{{x.barcode}}</dd>
+                                        <small>Size</small>
+                                        <dd>{{x.pdsize_name}}</dd>
                                     </div>
-                                    <div class="col-12 col-sm-12">
-                                        <small>ชื่อสินค้า</small>
-                                        <dd>{{x.productName}}</dd>
-                                    </div>
-                                    <div class="col-12 col-sm-12 text-right">
+                                    
+                                    <div class="col-2 col-sm-2 text-right">
                                         <button mat-icon-button [matMenuTriggerFor]="appMenu">
                                             <mat-icon class="material-icons">more_horiz</mat-icon>
                                         </button>
@@ -190,7 +187,7 @@
                                     <div class="col-12">
                                         <hr />
                                     </div>
-                                </div> -->
+                                </div>
                                 <!-- <mat-card-content *ngIf="productAssignSKU.datas != undefined">
                                         <ngb-pagination [collectionSize]="productAssignSKU.totalItem"
                                           [pageSize]="productAssignedSearch.itemPerPage" [maxSize]="5"

@@ -45,7 +45,10 @@ export class CatalogTypeSearchComponent implements OnInit {
   
   public catalogDesignLists: any;
   public designName : any;
+  public typeName : any;
   public type: any = [];
+  public size: any = [];
+  public typeID : any = undefined;
 
   async ngOnInit() {
     this.buildForm();
@@ -86,7 +89,7 @@ export class CatalogTypeSearchComponent implements OnInit {
   }
 
   async add_size() {
-    this._router.navigateByUrl('/app/catalog-size/'+this.model_size_search.catalog_id+'/create');
+    this._router.navigateByUrl('/app/catalog-size/'+this.model_search.catalog_id+'/create');
   }
 
   async color_search() {
@@ -107,26 +110,29 @@ export class CatalogTypeSearchComponent implements OnInit {
 
 
 
-  async get_size(type) {
-    console.log(type); 
+  
 
-    
+
+  async delete_size(size) {
+    this._msgSvc.confirmPopup("ยืนยันลบข้อมูล", async result => {
+      if (result) {
+        let res: any = await this._catalogSizeSvc.delete(size);
+
+        this._msgSvc.successPopup(res.message);
+        this.size = "";
+        this.size = await this._catalogSizeSvc.getSize(this.model_search.catalog_id,size.catalog_type_id);  
+        //console.log(size);
+      }
+    })
 
   }
 
-
-  async delete_size(color) {
-    console.log(color); 
-
-    this._msgSvc.confirmPopup("ยืนยันลบข้อมูล", async result => {
-      if (result) {
-        let res: any = await this._catalogSizeSvc.delete(color);
-
-        this._msgSvc.successPopup(res.message);
-
-        await this.search();
-      }
-    })
+  async get_size(type) {
+    //console.log(type); 
+    this.size = await this._catalogSizeSvc.getSize(this.model_search.catalog_id,type.catalog_type_id);
+    this.typeName = type.pdtype_tname;
+    //console.log(this.size);
+    
 
   }
 
