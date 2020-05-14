@@ -16,4 +16,5 @@ export class ProductAttributeView {
     public code: string = "";
     public name: string = "";   
     public status: string = "";
+    public user_code:string ="";
 }

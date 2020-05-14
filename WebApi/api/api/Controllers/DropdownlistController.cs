@@ -260,5 +260,20 @@ namespace api.Controllers
             }
         }
 
+        [Route("dropdownlist/getDdlProductAttributeType")]
+        public HttpResponseMessage getDdlProductAttributeType()
+        {
+            try
+            {
+                var result = ddlSvc.GetDdlProductAttributeType();
+
+                return Request.CreateResponse(HttpStatusCode.OK, result);
+            }
+            catch (Exception ex)
+            {
+                return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, ex.ToString());
+            }
+        }
+
     }
 }

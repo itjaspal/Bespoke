@@ -50,9 +50,9 @@ export class DropdownlistService {
     return await this.http.post(environment.API_URL + 'dropdownlist/inquiryDdlUserRole', ownerRole).toPromise();
   }
 
-  // public async getDdlProductAttributesTypes() {
-  //   return await this.http.get<Dropdownlist[]>(environment.API_URL + 'dropdownlist/getDdlProductAttributeType').toPromise();
-  // }
+  public async getDdlProductAttributesTypes() {
+    return await this.http.get<Dropdownlist[]>(environment.API_URL + 'dropdownlist/getDdlProductAttributeType').toPromise();
+  }
 
   
   // public async getDdlProductAttribute(productAttributeTypeCode) {
@@ -96,11 +96,11 @@ export class DropdownlistService {
   //   return await this.http.get<Dropdownlist[]>(environment.API_URL + 'dropdownlist/getDdlProductSize').toPromise();
   // }
   
-  public async getDdlProductAttributeRpt(productAttributeTypeCode) {
-    const params = new HttpParams()
-      .set('productAttributeTypeCode', productAttributeTypeCode);
-    return await this.http.get<Dropdownlist[]>(environment.API_URL + 'dropdownlist/getDdlProductAttributeRpt', { params }).toPromise();
-  }
+  // public async getDdlProductAttributeRpt(productAttributeTypeCode) {
+  //   const params = new HttpParams()
+  //     .set('productAttributeTypeCode', productAttributeTypeCode);
+  //   return await this.http.get<Dropdownlist[]>(environment.API_URL + 'dropdownlist/getDdlProductAttributeRpt', { params }).toPromise();
+  // }
 
   // public async getDdlSaleTransactionStatus() {
   //   return await this.http.get<Dropdownlist[]>(environment.API_URL + 'dropdownlist/getDdlSaleTransactionStatus').toPromise();

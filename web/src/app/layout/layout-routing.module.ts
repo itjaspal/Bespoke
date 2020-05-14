@@ -68,6 +68,9 @@ import { CatalogTypeCreateComponent } from '../master-catalog-type/catalog-type-
 import { CatalogSizeSearchComponent } from '../master-catalog-size/catalog-size-search/catalog-size-search.component';
 import { CatalogSizeCreateComponent } from '../master-catalog-size/catalog-size-create/catalog-size-create.component';
 import { CatalogTypeUpdateComponent } from '../master-catalog-type/catalog-type-update/catalog-type-update.component';
+import { ProductSearchComponent } from '../master-product/product-search/product-search.component';
+import { ProductCreateComponent } from '../master-product/product-create/product-create.component';
+import { ProductUpdateComponent } from '../master-product/product-update/product-update.component';
 
  
 
@@ -173,6 +176,11 @@ const routes: Routes = [
       //{ path: "catalog-border/update/:id", component: CatalogTypeUpdateComponent, canActivate: [AuthenGuard], data: { parentUrl: "/app/catalog-emb" } },
 
 
+      //Master Product
+      { path: "product", component: ProductSearchComponent, canActivate: [AuthenGuard], data: { parentUrl: "/app/product" } },
+      { path: "product/create/:attr", component: ProductCreateComponent, canActivate: [AuthenGuard], data: { parentUrl: "/app/product" } },
+      { path: "product/update/:attr/:id", component: ProductUpdateComponent, canActivate: [AuthenGuard], data: { parentUrl: "/app/product" } },
+      
 
       //Sales
       { path: "sale", component: SalesSearchComponent, canActivate: [AuthenGuard], data: { parentUrl: "/app/sale" } },

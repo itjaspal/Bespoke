@@ -335,5 +335,23 @@ namespace api.Services
                 return ddl;
             }
         }
+
+        public List<Dropdownlist<string>> GetDdlProductAttributeType()
+        {
+            using (var ctx = new ConXContext())
+            {
+                List<Dropdownlist<string>> ddl = new List<Dropdownlist<string>>();
+                ddl = ctx.ProductAttributeTypes
+                        .OrderBy(o => o.productAttributeTypeCode)
+                        .Select(x => new ModelViews.Dropdownlist<string>()
+                        {
+                            key = x.productAttributeTypeCode,
+                            value = x.attributeName
+                        })
+                        .ToList();
+                return ddl;
+            }
+
+        }
     }
 }

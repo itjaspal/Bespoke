@@ -51,6 +51,8 @@ namespace api.DataAccess
         public DbSet<PDSIZE_MAST> SizeMasts { get; set; }
         public DbSet<PDCOLOR_MAST> ColorMasts { get; set; }
         public DbSet<PDTYPE_MAST> TypeMasts { get; set; }
+        public DbSet<PDDESIGN_MAST> DesignMasts { get; set; }
+        public DbSet<ProductAttributeType> ProductAttributeTypes { get; set; }
 
 
 

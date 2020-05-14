@@ -18,7 +18,7 @@ namespace api.Interfaces
         List<Dropdownlist> GetDdlDepartment();
 
         List<Dropdownlist> GetDdlUserRole(OwnerRole ownerRole);
-        //List<Dropdownlist<string>> GetDdlProductAttributeType();
+        List<Dropdownlist<string>> GetDdlProductAttributeType();
         //List<Dropdownlist> GetDdlProductAttribute(string productAttributeTypeCode);
         //List<Dropdownlist> GetDdlProductAttributeRpt(string productAttributeTypeCode);
         //List<Dropdownlist<string>> getDdlSaleTransactionStatus();

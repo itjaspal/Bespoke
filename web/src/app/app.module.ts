@@ -193,6 +193,7 @@ import { CatalogSizeViewComponent } from './master-catalog-size/catalog-size-vie
 import { ProductCreateComponent } from './master-product/product-create/product-create.component';
 import { ProductUpdateComponent } from './master-product/product-update/product-update.component';
 import { ProductSearchComponent } from './master-product/product-search/product-search.component';
+import { ProductViewComponent } from './master-product/product-view/product-view.component';
 
 
 
@@ -417,6 +418,7 @@ import { ProductSearchComponent } from './master-product/product-search/product-
     ProductCreateComponent,
     ProductUpdateComponent,
     ProductSearchComponent,
+    ProductViewComponent,
 
 
   ],

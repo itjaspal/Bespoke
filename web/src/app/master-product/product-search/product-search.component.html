@@ -1,3 +1,118 @@
-<p>
-  product-search works!
-</p>
+<div class="container-fluid no-breadcrumbs">
+  <mat-card>
+    <mat-card-title>
+      <h6>ค้นหาคุณลักษณะสินค้า</h6>
+    </mat-card-title>
+    <mat-card-content>
+
+      <form>
+        <mat-card-content class="no-margin">
+          <div class="row">
+            <div class="col-sm-6 col-lg-3">
+              <mat-form-field class="full-width">
+                <mat-select placeholder="ประเภทคุณลักษณะสินค้า *" [(ngModel)]="model.productAttributeTypeCode"
+                  name="productAttributeTypeCode">
+                  <mat-option *ngFor="let x of ddlProductAttributeType" [value]="x.key">{{x.value}}</mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+            <div class="col-sm-6 col-lg-3">
+              <mat-form-field class="full-width">
+                <input matInput placeholder="รหัส" [(ngModel)]="model.code" name="code">
+              </mat-form-field>
+            </div>
+            <div class="col-sm-6 col-lg-3">
+              <mat-form-field class="full-width">
+                <input matInput placeholder="ชื่อคุณลักษณะสินค้า" [(ngModel)]="model.name" name="name">
+              </mat-form-field>
+            </div>
+            <div class="col-6 col-lg-3">
+                <mat-form-field class="full-width">
+                    <mat-select placeholder="สถานะ" [(ngModel)]="model.status" name="ddlStatus">
+                        <mat-option>ทั้งหมด</mat-option>
+                        <!-- <mat-option *ngFor="let x of ddlStatus" [value]="x.key">{{x.value}}</mat-option> -->
+                        <mat-option value="Active">Active</mat-option>
+                        <mat-option value="Inactive">Inactive</mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+          </div>
+        </mat-card-content>
+        <mat-card-actions class="no-margin">
+          <button mat-raised-button color="primary" class="btn-w-md" type="button" (click)="search()"
+            [disabled]="model.productAttributeTypeCode == ''">
+            <mat-icon class="material-icons">search</mat-icon> ค้นหา
+          </button>
+          <button mat-raised-button type="button" mat-button class="btn-w-md pull-right"
+            (click) ="add(model.productAttributeTypeCode)">
+            <mat-icon class="material-icons">add</mat-icon> เพิ่มข้อมูล
+          </button>
+          <!-- <button mat-raised-button type="button" mat-button class="btn-w-md pull-right"
+            [routerLink]="['/app/product/create/'+model.productAttributeTypeCode]">
+            <mat-icon class="material-icons">add</mat-icon> เพิ่มข้อมูล
+          </button> -->
+        </mat-card-actions>
+      </form>
+
+      <mat-card [hidden]="model.productAttributeTypeCode == ''">
+        <mat-card-content>
+          <!-- <div class="row card-table-header">
+            <div class="col-12 col-lg-3">
+              <b>รหัส</b>
+            </div>
+            <div class="col-4 col-lg-3">
+              <b>ชื่อคุณลักษณะสินค้า</b>
+            </div>
+            <div class="col-4 col-lg-3">
+                <b>สถานะ</b>
+              </div>
+            <div class="col-4 col-lg-3 text-right">
+            </div>
+            <div class="col-12">
+              <hr />
+            </div>
+          </div> -->
+          <div class="row card-table-body" *ngFor="let x of data.datas">
+            <div class="col-12 col-sm-3">
+              <small>รหัส</small>
+              <dd>{{x.code}}</dd>
+            </div>
+            <div class="col-12 col-sm-6">
+              <small>ชื่อคุณลักษณะสินค้า</small>
+              <dd>{{x.name}}</dd>
+            </div>
+            <div class="col-10 col-sm-2">
+                <small>สถานะ</small>
+                <dd>{{x.status=="A" ? "ใช้งาน" : "ไม่ใช้งาน"}}</dd>
+              </div>
+            <div class="col-2 col-sm-1 text-right">
+              <button mat-icon-button [matMenuTriggerFor]="appMenu">
+                <mat-icon class="material-icons">more_horiz</mat-icon>
+              </button>
+
+              <mat-menu #appMenu="matMenu">
+                <button mat-menu-item [routerLink]="['/app/product-attribute/view/'+x.productAttributeId]" *ngIf="actions.VIEW">
+                  <mat-icon class="material-icons">search</mat-icon> <span>แสดง</span>
+                </button>
+                <button mat-menu-item [routerLink]="['/app/product-attribute/update/'+x.productAttributeId]" *ngIf="actions.EDIT">
+                  <mat-icon class="material-icons">edit</mat-icon> <span>แก้ไข</span>
+                </button>
+                <!-- <button mat-menu-item ng-click="delete(x)">
+                    <mat-icon class="material-icons">delete</mat-icon> <span>ลบ</span>
+                  </button> -->
+              </mat-menu>
+
+            </div>
+            <div class="col-12">
+              <hr />
+            </div>
+          </div>
+        </mat-card-content>
+      </mat-card>
+    </mat-card-content>
+    <mat-card-content *ngIf="data.datas != undefined">
+      <ngb-pagination [collectionSize]="data.totalItem" [pageSize]="model.itemPerPage" [maxSize]="5"
+        [(page)]="model.pageIndex" (pageChange)="search()" [boundaryLinks]="true"></ngb-pagination>
+    </mat-card-content>
+  </mat-card>
+</div>

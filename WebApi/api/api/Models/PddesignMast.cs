@@ -6,19 +6,19 @@ using System.Web;
 
 namespace api.Models
 {
-    public class PDSIZE_MAST
+    public class PDDESIGN_MAST
     {
         [Key]
         public long id { get; set; }
 
         [StringLength(10)]
-        public string pdsize_code { get; set; }
+        public string pddsgn_code { get; set; }
 
         [StringLength(40)]
-        public string pdsize_tname { get; set; }
+        public string pddsgn_tname { get; set; }
 
         [StringLength(40)]
-        public string pdsize_ename { get; set; }
+        public string pddsgn_ename { get; set; }
 
         [StringLength(1)]
         public string status { get; set; }

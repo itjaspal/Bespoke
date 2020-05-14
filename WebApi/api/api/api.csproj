@@ -339,6 +339,7 @@
     <Compile Include="Controllers\MenuController.cs" />
     <Compile Include="Controllers\MenuGroupController.cs" />
     <Compile Include="Controllers\OrganizationController.cs" />
+    <Compile Include="Controllers\ProductController.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Controllers\UserRoleController.cs" />
     <Compile Include="DataAccess\ConXContext.cs" />
@@ -363,6 +364,7 @@
     <Compile Include="Interfaces\IMenuGroupService.cs" />
     <Compile Include="Interfaces\IMenuService.cs" />
     <Compile Include="Interfaces\IOrganizationService.cs" />
+    <Compile Include="Interfaces\IProductService.cs" />
     <Compile Include="Interfaces\ITokenService.cs" />
     <Compile Include="Interfaces\IUserRoleService.cs" />
     <Compile Include="Interfaces\IUserService.cs" />
@@ -399,6 +401,7 @@
     <Compile Include="Models\PdsizeMast.cs" />
     <Compile Include="Models\PdtypeMast.cs" />
     <Compile Include="Models\Product.cs" />
+    <Compile Include="Models\ProductAttributeType.cs" />
     <Compile Include="Models\Token.cs" />
     <Compile Include="Models\User.cs" />
     <Compile Include="Models\UserBranchGroupPrvlg.cs" />
@@ -427,6 +430,7 @@
     <Compile Include="ModelViews\MasterDepartmentView.cs" />
     <Compile Include="ModelViews\MasterMenuGroupView.cs" />
     <Compile Include="ModelViews\MasterMenuView.cs" />
+    <Compile Include="ModelViews\MasterProductAttributeView.cs" />
     <Compile Include="ModelViews\MasterUserRoleView.cs" />
     <Compile Include="ModelViews\MasterUserView.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -448,6 +452,7 @@
     <Compile Include="Services\MenuGroupService.cs" />
     <Compile Include="Services\MenuService.cs" />
     <Compile Include="Services\OrganizationService.cs" />
+    <Compile Include="Services\ProductService.cs" />
     <Compile Include="Services\TokenService.cs" />
     <Compile Include="Services\UserRoleService.cs" />
     <Compile Include="Services\UserService.cs" />
