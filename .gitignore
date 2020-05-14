@@ -102,3 +102,4 @@ dist
 
 # TernJS port file
 .tern-port
+WebApi/api/.vs/api/v15/Server/sqlite3/storage.ide
