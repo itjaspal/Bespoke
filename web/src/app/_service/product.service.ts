@@ -23,8 +23,24 @@ export class ProductService {
     return await this.http.post(environment.API_URL + 'product/postUpdate', _model).toPromise();
   }
 
-  public async getInfo(_productAttributeId: number) {
-    return await this.http.get<ProductAttributeView>(environment.API_URL + 'product/getInfo/' + _productAttributeId).toPromise();
+  public async getInfoBrand(_productAttributeId: number) {
+    return await this.http.get<ProductAttributeView>(environment.API_URL + 'product/getInfoBrand/'+ _productAttributeId).toPromise();
+  }
+
+  public async getInfoDesign(_productAttributeId: number) {
+    return await this.http.get<ProductAttributeView>(environment.API_URL + 'product/getInfoDesign/'+ _productAttributeId).toPromise();
+  }
+
+  public async getInfoType(_productAttributeId: number) {
+    return await this.http.get<ProductAttributeView>(environment.API_URL + 'product/getInfoType/'+ _productAttributeId).toPromise();
+  }
+
+  public async getInfoColor(_productAttributeId: number) {
+    return await this.http.get<ProductAttributeView>(environment.API_URL + 'product/getInfoColor/'+ _productAttributeId).toPromise();
+  }
+
+  public async getInfoSize(_productAttributeId: number) {
+    return await this.http.get<ProductAttributeView>(environment.API_URL + 'product/getInfoSize/'+ _productAttributeId).toPromise();
   }
   
   // public async search(_model: ProductSearchView) {

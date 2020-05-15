@@ -194,6 +194,7 @@ import { ProductCreateComponent } from './master-product/product-create/product-
 import { ProductUpdateComponent } from './master-product/product-update/product-update.component';
 import { ProductSearchComponent } from './master-product/product-search/product-search.component';
 import { ProductViewComponent } from './master-product/product-view/product-view.component';
+import { CustomerViewComponent } from './customer/customer-view/customer-view.component';
 
 
 
@@ -387,6 +388,7 @@ import { ProductViewComponent } from './master-product/product-view/product-view
     CustomerCreateComponent,
     CustomerSearchComponent,
     CustomerUpdateComponent,
+    CustomerViewComponent,
     ColorFontSearchComponent,
     ColorFontUpdateComponent,
     EmbroiderySearchComponent,

@@ -67,9 +67,8 @@ export class ProductSearchComponent implements OnInit {
       this.model.itemPerPage = event.pageSize;
     }
 
-    console.log(this.model);
     this.data = await this._productSvc.search(this.model);
-    
+    console.log(this.data);    
   }
 
   async add(attr)
@@ -82,6 +81,9 @@ export class ProductSearchComponent implements OnInit {
       this._router.navigateByUrl('/app/product/create/'+ attr);
     }
   }
+
+  
+
   delete(row: ProductAttributeView) {
 
   }

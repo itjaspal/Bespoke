@@ -275,5 +275,20 @@ namespace api.Controllers
             }
         }
 
+        [Route("dropdownlist/getDdlProductDesign")]
+        public HttpResponseMessage getDdlProductDesign()
+        {
+            try
+            {
+                var result = ddlSvc.GetDdlProductDesign();
+
+                return Request.CreateResponse(HttpStatusCode.OK, result);
+            }
+            catch (Exception ex)
+            {
+                return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, ex.ToString());
+            }
+        }
+
     }
 }

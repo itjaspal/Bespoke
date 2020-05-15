@@ -14,7 +14,7 @@ namespace api.ModelViews
     public class CustomerView
     {
         public long customerId { get; set; }
-        public string customerName { get; set; }
+        public string cust_name { get; set; }
         public string address1 { get; set; }
         public string address2 { get; set; }
         public string district { get; set; }

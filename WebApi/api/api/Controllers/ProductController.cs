@@ -36,20 +36,80 @@ namespace api.Controllers
             }
         }
 
-        //[Route("catalog-bordercolor/getInfo/{code}/{catalog}")]
-        //public HttpResponseMessage getInfo(long code, long catalog)
-        //{
-        //    try
-        //    {
-        //        var result = colorSvc.GetInfo(code, catalog);
+        [Route("product/getInfoBrand/{productAttributeId}")]
+        public HttpResponseMessage getInfoBrand(long productAttributeId)
+        {
+            try
+            {
+                var result = productSvc.GetInfoBrand(productAttributeId);
 
-        //        return Request.CreateResponse(HttpStatusCode.OK, result);
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, ex.ToString());
-        //    }
-        //}
+                return Request.CreateResponse(HttpStatusCode.OK, result);
+            }
+            catch (Exception ex)
+            {
+                return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, ex.ToString());
+            }
+        }
+
+        [Route("product/getInfoType/{productAttributeId}")]
+        public HttpResponseMessage getInfoType(long productAttributeId)
+        {
+            try
+            {
+                var result = productSvc.GetInfoType(productAttributeId);
+
+                return Request.CreateResponse(HttpStatusCode.OK, result);
+            }
+            catch (Exception ex)
+            {
+                return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, ex.ToString());
+            }
+        }
+
+        [Route("product/getInfoDesign/{productAttributeId}")]
+        public HttpResponseMessage getInfoDesign(long productAttributeId)
+        {
+            try
+            {
+                var result = productSvc.GetInfoDesign(productAttributeId);
+
+                return Request.CreateResponse(HttpStatusCode.OK, result);
+            }
+            catch (Exception ex)
+            {
+                return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, ex.ToString());
+            }
+        }
+
+        [Route("product/getInfoColor/{productAttributeId}")]
+        public HttpResponseMessage getInfoColor(long productAttributeId)
+        {
+            try
+            {
+                var result = productSvc.GetInfoColor(productAttributeId);
+
+                return Request.CreateResponse(HttpStatusCode.OK, result);
+            }
+            catch (Exception ex)
+            {
+                return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, ex.ToString());
+            }
+        }
+
+        [Route("product/getInfoSize/{productAttributeId}")]
+        public HttpResponseMessage getInfoSize(long productAttributeId)
+        {
+            try
+            {
+                var result = productSvc.GetInfoSize(productAttributeId);
+
+                return Request.CreateResponse(HttpStatusCode.OK, result);
+            }
+            catch (Exception ex)
+            {
+                return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, ex.ToString());
+            }
+        }
 
         [Route("product/postCreate")]
         public HttpResponseMessage postCreate(MasterProductAttributeView model)
@@ -75,7 +135,7 @@ namespace api.Controllers
         }
 
         //[POST("postUpdate")]
-        [Route("catalog-bordercolor/postUpdate")]
+        [Route("product/postUpdate")]
         public HttpResponseMessage postUpdate(MasterProductAttributeView model)
         {
             try

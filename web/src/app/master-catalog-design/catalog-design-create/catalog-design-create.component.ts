@@ -27,6 +27,7 @@ export class CatalogDesignCreateComponent implements OnInit {
   public model: CatalogMastView = new CatalogMastView();
   public validationForm: FormGroup;
   public ProductBrandLists: any;
+  // public ProductTypeLists: any;
   public user: any;
   imgURL: any;
 
@@ -35,6 +36,7 @@ export class CatalogDesignCreateComponent implements OnInit {
     this.buildForm();
     this.user = this._authSvc.getLoginUser();
     this.ProductBrandLists = await this._ddlSvc.getDdlProductBrand();
+    // this.ProductTypeLists = await this._ddlSvc.getDdlProductType();
     console.log(this.ProductBrandLists);
   }
 

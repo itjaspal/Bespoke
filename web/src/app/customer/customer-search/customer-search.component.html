@@ -36,11 +36,11 @@
                   <div class="row card-table-body" *ngFor="let x of data.datas">
                       <div class="col-3 col-sm-3">
                           <small>ชื่อลูกค้า</small>
-                          <dd>{{x.name}}</dd>
+                          <dd>{{x.cust_name}}</dd>
                       </div>
                       <div class="col-6 col-sm-6">
                           <small>ที่อยู่</small>
-                          <dd>{{x.addressName}}</dd>
+                          <dd>{{x.address1}} {{x.address1}} {{x.subDistrict}} {{x.district}} {{x.province}} {{x.zipCode}}</dd>
                       </div>
                       
                       <div class="col-1 col-sm-3 text-right">

@@ -115,32 +115,74 @@ namespace api.Services
             {
                 using (TransactionScope scope = new TransactionScope())
                 {
-                    //ProductAttribute updateObj = ctx.ProductAttributes.Where(z => z.productAttributeId == model.productAttributeId).SingleOrDefault();
-                    //updateObj.code = model.code;
-                    //updateObj.name = model.name;
-                    //updateObj.status = model.status;
-                    //ctx.SaveChanges();
+                    if(model.productAttributeTypeCode == "BRAND")
+                    {
+                        PDBRND_MAST updateObj = ctx.BrandMasts.Where(z => z.id == model.productAttributeId).SingleOrDefault();
+                        updateObj.pdbrnd_code = model.code;
+                        updateObj.pdbrnd_tname = model.name;
+                        updateObj.status = model.status;
+                        ctx.SaveChanges();
+                    }
+
+                    if (model.productAttributeTypeCode == "DESIGN")
+                    {
+                        PDDESIGN_MAST updateObj = ctx.DesignMasts.Where(z => z.id == model.productAttributeId).SingleOrDefault();
+                        updateObj.pddsgn_code = model.code;
+                        updateObj.pddsgn_tname = model.name;
+                        updateObj.status = model.status;
+                        ctx.SaveChanges();
+                    }
+
+                    if (model.productAttributeTypeCode == "TYPE")
+                    {
+                        PDTYPE_MAST updateObj = ctx.TypeMasts.Where(z => z.id == model.productAttributeId).SingleOrDefault();
+                        updateObj.pdtype_code = model.code;
+                        updateObj.pdtype_tname = model.name;
+                        updateObj.status = model.status;
+                        ctx.SaveChanges();
+                    }
+
+                    if (model.productAttributeTypeCode == "COLOR")
+                    {
+                        PDCOLOR_MAST updateObj = ctx.ColorMasts.Where(z => z.id == model.productAttributeId).SingleOrDefault();
+                        updateObj.pdcolor_code = model.code;
+                        updateObj.pdcolor_tname = model.name;
+                        updateObj.status = model.status;
+                        ctx.SaveChanges();
+                    }
+
+                    if (model.productAttributeTypeCode == "SIZE")
+                    {
+                        PDSIZE_MAST updateObj = ctx.SizeMasts.Where(z => z.id == model.productAttributeId).SingleOrDefault();
+                        updateObj.pdsize_code = model.code;
+                        updateObj.pdsize_tname = model.name;
+                        updateObj.status = model.status;
+                        ctx.SaveChanges();
+                    }
+
+
                     scope.Complete();
                 }
             }
         }
 
-        //public MasterProductAttributeView GetInfo(long productAttributeId)
-        //{
-        //    using (var ctx = new ConXContext())
-        //    {
-        //        ProductAttribute productAttribute = ctx.ProductAttributes.Where(z => z.productAttributeId == productAttributeId).SingleOrDefault();
+        public MasterProductAttributeView GetInfoBrand( long productAttributeId)
+        {
+            using (var ctx = new ConXContext())
+            {
+                PDBRND_MAST productAttribute = ctx.BrandMasts.Where(z => z.id == productAttributeId).SingleOrDefault();
+                return new MasterProductAttributeView
+                {
+                    productAttributeId = productAttribute.id,
+                    code = productAttribute.pdbrnd_code,
+                    name = productAttribute.pdbrnd_tname,
+                    status = productAttribute.status,
+                    productAttributeTypeCode = "BRAND"
+                };
 
-        //        return new MasterProductAttributeView
-        //        {
-        //            productAttributeId = productAttribute.productAttributeId,
-        //            code = productAttribute.code,
-        //            name = productAttribute.name,
-        //            status = productAttribute.status,
-        //            productAttributeTypeCode = productAttribute.productAttributeTypeCode
-        //        };
-        //    }
-        //}
+                
+            }
+        }
 
         public bool CheckDupplicate(string productAttributeTypeCode, string code)
         {
@@ -249,12 +291,203 @@ namespace api.Services
                         });
                     }
                 }
-               
+
+
+                if (model.productAttributeTypeCode == "DESIGN")
+                {
+                    List<PDDESIGN_MAST> productAttributes = ctx.DesignMasts
+                        .Where(x => (x.pddsgn_code.Contains(model.code) || model.code == "") && (x.pddsgn_tname.Contains(model.name) || x.pddsgn_tname == "")
+                        && (x.status == model.status || model.status == null || model.status == "")
+                        )
+                        .OrderBy(o => o.pddsgn_code)
+                        .ToList();
+
+                    ////count , select data from pageIndex, itemPerPage
+                    view.totalItem = productAttributes.Count;
+                    productAttributes = productAttributes.Skip(view.pageIndex * view.itemPerPage)
+                        .Take(view.itemPerPage)
+                        .ToList();
+
+                    //prepare model to modelView
+                    foreach (var i in productAttributes)
+                    {
+                        view.datas.Add(new ModelViews.MasterProductAttributeView()
+                        {
+                            productAttributeId = i.id,
+                            productAttributeTypeCode = model.productAttributeTypeCode,
+                            code = i.pddsgn_code,
+                            name = i.pddsgn_tname,
+                            status = i.status
+                        });
+                    }
+                }
+
+                if (model.productAttributeTypeCode == "TYPE")
+                {
+                    List<PDTYPE_MAST> productAttributes = ctx.TypeMasts
+                        .Where(x => (x.pdtype_code.Contains(model.code) || model.code == "") && (x.pdtype_tname.Contains(model.name) || x.pdtype_tname == "")
+                        && (x.status == model.status || model.status == null || model.status == "")
+                        )
+                        .OrderBy(o => o.pdtype_code)
+                        .ToList();
+
+                    ////count , select data from pageIndex, itemPerPage
+                    view.totalItem = productAttributes.Count;
+                    productAttributes = productAttributes.Skip(view.pageIndex * view.itemPerPage)
+                        .Take(view.itemPerPage)
+                        .ToList();
+
+                    //prepare model to modelView
+                    foreach (var i in productAttributes)
+                    {
+                        view.datas.Add(new ModelViews.MasterProductAttributeView()
+                        {
+                            productAttributeId = i.id,
+                            productAttributeTypeCode = model.productAttributeTypeCode,
+                            code = i.pdtype_code,
+                            name = i.pdtype_tname,
+                            status = i.status
+                        });
+                    }
+                }
+
+                if (model.productAttributeTypeCode == "COLOR")
+                {
+                    List<PDCOLOR_MAST> productAttributes = ctx.ColorMasts
+                        .Where(x => (x.pdcolor_code.Contains(model.code) || model.code == "") && (x.pdcolor_tname.Contains(model.name) || x.pdcolor_tname == "")
+                        && (x.status == model.status || model.status == null || model.status == "")
+                        )
+                        .OrderBy(o => o.pdcolor_code)
+                        .ToList();
+
+                    ////count , select data from pageIndex, itemPerPage
+                    view.totalItem = productAttributes.Count;
+                    productAttributes = productAttributes.Skip(view.pageIndex * view.itemPerPage)
+                        .Take(view.itemPerPage)
+                        .ToList();
+
+                    //prepare model to modelView
+                    foreach (var i in productAttributes)
+                    {
+                        view.datas.Add(new ModelViews.MasterProductAttributeView()
+                        {
+                            productAttributeId = i.id,
+                            productAttributeTypeCode = model.productAttributeTypeCode,
+                            code = i.pdcolor_code,
+                            name = i.pdcolor_tname,
+                            status = i.status
+                        });
+                    }
+                }
+
+                if (model.productAttributeTypeCode == "SIZE")
+                {
+                    List<PDSIZE_MAST> productAttributes = ctx.SizeMasts
+                        .Where(x => (x.pdsize_code.Contains(model.code) || model.code == "") && (x.pdsize_tname.Contains(model.name) || x.pdsize_tname == "")
+                        && (x.status == model.status || model.status == null || model.status == "")
+                        )
+                        .OrderBy(o => o.pdsize_code)
+                        .ToList();
+
+                    ////count , select data from pageIndex, itemPerPage
+                    view.totalItem = productAttributes.Count;
+                    productAttributes = productAttributes.Skip(view.pageIndex * view.itemPerPage)
+                        .Take(view.itemPerPage)
+                        .ToList();
+
+                    //prepare model to modelView
+                    foreach (var i in productAttributes)
+                    {
+                        view.datas.Add(new ModelViews.MasterProductAttributeView()
+                        {
+                            productAttributeId = i.id,
+                            productAttributeTypeCode = model.productAttributeTypeCode,
+                            code = i.pdsize_code,
+                            name = i.pdsize_tname,
+                            status = i.status
+                        });
+                    }
+                }
+
 
                 //return data to contoller
                 return view;
             }
         }
+
+        public MasterProductAttributeView GetInfoDesign(long productAttributeId)
+        {
+            using (var ctx = new ConXContext())
+            {
+                PDDESIGN_MAST productAttribute = ctx.DesignMasts.Where(z => z.id == productAttributeId).SingleOrDefault();
+                return new MasterProductAttributeView
+                {
+                    productAttributeId = productAttribute.id,
+                    code = productAttribute.pddsgn_code,
+                    name = productAttribute.pddsgn_tname,
+                    status = productAttribute.status,
+                    productAttributeTypeCode = "DESIGN"
+                };
+
+
+            }
+        }
+
+        public MasterProductAttributeView GetInfoType(long productAttributeId)
+        {
+            using (var ctx = new ConXContext())
+            {
+                PDTYPE_MAST productAttribute = ctx.TypeMasts.Where(z => z.id == productAttributeId).SingleOrDefault();
+                return new MasterProductAttributeView
+                {
+                    productAttributeId = productAttribute.id,
+                    code = productAttribute.pdtype_code,
+                    name = productAttribute.pdtype_tname,
+                    status = productAttribute.status,
+                    productAttributeTypeCode = "TYPE"
+                };
+
+
+            }
+        }
+
+        public MasterProductAttributeView GetInfoColor(long productAttributeId)
+        {
+            using (var ctx = new ConXContext())
+            {
+                PDCOLOR_MAST productAttribute = ctx.ColorMasts.Where(z => z.id == productAttributeId).SingleOrDefault();
+                return new MasterProductAttributeView
+                {
+                    productAttributeId = productAttribute.id,
+                    code = productAttribute.pdcolor_code,
+                    name = productAttribute.pdcolor_tname,
+                    status = productAttribute.status,
+                    productAttributeTypeCode = "COLOR"
+                };
+
+
+            }
+        }
+
+        public MasterProductAttributeView GetInfoSize(long productAttributeId)
+        {
+            using (var ctx = new ConXContext())
+            {
+                PDSIZE_MAST productAttribute = ctx.SizeMasts.Where(z => z.id == productAttributeId).SingleOrDefault();
+                return new MasterProductAttributeView
+                {
+                    productAttributeId = productAttribute.id,
+                    code = productAttribute.pdsize_code,
+                    name = productAttribute.pdsize_tname,
+                    status = productAttribute.status,
+                    productAttributeTypeCode = "SIZE"
+                };
+
+
+            }
+        }
+
+
 
         //public bool CanInactive(long productAttributeId)
         //{

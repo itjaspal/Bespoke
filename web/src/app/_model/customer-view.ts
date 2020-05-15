@@ -2,9 +2,10 @@ import { AppSetting } from "../_constants/app-setting";
 
 export class CustomerView {
     public customerId: number = 0;
-    public name: string = "";
+    public cust_name: string = "";
     public tel: string = "";
-    public addressName: string = "";
+    public address1: string = "";
+    public address2: string = "";
     public subDistrict: string = "";
     public district: string = "";
     public province: string = "";

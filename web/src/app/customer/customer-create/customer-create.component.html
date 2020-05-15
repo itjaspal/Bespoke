@@ -1,4 +1,4 @@
-<!-- <div class="container-fluid no-breadcrumbs">
+<div class="container-fluid no-breadcrumbs">
   <form [formGroup]="validationForm">
 
     <mat-card>
@@ -17,22 +17,25 @@
               <div class="col-12">
                 <mat-form-field class="full-width">
                   <input matInput placeholder="ชื่อลูกค้า *" aria-label="customerName"
-                    [matAutocomplete]="autoCustomerName" formControlName="name" name="name"
-                    [(ngModel)]="model.name">
-                  <button mat-button *ngIf="model.name" matSuffix mat-icon-button aria-label="Clear"
-                    type="button" (click)="model.customerName = ''">
+                    [matAutocomplete]="autoCustomerName" formControlName="cust_name" name="cust_name"
+                    [(ngModel)]="model.cust_name">
+                  <button mat-button *ngIf="model.cust_name" matSuffix mat-icon-button aria-label="Clear"
+                    type="button" (click)="model.name = ''">
                     <mat-icon>close</mat-icon>
                   </button>
                   <mat-autocomplete #autoCustomerName="matAutocomplete" autoActiveFirstOption
                     name="matAutocomplete_customerName">
-                    <mat-option *ngFor="let x of filteredCustomerByName | async" [value]="x.name"
-                      (onSelectionChange)="customerSelected(x)" class="autoComplete-option">
+                    <!-- <mat-option *ngFor="let x of filteredCustomerByName | async" [value]="x.name"
+                      (onSelectionChange)="customerSelected(x)" class="autoComplete-option"> -->
+
+                      <mat-option *ngFor="let x of filteredCustomerByName | async" [value]="x.cust_name"
+                       class="autoComplete-option">
 
                       <div class="row">
 
                         <div class="col-6">
                           <small>ชื่อลูกค้า</small>
-                          <dd class="highlight-auto-complete" [innerHTML]="x.name | highlight: toHighlight"></dd>
+                          <dd class="highlight-auto-complete" [innerHTML]="x.cust_name | highlight: toHighlight"></dd>
                         </div>
 
                         <div class="col-6">
@@ -46,7 +49,7 @@
                   </mat-autocomplete>
                 </mat-form-field>
                 <mat-error class="error-message"
-                  *ngIf="validationForm.get('customerName').hasError('required') && (validationForm.get('customerName').dirty || validationForm.get('customerName').touched)">
+                  *ngIf="validationForm.get('cust_name').hasError('required') && (validationForm.get('cust_name').dirty || validationForm.get('cust_name').touched)">
                   โปรดระบุข้อมูล
                 </mat-error>
               </div>
@@ -89,11 +92,11 @@
             <div class="row">
               <div class="col-12">
                 <mat-form-field class="full-width">
-                  <textarea matInput placeholder="ที่อยู่ *" formControlName="addressName"
-                    [(ngModel)]="model.addressName" name="addressName"></textarea>
+                  <textarea matInput placeholder="ที่อยู่ *" formControlName="address1"
+                    [(ngModel)]="model.address1" name="addressName"></textarea>
                 </mat-form-field>
                 <mat-error class="error-message"
-                  *ngIf="validationForm.get('addressName').hasError('required') && (validationForm.get('addressName').dirty || validationForm.get('addressName').touched)">
+                  *ngIf="validationForm.get('address1').hasError('required') && (validationForm.get('address1').dirty || validationForm.get('address1').touched)">
                   โปรดระบุข้อมูล
                 </mat-error>
               </div>
@@ -310,13 +313,11 @@
         <mat-icon class="material-icons">close</mat-icon> ปิด
       </button>
 
-      <button mat-raised-button color="primary" class="btn-w-md pull-right" type="button" (click)="save()"
-        [disabled]="!validationForm.valid || model.saleTransactionItems.length == 0"
-        *ngIf="model.stockLocationId != null">
+      <button mat-raised-button color="primary" class="btn-w-md pull-right" type="button" (click)="save()">
         <mat-icon class="material-icons">save</mat-icon> บันทึกข้อมูล
       </button>
 
     </div>
 
   </form>
-</div> -->
+</div>

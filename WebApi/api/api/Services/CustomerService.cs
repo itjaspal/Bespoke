@@ -90,12 +90,12 @@ namespace api.Services
         {
             using (var ctx = new ConXContext())
             {
-                string sql = "select top 20 * from customers";
+                string sql = "select top 20 * from cust_mast";
 
                 if (model.type == "name")
                 {
                     sql += " where cust_name like @txt_name";
-                    sql += " order by name asc";
+                    sql += " order by cust_name asc";
                 }
                 else
                 {
@@ -152,7 +152,7 @@ namespace api.Services
                     view.datas.Add(new ModelViews.CustomerView()
                     {
                         customerId = i.customerId,
-                        customerName = i.cust_code,
+                        cust_name = i.cust_name,
                         address1 = i.address1,
                         address2 = i.address2
 

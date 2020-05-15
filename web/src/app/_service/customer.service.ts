@@ -28,4 +28,8 @@ export class CustomerService {
   public async search(_model: CustomerSearchView) { 
     return await this.http.post<CommonSearchView<CustomerView>>(environment.API_URL + 'master-customer/postSearch',_model).toPromise();
   }
+
+  public async create(_model: CustomerView) {
+    return await this.http.post<number>(environment.API_URL + 'master-customer/postCreate', _model).toPromise();
+  }
 }

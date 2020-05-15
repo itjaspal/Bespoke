@@ -91,10 +91,10 @@
               </button>
 
               <mat-menu #appMenu="matMenu">
-                <button mat-menu-item [routerLink]="['/app/product-attribute/view/'+x.productAttributeId]" *ngIf="actions.VIEW">
+                <!-- <button mat-menu-item [routerLink]="['/app/product-attribute/view/'+x.productAttributeId]" *ngIf="actions.VIEW">
                   <mat-icon class="material-icons">search</mat-icon> <span>แสดง</span>
-                </button>
-                <button mat-menu-item [routerLink]="['/app/product-attribute/update/'+x.productAttributeId]" *ngIf="actions.EDIT">
+                </button> -->
+                <button mat-menu-item [routerLink]="['/app/product/update/'+x.productAttributeTypeCode+'/'+x.productAttributeId]">
                   <mat-icon class="material-icons">edit</mat-icon> <span>แก้ไข</span>
                 </button>
                 <!-- <button mat-menu-item ng-click="delete(x)">

@@ -353,5 +353,22 @@ namespace api.Services
             }
 
         }
+
+        public List<Dropdownlists> GetDdlProductDesign()
+        {
+            using (var ctx = new ConXContext())
+            {
+                List<Dropdownlists> ddl = ctx.DesignMasts
+                    .Where(z => z.status == "A")
+                    .OrderBy(o => o.pddsgn_code)
+                    .Select(x => new Dropdownlists()
+                    {
+                        key = x.pddsgn_code,
+                        value = x.pddsgn_code + " - " + x.pddsgn_tname
+                    })
+                    .ToList();
+                return ddl;
+            }
+        }
     }
 }

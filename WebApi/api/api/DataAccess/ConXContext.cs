@@ -53,6 +53,7 @@ namespace api.DataAccess
         public DbSet<PDTYPE_MAST> TypeMasts { get; set; }
         public DbSet<PDDESIGN_MAST> DesignMasts { get; set; }
         public DbSet<ProductAttributeType> ProductAttributeTypes { get; set; }
+        //public DbSet<cust_mast> Customers { get; set; }
 
 
 

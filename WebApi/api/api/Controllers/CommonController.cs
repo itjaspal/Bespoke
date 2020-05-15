@@ -13,7 +13,7 @@ using System.Web.Http;
 namespace api.Controllers
 {
     [AuthorizationRequired]
-    [RoutePrefix("/common")]
+    //[RoutePrefix("/common")]
     public class CommonController : ApiController
     {
         ICommonService commonSvc;
@@ -22,7 +22,8 @@ namespace api.Controllers
             commonSvc = new CommonService();
         }
 
-        [POST("postInquiryAddress")]
+        //[POST("postInquiryAddress")]
+        [Route("common/postInquiryAddress")]
         public HttpResponseMessage postInquiryAddress(AddressDBAutoCompleteSearchView model)
         {
             try

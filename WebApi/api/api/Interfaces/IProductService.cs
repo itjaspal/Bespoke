@@ -11,7 +11,11 @@ namespace api.Interfaces
     {
         CommonSearchView<MasterProductAttributeView> Search(MasterProductAttributeSearchView model);
 
-        //MasterProductAttributeView GetInfo(long productAttributeId);
+        MasterProductAttributeView GetInfoBrand(long productAttributeId);
+        MasterProductAttributeView GetInfoDesign(long productAttributeId);
+        MasterProductAttributeView GetInfoType(long productAttributeId);
+        MasterProductAttributeView GetInfoColor(long productAttributeId);
+        MasterProductAttributeView GetInfoSize(long productAttributeId);
 
         void Create(MasterProductAttributeView model);
 
