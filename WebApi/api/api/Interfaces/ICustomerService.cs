@@ -13,8 +13,11 @@ namespace api.Interfaces
         long IsExitingCustomer(cust_mast cust);
         long Create(cust_mast customer);
 
-        void Update(cust_mast customer);
-        void Delete(cust_mast customer);
+        void Update(CustomerView model);
+        void Delete(CustomerView cust);
+
+        CustomerView GetInfo(int code);
+        
 
 
         //void SyncUpdate(cust_mast customer);

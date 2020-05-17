@@ -8,6 +8,7 @@ import { AppSetting } from '../../_constants/app-setting';
 import { CommonSearchView } from '../../_model/common-search-view';
 import { PageEvent } from '@angular/material';
 import { MenuSearchView } from '../../_model/menu';
+import { MessageService } from '../../_service/message.service';
 
 @Component({
   selector: 'app-customer-search',
@@ -18,6 +19,7 @@ export class CustomerSearchComponent implements OnInit {
 
   constructor(
     private _custSvc: CustomerService,
+    private _msgSvc: MessageService,
     private _ddlSvc: DropdownlistService,
     private _actRoute:ActivatedRoute,
     private _authSvc: AuthenticationService
@@ -63,9 +65,23 @@ export class CustomerSearchComponent implements OnInit {
     }
 
     this.data = await this._custSvc.search(this.model);
+    //console.log(this.data);
   }
 
-  delete(row: MenuSearchView) {
+  // delete(row: MenuSearchView) {
+
+  // }
+  async delete(cust) {
+
+    this._msgSvc.confirmPopup("ยืนยันลบข้อมูล", async result => {
+      if (result) {
+        let res: any = await this._custSvc.delete(cust);
+
+        this._msgSvc.successPopup(res.message);
+
+        await this.search();
+      }
+    })
 
   }
 

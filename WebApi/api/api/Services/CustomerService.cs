@@ -112,9 +112,27 @@ namespace api.Services
             }
         }
 
-        public void Delete(cust_mast customer)
+        public void Delete(CustomerView custView)
         {
-            throw new NotImplementedException();
+            using (var ctx = new ConXContext())
+            {
+                using (TransactionScope scope = new TransactionScope())
+                {
+
+                    cust_mast cust = ctx.CustMasts
+                        .Where(z => z.customerId == custView.customerId)
+                        .SingleOrDefault();
+
+                    //ctx.UserBranchPrvlgs.RemoveRange(ctx.UserBranchPrvlgs.Where(z => z.username == colorView.emb_color_mast_id));
+                    //ctx.SaveChanges();
+
+                    ctx.CustMasts.Remove(cust);
+
+                    ctx.SaveChanges();
+
+                    scope.Complete();
+                }
+            }
         }
 
         public CommonSearchView<CustomerView> Search(CustomerSearchView model)
@@ -154,13 +172,67 @@ namespace api.Services
                         customerId = i.customerId,
                         cust_name = i.cust_name,
                         address1 = i.address1,
-                        address2 = i.address2
+                        address2 = i.address2,
+                        subDistrict = i.subDistrict,
+                        district = i.district,
+                        province = i.province,
+                        zipCode = i.zipCode,
+                        tel = i.tel
 
                     });
                 }
 
                 //return data to contoller
                 return view;
+            }
+        }
+
+        public void Update(CustomerView model)
+        {
+            using (var ctx = new ConXContext())
+            {
+                //string imagePath = @model.pic_file_path;
+                //string imgBase64String = Util.Util.GetBase64StringForImage(imagePath);
+
+                using (TransactionScope scope = new TransactionScope())
+                {
+                    cust_mast updateObj = ctx.CustMasts.Where(z => z.customerId == model.customerId).SingleOrDefault();
+
+                    updateObj.cust_name = model.cust_name;
+                    updateObj.address1 = model.address1;
+                    updateObj.subDistrict = model.subDistrict;
+                    updateObj.district = model.district;
+                    updateObj.province = model.province;
+                    updateObj.zipCode = model.zipCode;
+                    updateObj.tel = model.tel;
+                   
+
+
+                    ctx.SaveChanges();
+                    scope.Complete();
+                }
+            }
+        }
+
+        public CustomerView GetInfo(int code)
+        {
+            using (var ctx = new ConXContext())
+            {
+                cust_mast model = ctx.CustMasts
+                    .Where(z => z.customerId == code).SingleOrDefault();
+
+                return new CustomerView
+                {
+                    customerId = model.customerId,
+                    cust_name = model.cust_name,
+                    address1 = model.address1,
+                    subDistrict = model.subDistrict,
+                    district = model.district,
+                    province = model.province,
+                    zipCode = model.zipCode,
+                    tel = model.tel
+
+                };
             }
         }
     }

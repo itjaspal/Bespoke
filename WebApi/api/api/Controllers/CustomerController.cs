@@ -88,9 +88,24 @@ namespace api.Controllers
             }
         }
 
+        [Route("master-customer/getInfo/{code}")]
+        public HttpResponseMessage getInfo(int code)
+        {
+            try
+            {
+                var result = customerService.GetInfo(code);
+
+                return Request.CreateResponse(HttpStatusCode.OK, result);
+            }
+            catch (Exception ex)
+            {
+                return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, ex.ToString());
+            }
+        }
+
         //[POST("postUpdate")]
         [Route("master-customer/postUpdate")]
-        public HttpResponseMessage postUpdate(cust_mast model)
+        public HttpResponseMessage postUpdate(CustomerView model)
         {
             try
             {
@@ -107,7 +122,7 @@ namespace api.Controllers
         }
 
         [Route("master-customer/post/Delete")]
-        public HttpResponseMessage postDelete(cust_mast model)
+        public HttpResponseMessage postDelete(CustomerView model)
         {
             try
             {

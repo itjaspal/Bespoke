@@ -42,20 +42,24 @@
                           <small>ที่อยู่</small>
                           <dd>{{x.address1}} {{x.address1}} {{x.subDistrict}} {{x.district}} {{x.province}} {{x.zipCode}}</dd>
                       </div>
+                      <div class="col-2 col-sm-2">
+                        <small>โทรศัพท์</small>
+                        <dd>{{x.tel}}</dd>
+                    </div>
                       
-                      <div class="col-1 col-sm-3 text-right">
+                      <div class="col-1 col-sm-1 text-right">
                           <button mat-icon-button [matMenuTriggerFor]="appMenu">
                               <mat-icon class="material-icons">more_horiz</mat-icon>
                           </button>
 
                           <mat-menu #appMenu="matMenu">
-                              <button mat-menu-item [routerLink]="['/app/customer/view/'+x.customerId]">
+                              <!-- <button mat-menu-item [routerLink]="['/app/customer/view/'+x.customerId]">
                                   <mat-icon class="material-icons">search</mat-icon> <span>แสดง</span>
-                              </button>
+                              </button> -->
                               <button mat-menu-item [routerLink]="['/app/customer/update/'+x.customerId]">
                                   <mat-icon class="material-icons">edit</mat-icon> <span>แก้ไข</span>
                               </button>
-                              <button mat-menu-item ng-click="delete(x)">
+                              <button mat-menu-item (click)="delete(x)">
                                 <mat-icon class="material-icons">delete</mat-icon> <span>ลบ</span>
                               </button>
                           </mat-menu>

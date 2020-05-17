@@ -71,6 +71,7 @@ import { CatalogTypeUpdateComponent } from '../master-catalog-type/catalog-type-
 import { ProductSearchComponent } from '../master-product/product-search/product-search.component';
 import { ProductCreateComponent } from '../master-product/product-create/product-create.component';
 import { ProductUpdateComponent } from '../master-product/product-update/product-update.component';
+import { CustomerUpdateComponent } from '../customer/customer-update/customer-update.component';
 
  
 
@@ -141,6 +142,7 @@ const routes: Routes = [
       //Master Customer
       { path: "customer", component: CustomerSearchComponent, canActivate: [AuthenGuard], data: { parentUrl: "/app/customer" } },
       { path: "customer/create", component: CustomerCreateComponent, canActivate: [AuthenGuard], data: { parentUrl: "/app/customer" } },
+      { path: "customer/update/:id", component: CustomerUpdateComponent, canActivate: [AuthenGuard], data: { parentUrl: "/app/customer" } },
       
       //Master Catalog Design
       { path: "catalog", component: CatalogDesignSearchComponent, canActivate: [AuthenGuard], data: { parentUrl: "/app/catalog" } },
