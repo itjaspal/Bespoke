@@ -29,6 +29,7 @@ namespace api.ModelViews
 
     public class DesignColorView
     {
+        public long catalog_color_id { get; set; }
         public string pdcolor_code { get; set; }
         public string pdcolor_name { get; set; }
         public string pic_file_path { get; set; }
