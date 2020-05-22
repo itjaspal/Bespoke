@@ -21,11 +21,11 @@ namespace api.Services
                 {
 
                     CATALOG_TYPE type = ctx.CatalogTypes
-                        .Where(z => z.catalog_type_id == model.catalog_type_id && z.catalog_id == model.catalog_id)
+                        .Where(z => z.pdtype_code == model.pdtype_code && z.catalog_id == model.catalog_id)
                         .SingleOrDefault();
 
                     CATALOG_PIC pic = ctx.CatalogPics
-                        .Where(z => z.catalog_type_id == model.catalog_type_id && z.catalog_id == model.catalog_id && z.catalog_color_id == model.catalog_color_id)
+                        .Where(z => z.catalog_type_id == model.catalog_type_id && z.catalog_id == model.catalog_id && z.catalog_color_id == model.catalog_color_id && z.catalog_type_code == model.catalog_type_code)
                         .SingleOrDefault();
 
                     if (type == null)
@@ -71,7 +71,7 @@ namespace api.Services
                     }
                     else
                     {
-                        CATALOG_TYPE updateType = ctx.CatalogTypes.Where(z => z.catalog_type_id == model.catalog_type_id && z.catalog_id == model.catalog_id).SingleOrDefault();
+                        CATALOG_TYPE updateType = ctx.CatalogTypes.Where(z => z.catalog_type_id == type.catalog_type_id && z.catalog_id == type.catalog_id).SingleOrDefault();
 
                         updateType.pdtype_code = model.pdtype_code;
                         updateType.sort_seq = model.sort_seq;
@@ -105,7 +105,7 @@ namespace api.Services
                         }
                         else
                         {
-                            CATALOG_PIC updatePic = ctx.CatalogPics.Where(z => z.catalog_type_id == model.catalog_type_id && z.catalog_id == model.catalog_id && z.catalog_color_id == model.catalog_color_id).SingleOrDefault();
+                            CATALOG_PIC updatePic = ctx.CatalogPics.Where(z => z.catalog_pic_id == pic.catalog_pic_id ).SingleOrDefault();
 
                             //updatePic.catalog_type_id = model.catalog_type_id;
                             //updatePic.catalog_id = model.catalog_id;
@@ -151,6 +151,43 @@ namespace api.Services
             }
         }
 
+        public List<CatalogTypeSelectView> GetFilterType(long catalog, string type)
+        {
+            using (var ctx = new ConXContext())
+            {
+
+                //query data
+
+                string sql = "select c.catalog_id , c.catalog_type_id ,a.catalog_color_id, c.pdtype_code , d.pdtype_tname , b.pic_base64 pic_color , a.catalog_type_code , a.pic_base64 pic_type , a.sort_seq , a.catalog_pic_id from CATALOG_PIC a , CATALOG_COLOR b ,CATALOG_TYPE c , PDTYPE_MAST d where a.catalog_id=b.catalog_id  and a.catalog_color_id=b.catalog_color_id and a.catalog_id=c.catalog_id and a.catalog_type_id=c.catalog_type_id and c.pdtype_code=d.pdtype_code and c.catalog_id = @p_catalog_id and c.pdtype_code = @p_pdtype_code order by c.sort_seq , a.catalog_type_code ,a.catalog_color_id";
+
+                List<CatalogTypeSelectView> types = ctx.Database.SqlQuery<CatalogTypeSelectView>(sql, new System.Data.SqlClient.SqlParameter("@p_catalog_id", catalog), new System.Data.SqlClient.SqlParameter("@p_pdtype_code", type)).ToList();
+
+
+                List<CatalogTypeSelectView> typeViews = new List<CatalogTypeSelectView>();
+
+                foreach (var i in types)
+                {
+                    CatalogTypeSelectView view = new CatalogTypeSelectView()
+                    {
+                        catalog_type_id = i.catalog_type_id,
+                        catalog_id = i.catalog_id,
+                        catalog_color_id = i.catalog_color_id,
+                        catalog_pic_id = i.catalog_pic_id,
+                        pdtype_code = i.pdtype_code,
+                        pdtype_tname = i.pdtype_tname,
+                        catalog_type_code = i.catalog_type_code,
+                        pic_color = i.pic_color,
+                        pic_type = i.pic_type,
+                        sort_seq = i.sort_seq
+                    };
+
+                    typeViews.Add(view);
+                }
+
+                return typeViews;
+            }
+        }
+
         public CatalogTypeView GetInfo(long code)
         {
             using (var ctx = new ConXContext())
@@ -183,9 +220,9 @@ namespace api.Services
 
                 //query data
 
-                string sql = "select c.catalog_id , c.catalog_type_id , c.pdtype_code , d.pdtype_tname , c.sort_seq , c.is_border  from CATALOG_TYPE c , PDTYPE_MAST d where c.pdtype_code=d.pdtype_code order by c.sort_seq ";
+                string sql = "select c.catalog_id , c.catalog_type_id , c.pdtype_code , d.pdtype_tname , c.sort_seq , c.is_border  from CATALOG_TYPE c , PDTYPE_MAST d where c.pdtype_code=d.pdtype_code and c.catalog_id = @p_catalog_id order by c.sort_seq ";
 
-                List<CatalogTypeSelectView> type = ctx.Database.SqlQuery<CatalogTypeSelectView>(sql).ToList();
+                List<CatalogTypeSelectView> type = ctx.Database.SqlQuery<CatalogTypeSelectView>(sql , new System.Data.SqlClient.SqlParameter("@p_catalog_id", catalog)).ToList();
 
 
                 List<CatalogTypeSelectView> typeViews = new List<CatalogTypeSelectView>();
@@ -216,9 +253,9 @@ namespace api.Services
 
                 //query data
                
-                string sql = "select c.catalog_id , c.catalog_type_id ,a.catalog_color_id, c.pdtype_code , d.pdtype_tname , b.pic_base64 pic_color , a.catalog_type_code , a.pic_base64 pic_type , a.sort_seq , a.catalog_pic_id from CATALOG_PIC a , CATALOG_COLOR b ,CATALOG_TYPE c , PDTYPE_MAST d where a.catalog_id=b.catalog_id  and a.catalog_color_id=b.catalog_color_id and a.catalog_id=c.catalog_id and a.catalog_type_id=c.catalog_type_id and c.pdtype_code=d.pdtype_code order by c.sort_seq , a.sort_seq ,a.catalog_color_id";
+                string sql = "select c.catalog_id , c.catalog_type_id ,a.catalog_color_id, c.pdtype_code , d.pdtype_tname , b.pic_base64 pic_color , a.catalog_type_code , a.pic_base64 pic_type , a.sort_seq , a.catalog_pic_id from CATALOG_PIC a , CATALOG_COLOR b ,CATALOG_TYPE c , PDTYPE_MAST d where a.catalog_id=b.catalog_id  and a.catalog_color_id=b.catalog_color_id and a.catalog_id=c.catalog_id and a.catalog_type_id=c.catalog_type_id and c.pdtype_code=d.pdtype_code and c.catalog_id = @p_catalog_id order by c.sort_seq , a.catalog_type_code ,a.catalog_color_id";
 
-                List<CatalogTypeSelectView> type = ctx.Database.SqlQuery<CatalogTypeSelectView>(sql).ToList();
+                List<CatalogTypeSelectView> type = ctx.Database.SqlQuery<CatalogTypeSelectView>(sql , new System.Data.SqlClient.SqlParameter("@p_catalog_id", catalog)).ToList();
 
 
                 List<CatalogTypeSelectView> typeViews = new List<CatalogTypeSelectView>();

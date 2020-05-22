@@ -77,7 +77,7 @@ namespace api.Models
         [StringLength(100)]
         public string pdmodel_desc { get; set; }
 
-        public float unit_price { get; set; }
+        public decimal unit_price { get; set; }
 
         [StringLength(1)]
         public string prod_status { get; set; }

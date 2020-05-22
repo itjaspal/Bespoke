@@ -433,6 +433,7 @@
     <Compile Include="ModelViews\MasterMenuGroupView.cs" />
     <Compile Include="ModelViews\MasterMenuView.cs" />
     <Compile Include="ModelViews\MasterProductAttributeView.cs" />
+    <Compile Include="ModelViews\MasterProductView.cs" />
     <Compile Include="ModelViews\MasterUserRoleView.cs" />
     <Compile Include="ModelViews\MasterUserView.cs" />
     <Compile Include="ModelViews\SalesView.cs" />

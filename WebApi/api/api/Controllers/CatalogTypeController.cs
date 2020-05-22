@@ -141,5 +141,20 @@ namespace api.Controllers
                 return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, ex.ToString());
             }
         }
+
+        [Route("catalog-type/get-filter-type/{catalog}/{type}")]
+        public HttpResponseMessage getFilterTypes(long catalog , string type)
+        {
+            try
+            {
+                var result = typeSvc.GetFilterType(catalog,type);
+
+                return Request.CreateResponse(HttpStatusCode.OK, result);
+            }
+            catch (Exception ex)
+            {
+                return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, ex.ToString());
+            }
+        }
     }
 }

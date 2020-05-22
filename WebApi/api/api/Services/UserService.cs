@@ -58,10 +58,10 @@ namespace api.Services
                     && (x.name.Contains(model.name) || model.name == null)
                     && (x.userRoleId == model.userrole || model.userrole == 0)
                     && (x.statusId == model.statusId || model.statusId == null)
-                    //&& (x.userBranchPrvlgList.Any(y => model.branchList.Contains(y.branchId)) || model.branchList.Count == 0)
-                    && (x.userBranchPrvlgList.Any(y => y.branchId == model.branchId))
+                    && (x.userBranchPrvlgList.Any(y => model.branchList.Contains(y.branchId)) || model.branchList.Count == 0)
+                    //&& (x.userBranchPrvlgList.Any(y => y.branchId == model.branchId))
                     && x.isPC == model.isPC
-                    && (x.createUser == model.createUser || model.createUser.ToLower() == "admin")
+                    //&& (x.createUser == model.createUser || model.createUser.ToLower() == "admin")
                     )
                     .OrderBy(o => o.username)
                     .ToList();

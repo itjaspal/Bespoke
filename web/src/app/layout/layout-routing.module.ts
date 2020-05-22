@@ -72,6 +72,7 @@ import { ProductSearchComponent } from '../master-product/product-search/product
 import { ProductCreateComponent } from '../master-product/product-create/product-create.component';
 import { ProductUpdateComponent } from '../master-product/product-update/product-update.component';
 import { CustomerUpdateComponent } from '../customer/customer-update/customer-update.component';
+import { ProductViewComponent } from '../master-product/product-view/product-view.component';
 
  
 
@@ -182,6 +183,7 @@ const routes: Routes = [
       { path: "product", component: ProductSearchComponent, canActivate: [AuthenGuard], data: { parentUrl: "/app/product" } },
       { path: "product/create/:attr", component: ProductCreateComponent, canActivate: [AuthenGuard], data: { parentUrl: "/app/product" } },
       { path: "product/update/:attr/:id", component: ProductUpdateComponent, canActivate: [AuthenGuard], data: { parentUrl: "/app/product" } },
+      { path: "product/view", component: ProductViewComponent, canActivate: [AuthenGuard], data: { parentUrl: "/app/product" } },
       
 
       //Sales

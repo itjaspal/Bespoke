@@ -81,6 +81,12 @@ export class CatalogTypeCreateComponent implements OnInit {
     console.log(this.data);
   }
 
+  async get_filter_type(type)
+  {
+      console.log(type);
+      this.type = await this._typeSvc.getFilterType(this.model_search.catalog_id,type);
+  }
+
   async save()
   {
     console.log(this.model);
@@ -97,6 +103,7 @@ export class CatalogTypeCreateComponent implements OnInit {
     }
     else
     {
+      console.log(this.model);  
       await this._typeSvc.create(this.model);
      
       await this._msgSvc.successPopup("บันทึกข้อมูลเรียบร้อย");

@@ -53,7 +53,7 @@ namespace api.DataAccess
         public DbSet<PDTYPE_MAST> TypeMasts { get; set; }
         public DbSet<PDDESIGN_MAST> DesignMasts { get; set; }
         public DbSet<ProductAttributeType> ProductAttributeTypes { get; set; }
-        //public DbSet<cust_mast> Customers { get; set; }
+        public DbSet<Product> Products { get; set; }
 
 
 
@@ -62,6 +62,7 @@ namespace api.DataAccess
 
             modelBuilder.Conventions.Remove<OneToManyCascadeDeleteConvention>();
 
+            modelBuilder.Entity<Product>().ToTable("Product");
 
             // Set Quantity Precision ===================================================
 

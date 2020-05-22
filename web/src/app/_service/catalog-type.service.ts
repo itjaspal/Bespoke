@@ -19,6 +19,10 @@ export class CatalogTypeService {
     return await this.http.get(environment.API_URL + 'catalog-type/get-type/'+ _id).toPromise();
   }
 
+  public async getFilterType(_id: number , _type: string) {
+    return await this.http.get(environment.API_URL + 'catalog-type/get-filter-type/'+ _id+'/'+_type).toPromise();
+  }
+
 
   public async search(_model: CatalogTypeSearchView) { 
     return await this.http.post<CommonSearchView<CatalogTypeView>>(environment.API_URL + 'catalog-type/postSearch',_model).toPromise();

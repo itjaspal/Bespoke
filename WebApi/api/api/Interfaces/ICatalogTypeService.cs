@@ -17,5 +17,6 @@ namespace api.Interfaces
         void delete(CatalogTypeSelectView type);
         List<CatalogTypeSelectView> GetTypeInCatalog(long catalog);
         List<CatalogTypeSelectView> GetType(long catalog);
+        List<CatalogTypeSelectView> GetFilterType(long catalog , string type);
     }
 }

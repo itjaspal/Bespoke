@@ -67,7 +67,14 @@ export class ProductSearchComponent implements OnInit {
       this.model.itemPerPage = event.pageSize;
     }
 
-    this.data = await this._productSvc.search(this.model);
+    if(this.model.productAttributeTypeCode=="PRODUCT")
+    {
+      this._router.navigateByUrl('/app/product/view');
+    }
+    else
+    {
+      this.data = await this._productSvc.search(this.model);
+    }
     console.log(this.data);    
   }
 

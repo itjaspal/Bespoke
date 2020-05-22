@@ -487,6 +487,67 @@ namespace api.Services
             }
         }
 
+        public CommonSearchView<MasterProductView> SearchProduct(MasterProductSearchView model)
+        {
+            using (var ctx = new ConXContext())
+            {
+                //define model view
+                CommonSearchView<MasterProductView> view = new ModelViews.CommonSearchView<ModelViews.MasterProductView>()
+                {
+                    pageIndex = model.pageIndex - 1,
+                    itemPerPage = model.itemPerPage,
+                    totalItem = 0,
+
+                    datas = new List<ModelViews.MasterProductView>()
+                };
+
+                //query data
+                List<Product> prod = ctx.Products
+                    .Where(x => (x.prod_code.Contains(model.prod_code) || model.prod_code == "")
+                    //&& (x.bar_code.Contains(model.bar_code) || model.bar_code == "") && (x.prod_tname.Contains(model.prod_tname) || model.prod_tname == "")
+                    //&& (x.pdtype_code == model.pdtype_code || model.pdtype_code == "")
+                    //&& (x.pdbrnd_code == model.pdbrnd_code || model.pdbrnd_code == "")
+                    //&& (x.pdcolor_code == model.pdcolor_code || model.pdcolor_code == "")
+                    //&& (x.pdsize_code == model.pdsize_code || model.pdsize_code == "")
+                    //&& (x.pddsgn_code == model.pddsgn_code || model.pddsgn_code == "")
+                    //&& (x.prod_status == model.status || model.status == null)
+                    )
+                    .OrderBy(o => o.prod_code)
+                    .ToList();
+
+                //count , select data from pageIndex, itemPerPage
+                view.totalItem = prod.Count;
+                prod = prod.Skip(view.pageIndex * view.itemPerPage)
+                    .Take(view.itemPerPage)
+                    .ToList();
+
+                //prepare model to modelView
+                foreach (var i in prod)
+                {
+                    view.datas.Add(new ModelViews.MasterProductView()
+                    {
+                        id = i.id,
+                        prod_code = i.prod_code,
+                        bar_code = i.bar_code,
+                        prod_tname = i.prod_tname,
+                        uom_code = i.uom_code,
+                        pdbrnd_code = i.pdbrnd_code,
+                        pdcolor_code = i.pdcolor_code,
+                        pddsgn_code = i.pddsgn_code,
+                        pdsize_code = i.pdsize_code,
+                        pdtype_code = i.pdtype_code,
+                        status = i.prod_status,
+                        unit_price = i.unit_price,
+                        statusText = i.prod_status == "A" ? "ใช้งาน" : "ไม่ใช้งาน"
+
+                    });
+                }
+
+                //return data to contoller
+                return view;
+            }
+        }
+
 
 
         //public bool CanInactive(long productAttributeId)

@@ -83,6 +83,42 @@ namespace api.Services
             }
         }
 
+        public List<CatalogSizeView> GetFilterType(long catalog, long type)
+        {
+            using (var ctx = new ConXContext())
+            {
+
+                //query data
+
+                string sql = "select a.catalog_size_id , a.catalog_id , a.catalog_type_id , a.pdsize_code , b.pdsize_tname pdsize_name, a.sort_seq , d.pdtype_tname pdtype_name from CATALOG_SIZE a , PDSIZE_MAST b , CATALOG_TYPE c , PDTYPE_MAST d where a.pdsize_code=b.pdsize_code and a.catalog_type_id=c.catalog_type_id and c.pdtype_code = d.pdtype_code and a.catalog_id = @p_catalog_id  and c.catalog_type_id = @p_catalog_type_id order by a.sort_seq ";
+
+                List<CatalogSizeView> size = ctx.Database.SqlQuery<CatalogSizeView>(sql, new System.Data.SqlClient.SqlParameter("@p_catalog_id", catalog), new System.Data.SqlClient.SqlParameter("@p_catalog_type_id", type)).ToList();
+
+
+                List<CatalogSizeView> sizeViews = new List<CatalogSizeView>();
+
+                foreach (var i in size)
+                {
+
+
+                    CatalogSizeView view = new CatalogSizeView()
+                    {
+                        catalog_type_id = i.catalog_type_id,
+                        catalog_id = i.catalog_id,
+                        catalog_size_id = i.catalog_size_id,
+                        pdsize_code = i.pdsize_code,
+                        pdsize_name = i.pdsize_name,
+                        pdtype_name = i.pdtype_name,
+                        sort_seq = i.sort_seq
+                    };
+
+                    sizeViews.Add(view);
+                }
+
+                return sizeViews;
+            }
+        }
+
         public CatalogSizeView GetInfo(long code, long catalog , long type)
         {
             using (var ctx = new ConXContext())

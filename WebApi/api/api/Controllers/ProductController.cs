@@ -152,6 +152,23 @@ namespace api.Controllers
             }
         }
 
+        [Route("product/postSearchProduct")]
+        public HttpResponseMessage postSearchProduct(MasterProductSearchView model)
+        {
+            try
+            {
+
+
+                var result = productSvc.SearchProduct(model);
+
+                return Request.CreateResponse(HttpStatusCode.OK, result);
+            }
+            catch (Exception ex)
+            {
+                return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, ex.ToString());
+            }
+        }
+
         //[Route("catalog-bordercolor/post/Delete")]
         //public HttpResponseMessage postDelete(MasterProductAttributeView model)
         //{

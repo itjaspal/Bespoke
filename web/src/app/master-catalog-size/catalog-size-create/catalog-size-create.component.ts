@@ -121,6 +121,13 @@ export class CatalogSizeCreateComponent implements OnInit {
 
   }
 
+  async get_filter_type(type)
+  {
+      console.log(type);
+      this.size = await this._sizeSvc.getFilterType(this.model_search.catalog_id,type);
+  }
+
+
   close() {
     window.history.back();
   }

@@ -91,7 +91,10 @@ export class ColorFontSearchComponent implements OnInit {
       await this.search();
       //this._router.navigateByUrl('/app/color-font');
     }
-
+    // this.model.color_code = "";
+    // this.model.color_name = "";
+    this.imgURL = null;
+    this.buildForm();
     
   }
 

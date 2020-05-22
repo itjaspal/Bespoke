@@ -175,4 +175,9 @@ export class DropdownlistService {
     return await this.http.get<Dropdownlist[]>(environment.API_URL + 'dropdownlist/getDdlTypeInCatalog/' + catalog_id).toPromise();
   }
 
+  public async getDdlProductDesign() { 
+    
+    return await this.http.get<Dropdownlist[]>(environment.API_URL + 'dropdownlist/getDdlProductDesign').toPromise();
+  }
+
 }

@@ -31,7 +31,7 @@
                       <div class="col-sm-6 col-lg-4">
 
                         <input type='file' #file (change)="preview($event)">
-                        <img [src]="imgURL" height="100" *ngIf="imgURL">
+                        <img [src]="imgURL" *ngIf="imgURL">
                         
                       </div>
 
@@ -94,20 +94,20 @@
                       </div>
                   </div> -->
                   <div class="row card-table-body" *ngFor="let x of data.datas">
-                      <div class="col-2 col-sm-2">
+                      <div class="col-3 col-sm-3">
                           <small>รหัสสี</small>
                           <dd>{{x.color_code}}</dd>
                       </div>
-                      <div class="col-2 col-sm-2">
+                      <div class="col-3 col-sm-3">
                           <small>ชื่อสี</small>
                           <dd>{{x.color_name}}</dd>
                       </div>
-                      <div class="col-5 col-sm-4">
+                      <div class="col-3 col-sm-3">
                           <small>รูป</small>
                           <dd><img src="{{x.pic_base64}}" /></dd>
                       </div>
                      
-                      <div class="col-1 col-sm-3 text-right">
+                      <div class="col-3 col-sm-3 text-right">
                           <button mat-icon-button [matMenuTriggerFor]="appMenu">
                               <mat-icon class="material-icons">more_horiz</mat-icon>
                           </button>

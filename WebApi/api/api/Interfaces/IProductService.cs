@@ -10,6 +10,7 @@ namespace api.Interfaces
     interface IProductService
     {
         CommonSearchView<MasterProductAttributeView> Search(MasterProductAttributeSearchView model);
+        CommonSearchView<MasterProductView> SearchProduct(MasterProductSearchView model);
 
         MasterProductAttributeView GetInfoBrand(long productAttributeId);
         MasterProductAttributeView GetInfoDesign(long productAttributeId);

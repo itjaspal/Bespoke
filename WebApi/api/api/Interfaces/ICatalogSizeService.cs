@@ -16,6 +16,7 @@ namespace api.Interfaces
 
         void delete(CatalogSizeView size);
         List<CatalogSizeView> GetSize(long catalog , long type);
+        List<CatalogSizeView> GetFilterType(long catalog, long type);
         List<CatalogSizeView> GetSizeInCatalog(long catalog);
     }
 }

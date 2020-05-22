@@ -19,6 +19,10 @@ export class CatalogSizeService {
     return await this.http.get(environment.API_URL + 'catalog-size/get-size-catalog/'+ _id).toPromise();
   }
 
+  public async getFilterType(_id: number , _type: number) {
+    return await this.http.get(environment.API_URL + 'catalog-size/get-filter-type/'+ _id+'/'+ _type).toPromise();
+  }
+
   public async search(_model: CatalogSizeSearchView) { 
     return await this.http.post<CommonSearchView<CatalogSizeView>>(environment.API_URL + 'catalog-size/postSearch',_model).toPromise();
   } 

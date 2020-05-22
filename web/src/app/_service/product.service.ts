@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { ProductAttributeSearchView, ProductAttributeView } from '../_model/productAttribute';
 import { CommonSearchView } from '../_model/common-search-view';
 import { environment } from '../../environments/environment';
+import { ProductSearchView, ProductView } from '../_model/product';
 
 @Injectable({
   providedIn: 'root'
@@ -43,9 +44,9 @@ export class ProductService {
     return await this.http.get<ProductAttributeView>(environment.API_URL + 'product/getInfoSize/'+ _productAttributeId).toPromise();
   }
   
-  // public async search(_model: ProductSearchView) {
-  //   return await this.http.post<CommonSearchView<ProductView>>(environment.API_URL + 'master-product/postSearch', _model).toPromise();
-  // }
+  public async searchProduct(_model: ProductSearchView) {
+    return await this.http.post<CommonSearchView<ProductView>>(environment.API_URL + 'product/postSearchProduct', _model).toPromise();
+  }
 
   
   // public async getInfo(_productId: number) {

@@ -1,3 +1,162 @@
-<p>
-  product-view works!
-</p>
+<div class="container-fluid no-breadcrumbs">
+  <mat-card>
+    <mat-card-title>
+      <h6>ค้นหาสินค้า</h6>
+    </mat-card-title>
+    <mat-card-content>
+
+      <form>
+        <mat-card-content class="no-margin">
+          <div class="row">
+            <div class="col-6 col-lg-3">
+              <mat-form-field class="full-width">
+                <input matInput placeholder="รหัสสินค้า" [(ngModel)]="model.prod_code" name="prod_code">
+              </mat-form-field>
+            </div>
+            <div class="col-6 col-lg-3">
+              <mat-form-field class="full-width">
+                <input matInput placeholder="ชื่อสินค้า" [(ngModel)]="model.prod_tname" name="prod_tname">
+              </mat-form-field>
+            </div>
+            <div class="col-6 col-lg-3">
+              <mat-form-field class="full-width">
+                <mat-select placeholder="Brand" [(ngModel)]="model.pdbrnd_code" name="pdbrnd_code">
+                  <mat-option>ทั้งหมด</mat-option>
+                  <mat-option *ngFor="let pdbrnd_code of ddlProductBrand" [value]="pdbrnd_code.key">{{pdbrnd_code.value}}</mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+            <!-- <div class="col-sm-6 col-lg-3">
+              <mat-form-field class="full-width">
+                <mat-select placeholder="หน่วยนับ" [(ngModel)]="model.productUomId" name="productUomId">
+                  <mat-option *ngFor="let x of ddlProductUom" [value]="x.key">{{x.value}}</mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div> -->
+            <div class="col-6 col-lg-3">
+              <mat-form-field class="full-width">
+                <mat-select placeholder="Design" [(ngModel)]="model.pddsgn_code" name="pddsgn_code">
+                  <mat-option>ทั้งหมด</mat-option>
+                  <mat-option *ngFor="let x of ddlProductDesign" [value]="x.key">{{x.value}}</mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+            <div class="col-6 col-lg-3">
+              <mat-form-field class="full-width">
+                <mat-select placeholder="Type" [(ngModel)]="model.pdtype_code" name="pdtype_code">
+                  <mat-option>ทั้งหมด</mat-option>
+                  <mat-option *ngFor="let x of ddlProductType" [value]="x.key">{{x.value}}</mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+            <div class="col-6 col-lg-3">
+                <mat-form-field class="full-width">
+                  <mat-select placeholder="Color" [(ngModel)]="model.pdcolor_code" name="pdcolor_code">
+                    <mat-option>ทั้งหมด</mat-option>
+                    <mat-option *ngFor="let x of ddlProductColor" [value]="x.key">{{x.value}}</mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </div>
+            <div class="col-6 col-lg-3">
+              <mat-form-field class="full-width">
+                <mat-select placeholder="Size" [(ngModel)]="model.pdsize_code" name="pdsize_code">
+                  <mat-option>ทั้งหมด</mat-option>
+                  <mat-option *ngFor="let x of ddlProductSize" [value]="x.key">{{x.value}}</mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>            
+            <div class="col-6 col-lg-3">
+              <mat-form-field class="full-width">
+                <mat-select placeholder="สถานะ" [(ngModel)]="model.status" name="status">
+                  <mat-option>ทั้งหมด</mat-option>
+                        <!-- <mat-option *ngFor="let x of ddlStatus" [value]="x.key">{{x.value}}</mat-option> -->
+                        <mat-option value="A">Active</mat-option>
+                        <mat-option value="I">Inactive</mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>            
+            
+          </div>
+        </mat-card-content>
+        <mat-card-actions class="no-margin">
+          <button mat-raised-button color="primary" class="btn-w-md" type="button" (click)="search()">
+            <mat-icon class="material-icons">search</mat-icon> ค้นหา
+          </button>
+          <button mat-raised-button type="button" mat-button class="btn-w-md pull-right"
+            [routerLink]="['/app/product/sync']">
+            <mat-icon class="material-icons">add</mat-icon> Sync Product
+          </button>
+        </mat-card-actions>
+      </form>
+
+
+
+      <mat-card>
+        <mat-card-content>
+          <!-- <div class="row card-table-header">
+            <div class="col-lg-3">
+              <b>รหัสสินค้า</b>
+            </div>
+            <div class="col-lg-3">
+              <b>รหัสบาร์โค้ด</b>
+            </div>
+            <div class="col-lg-4">
+              <b>ชื่อสินค้า</b>
+            </div>
+            <div class="col-lg-1">
+              <b>สถานะ</b>
+            </div>
+            <div class="col-lg-1">
+
+            </div>
+            <div class="col-12">
+              <hr />
+            </div>
+          </div> -->
+          <div class="row card-table-body" *ngFor="let x of data.datas">
+            <div class="col-6 col-lg-3">
+              <small>รหัสสินค้า</small>
+              <dd>{{x.prod_code}}</dd>
+            </div>
+            
+            <div class="col-12 col-lg-4">
+              <small>ชื่อสินค้า</small>
+              <dd>{{x.prod_tname}}</dd>
+            </div>
+            <div class="col-6 col-lg-3">
+              <small>ราคา</small>
+              <dd>{{x.unit_price | number: '1.2-2'}}</dd>
+            </div>
+            <div class="col-6 col-lg-1">
+              <small>สถานะ</small>
+              <dd>{{x.statusText}}</dd>
+            </div>
+            <!-- <div class="col-6 col-lg-1 text-right">
+              <button mat-icon-button [matMenuTriggerFor]="appMenu">
+                <mat-icon class="material-icons">more_horiz</mat-icon>
+              </button>
+
+              <mat-menu #appMenu="matMenu">
+                <button mat-menu-item [routerLink]="['/app/product/view/'+x.productId]" *ngIf="actions.VIEW">
+                  <mat-icon class="material-icons">search</mat-icon> <span>แสดง</span>
+                </button>
+                <button mat-menu-item [routerLink]="['/app/product/update/'+x.productId]" *ngIf="actions.EDIT">
+                  <mat-icon class="material-icons">edit</mat-icon> <span>แก้ไข</span>
+                </button>
+              
+              </mat-menu>
+
+            </div> -->
+            <div class="col-12">
+              <hr />
+            </div>
+          </div>
+        </mat-card-content>
+      </mat-card>
+    </mat-card-content>
+    <mat-card-content *ngIf="data.datas != undefined">
+      <ngb-pagination [collectionSize]="data.totalItem" [pageSize]="model.itemPerPage" [maxSize]="5"
+        [(page)]="model.pageIndex" (pageChange)="search()" [boundaryLinks]="true"></ngb-pagination>
+    </mat-card-content>
+  </mat-card>
+</div>

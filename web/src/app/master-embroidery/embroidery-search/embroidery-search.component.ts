@@ -91,6 +91,9 @@ export class EmbroiderySearchComponent implements OnInit {
       //this._router.navigateByUrl('/app/emb-mast');
     }
 
+    this.buildForm();
+    this.imgURL = null;
+
     
   }
 

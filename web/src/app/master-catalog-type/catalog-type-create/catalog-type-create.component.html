@@ -18,9 +18,9 @@
                     <div class="col-6 col-sm-3">
                       
                       <mat-form-field class="full-width">
-                        <mat-select placeholder="Product Type" formControlName="pdtype_code"  [(ngModel)]="model.pdtype_code"  name="pdtype_Code">
+                        <mat-select placeholder="Product Type" formControlName="pdtype_code"  [(ngModel)]="model.pdtype_code"  name="pdtype_Code" (selectionChange)="get_filter_type($event.value)">
                          
-                        <mat-option *ngFor="let pdtype_Code of ProductTypeLists" [value]="pdtype_Code.key">{{pdtype_Code.value}}</mat-option>
+                        <mat-option *ngFor="let pdtype_code of ProductTypeLists" [value]="pdtype_code.key">{{pdtype_code.value}}</mat-option>
                         
                         </mat-select>
 
@@ -77,7 +77,7 @@
                           โปรดระบุข้อมูล
                       </mat-error>
                   </div>
-                  <div class="col-sm-2 col-lg-2">
+                  <!-- <div class="col-sm-2 col-lg-2">
                     <mat-form-field class="full-width">
                         <input matInput placeholder="ลำดับการเรียง *" formControlName="type_sort_seq" [(ngModel)]="model.type_sort_seq"
                             name="type_sort_seq">
@@ -86,9 +86,9 @@
                         *ngIf="validationForm.get('type_sort_seq').hasError('required') && (validationForm.get('type_sort_seq').dirty || validationForm.get('type_sort_seq').touched)">
                         โปรดระบุข้อมูล
                     </mat-error>
-                </div>
+                </div> -->
 
-                    <div class="col-4 col-lg-4" >
+                    <div class="col-6 col-lg-6" >
                       <mat-card-actions class="no-margin">
                         <button mat-raised-button color="primary" class="btn-w-md pull-right" type="button" (click)="save()">
                             <mat-icon class="material-icons">save</mat-icon> บันทึกข้อมูล
@@ -129,12 +129,12 @@
               <mat-card-content>
                  
                   <div class="row card-table-body" *ngFor="let x of type">
-                      <div class="col-1 col-sm-1">
+                      <!-- <div class="col-1 col-sm-1">
                           <small>ลำดับ</small>
                           <dd>{{x.sort_seq}}</dd>
-                      </div>
+                      </div> -->
 
-                      <div class="col-2 col-sm-2">
+                      <div class="col-3 col-sm-3">
                         <small>ประเภท</small>
                         <dd>{{x.pdtype_tname}}</dd>
                     </div>
