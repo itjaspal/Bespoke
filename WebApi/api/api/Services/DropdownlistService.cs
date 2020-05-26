@@ -51,18 +51,36 @@ namespace api.Services
             }
         }
 
-        public List<Dropdownlist> GetDdlBranch(long branchId)
+        //public List<Dropdownlist> GetDdlBranch(long branchId)
+        //{
+        //    using (var ctx = new ConXContext())
+        //    {
+        //        List<Dropdownlist> ddl = ctx.Branchs
+        //            .Include("branchGroup")
+        //            .Where(z => z.status == "A" && (z.branchId != branchId || branchId == 0))
+        //            .OrderBy(o => o.branchGroup.branchGroupCode).ThenBy(o => o.branchCode)
+        //            .Select(x => new Dropdownlist()
+        //            {
+        //                key = x.branchId,
+        //                value = x.branchGroup.branchGroupCode + " " + x.branchGroup.branchGroupName + " : " + x.branchCode + "-" + x.entityCode + " " + x.branchNameThai
+        //            })
+        //            .ToList();
+        //        return ddl;
+        //    }
+        //}
+
+        public List<Dropdownlist> GetDdlBranch()
         {
             using (var ctx = new ConXContext())
             {
                 List<Dropdownlist> ddl = ctx.Branchs
                     .Include("branchGroup")
-                    .Where(z => z.status == "A" && (z.branchId != branchId || branchId == 0))
+                    .Where(z => z.status == "A")
                     .OrderBy(o => o.branchGroup.branchGroupCode).ThenBy(o => o.branchCode)
                     .Select(x => new Dropdownlist()
                     {
                         key = x.branchId,
-                        value = x.branchGroup.branchGroupCode + " " + x.branchGroup.branchGroupName + " : " + x.branchCode + "-" + x.entityCode + " " + x.branchNameThai
+                        value = x.branchCode + " " + x.branchNameThai
                     })
                     .ToList();
                 return ddl;
@@ -306,7 +324,7 @@ namespace api.Services
         {
             using (var ctx = new ConXContext())
             {
-                string sql = "select a.catalog_type_id 'key' , b.pdtype_tname value from CATALOG_TYPE a , PDTYPE_MAST b where a.pdtype_code=b.pdtype_code and a.catalog_id = @p_catalog_id";
+                string sql = "select a.catalog_type_id 'key' , b.pdtype_tname value from CATALOG_TYPE a , PDTYPE_MAST b where a.pdtype_code=b.pdtype_code and a.catalog_id = @p_catalog_id order by a.sort_seq";
 
                 List<Dropdownlist> ddl = ctx.Database.SqlQuery<Dropdownlist>(sql, new System.Data.SqlClient.SqlParameter("@p_catalog_id", catalog_id))
                                             .Select(x => new Dropdownlist()
@@ -365,6 +383,39 @@ namespace api.Services
                     {
                         key = x.pddsgn_code,
                         value = x.pddsgn_code + " - " + x.pddsgn_tname
+                    })
+                    .ToList();
+                return ddl;
+            }
+        }
+
+        public List<Dropdownlists> GetDdlUserBranch(string user)
+        {
+            using (var ctx = new ConXContext())
+            {
+                string sql = "select a.branchCode 'key' , a.branchNameThai value from Branches a , UserBranchPrvlgs b where a.branchId=b.branchId and a.status = 'A' and b.username = @p_user";
+
+                List<Dropdownlists> ddl = ctx.Database.SqlQuery<Dropdownlists>(sql, new System.Data.SqlClient.SqlParameter("@p_user", user))
+                                            .Select(x => new Dropdownlists()
+                                            {
+                                                key = x.key,
+                                                value = x.value,
+                                            })
+                                            .ToList();
+                return ddl;
+            }
+        }
+
+        public List<Dropdownlists> GetDdlDocStatus()
+        {
+            using (var ctx = new ConXContext())
+            {
+                List<Dropdownlists> ddl = ctx.DocStatus
+                    .OrderBy(o => o.statusId)
+                    .Select(x => new Dropdownlists()
+                    {
+                        key = x.statusId,
+                        value = x.statusName
                     })
                     .ToList();
                 return ddl;

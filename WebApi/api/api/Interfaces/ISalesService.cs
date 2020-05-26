@@ -9,6 +9,7 @@ namespace api.Interfaces
 {
     interface ISalesService
     {
+        CommonSearchView<SalesView> Search(SalesSearchView model);
         CommonSearchView<CatalogMastView> SearchDesign(CatalogMastSearchView model);
         List<CatalogTypeSelectView> GetTypeInCatalogColor(long catalog , long color);
     }

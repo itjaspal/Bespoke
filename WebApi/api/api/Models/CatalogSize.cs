@@ -10,6 +10,7 @@ namespace api.Models
     {
         [Key]
         public long catalog_size_id { get; set; }
+
         public long catalog_id { get; set; }
         public long catalog_type_id { get; set; }
         public int sort_seq { get; set; }

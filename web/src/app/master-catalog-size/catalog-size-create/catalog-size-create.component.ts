@@ -107,17 +107,17 @@ export class CatalogSizeCreateComponent implements OnInit {
   }
 
   async delete(size) {
+    console.log("Delete Size");
+    // this._msgSvc.confirmPopup("ยืนยันลบข้อมูล", async result => {
+    //   if (result) {
+    //     let res: any = await this._sizeSvc.delete(size);
 
-    this._msgSvc.confirmPopup("ยืนยันลบข้อมูล", async result => {
-      if (result) {
-        let res: any = await this._sizeSvc.delete(size);
+    //     this._msgSvc.successPopup(res.message);
 
-        this._msgSvc.successPopup(res.message);
-
-        this._router.navigateByUrl('/', {skipLocationChange: true}).then(()=>
-        this._router.navigate(["/app/catalog-size/"+this._actRoute.snapshot.params.catalog_id+"/create"]));
-      }
-    })
+    //     this._router.navigateByUrl('/', {skipLocationChange: true}).then(()=>
+    //     this._router.navigate(["/app/catalog-size/"+this._actRoute.snapshot.params.catalog_id+"/create"]));
+    //   }
+    // })
 
   }
 

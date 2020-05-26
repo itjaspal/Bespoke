@@ -13,12 +13,15 @@ namespace api.ModelViews
         public DateTime doc_date { get; set; } 
         public DateTime req_date { get; set; }       
         public string cust_name { get; set; }
-        public int amt { get; set; }
+        public decimal tot_amt { get; set; }
         public string status { get; set; }
     }
 
     public class SalesSearchView
     {
+        public int pageIndex { get; set; }
+        public int itemPerPage { get; set; }
+        public string entity_code { get; set; }
         public string doc_no { get; set; }
         public string invoice_no { get; set; }
         public DateTime to_doc_date { get; set; }

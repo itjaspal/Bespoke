@@ -56,12 +56,12 @@ namespace api.Controllers
         }
 
         //[GET("getDdlBranch/{branchId}")]
-        [Route("dropdownlist/getDdlBranch/{branchId}")]
-        public HttpResponseMessage getDdlBranch(long branchId)
+        [Route("dropdownlist/getDdlBranch")]
+        public HttpResponseMessage getDdlBranch()
         {
             try
             {
-                var result = ddlSvc.GetDdlBranch(branchId);
+                var result = ddlSvc.GetDdlBranch();
 
                 return Request.CreateResponse(HttpStatusCode.OK, result);
             }
@@ -281,6 +281,36 @@ namespace api.Controllers
             try
             {
                 var result = ddlSvc.GetDdlProductDesign();
+
+                return Request.CreateResponse(HttpStatusCode.OK, result);
+            }
+            catch (Exception ex)
+            {
+                return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, ex.ToString());
+            }
+        }
+
+        [Route("dropdownlist/getDdlUserBranch/{user}")]
+        public HttpResponseMessage getDdlUserBranch(string user)
+        {
+            try
+            {
+                var result = ddlSvc.GetDdlUserBranch(user);
+
+                return Request.CreateResponse(HttpStatusCode.OK, result);
+            }
+            catch (Exception ex)
+            {
+                return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, ex.ToString());
+            }
+        }
+
+        [Route("dropdownlist/getDdlDocStatus")]
+        public HttpResponseMessage getDdlDocStatus()
+        {
+            try
+            {
+                var result = ddlSvc.GetDdlDocStatus();
 
                 return Request.CreateResponse(HttpStatusCode.OK, result);
             }

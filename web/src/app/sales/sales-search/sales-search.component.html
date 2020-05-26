@@ -8,14 +8,16 @@
         <mat-card-content class="no-margin">
           <div class="row">
             <div class="col-lg-3 col-sm-4">
-              <dt>ห้าง</dt>
-              <!-- <dd>{{user.branch.branch.entityCode}}</dd> -->
-              <dd>J0020-Jaspal Home - Emporium</dd>
+              <mat-form-field class="full-width">
+                <mat-select placeholder="ห้าง"  name="entity_code" [(ngModel)]="model_search.entity_code">
+                  <mat-option *ngFor="let x of branchLists" [value]="x.key">{{x.value}}</mat-option>
+                </mat-select>
+              </mat-form-field>
             </div>
             <div class="col-lg-3 col-sm-4 col-6">
               <mat-form-field class="full-width">
                 <input matInput [matDatepicker]="picker" placeholder="วันที่สั่งซื้อ" 
-                  name="fromDate">
+                  name="from_doc_date" [(ngModel)]="model_search.from_doc_date">
                 <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                 <mat-datepicker #picker></mat-datepicker>
               </mat-form-field>
@@ -23,7 +25,7 @@
             <div class="col-lg-3 col-sm-4 col-6">
               <mat-form-field class="full-width">
                 <input matInput [matDatepicker]="picker2" placeholder="ถึงวันที่" 
-                  name="toDate">
+                  name="to_doc_date" [(ngModel)]="model_search.to_doc_date">
                 <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
                 <mat-datepicker #picker2></mat-datepicker>
               </mat-form-field>
@@ -52,12 +54,12 @@
             </div> -->
             <div class="col-lg-3 col-sm-4 col-6">
               <mat-form-field class="full-width">
-                <input matInput placeholder="เลขที่"  name="docNbr">
+                <input matInput placeholder="เลขที่"  name="doc_no" [(ngModel)]="model_search.doc_no">
               </mat-form-field>
             </div>
             <div class="col-lg-3 col-sm-4 col-6">
               <mat-form-field class="full-width">
-                <input matInput placeholder="เลขที่ Invoice"  name="refDocNbr">
+                <input matInput placeholder="เลขที่ Invoice"  name="invoice_no" [(ngModel)]="model_search.invoice_no">
               </mat-form-field>
             </div>
             <!-- <div class="col-lg-3 col-sm-4 col-6">
@@ -67,8 +69,8 @@
             </div> -->
             <div class="col-lg-3 col-sm-4 col-12">
               <mat-form-field class="full-width">
-                <mat-select placeholder="สถานะ" multiple  name="statusId">
-                  <!-- <mat-option *ngFor="let x of ddlStatus" [value]="x.key">{{x.value}}</mat-option> -->
+                <mat-select placeholder="สถานะ" multiple  name="statusId" [(ngModel)]="model_search.status">
+                  <mat-option *ngFor="let x of docStatusLists" [value]="x.key">{{x.value}}</mat-option>
                 </mat-select>
               </mat-form-field>
             </div>
@@ -87,35 +89,35 @@
 
       </form>
 
-      <mat-card>
+      <mat-card *ngIf="data.datas != undefined">
         <mat-card-content>
-          <div class="row card-table-body" >
+          <div class="row card-table-body" *ngFor="let x of data.datas" >
             <div class="col-12">
               <hr />
             </div>
             <div class="col-sm-2 col-6">
               <small>วันที่สั่งซื้อ</small>
-              <dd>25/03/2020</dd>
+              <dd>{{x.doc_date | date:'dd/MM/yyyy'}}</dd>
             </div>
             <div class="col-sm-2 col-6">
               <small>เลขที่</small>
-              <dd>B120030001</dd>
+              <dd>{{x.doc_no}}</dd>
             </div>
             <div class="col-sm-2 col-6">
               <small>ลูกค้า</small>
-              <dd>คุณดวงรัตน์ ศิริวัฒน์</dd>
+              <dd>{{x.cust_name}}</dd>
             </div>
             <div class="col-sm-2 col-6">
               <small>เลขที่ Invocie</small>
-              <dd>XXXXXXXX</dd>
+              <dd>{{x.invoice_no}}</dd>
             </div>
             <div class="col-sm-2 col-5">
               <small>จำนวนเงิน</small>
-              <dd>10,000</dd>
+              <dd>{{x.tot_amt | number: '1.2-2'}}</dd>
             </div>
             <div class="col-sm-1 col-5">
               <small>สถานะ</small>
-              <dd>Approve</dd>
+              <dd>{{x.status}}</dd>
             </div>
             <div class="col-sm-1 col-2 text-right">
               <button mat-icon-button [matMenuTriggerFor]="appMenu">

@@ -47,6 +47,59 @@ namespace api.Services
             }
         }
 
+        public CommonSearchView<SalesView> Search(SalesSearchView model)
+        {
+            using (var ctx = new ConXContext())
+            {
+                //define model view
+                CommonSearchView<SalesView> view = new ModelViews.CommonSearchView<ModelViews.SalesView>()
+                {
+                    pageIndex = model.pageIndex - 1,
+                    itemPerPage = model.itemPerPage,
+                    totalItem = 0,
+
+                    datas = new List<ModelViews.SalesView>()
+                };
+
+                //query data
+                List<CO_TRNS_MAST> trans = ctx.CoTransMasts
+                    .Where(x =>
+                        (x.entity_code == model.entity_code || model.entity_code == "")
+                        && x.doc_no.Contains(model.doc_no)
+                        && x.ref_no.Contains(model.invoice_no)
+                        && (model.status.Contains(x.doc_status) || model.status.Length == 0)
+                        && (x.doc_date >= model.from_doc_date || model.from_doc_date == DateTime.MinValue)
+                        && (x.doc_date < model.to_doc_date.Date || model.to_doc_date == DateTime.MinValue)
+                    )
+                    .OrderByDescending(o => o.co_trns_mast_id)
+                    .ToList();
+
+                //count , select data from pageIndex, itemPerPage
+                view.totalItem = trans.Count;
+                trans = trans.Skip(view.pageIndex * view.itemPerPage)
+                    .Take(view.itemPerPage)
+                    .ToList();
+
+                //prepare model to modelView
+                foreach (var i in trans)
+                {
+                    view.datas.Add(new ModelViews.SalesView()
+                    {
+                        co_trns_mast_id = i.co_trns_mast_id,
+                        doc_date = i.doc_date,
+                        cust_name = i.cust_name,
+                        invoice_no = i.ref_no,
+                        tot_amt = i.tot_amt,
+                        status = i.doc_status
+
+                    });
+                }
+
+                //return data to contoller
+                return view;
+            }
+        }
+
         public CommonSearchView<CatalogMastView> SearchDesign(CatalogMastSearchView model)
         {
             using (var ctx = new ConXContext())
