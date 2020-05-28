@@ -83,11 +83,8 @@ namespace api.Services
 
                 //query data
                 List<CATALOG_MAST> CatalogMasts = ctx.CatalogMasts
-                    //.Include("catalogColorList.pdcolor_name")
-                    //.Include("catalogColorList.pic_base64")
                     .Where(x => (x.pddsgn_code.Contains(model.pddsgn_code) || model.pddsgn_code == "")
                     && (x.dsgn_name.Contains(model.dsgn_name) || model.dsgn_name == null)
-                    //&& (x.status == "A")
                     )
                     .OrderBy(o => o.catalog_id)
                     .ToList();

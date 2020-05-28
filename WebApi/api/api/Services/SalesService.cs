@@ -11,6 +11,37 @@ namespace api.Services
 {
     public class SalesService : ISalesService
     {
+        public List<CatalogColorView> GetColorInCatalog(long catalog)
+        {
+            using (var ctx = new ConXContext())
+            {
+
+                //query data
+
+                List<CATALOG_COLOR> color = ctx.CatalogColors
+                   .Where(x => x.catalog_id == catalog)
+                   .OrderBy(o => o.catalog_color_id)
+                   .ToList();
+
+                List<CatalogColorView> colorViews = new List<CatalogColorView>();
+
+                foreach (var i in color)
+                {
+                    CatalogColorView view = new CatalogColorView()
+                    {
+                        catalog_id = i.catalog_id,
+                        catalog_color_id = i.catalog_color_id,
+                        pdcolor_code = i.pdcolor_code,
+                        pic_base64 = i.pic_base64
+                    };
+
+                    colorViews.Add(view);
+                }
+
+                return colorViews;
+            }
+        }
+
         public List<CatalogTypeSelectView> GetTypeInCatalogColor(long catalog, long color)
         {
             using (var ctx = new ConXContext())
@@ -18,7 +49,7 @@ namespace api.Services
 
                 //query data
 
-                string sql = "select c.catalog_id , c.catalog_type_id ,a.catalog_color_id, c.pdtype_code , d.pdtype_tname , b.pic_base64 pic_color , a.catalog_type_code , a.pic_base64 pic_type , a.sort_seq , a.catalog_pic_id from CATALOG_PIC a , CATALOG_COLOR b ,CATALOG_TYPE c , PDTYPE_MAST d where a.catalog_id=b.catalog_id  and a.catalog_color_id=b.catalog_color_id and a.catalog_id=c.catalog_id and a.catalog_type_id=c.catalog_type_id and c.pdtype_code=d.pdtype_code and catalog_id = @p_catalog_id and a.catalog_color_id = @p_catalog_color_id order by c.sort_seq , a.sort_seq";
+                string sql = "select c.catalog_id , c.catalog_type_id ,a.catalog_color_id, c.pdtype_code , d.pdtype_tname , b.pic_base64 pic_color , a.catalog_type_code , a.pic_base64 pic_type , a.sort_seq , a.catalog_pic_id from CATALOG_PIC a , CATALOG_COLOR b ,CATALOG_TYPE c , PDTYPE_MAST d where a.catalog_id=b.catalog_id  and a.catalog_color_id=b.catalog_color_id and a.catalog_id=c.catalog_id and a.catalog_type_id=c.catalog_type_id and c.pdtype_code=d.pdtype_code and c.catalog_id = @p_catalog_id and a.catalog_color_id = @p_catalog_color_id order by c.sort_seq , a.sort_seq";
 
                 List<CatalogTypeSelectView> type = ctx.Database.SqlQuery<CatalogTypeSelectView>(sql , new System.Data.SqlClient.SqlParameter("@p_catalog_id", catalog) , new System.Data.SqlClient.SqlParameter("@p_catalog_color_id", color)).ToList();
 
@@ -35,7 +66,7 @@ namespace api.Services
                         pdtype_code = i.pdtype_code,
                         pdtype_tname = i.pdtype_tname,
                         catalog_type_code = i.catalog_type_code,
-                        pic_color = i.pic_color,
+                        //pic_color = i.pic_color,
                         pic_type = i.pic_type,
                         sort_seq = i.sort_seq
                     };
@@ -116,7 +147,7 @@ namespace api.Services
 
                 //query data
                 List<CATALOG_MAST> CatalogMasts = ctx.CatalogMasts
-                    .Where(x => x.status == "A")
+                    .Where(x => x.status == "Active")
                     .OrderBy(o => o.catalog_id)
                     .ToList();
 

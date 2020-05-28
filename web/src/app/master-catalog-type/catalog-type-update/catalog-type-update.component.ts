@@ -50,7 +50,7 @@ export class CatalogTypeUpdateComponent implements OnInit {
     this.catalog_id = this._actRoute.snapshot.params.catalog_id;
     this.user = this._authSvc.getLoginUser();
     this.ProductTypeLists = await this._ddlSvc.getDdlProductType();
-    this.catalogColorLists = await this._ddlSvc.getDdlColorInCatalog(this.catalog_id);
+    //this.catalogColorLists = await this._ddlSvc.getDdlColorInCatalog(this.catalog_id);
     
     if(this.catalog_id != undefined)
     {
@@ -60,7 +60,7 @@ export class CatalogTypeUpdateComponent implements OnInit {
 
     if (this.code != undefined) {
       this.model = await this._typeSvc.getInfo(this.code);
-      this.imgURL = this.model.pic_base64;
+      //this.imgURL = this.model.pic_base64;
       console.log(this.model);
     }
   }
@@ -70,9 +70,9 @@ export class CatalogTypeUpdateComponent implements OnInit {
     this.validationForm = this._formBuilder.group({
       pdtype_code: [null, [Validators.required]],
       sort_seq: [null, [Validators.required]],
-      catalog_color_id: [null, [Validators.required]],
-      catalog_type_code: [null, [Validators.required]],
-      type_sort_seq: [null, [Validators.required]],
+      // catalog_color_id: [null, [Validators.required]],
+      // catalog_type_code: [null, [Validators.required]],
+      // type_sort_seq: [null, [Validators.required]],
       is_border: [null, []],    
       status: [null, [Validators.required]],
     
