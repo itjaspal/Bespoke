@@ -11,6 +11,40 @@ namespace api.Services
 {
     public class SalesService : ISalesService
     {
+        public List<CatalogEmbColorView> GetCatalogEmbColor(long catalog)
+        {
+            using (var ctx = new ConXContext())
+            {
+
+                //query data
+                List<CATALOG_EMB_COLOR> color = ctx.CatalogEmbColors
+                    .Where(x => x.catalog_id == catalog)
+                   .OrderBy(o => o.catalog_emb_color_id)
+                   .ToList();
+
+                List<CatalogEmbColorView> colorViews = new List<CatalogEmbColorView>();
+
+                foreach (var i in color)
+                {
+                    COLOR_OF_FONT_MAST colorMast = ctx.ColorFontMasts
+                        .Where(z => z.color_code == i.emb_color_code)
+                        .SingleOrDefault();
+
+                    CatalogEmbColorView view = new CatalogEmbColorView()
+                    {
+                        catalog_emb_color_id = i.catalog_emb_color_id,
+                        catalog_id = i.catalog_id,
+                        emb_color_code = i.emb_color_code,
+                        pic_base64 = colorMast.pic_base64
+                    };
+
+                    colorViews.Add(view);
+                }
+
+                return colorViews;
+            }
+        }
+
         public List<CatalogColorView> GetColorInCatalog(long catalog)
         {
             using (var ctx = new ConXContext())
@@ -32,6 +66,35 @@ namespace api.Services
                         catalog_id = i.catalog_id,
                         catalog_color_id = i.catalog_color_id,
                         pdcolor_code = i.pdcolor_code,
+                        pic_base64 = i.pic_base64
+                    };
+
+                    colorViews.Add(view);
+                }
+
+                return colorViews;
+            }
+        }
+
+        public List<EmbMastView> GetEmbroidery()
+        {
+            using (var ctx = new ConXContext())
+            {
+
+                //query data
+                List<EMB_MAST> color = ctx.EmbMasts
+                   .OrderBy(o => o.emb_mast_id)
+                   .ToList();
+
+                List<EmbMastView> colorViews = new List<EmbMastView>();
+
+                foreach (var i in color)
+                {
+                    EmbMastView view = new EmbMastView()
+                    {
+                        emb_mast_id = i.emb_mast_id,
+                        font_name = i.font_name,
+                        unit_price = i.unit_price,
                         pic_base64 = i.pic_base64
                     };
 
@@ -65,7 +128,7 @@ namespace api.Services
                         catalog_pic_id = i.catalog_pic_id,
                         pdtype_code = i.pdtype_code,
                         pdtype_tname = i.pdtype_tname,
-                        catalog_type_code = i.catalog_type_code,
+                        //catalog_type_code = i.catalog_type_code,
                         //pic_color = i.pic_color,
                         pic_type = i.pic_type,
                         sort_seq = i.sort_seq

@@ -28,4 +28,44 @@ namespace api.ModelViews
         public DateTime from_doc_date { get; set; }
         public string status { get; set; }
     }
+
+    public class SalesSelectTypeView
+    {
+
+        public long catalog_type_id { get; set; }
+        public long catalog_id { get; set; }
+        public long catalog_color_id { get; set; }
+        public long catalog_pic_id { get; set; }
+        public string pdtype_code { get; set; }
+        public string pdtype_tname { get; set; }
+        public Boolean is_border { get; set; }
+        public int sort_seq { get; set; }
+        //public string catalog_type_code { get; set; }
+        //public string pic_color { get; set; }
+        public string pic_type { get; set; }
+        public List<TypeView> catalogType { get; set; }
+        public List<SizeView> catalogSize { get; set; }
+
+    }
+
+    public class TypeView
+    {
+        public long catalog_pic_id { get; set; }
+        public long catalog_type_id { get; set; }
+        public long catalog_id { get; set; }
+        public string catalog_type_code { get; set; }
+        public string pic_base64 { get; set; }
+     
+    }
+
+    public class SizeView
+    {
+        public long catalog_size_id { get; set; }
+        public long catalog_id { get; set; }
+        public long catalog_type_id { get; set; }
+        public int sort_seq { get; set; }
+        public string pdsize_code { get; set; }
+        public string pdsize_name { get; set; }
+
+    }
 }

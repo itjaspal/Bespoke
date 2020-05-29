@@ -13,5 +13,8 @@ namespace api.Interfaces
         CommonSearchView<CatalogMastView> SearchDesign(CatalogMastSearchView model);
         List<CatalogTypeSelectView> GetTypeInCatalogColor(long catalog , long color);
         List<CatalogColorView> GetColorInCatalog(long catalog);
+        List<EmbMastView> GetEmbroidery();
+        List<CatalogEmbColorView> GetCatalogEmbColor(long catalog);
+
     }
 }

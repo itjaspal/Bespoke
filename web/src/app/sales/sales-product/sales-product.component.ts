@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { SalesAddComponent } from './../sales-add/sales-add.component';
+import { Component, OnInit ,Input } from '@angular/core';
+//import { Component, ViewChild, AfterViewInit, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { SalesService } from '../../_service/sales.service';
 import { DropdownlistService } from '../../_service/dropdownlist.service';
@@ -6,6 +8,8 @@ import { MessageService } from '../../_service/message.service';
 import { AuthenticationService } from '../../_service/authentication.service';
 import { CatalogMastView } from '../../_model/catalog-mast';
 import { CatalogDesignService } from '../../_service/catalog-design.service';
+
+
 //import { MatRadioChange } from '@angular/material';
 
 @Component({
@@ -15,6 +19,8 @@ import { CatalogDesignService } from '../../_service/catalog-design.service';
 })
 export class SalesProductComponent implements OnInit {
 
+
+  
   constructor(
     private _salesSvc: SalesService,
     private _catalgDesignSvc: CatalogDesignService,
@@ -33,8 +39,7 @@ export class SalesProductComponent implements OnInit {
   public catalog_color_id : any;
   public designName : any;
 
-  public selected: string;
-  public filter: any;
+  public checkedList:any;
 
   async ngOnInit() {
     this.catalog_id = this._actRoute.snapshot.params.catalog;
@@ -51,7 +56,10 @@ export class SalesProductComponent implements OnInit {
     this.color = await this._salesSvc.getColorInCatalog(this.catalog_id);
     console.log(this.color);
 
+    
+
   }
+
   radioChange(catalog,color) {
     //console.log($event.value);
     console.log(catalog);
@@ -59,11 +67,39 @@ export class SalesProductComponent implements OnInit {
       this._router.navigate(["/app/sale/product/"+catalog+"/"+color]));
    
   }
+
+  getCheckedItemList(){
+    //console.log(this.type);
+    this.checkedList = [];
+    for (var i = 0; i < this.type.length; i++) {
+      if(this.type[i].catalog_type_id && this.type[i].isSelected == true)
+      {
+        //this.color[i].user_code = this.user.username;
+        this.checkedList.push(this.type[i]);
+      }
+      
+    }
+    //this.checkedList = JSON.stringify(this.checkedList);
+
+    
+  }
   
   Confirm()
   {
+    console.log(this.checkedList);
+    
     this._router.navigateByUrl('/app/sale/create');
   }
+
+  // async ngOnDestroy() {
+  //   this.saveSession();
+  // }
+
+  // async saveSession() {
+  //   sessionStorage.setItem('session-checkedList', JSON.stringify(this.checkedList));
+  // }
+    
+  
 
   close()
   {

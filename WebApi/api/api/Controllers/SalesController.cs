@@ -78,5 +78,37 @@ namespace api.Controllers
                 return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, ex.ToString());
             }
         }
+
+        [Route("sales/get-color-font/{catalog}")]
+        public HttpResponseMessage getCatalogEmbColor(long catalog)
+        {
+            try
+            {
+                var result = salesSvc.GetCatalogEmbColor(catalog);
+
+                return Request.CreateResponse(HttpStatusCode.OK, result);
+            }
+            catch (Exception ex)
+            {
+                return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, ex.ToString());
+            }
+        }
+
+
+        [Route("sales/get-embroidery")]
+        public HttpResponseMessage getEmbroidery()
+        {
+            try
+            {
+                var result = salesSvc.GetEmbroidery();
+
+                return Request.CreateResponse(HttpStatusCode.OK, result);
+            }
+            catch (Exception ex)
+            {
+                return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, ex.ToString());
+            }
+        }
+
     }
 }
