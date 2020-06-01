@@ -1,3 +1,4 @@
+
 <div class="container-fluid no-breadcrumbs">
 
   <mat-card>
@@ -11,16 +12,31 @@
         <div class="col-sm-12">
           <div class="row">
             <div class="col-sm-5 col-5">
-              <h6>Design: AHANA</h6> 
+              <h6>Design: {{designName}}</h6> 
             </div>
             <div class="col-sm-7 col-7 text-right" >
+             
+
+
+                <div class="hiddenradio"  >
+                  <label *ngFor="let y of color">
+                    <input type="radio" name="catalog_color_id" [ngModel]="catalog_color_id" value="{{y.catalog_color_id}}" (change)="radioChange(y.catalog_id,y.catalog_color_id)">
+                    <img src="{{y.pic_base64}}" style="width: 25px;margin-top: 17px;" class="responsive">
+                    
+                    &nbsp;
+                  </label>
+                </div>
             
-              <div class="hiddenradio">
+              <!-- <div class="col-1"  *ngFor="let y of color">
+              <div class="hiddenradio"  >
                 <label>
                   <input type="radio" name="test" value="small" checked>
                   <img src="./assets/images-prod/ahana-bronze.png" style="width: 25px;margin-top: 17px;" class="responsive"/>
                 </label>
                 &nbsp;
+              </div> 
+            </div>                  -->
+                <!-- &nbsp;
                 <label>
                   <input type="radio" name="test" value="big">
                   <img src="./assets/images-prod/ahana-dusky.png" style="width: 25px;margin-top: 17px;" class="responsive"/>
@@ -35,46 +51,26 @@
                 <label>
                   <input type="radio" name="test" value="big">
                   <img src="./assets/images-prod/ahana-titanium.png" style="width: 25px;margin-top: 17px;" class="responsive"/>
-                </label>
+                </label> -->
 
-              </div>             
-
-              <!-- <mat-radio-button></mat-radio-button> <img src="./assets/images-prod/ahana-bronze-font_color-1.png" style="width: 30px;margin-top: 17px;" class="responsive"/>
-              <mat-radio-button><img src="./assets/images-prod/ahana-bronze-font_color-2.png" class="responsive"/></mat-radio-button> 
-              <mat-radio-button><img src="./assets/images-prod/ahana-bronze-font_color-3.png" class="responsive"/></mat-radio-button> 
-              <mat-radio-button><img src="./assets/images-prod/ahana-bronze-font_color-4.png" class="responsive"/></mat-radio-button>  -->
+                      
             </div>
           </div>
         </div>  
       </div>    
 
-      <div class="row">
 
-        <div class="col-sm-12">
-
-          <div class="row">
-
-            <div class="col-sm-3 col-3" style="margin-top: 10px;">
-              <img src="./assets/images-prod/ahana-bronze-fitted-a.png" class="responsive"/>
-            </div>
-            <div class="col-sm-3 col-3" style="margin-top: 10px;">
-              <img src="./assets/images-prod/ahana-bronze-flat-sheet-a.png" class="responsive"/>
-            </div>
-            <div class="col-sm-3 col-3" style="margin-top: 10px;">
-              <img src="./assets/images-prod/ahana-bronze-duvet-cover-a.png" class="responsive"/>
-            </div>
-            <div class="col-sm-3 col-3" style="margin-top: 10px;">
-              <img src="./assets/images-prod/ahana-bronze-pillow-case-a.png" class="responsive"/>
-            </div>
-
-          </div>
-
+    <ng-container>
+        <div class="row">
+                <div class="col-3 text-center" style="margin-bottom: 20px"  *ngFor="let x of type"> 
+                    <img src="{{x.pic_type}}" height="120">
+                    <p class="d-block"><mat-checkbox class="example-margin" [(ngModel)]= "x.isSelected"
+                      value="{{x.catalog_type_id}}" (change)="getCheckedItemList()">{{x.pdtype_tname}}</mat-checkbox></p>
+                </div>
         </div>
-
-        
-
-      </div>
-      <div class="row">
+    </ng-container>
+      
+      <!-- <div class="row">
 
         <div class="col-sm-12">
 
@@ -92,241 +88,11 @@
             <div class="col-sm-3 col-3" style="margin-top: 5px;">
               <mat-checkbox class="example-margin">Pillow Case</mat-checkbox>
             </div>
-
           </div>
-
         </div>
+      </div> -->
 
-        
-
-      </div>
-
-      <div class="row">
-
-        <div class="col-sm-12">
-
-          <div class="row">
-
-           
-            <div class="col-sm-3 col-3" style="margin-top: 10px;">
-              <img src="./assets/images-prod/ahana-bronze-oxford-pillow-a.png" class="responsive"/>
-            </div>
-            <div class="col-sm-3 col-3" style="margin-top: 10px;">
-              <img src="./assets/images-prod/ahana-bronze-bolster-a.png" class="responsive"/>
-            </div>
-            <div class="col-sm-3 col-3" style="margin-top: 10px;">
-              <img src="./assets/images-prod/ahana-bronze-neckroll-a.png" class="responsive"/>
-            </div>
-            <div class="col-sm-3 col-3" style="margin-top: 10px;">
-              <img src="./assets/images-prod/ahana-bronze-breakfast-a.png" class="responsive"/>
-            </div>
-
-          </div>
-
-        </div>
-
-        
-
-      </div>
-      <div class="row">
-
-        <div class="col-sm-12">
-
-          <div class="row">
-
-            
-            <div class="col-sm-3 col-3" style="margin-top: 5px;">
-              <mat-checkbox class="example-margin">Oxford Pillow Case</mat-checkbox>
-            </div>
-            <div class="col-sm-3 col-3" style="margin-top: 5px;">
-              <mat-checkbox class="example-margin">Bolster Case</mat-checkbox>
-            </div>
-            <div class="col-sm-3 col-3" style="margin-top: 5px; ">
-              <mat-checkbox class="example-margin">Neckroll</mat-checkbox>
-            </div>
-            <div class="col-sm-3 col-3" style="margin-top: 5px; ">
-              <mat-checkbox class="example-margin">Breakfast</mat-checkbox>
-            </div>
-  
-
-          </div>
-
-        </div>
-
-        
-
-      </div>
-
-
-      <div class="row">
-
-        <div class="col-sm-12">
-
-          <div class="row">
-
-           
-            <div class="col-sm-3 col-3" style="margin-top: 10px;">
-              <img src="./assets/images-prod/ahana-bronze-boudoir-a.png" class="responsive"/>
-            </div>
-            <div class="col-sm-3 col-3" style="margin-top: 10px;">
-              <img src="./assets/images-prod/ahana-bronze-cushion-a.png" class="responsive"/>
-            </div>
-            <div class="col-sm-3 col-3" style="margin-top: 10px;">
-              <img src="./assets/images-prod/ahana-bronze-euro-sham-a.png" class="responsive"/>
-            </div>
-            <div class="col-sm-3 col-3" style="margin-top: 10px;">
-              <img src="./assets/images-prod/ahana-bronze-coverlet-a.png" class="responsive"/>
-            </div>
-
-          </div>
-
-        </div>
-
-        
-
-      </div>
-      <div class="row">
-
-        <div class="col-sm-12">
-
-          <div class="row">
-
-            
-            <div class="col-sm-3 col-3" style="margin-top: 5px;">
-              <mat-checkbox class="example-margin">Boudoir</mat-checkbox>
-            </div>
-            <div class="col-sm-3 col-3" style="margin-top: 5px;">
-              <mat-checkbox class="example-margin">Cushion</mat-checkbox>
-            </div>
-            <div class="col-sm-3 col-3" style="margin-top: 5px; ">
-              <mat-checkbox class="example-margin">Euro Sham</mat-checkbox>
-            </div>
-            <div class="col-sm-3 col-3" style="margin-top: 5px; ">
-              <mat-checkbox class="example-margin">Cover Lets</mat-checkbox>
-            </div>
-  
-
-          </div>
-
-        </div>
-
-        
-
-      </div>
-
-
-      <div class="row">
-
-        <div class="col-sm-12">
-
-          <div class="row">
-
-           
-            <div class="col-sm-3 col-3" style="margin-top: 10px;">
-              <img src="./assets/images-prod/ahana-bronze-cushion-sham-a.png" class="responsive"/>
-            </div>
-            <div class="col-sm-3 col-3" style="margin-top: 10px;">
-              <img src="./assets/images-prod/ahana-bronze-throw-a.png" class="responsive"/>
-            </div>
-            <div class="col-sm-3 col-3" style="margin-top: 10px;">
-              <img src="./assets/images-prod/ahana-bronze-bathrobe-a.png" class="responsive"/>
-            </div>
-            <div class="col-sm-3 col-3" style="margin-top: 10px;">
-              <img src="./assets/images-prod/ahana-bronze-towel-a.png" class="responsive"/>
-            </div>
-
-          </div>
-
-        </div>
-
-        
-
-      </div>
-      <div class="row">
-
-        <div class="col-sm-12">
-
-          <div class="row">
-
-            
-            <div class="col-sm-3 col-3" style="margin-top: 5px;">
-              <mat-checkbox class="example-margin">Cushion Sham</mat-checkbox>
-            </div>
-            <div class="col-sm-3 col-3" style="margin-top: 5px;">
-              <mat-checkbox class="example-margin">Throw</mat-checkbox>
-            </div>
-            <div class="col-sm-3 col-3" style="margin-top: 5px; ">
-              <mat-checkbox class="example-margin">Bathrobe</mat-checkbox>
-            </div>
-            <div class="col-sm-3 col-3" style="margin-top: 5px; ">
-              <mat-checkbox class="example-margin">Towel</mat-checkbox>
-            </div>
-  
-
-          </div>
-
-        </div>
-
-        
-
-      </div>
-
-      <div class="row">
-
-        <div class="col-sm-12">
-
-          <div class="row">
-
-           
-            <div class="col-sm-3 col-3" style="margin-top: 10px;">
-              <img src="./assets/images-prod/ahana-bronze-bath-mat-a.png" class="responsive"/>
-            </div>
-            <!-- <div class="col-sm-3 col-3" style="margin-top: 10px;">
-              <img src="./assets/images-prod/ahana-bronze-throw-a.png" class="responsive"/>
-            </div>
-            <div class="col-sm-3 col-3" style="margin-top: 10px;">
-              <img src="./assets/images-prod/ahana-bronze-bathrobe-a.png" class="responsive"/>
-            </div>
-            <div class="col-sm-3 col-3" style="margin-top: 10px;">
-              <img src="./assets/images-prod/ahana-bronze-towel-a.png" class="responsive"/>
-            </div> -->
-
-          </div>
-
-        </div>
-
-        
-
-      </div>
-      <div class="row">
-
-        <div class="col-sm-12">
-
-          <div class="row">
-
-            
-            <div class="col-sm-3 col-3" style="margin-top: 5px;">
-              <mat-checkbox class="example-margin">Bath Mat</mat-checkbox>
-            </div>
-            <!-- <div class="col-sm-3 col-3" style="margin-top: 5px;">
-              <mat-checkbox class="example-margin">Throw</mat-checkbox>
-            </div>
-            <div class="col-sm-3 col-3" style="margin-top: 5px; ">
-              <mat-checkbox class="example-margin">Bathrobe</mat-checkbox>
-            </div>
-            <div class="col-sm-3 col-3" style="margin-top: 5px; ">
-              <mat-checkbox class="example-margin">Towel</mat-checkbox>
-            </div> -->
-  
-
-          </div>
-
-        </div>
-
-        
-
-      </div>
-
+      
     </mat-card-content>
 
   </mat-card>
@@ -345,6 +111,6 @@
     </button>
 
   </div>
-
+  
 </div>
 

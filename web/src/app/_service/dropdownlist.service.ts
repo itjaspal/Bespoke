@@ -180,4 +180,13 @@ export class DropdownlistService {
     return await this.http.get<Dropdownlist[]>(environment.API_URL + 'dropdownlist/getDdlProductDesign').toPromise();
   }
 
+  public async getDdlUserBranch(user) {
+    return await this.http.get<Dropdownlist[]>(environment.API_URL + 'dropdownlist/getDdlUserBranch/' + user).toPromise();
+  }
+
+  public async getDdlDocStatus() { 
+    
+    return await this.http.get<Dropdownlist[]>(environment.API_URL + 'dropdownlist/getDdlDocStatus').toPromise();
+  }
+
 }

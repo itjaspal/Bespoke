@@ -6,7 +6,7 @@ using System.Web;
 
 namespace api.Models
 {
-    public class CoTrnsDet
+    public class CO_TRNS_DET
     {
         [Key]
         public int co_trns_det_id { get; set; }
@@ -38,23 +38,23 @@ namespace api.Models
         [StringLength(4)]
         public string uom_code { get; set; }
 
-        public float unit_price { get; set; }
+        public decimal unit_price { get; set; }
 
-        public float sale_price { get; set; }
+        public decimal sale_price { get; set; }
 
-        public float disc_rate { get; set; }
+        public decimal disc_rate { get; set; }
 
-        public float vat_rate { get; set; }
+        public decimal vat_rate { get; set; }
 
-        public float qty { get; set; }
+        public decimal qty { get; set; }
 
-        public float amt { get; set; }
+        public decimal amt { get; set; }
 
-        public float disc_amt { get; set; }
+        public decimal disc_amt { get; set; }
 
-        public float vat_amt { get; set; }
+        public decimal vat_amt { get; set; }
 
-        public float net_amt { get; set; }
+        public decimal net_amt { get; set; }
 
         [StringLength(12)]
         public string ds_no { get; set; }

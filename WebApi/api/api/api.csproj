@@ -390,6 +390,7 @@
     <Compile Include="Models\Department.cs" />
     <Compile Include="Models\DocControl.cs" />
     <Compile Include="Models\DocMast.cs" />
+    <Compile Include="Models\DocStatus.cs" />
     <Compile Include="Models\EmbMast.cs" />
     <Compile Include="Models\ErrorMessage.cs" />
     <Compile Include="Models\MenuFunction.cs" />

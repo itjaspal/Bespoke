@@ -6,7 +6,7 @@ using System.Web;
 
 namespace api.Models
 {
-    public class CoTrnsMast
+    public class CO_TRNS_MAST
     {
         [Key]
         public int co_trns_mast_id { get; set; }
@@ -86,19 +86,19 @@ namespace api.Models
         [StringLength(8)]
         public string wh_code { get; set; }
 
-        public float vat_rate { get; set; }
+        public decimal vat_rate { get; set; }
 
-        public float tot_qty { get; set; }
+        public decimal tot_qty { get; set; }
 
-        public float tot_amt { get; set; }
+        public decimal tot_amt { get; set; }
 
-        public float tot_vatamt { get; set; }
+        public decimal tot_vatamt { get; set; }
 
-        public float tot_netamt { get; set; }
+        public decimal tot_netamt { get; set; }
 
-        public float tot_discamt { get; set; }
+        public decimal tot_discamt { get; set; }
 
-        public float tot_subamt { get; set; }
+        public decimal tot_subamt { get; set; }
 
         [StringLength(100)]
         public string remark1 { get; set; }

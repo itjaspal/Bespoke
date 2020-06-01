@@ -107,7 +107,7 @@ export class CatalogSizeCreateComponent implements OnInit {
   }
 
   async delete(size) {
-
+    console.log("Delete Size");
     this._msgSvc.confirmPopup("ยืนยันลบข้อมูล", async result => {
       if (result) {
         let res: any = await this._sizeSvc.delete(size);

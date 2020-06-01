@@ -11,7 +11,7 @@ namespace api.Interfaces
     {
         List<Dropdownlist<string>> GetDdlBranchStatus();
         List<Dropdownlist> GetDdlBranchGroup();
-        List<Dropdownlist> GetDdlBranch(long branchId);
+        List<Dropdownlist> GetDdlBranch();
         //List<Dropdownlist> GetDdlTransferBranch(long branchId);
         List<Dropdownlist> GetDdlBranchInGroup(int branchGroupId);
         //List<Dropdownlist> GetDdlBranchInGroupRpt(int branchGroupId);
@@ -41,6 +41,9 @@ namespace api.Interfaces
         List<Dropdownlist> GetDdlColorInCatalog(long catalog_id);
         List<Dropdownlist> GetDdlTypeInCatalog(long catalog_id);
         List<Dropdownlists> GetDdlProductSize();
+
+        List<Dropdownlists> GetDdlUserBranch(string user);
+        List<Dropdownlists> GetDdlDocStatus();
 
     }
 }
