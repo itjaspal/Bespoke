@@ -11,7 +11,7 @@ namespace api.Interfaces
     {
         CommonSearchView<SalesView> Search(SalesSearchView model);
         CommonSearchView<CatalogMastView> SearchDesign(CatalogMastSearchView model);
-        List<CatalogTypeSelectView> GetTypeInCatalogColor(long catalog , long color);
+        List<SalesSelectTypeView> GetTypeInCatalogColor(long catalog , long color);
         List<CatalogColorView> GetColorInCatalog(long catalog);
         List<EmbMastView> GetEmbroidery();
         List<CatalogEmbColorView> GetCatalogEmbColor(long catalog);

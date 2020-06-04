@@ -48,34 +48,35 @@ namespace api.Models
         public string pdcolor_code { get; set; }
 
         [StringLength(10)]
-        public string pdmisc_code { get; set; }
+        public string  pdmisc_code { get; set; } = null;
+       
 
         [StringLength(10)]
-        public string pdmodel_code { get; set; }
+        public string pdmodel_code { get; set; } = null;
 
         [StringLength(100)]
-        public string pdgrp_desc { get; set; }
+        public string pdgrp_desc { get; set; } = null;
 
         [StringLength(100)]
-        public string pdbrnd_desc { get; set; }
+        public string pdbrnd_desc { get; set; } = null;
 
         [StringLength(100)]
-        public string pdtype_desc { get; set; }
+        public string pdtype_desc { get; set; } = null;
 
         [StringLength(100)]
-        public string pddsgn_desc { get; set; }
+        public string pddsgn_desc { get; set; } = null;
 
         [StringLength(100)]
-        public string pdsize_desc { get; set; }
+        public string pdsize_desc { get; set; } = null;
 
         [StringLength(100)]
-        public string pdcolor_desc { get; set; }
+        public string pdcolor_desc { get; set; } = null;
 
         [StringLength(100)]
-        public string pdmisc_desc { get; set; }
+        public string pdmisc_desc { get; set; } = null;
 
         [StringLength(100)]
-        public string pdmodel_desc { get; set; }
+        public string pdmodel_desc { get; set; } = null;
 
         public decimal unit_price { get; set; }
 

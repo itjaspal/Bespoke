@@ -13,7 +13,7 @@
             <div class="col-sm-5 col-5">
               <h6>Design: AHANA</h6> 
             </div>
-            <div class="col-sm-7 col-7 text-right" >
+            <!-- <div class="col-sm-7 col-7 text-right" >
             
               <div class="hiddenradio">
                 <label>
@@ -40,33 +40,59 @@
               </div>             
 
   
-            </div>
+            </div> -->
           </div>
         </div>  
       </div>    
 
-      <div class="row">
-        <div class="col-sm-12">
+      <div class="row" *ngFor="let x of checkedList">
+        <div class="col-sm-12" >
           <div class="row">
             <div class="col-sm-3 col-3" style="margin-top: 5px;">
               Size 
             </div>
             <div class="col-sm-8 col-8" style="margin-top: 5px;">
-              Flat Sheet
+              {{x.pdtype_tname}}
             </div>
             
           </div>
         </div>
+        <!-- <div class="row"> -->
+          <!-- <div class="col-sm-12"> -->
+            <div class="col-sm-3 col-3" style="margin-top: 10px;">
+              <p *ngFor="let y of x.catalogSize">
+                <mat-checkbox class="example-margin">{{y.pdsize_name}}</mat-checkbox>
+              </p>
+              <mat-form-field >
+                <input matInput placeholder="" name="other">
+              </mat-form-field><br>
+              <mat-form-field class="full-width">
+                <input matInput placeholder="Remark" name="remark">
+              </mat-form-field>
+
+              
+            </div>
+            <div class="col-sm-2 col-2" style="margin-top: 10px;" *ngFor="let z of x.catalogType" >
+              <!-- <img src="./assets/images-prod/ahana-bronze-flat-sheet-a.png" class="responsive"/> -->
+              <img src="{{z.pic_base64}}" height="120">
+              <p></p>
+              <mat-form-field class="full-width">
+                <input type="number" matInput placeholder="จำนวน" name="qty" value=0>
+              </mat-form-field>
+            </div>
+
+          <!-- </div> -->
+        <!-- </div> -->
       </div>    
 
 
-      <div class="row">
+      <!-- <div class="row" >
 
         <div class="col-sm-12">
 
           <div class="row">
             <div class="col-sm-3 col-3" style="margin-top: 10px;">
-            <!-- <p>Size :</p> -->
+           
             <p><mat-checkbox class="example-margin" checked="true">108" X 108"</mat-checkbox><br>
             <mat-checkbox class="example-margin">96" X 108"</mat-checkbox><br>
             <mat-checkbox class="example-margin">72" X 108"</mat-checkbox><br>
@@ -93,12 +119,7 @@
                 <input type="number" matInput placeholder="จำนวน" name="qty" value=1>
               </mat-form-field>
             </div>
-            <!-- <div class="col-sm-2 col-2" style="margin-top: 10px;">
-              <img src="./assets/images-prod/ahana-bronze-duvet-cover-a.png" class="responsive"/>
-            </div>
-            <div class="col-sm-2 col-2" style="margin-top: 10px;">
-              <img src="./assets/images-prod/ahana-bronze-pillow-case-a.png" class="responsive"/>
-            </div> -->
+       
 
           </div>
 
@@ -106,10 +127,10 @@
 
         
 
-      </div>
+      </div> -->
 
 
-      <div class="row">
+      <!-- <div class="row">
         <div class="col-sm-12">
           <div class="row">
             <div class="col-sm-3 col-3" style="margin-top: 5px;">
@@ -121,24 +142,21 @@
             
           </div>
         </div>
-      </div>    
+      </div>     -->
 
 
-      <div class="row">
+      <!-- <div class="row">
 
         <div class="col-sm-12">
 
           <div class="row">
             <div class="col-sm-3 col-3" style="margin-top: 10px;">
-            <!-- <p>Size :</p> -->
+          
             <p><mat-checkbox class="example-margin">106" X 94"</mat-checkbox><br>
             <mat-checkbox class="example-margin" checked="true">100" X 90"</mat-checkbox><br>
             <mat-checkbox class="example-margin">86" X 90"</mat-checkbox><br>
             <mat-checkbox class="example-margin">70" X 90"</mat-checkbox>
-            <!-- <mat-checkbox class="example-margin">Other</mat-checkbox> -->
-            <!-- <mat-form-field >
-              <input matInput placeholder="" name="other">
-            </mat-form-field><br> -->
+          
             <mat-form-field class="full-width">
               <input matInput placeholder="Remark" name="remark">
             </mat-form-field></p>
@@ -179,7 +197,7 @@
 
         
 
-      </div>
+      </div> -->
       
       <div class="row">
 

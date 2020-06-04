@@ -8,7 +8,7 @@ import { MessageService } from '../../_service/message.service';
 import { AuthenticationService } from '../../_service/authentication.service';
 import { CatalogMastView } from '../../_model/catalog-mast';
 import { CatalogDesignService } from '../../_service/catalog-design.service';
-
+import { ShareDataService } from "../../_service/share-data.service";
 
 //import { MatRadioChange } from '@angular/material';
 
@@ -28,7 +28,8 @@ export class SalesProductComponent implements OnInit {
     private _msgSvc: MessageService,
     private _authSvc: AuthenticationService,
     private _actRoute:ActivatedRoute,
-    private _router: Router
+    private _router: Router,
+    private _data: ShareDataService
   ) { }
 
 
@@ -40,6 +41,7 @@ export class SalesProductComponent implements OnInit {
   public designName : any;
 
   public checkedList:any;
+  public message:any;
 
   async ngOnInit() {
     this.catalog_id = this._actRoute.snapshot.params.catalog;
@@ -86,8 +88,10 @@ export class SalesProductComponent implements OnInit {
   
   Confirm()
   {
-    console.log(this.checkedList);
-    
+    //console.log(this.checkedList);
+    this._data.currentMessage.subscribe(message => this.message = this.checkedList)
+    //console.log(this.message);
+    this._data.changeMessage(this.message)
     this._router.navigateByUrl('/app/sale/create');
   }
 

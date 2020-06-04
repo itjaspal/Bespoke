@@ -40,15 +40,14 @@ namespace api.ModelViews
         public string pdtype_tname { get; set; }
         public Boolean is_border { get; set; }
         public int sort_seq { get; set; }
-        //public string catalog_type_code { get; set; }
-        //public string pic_color { get; set; }
+        public string remark { get; set; }
         public string pic_type { get; set; }
-        public List<TypeView> catalogType { get; set; }
-        public List<SizeView> catalogSize { get; set; }
+        public List<TypeCatalogView> catalogType { get; set; }
+        public List<SizeCatalogView> catalogSize { get; set; }
 
     }
 
-    public class TypeView
+    public class TypeCatalogView
     {
         public long catalog_pic_id { get; set; }
         public long catalog_type_id { get; set; }
@@ -58,7 +57,7 @@ namespace api.ModelViews
      
     }
 
-    public class SizeView
+    public class SizeCatalogView
     {
         public long catalog_size_id { get; set; }
         public long catalog_id { get; set; }
@@ -66,6 +65,15 @@ namespace api.ModelViews
         public int sort_seq { get; set; }
         public string pdsize_code { get; set; }
         public string pdsize_name { get; set; }
+        public string size_sp { get; set; }
+        public decimal unit_price { get; set; }
 
+    }
+
+    public class ProductView
+    {
+        public string prod_code { get; set; }
+        public string prod_tname { get; set; }
+        public decimal unit_price { get; set; }
     }
 }
