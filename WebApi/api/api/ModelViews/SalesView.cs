@@ -42,6 +42,9 @@ namespace api.ModelViews
         public int sort_seq { get; set; }
         public string remark { get; set; }
         public string pic_type { get; set; }
+        public string embroidery { get; set; }
+        public string font_name { get; set; }
+        public decimal add_price { get; set; }
         public List<TypeCatalogView> catalogType { get; set; }
         public List<SizeCatalogView> catalogSize { get; set; }
 
@@ -54,6 +57,7 @@ namespace api.ModelViews
         public long catalog_id { get; set; }
         public string catalog_type_code { get; set; }
         public string pic_base64 { get; set; }
+        public int qty { get; set; }
      
     }
 
@@ -66,6 +70,8 @@ namespace api.ModelViews
         public string pdsize_code { get; set; }
         public string pdsize_name { get; set; }
         public string size_sp { get; set; }
+        public string prod_code { get; set; }
+        public string prod_tname { get; set; }
         public decimal unit_price { get; set; }
 
     }

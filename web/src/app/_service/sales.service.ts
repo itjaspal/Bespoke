@@ -28,4 +28,12 @@ export class SalesService {
     return await this.http.get(environment.API_URL + 'sales/get-color-catalog/'+ _catalog_id).toPromise();
   }
 
+  public async getColorFont(_catalog_id: number) {
+    return await this.http.get(environment.API_URL + 'sales/get-color-font/'+ _catalog_id).toPromise();
+  }
+
+  public async getEmbroidery() {
+    return await this.http.get(environment.API_URL + 'sales/get-embroidery').toPromise();
+  }
+
 }

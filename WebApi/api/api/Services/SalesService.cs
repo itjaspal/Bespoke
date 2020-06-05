@@ -109,6 +109,9 @@ namespace api.Services
         {
             using (var ctx = new ConXContext())
             {
+                var vprod_code = "";
+                var vprod_tname = "";
+                decimal vunit_price = 0;
 
                 //query data
                 CATALOG_MAST design = ctx.CatalogMasts
@@ -157,20 +160,35 @@ namespace api.Services
                     {
                         //Get Unit Price
 
-                        string sqlp = "select unit_price from product where pdbrnd_code = @p_pdbrnd_code and pddsgn_code = @p_pddsgn_code and pdtype_code = @p_pdtype_code and pdcolor_code = @p_pdcolor_code and pdsize_code = @p_pdsize_code";
-                        decimal price = ctx.Database.SqlQuery<decimal>(sqlp, new System.Data.SqlClient.SqlParameter("@p_pdbrnd_code", design.pdbrnd_code), new System.Data.SqlClient.SqlParameter("@p_pddsgn_code", design.pddsgn_code), new System.Data.SqlClient.SqlParameter("@p_pdtype_code", i.pdtype_code), new System.Data.SqlClient.SqlParameter("@p_pdcolor_code", colors.pdcolor_code), new System.Data.SqlClient.SqlParameter("@p_pdsize_code", z.pdsize_code)).SingleOrDefault();
+                        string sqlp = "select prod_code , prod_tname , unit_price from Product where pdbrnd_code = @p_pdbrnd_code and pddsgn_code = @p_pddsgn_code and pdtype_code = @p_pdtype_code and pdcolor_code = @p_pdcolor_code and pdsize_code = @p_pdsize_code";
+                        ProductView prod = ctx.Database.SqlQuery<ProductView>(sqlp, new System.Data.SqlClient.SqlParameter("@p_pdbrnd_code", design.pdbrnd_code), new System.Data.SqlClient.SqlParameter("@p_pddsgn_code", design.pddsgn_code), new System.Data.SqlClient.SqlParameter("@p_pdtype_code", i.pdtype_code), new System.Data.SqlClient.SqlParameter("@p_pdcolor_code", colors.pdcolor_code), new System.Data.SqlClient.SqlParameter("@p_pdsize_code", z.pdsize_code)).SingleOrDefault();
 
+                        if(prod == null)
+                        {
+                            vprod_code = "";
+                            vprod_tname = "";
+                            vunit_price = 0;
+                        }
+                        else
+                        {
+                            vprod_code = prod.prod_code;
+                            vprod_tname = prod.prod_tname;
+                            vunit_price = prod.unit_price;
+                        }
                         //ProductView product = ctx.Products
                         //            .Where(x => x.pdbrnd_code == design.pdbrnd_code && x.pddsgn_code == design.pddsgn_code && x.pdtype_code == i.pdtype_code && x.pdsize_code == z.pdsize_code && x.pdcolor_code == colors.pdcolor_code).SingleOrDefault();
 
-                        SizeCatalogView sView = new SizeCatalogView()
+                        SizeCatalogView sView = new SizeCatalogView()		
+
                         {
                             catalog_size_id = z.catalog_size_id,
                             catalog_id = z.catalog_id,
                             catalog_type_id = z.catalog_type_id,
                             pdsize_code = z.pdsize_code,
                             pdsize_name = z.pdsize_name,
-                            unit_price = price
+                            prod_code = vprod_code,
+                            prod_tname = vprod_tname,
+                            unit_price = vunit_price
                             
                         };
 

@@ -60,14 +60,14 @@
         <!-- <div class="row"> -->
           <!-- <div class="col-sm-12"> -->
             <div class="col-sm-3 col-3" style="margin-top: 10px;">
-              <p *ngFor="let y of x.catalogSize">
-                <mat-checkbox class="example-margin">{{y.pdsize_name}}</mat-checkbox>
-              </p>
+              <div *ngFor="let y of x.catalogSize">
+                <mat-checkbox class="example-margin" [(ngModel)]="y.isSelected" (change)="getCheckedSizeList()">{{y.pdsize_name}}</mat-checkbox>
+              </div>
               <mat-form-field >
-                <input matInput placeholder="" name="other">
+                <input matInput placeholder="" name="other" [(ngModel)]="x.size_sp">
               </mat-form-field><br>
               <mat-form-field class="full-width">
-                <input matInput placeholder="Remark" name="remark">
+                <input matInput placeholder="Remark" name="remark" [(ngModel)]="x.remark">
               </mat-form-field>
 
               
@@ -77,7 +77,7 @@
               <img src="{{z.pic_base64}}" height="120">
               <p></p>
               <mat-form-field class="full-width">
-                <input type="number" matInput placeholder="จำนวน" name="qty" value=0>
+                <input type="number" matInput placeholder="จำนวน" name="qty" [(ngModel)]="z.qty">
               </mat-form-field>
             </div>
 
@@ -206,50 +206,35 @@
           <div class="row">
             <div class="col-sm-2 col-2" style="margin-top: 10px;">
               <mat-form-field class="full-width">
-                <input matInput placeholder="Font" name="font">
+                <input matInput placeholder="Font" name="embroidery" [(ngModel)]="model_font.embroidery">
               </mat-form-field>
             </div>
             <div class="col-sm-2 col-2" style="margin-top: 10px;">
-              <mat-radio-button class="example-margin" checked="true"><img src="./assets/images-prod/font-a.png" class="responsive"/></mat-radio-button>
-              <mat-radio-button class="example-margin"><img src="./assets/images-prod/font-b.png" class="responsive"/></mat-radio-button>
+              <div *ngFor="let font of emb">
+                <mat-radio-button class="example-margin" name="emb_mast_id"   value="font.emb_mast_id" (change)="radioFontChange(font)"><img src="{{font.pic_base64}}" class="responsive"></mat-radio-button>
+              </div>
+              <!-- <mat-radio-button class="example-margin" checked="true"><img src="./assets/images-prod/font-a.png" class="responsive"/></mat-radio-button>
+              <mat-radio-button class="example-margin"><img src="./assets/images-prod/font-b.png" class="responsive"/></mat-radio-button> -->
             </div>
 
             <div class="col-sm-1 col-1" style="margin-top: 10px;">
             </div>
             <div class="col-sm-5 col-5" style="margin-top: 10px;">
               Font Color
-              <div class="hiddenradio">
-                <label>
-                  <input type="radio" name="test" value="small" checked>
-                  <img src="./assets/images-prod/ahana-bronze-font_color-1.png" style="width: 25px;margin-top: 17px;" class="responsive"/>
+              
+              <div class="hiddenradio"  >
+                <label *ngFor="let emb of color">
+                  <input type="radio" name="catalog_emb_color_id" [ngModel]="model_font.font_color" value="{{emb.catalog_emb_color_id}}" (change)="radioColorChange(emb.catalog_emb_color_id)">
+                  <img src="{{emb.pic_base64}}" style="width: 25px;margin-top: 17px;" class="responsive">
+                  
+                  &nbsp;
                 </label>
-                &nbsp;
-                <label>
-                  <input type="radio" name="test" value="big">
-                  <img src="./assets/images-prod/ahana-bronze-font_color-2.png" style="width: 25px;margin-top: 17px;" class="responsive"/>
-                </label>
-                &nbsp;
-                <label>
-                  <input type="radio" name="test" value="big">
-                  <img src="./assets/images-prod/ahana-bronze-font_color-3.png" style="width: 25px;margin-top: 17px;" class="responsive"/>
-                </label>
-                &nbsp;
-
-                <label>
-                  <input type="radio" name="test" value="big">
-                  <img src="./assets/images-prod/ahana-bronze-font_color-4.png" style="width: 25px;margin-top: 17px;" class="responsive"/>
-                </label>
-                &nbsp;
-                <label>
-                  <input type="radio" name="test" value="big">
-                  <img src="./assets/images-prod/ahana-bronze-font_color-5.png" style="width: 25px;margin-top: 17px;" class="responsive"/>
-                </label>
-
-              </div>         
+              </div>
+              
             </div>
             <div class="col-sm-2 col-2" style="margin-top: 10px;">
               <mat-form-field class="full-width">
-                <input matInput placeholder="ราคารายปัก (เพิ่ม)" name="font">
+                <input matInput type="number" placeholder="ราคารายปัก (เพิ่ม)" name="add_price" [(ngModel)]="model_font.add_price">
               </mat-form-field>
             </div>
           </div>

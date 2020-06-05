@@ -88,11 +88,13 @@ export class SalesProductComponent implements OnInit {
   
   Confirm()
   {
+    this.catalog_id = this._actRoute.snapshot.params.catalog;
+    this.catalog_color_id = this._actRoute.snapshot.params.color;
     //console.log(this.checkedList);
     this._data.currentMessage.subscribe(message => this.message = this.checkedList)
     //console.log(this.message);
     this._data.changeMessage(this.message)
-    this._router.navigateByUrl('/app/sale/create');
+    this._router.navigateByUrl('/app/sale/create/'+this.catalog_id+"/"+this.catalog_color_id);
   }
 
   // async ngOnDestroy() {
