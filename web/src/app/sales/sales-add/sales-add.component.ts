@@ -59,16 +59,16 @@ export class SalesAddComponent implements OnInit {
   }
 
   getCheckedSizeList(){
-    //console.log(this.color);
+    console.log(this.model.catalogSize);
     this.sizeList = [];
-    for (var i = 0; i < this.model.catalogSize.length; i++) {
-      if(this.model.catalogSize[i].isSelected == true) 
-      {
-        //this.color[i].user_code = this.user.username;
-        this.sizeList.push(this.model.catalogSize[i]);
-      }
+    // for (var i = 0; i < this.model.catalogSize.length; i++) {
+    //   if(this.model.catalogSize[i].isSelected == true) 
+    //   {
+    //     //this.color[i].user_code = this.user.username;
+    //     this.sizeList.push(this.model.catalogSize[i]);
+    //   }
       
-    }
+    // }
     //this.checkedList = JSON.stringify(this.checkedList);
 
     console.log(this.sizeList);
