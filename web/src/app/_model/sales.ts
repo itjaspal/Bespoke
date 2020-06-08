@@ -24,6 +24,16 @@ export class SalesSearchView
         public status :string = "";
 }
 
+
+export class SalesTransactionView
+{
+    public embroidery: string="";
+    public font_name: number = 0;
+    public font_color: number = 0;
+    public add_price: number = 0; 
+    public salesSelected: SalesSelectTypeView[] = []
+}
+
 export class SalesSelectTypeView
 {
         public catalog_type_id: number = undefined;
@@ -33,7 +43,7 @@ export class SalesSelectTypeView
         public pdtype_code:string = "";
         public pdtype_tname:string = "";
         public is_border:boolean = false;
-        public sort_seq:number = 0;
+        public sort_seq:number = 0; 
         public size_sp: string = "";
         public remark:string = "";
         public pic_type:string = "";
@@ -43,6 +53,7 @@ export class SalesSelectTypeView
         // public add_price: number = 0; 
         public catalogType: TypeCatalogView[] = [];
         public catalogSize: SizeCatalogView[] = [];
+        
 }
 
 export class TypeCatalogView
@@ -77,5 +88,8 @@ export class FontSelectedView
     public font_name: number = 0;
     public font_color: number = 0;
     public add_price: number = 0; 
+    public tot_qty:number = 0;
+    public tot_amt:number = 0;
+    public remark:string="";
 }
 

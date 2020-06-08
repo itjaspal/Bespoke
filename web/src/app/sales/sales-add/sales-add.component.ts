@@ -1,4 +1,4 @@
-import { SizeCatalogView, SalesSelectTypeView, FontSelectedView } from './../../_model/sales';
+import { SizeCatalogView, SalesSelectTypeView, FontSelectedView, SalesTransactionView } from './../../_model/sales';
 import { Component, Input, OnInit, OnChanges } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { AuthenticationService } from '../../_service/authentication.service';
@@ -25,6 +25,7 @@ export class SalesAddComponent implements OnInit {
   ) { }
   
   public model : SalesSelectTypeView = new SalesSelectTypeView();
+  public model_sales : SalesTransactionView = new SalesTransactionView();
   public model_font : FontSelectedView = new FontSelectedView();
   public checkedList:any;
   public sizeList:any;
@@ -34,17 +35,18 @@ export class SalesAddComponent implements OnInit {
   public emb_mast_id : any;
   public catalog_emb_color_id : any;
   public add_price : any;
+  public sales:any;
   
   async ngOnInit() {
 
     this.catalog_id = this._actRoute.snapshot.params.catalog;
     
     this._data.currentMessage.subscribe(message => this.checkedList = message)
-    this.model = this.checkedList;
+    this.model_sales = this.checkedList;
      
     this.emb = await this._salesSvc.getEmbroidery();
     this.color = await this._salesSvc.getColorFont(this.catalog_id); 
-    console.log(this.model);
+    //console.log(this.model);
   }
 
   radioColorChange(color) {
@@ -78,11 +80,20 @@ export class SalesAddComponent implements OnInit {
   Confirm()
   {
 
+    this.model_sales.add_price = this.model_font.add_price;
+    this.model_sales.embroidery = this.model_font.embroidery;
+    this.model_sales.font_color = this.model_font.font_color;
+    this.model_sales.font_name = this.model_font.font_name;
+
     console.log(this.model_font);
-    // console.log(this.emb);
+    
     //this.add_price = this.model.add_price;
     //console.log(this.add_price);
-    //this._router.navigateByUrl('/app/sale/summary');
+    this._data.selectedSales.subscribe(message => this.sales = this.model_sales)
+    //console.log(this.message);
+    this._data.confirmSales(this.sales)
+    console.log(this.sales);
+    this._router.navigateByUrl('/app/sale/summary');
   }
 
   close()
