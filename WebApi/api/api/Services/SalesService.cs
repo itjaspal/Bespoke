@@ -121,8 +121,8 @@ namespace api.Services
                    .Where(z => z.catalog_color_id == color).SingleOrDefault();
 
 
-                string sql = "select c.catalog_id , c.catalog_type_id ,a.catalog_color_id, c.pdtype_code , d.pdtype_tname , b.pic_base64 pic_color , a.catalog_type_code , a.pic_base64 pic_type , a.sort_seq , a.catalog_pic_id from CATALOG_PIC a , CATALOG_COLOR b ,CATALOG_TYPE c , PDTYPE_MAST d where a.catalog_id=b.catalog_id  and a.catalog_color_id=b.catalog_color_id and a.catalog_id=c.catalog_id and a.catalog_type_id=c.catalog_type_id and c.pdtype_code=d.pdtype_code and c.catalog_id = @p_catalog_id and a.catalog_color_id = @p_catalog_color_id order by c.sort_seq , a.sort_seq";
-
+                //string sql = "select c.catalog_id , c.catalog_type_id ,a.catalog_color_id, c.pdtype_code , d.pdtype_tname , b.pic_base64 pic_color , a.catalog_type_code , a.pic_base64 pic_type , a.sort_seq , a.catalog_pic_id from CATALOG_PIC a , CATALOG_COLOR b ,CATALOG_TYPE c , PDTYPE_MAST d where a.catalog_id=b.catalog_id  and a.catalog_color_id=b.catalog_color_id and a.catalog_id=c.catalog_id and a.catalog_type_id=c.catalog_type_id and c.pdtype_code=d.pdtype_code and c.catalog_id = @p_catalog_id and a.catalog_color_id = @p_catalog_color_id order by c.sort_seq , a.sort_seq";
+                string sql = "select  distinct a.catalog_id , a.catalog_type_id , c.catalog_color_id , a.pdtype_code , b.pdtype_tname , a.is_border , a.sort_seq from catalog_type a , pdtype_mast b , catalog_pic c where a.pdtype_code = b.pdtype_code and a.catalog_id = c.catalog_id and a.catalog_type_id = c.catalog_type_id and a.catalog_id=  @p_catalog_id and c.catalog_color_id = @p_catalog_color_id order by a.sort_seq";
                 List<SalesSelectTypeView> typeCatalog = ctx.Database.SqlQuery<SalesSelectTypeView>(sql , new System.Data.SqlClient.SqlParameter("@p_catalog_id", catalog) , new System.Data.SqlClient.SqlParameter("@p_catalog_color_id", color)).ToList();
 
                 List<SalesSelectTypeView> typeViews = new List<SalesSelectTypeView>();
@@ -144,6 +144,7 @@ namespace api.Services
                             catalog_type_code = y.catalog_type_code,
                             pic_base64 = y.pic_base64,
                            
+                           
                         };
 
                         typecodeViews.Add(tView);
@@ -151,7 +152,7 @@ namespace api.Services
                     }
 
 
-                    string sqls = "select a.catalog_size_id , a.catalog_id , a.catalog_type_id , a.pdsize_code , b.pdsize_tname pdsize_name, a.sort_seq , d.pdtype_tname pdtype_name from CATALOG_SIZE a , PDSIZE_MAST b , CATALOG_TYPE c , PDTYPE_MAST d where a.pdsize_code=b.pdsize_code and a.catalog_type_id=c.catalog_type_id and c.pdtype_code = d.pdtype_code and a.catalog_id = @p_catalog_id  and c.catalog_type_id = @p_catalog_type_id order by a.sort_seq ";
+                    string sqls = "select a.catalog_size_id , a.catalog_id , a.catalog_type_id  , a.pdsize_code , b.pdsize_tname pdsize_name, a.sort_seq , d.pdtype_tname pdtype_name from CATALOG_SIZE a , PDSIZE_MAST b , CATALOG_TYPE c , PDTYPE_MAST d where a.pdsize_code=b.pdsize_code and a.catalog_type_id=c.catalog_type_id and c.pdtype_code = d.pdtype_code and a.catalog_id = @p_catalog_id  and c.catalog_type_id = @p_catalog_type_id order by a.sort_seq ";
 
                     List<SizeCatalogView> size = ctx.Database.SqlQuery<SizeCatalogView>(sqls, new System.Data.SqlClient.SqlParameter("@p_catalog_id", i.catalog_id), new System.Data.SqlClient.SqlParameter("@p_catalog_type_id", i.catalog_type_id)).ToList();
                     List<SizeCatalogView> sizeViews = new List<SizeCatalogView>();
@@ -196,16 +197,19 @@ namespace api.Services
 
                     }
 
+                    string sqlpic = "select TOP 1  pic_base64 from catalog_pic where catalog_id = @p_catalog_id and catalog_type_id = @p_catalog_type_id  order by catalog_type_code";
+                    string pic_type = ctx.Database.SqlQuery<string>(sqlpic, new System.Data.SqlClient.SqlParameter("@p_catalog_id", i.catalog_id), new System.Data.SqlClient.SqlParameter("@p_catalog_type_id", i.catalog_type_id)).SingleOrDefault();
+
 
                     SalesSelectTypeView view = new SalesSelectTypeView()
                     {
                         catalog_type_id = i.catalog_type_id,
                         catalog_id = i.catalog_id,
                         catalog_color_id = i.catalog_color_id,
-                        catalog_pic_id = i.catalog_pic_id,
+                       // catalog_pic_id = i.catalog_pic_id,
                         pdtype_code = i.pdtype_code,
                         pdtype_tname = i.pdtype_tname,
-                        pic_type = i.pic_type,
+                        pic_type = pic_type,
                         sort_seq = i.sort_seq,
                         catalogType = typecodeViews,
                         catalogSize = sizeViews

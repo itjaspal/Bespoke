@@ -42,6 +42,7 @@ export class SalesDesignComponent implements OnInit {
 
   close()
   {
-    window.history.back();
+    //window.history.back();
+    this._router.navigateByUrl('/app/sale');
   }
 }

@@ -1,4 +1,4 @@
-import { SizeCatalogView, SalesSelectTypeView, FontSelectedView, SalesTransactionView } from './../../_model/sales';
+import { SizeCatalogView, SalesSelectTypeView, FontSelectedView, SalesTransactionView, TypeCatalogView } from './../../_model/sales';
 import { Component, Input, OnInit, OnChanges } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { AuthenticationService } from '../../_service/authentication.service';
@@ -36,6 +36,9 @@ export class SalesAddComponent implements OnInit {
   public catalog_emb_color_id : any;
   public add_price : any;
   public sales:any;
+  public show_spSize:boolean = false;
+  public currentlyChecked : any;
+  public CheckBoxType : any;
   
   async ngOnInit() {
 
@@ -60,20 +63,18 @@ export class SalesAddComponent implements OnInit {
     //console.log(this.emb_mast_id);
   }
 
-  getCheckedSizeList(){
-    console.log(this.model.catalogSize);
-    this.sizeList = [];
-    // for (var i = 0; i < this.model.catalogSize.length; i++) {
-    //   if(this.model.catalogSize[i].isSelected == true) 
-    //   {
-    //     //this.color[i].user_code = this.user.username;
-    //     this.sizeList.push(this.model.catalogSize[i]);
-    //   }
-      
-    // }
-    //this.checkedList = JSON.stringify(this.checkedList);
+  
+  getCheckedSizeList(size){
 
-    console.log(this.sizeList);
+   
+    if(size=="OTH")
+    {
+      this.show_spSize = true;
+    }
+    else{
+      this.show_spSize = false;
+    }
+    
   }
 
 
@@ -85,14 +86,26 @@ export class SalesAddComponent implements OnInit {
     this.model_sales.font_color = this.model_font.font_color;
     this.model_sales.font_name = this.model_font.font_name;
 
-    console.log(this.model_font);
+    //console.log(this.model_font);
     
     //this.add_price = this.model.add_price;
     //console.log(this.add_price);
     this._data.selectedSales.subscribe(message => this.sales = this.model_sales)
     //console.log(this.message);
     this._data.confirmSales(this.sales)
-    console.log(this.sales);
+    console.log(this.sales.length);
+    for (var i = 0; i < this.sales.length; i++) {
+      for(var j=0;j<this.sales[i].catalogType.length; j++)
+      {
+        if(this.sales[i].catalogType[j].qty > 0)
+        {
+          
+          console.log(this.sales[i].catalogType[j].catalog_type_id);
+        }
+      }
+      
+      
+    }
     this._router.navigateByUrl('/app/sale/summary');
   }
 

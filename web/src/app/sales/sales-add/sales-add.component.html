@@ -61,11 +61,14 @@
           <!-- <div class="col-sm-12"> -->
             <div class="col-sm-3 col-3" style="margin-top: 10px;">
               <div *ngFor="let y of x.catalogSize">
-                <mat-checkbox class="example-margin" [(ngModel)]="y.isSelected" (change)="getCheckedSizeList()" value="{{y.catalog_size_id}}">{{y.pdsize_name}} ({{y.unit_price}})</mat-checkbox>
+                <mat-checkbox class="example-margin" [(ngModel)]="y.isSelected" (change)="getCheckedSizeList(y.pdsize_code)" value="{{y.catalog_size_id}}">{{y.pdsize_name}} ({{y.unit_price}})</mat-checkbox>
               </div>
-              <mat-form-field >
-                <input matInput placeholder="" name="other" [(ngModel)]="x.size_sp">
-              </mat-form-field><br>
+             
+              <div *ngIf="show_spSize">
+                <mat-form-field>
+                  <input matInput placeholder="" name="other" [(ngModel)]="x.size_sp">
+                </mat-form-field><br>
+              </div>
               <mat-form-field class="full-width">
                 <input matInput placeholder="Remark" name="remark" [(ngModel)]="x.remark">
               </mat-form-field>
@@ -85,119 +88,6 @@
         <!-- </div> -->
       </div>    
 
-
-      <!-- <div class="row" >
-
-        <div class="col-sm-12">
-
-          <div class="row">
-            <div class="col-sm-3 col-3" style="margin-top: 10px;">
-           
-            <p><mat-checkbox class="example-margin" checked="true">108" X 108"</mat-checkbox><br>
-            <mat-checkbox class="example-margin">96" X 108"</mat-checkbox><br>
-            <mat-checkbox class="example-margin">72" X 108"</mat-checkbox><br>
-            <mat-checkbox class="example-margin">Other</mat-checkbox>
-            <mat-form-field >
-              <input matInput placeholder="" name="other">
-            </mat-form-field><br>
-            <mat-form-field class="full-width">
-              <input matInput placeholder="Remark" name="remark">
-            </mat-form-field></p>
-            </div>
-
-            <div class="col-sm-2 col-2" style="margin-top: 10px;">
-              <img src="./assets/images-prod/ahana-bronze-flat-sheet-a.png" class="responsive"/>
-              <p>฿9,999.00</p>
-              <mat-form-field class="full-width">
-                <input type="number" matInput placeholder="จำนวน" name="qty" value=0>
-              </mat-form-field>
-            </div>
-            <div class="col-sm-2 col-2" style="margin-top: 10px;">
-              <img src="./assets/images-prod/ahana-bronze-flat-sheet-b.png" class="responsive"/>
-              <p>฿9,999.00</p>
-              <mat-form-field class="full-width">
-                <input type="number" matInput placeholder="จำนวน" name="qty" value=1>
-              </mat-form-field>
-            </div>
-       
-
-          </div>
-
-        </div>
-
-        
-
-      </div> -->
-
-
-      <!-- <div class="row">
-        <div class="col-sm-12">
-          <div class="row">
-            <div class="col-sm-3 col-3" style="margin-top: 5px;">
-              Size 
-            </div>
-            <div class="col-sm-8 col-8" style="margin-top: 5px;">
-              Duvet Cover
-            </div>
-            
-          </div>
-        </div>
-      </div>     -->
-
-
-      <!-- <div class="row">
-
-        <div class="col-sm-12">
-
-          <div class="row">
-            <div class="col-sm-3 col-3" style="margin-top: 10px;">
-          
-            <p><mat-checkbox class="example-margin">106" X 94"</mat-checkbox><br>
-            <mat-checkbox class="example-margin" checked="true">100" X 90"</mat-checkbox><br>
-            <mat-checkbox class="example-margin">86" X 90"</mat-checkbox><br>
-            <mat-checkbox class="example-margin">70" X 90"</mat-checkbox>
-          
-            <mat-form-field class="full-width">
-              <input matInput placeholder="Remark" name="remark">
-            </mat-form-field></p>
-            </div>
-
-            <div class="col-sm-2 col-2" style="margin-top: 10px;">
-              <img src="./assets/images-prod/ahana-bronze-duvet-cover-a.png" class="responsive"/>
-              <p>฿9,999.00</p>
-              <mat-form-field class="full-width">
-                <input type="number" matInput placeholder="จำนวน" name="qty" value=0>
-              </mat-form-field>
-            </div>
-            <div class="col-sm-2 col-2" style="margin-top: 10px;">
-              <img src="./assets/images-prod/ahana-bronze-duvet-cover-b.png" class="responsive"/>
-              <p>฿9,999.00</p>
-              <mat-form-field class="full-width">
-                <input type="number" matInput placeholder="จำนวน" name="qty" value=1>
-              </mat-form-field>
-            </div>
-            <div class="col-sm-2 col-2" style="margin-top: 10px;">
-              <img src="./assets/images-prod/ahana-bronze-duvet-cover-c.png" class="responsive"/>
-              <p>฿9,999.00</p>
-              <mat-form-field class="full-width">
-                <input type="number" matInput placeholder="จำนวน" name="qty" value=0>
-              </mat-form-field>
-            </div>
-            <div class="col-sm-2 col-2" style="margin-top: 10px;">
-              <img src="./assets/images-prod/ahana-bronze-duvet-cover-d.png" class="responsive"/>
-              <p>฿9,999.00</p>
-              <mat-form-field class="full-width">
-                <input type="number" matInput placeholder="จำนวน" name="qty" value=0>
-              </mat-form-field>
-            </div>
-
-          </div>
-
-        </div>
-
-        
-
-      </div> -->
       
       <div class="row">
 

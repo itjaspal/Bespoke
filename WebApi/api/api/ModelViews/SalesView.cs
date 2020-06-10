@@ -61,6 +61,7 @@ namespace api.ModelViews
         public long catalog_id { get; set; }
         public string catalog_type_code { get; set; }
         public string pic_base64 { get; set; }
+        public int qty { get; set; }
      
     }
 

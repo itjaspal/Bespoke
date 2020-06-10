@@ -56,7 +56,7 @@ export class SalesProductComponent implements OnInit {
 
     this.type = await this._salesSvc.getTypeInCatalogColor(this.catalog_id,this.catalog_color_id);
     this.color = await this._salesSvc.getColorInCatalog(this.catalog_id);
-    console.log(this.color);
+    console.log(this.type);
 
     
 
