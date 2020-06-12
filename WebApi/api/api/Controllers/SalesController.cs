@@ -110,5 +110,21 @@ namespace api.Controllers
             }
         }
 
+
+        [Route("sales/get-docNo/{branchId}")]
+        public HttpResponseMessage getDocNo(long branchId)
+        {
+            try
+            {
+                var result = salesSvc.GetDocNo(branchId);
+
+                return Request.CreateResponse(HttpStatusCode.OK, result);
+            }
+            catch (Exception ex)
+            {
+                return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, ex.ToString());
+            }
+        }
+
     }
 }

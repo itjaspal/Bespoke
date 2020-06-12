@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ShareDataService } from '../../_service/share-data.service';
+import { AuthenticationService } from '../../_service/authentication.service';
+import { SalesService } from '../../_service/sales.service';
 
 @Component({
   selector: 'app-sales-summary',
@@ -11,16 +13,37 @@ export class SalesSummaryComponent implements OnInit {
 
   constructor(
     private _data: ShareDataService,
+    private _salesSvc: SalesService,
+    private _authSvc: AuthenticationService,
     private router: Router
   ) { }
 
   public salesList:any;
+  public user: any;
+  public branchName : any;
+  public docNo: any;
 
   ngOnInit() {
-    this._data.selectedSales.subscribe(sales => this.salesList = sales)
+    this.user = this._authSvc.getLoginUser();
+    this.branchName = this.user.branch.branch.branchCode + ' - ' + this.user.branch.branch.branchNameThai;
 
-    //this._data.currentMessage.subscribe(message => this.checkedList = message)
+    
+    this.docNo = this._salesSvc.getDocNo(this.user.branch.branchId);
+    console.log(this.docNo);
+    this._data.selectedSales.subscribe(sales => this.salesList = sales)
     console.log(this.salesList);
+    for (var i = 0; i < this.salesList.length; i++) {
+      for(var j=0;j<this.salesList[i].catalogType.length; j++)
+      {
+        if(this.salesList[i].catalogType[j].qty > 0)
+        {
+          
+          console.log(this.salesList[i].catalogType[j].catalog_type_id);
+        }
+      }
+      
+      
+    }
     
   }
 

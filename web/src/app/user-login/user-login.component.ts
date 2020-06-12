@@ -53,12 +53,12 @@ export class UserLoginComponent extends BaseComponent implements OnInit {
     let user: any = await this.authenticationService.login(this.data.username, this.data.password);
 
     // if (user.isPC) {
-    //   this.router.navigateByUrl('/select-branch');
+       this.router.navigateByUrl('/select-branch');
     // } else {
     //   if (user.menuGroups.length > 0 && user.menuGroups[0].menuFunctionGroupId == '01') {
     //     this.router.navigateByUrl('/app/dashboard');
     //   } else {
-        this.router.navigateByUrl('/app/home');
+    //    this.router.navigateByUrl('/app/home');
     //  }
     //}
   }

@@ -39,6 +39,8 @@ export class SalesAddComponent implements OnInit {
   public show_spSize:boolean = false;
   public currentlyChecked : any;
   public CheckBoxType : any;
+  //public selected = -1;
+  public catalog_color_id : any;
   
   async ngOnInit() {
 
@@ -66,7 +68,19 @@ export class SalesAddComponent implements OnInit {
   
   getCheckedSizeList(size){
 
-   
+    // for (var i = 0; i < this.sales.length; i++) {
+    //   for(var j=0;j<this.sales[i].catalogType.length; j++)
+    //   {
+    //     if(this.sales[i].catalogType[j].qty > 1)
+    //     {
+          
+    //       console.log("No");
+    //     }
+    //   }
+    // }  
+      
+
+   console.log(size);
     if(size=="OTH")
     {
       this.show_spSize = true;
@@ -80,33 +94,20 @@ export class SalesAddComponent implements OnInit {
 
   Confirm()
   {
-
+    this.catalog_id = this._actRoute.snapshot.params.catalog;
+    this.catalog_color_id = this._actRoute.snapshot.params.color;
     this.model_sales.add_price = this.model_font.add_price;
     this.model_sales.embroidery = this.model_font.embroidery;
     this.model_sales.font_color = this.model_font.font_color;
     this.model_sales.font_name = this.model_font.font_name;
 
-    //console.log(this.model_font);
     
-    //this.add_price = this.model.add_price;
-    //console.log(this.add_price);
     this._data.selectedSales.subscribe(message => this.sales = this.model_sales)
     //console.log(this.message);
     this._data.confirmSales(this.sales)
-    console.log(this.sales.length);
-    for (var i = 0; i < this.sales.length; i++) {
-      for(var j=0;j<this.sales[i].catalogType.length; j++)
-      {
-        if(this.sales[i].catalogType[j].qty > 0)
-        {
-          
-          console.log(this.sales[i].catalogType[j].catalog_type_id);
-        }
-      }
-      
-      
-    }
-    this._router.navigateByUrl('/app/sale/summary');
+    //console.log(this.sales.length);
+    
+    this._router.navigateByUrl('/app/sale/summary/'+this.catalog_id+"/"+this.catalog_color_id);
   }
 
   close()

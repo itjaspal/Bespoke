@@ -39,7 +39,8 @@ export class SalesSearchComponent implements OnInit {
     this.user = this._authSvc.getLoginUser();
     this.branchLists = await this._ddlSvc.getDdlUserBranch(this.user.username);
     this.docStatusLists = await this._ddlSvc.getDdlDocStatus();
-    console.log(this.branchLists);
+    this.model_search.entity_code = this.user.branch.branch.branchCode;
+    console.log(this.user.branch.branch.branchCode);
     this.search();
   }
 

@@ -193,7 +193,7 @@ const routes: Routes = [
       { path: "sale/update/:id", component: SalesEditComponent, canActivate: [AuthenGuard], data: { parentUrl: "/app/sale" } },
       { path: "sale/design", component: SalesDesignComponent, canActivate: [AuthenGuard], data: { parentUrl: "/app/sale" } },
       { path: "sale/product/:catalog/:color", component: SalesProductComponent, canActivate: [AuthenGuard], data: { parentUrl: "/app/sale" } },
-      { path: "sale/summary", component: SalesSummaryComponent, canActivate: [AuthenGuard], data: { parentUrl: "/app/sale" } },
+      { path: "sale/summary/:catalog/:color", component: SalesSummaryComponent, canActivate: [AuthenGuard], data: { parentUrl: "/app/sale" } },
       
       //Tracking
       { path: "track", component: TrackSearchComponent, canActivate: [AuthenGuard], data: { parentUrl: "/app/track" } },

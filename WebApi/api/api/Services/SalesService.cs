@@ -76,6 +76,16 @@ namespace api.Services
             }
         }
 
+        public string GetDocNo(long branch)
+        {
+            using (var ctx = new ConXContext())
+            {
+                string docNbr = Util.Util.GetDocNo(branch, "POR", ctx);
+
+                return docNbr;
+            }
+        }
+
         public List<EmbMastView> GetEmbroidery()
         {
             using (var ctx = new ConXContext())

@@ -97,13 +97,6 @@ export class SalesProductComponent implements OnInit {
     this._router.navigateByUrl('/app/sale/create/'+this.catalog_id+"/"+this.catalog_color_id);
   }
 
-  // async ngOnDestroy() {
-  //   this.saveSession();
-  // }
-
-  // async saveSession() {
-  //   sessionStorage.setItem('session-checkedList', JSON.stringify(this.checkedList));
-  // }
     
   
 

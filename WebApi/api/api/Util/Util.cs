@@ -380,5 +380,49 @@ namespace api.Util
             string base64String = Convert.ToBase64String(imageBytes);
             return base64String;
         }
+
+        public static string GetDocNo(long branchId , string doc_code , ConXContext ctx)
+        {
+            string nextDocId = "";
+            string RunningNo = "";
+            string dateFormat = "yyMM";
+            int running = 4;
+            DateTime dateNow = DateTime.Now;
+
+            Branch branch = ctx.Branchs.Where(z => z.branchId == branchId).SingleOrDefault();
+
+            doc_mast docontrol = ctx.DocMasts.Where(x => x.doc_code == "POR").SingleOrDefault();
+
+            string preFix = docontrol.doc_ctrl + branch.docRunningPrefix.Trim()  + string.Format("{0:" + dateFormat + "}", dateNow);
+
+            //if (branch.docRunningPrefix != null)
+            //{
+            //    preFix = branch.docRunningPrefix.Trim() + preFix;
+            //}
+
+            string formatRuning = "00000000000000000000000";
+            formatRuning = formatRuning.Substring(1, running);
+
+            string sql = "select RIGHT(max(doc_no),4) from CO_TRNS_MAST where doc_code = @p_doc_code and doc_no like @p_preFix";
+            string docRunning = ctx.Database.SqlQuery<string>(sql, new System.Data.SqlClient.SqlParameter("@p_doc_code", doc_code), new System.Data.SqlClient.SqlParameter("@p_preFix", preFix + "%")).SingleOrDefault();
+
+            if(docRunning == null)
+            {
+                int no = 1;
+
+                RunningNo = no.ToString(formatRuning);
+                nextDocId = preFix + RunningNo;
+            }
+            else
+            {
+
+                int no = Int32.Parse(docRunning) + 1;
+
+                RunningNo = no.ToString(formatRuning);
+                nextDocId = preFix + RunningNo;
+            }
+
+            return nextDocId;
+        }
     }
 }

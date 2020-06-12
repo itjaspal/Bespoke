@@ -195,6 +195,7 @@ import { ProductUpdateComponent } from './master-product/product-update/product-
 import { ProductSearchComponent } from './master-product/product-search/product-search.component';
 import { ProductViewComponent } from './master-product/product-view/product-view.component';
 import { CustomerViewComponent } from './customer/customer-view/customer-view.component';
+import { UserSelectBranchComponent } from './user-select-branch/user-select-branch/user-select-branch.component';
 
 
 
@@ -421,6 +422,7 @@ import { CustomerViewComponent } from './customer/customer-view/customer-view.co
     ProductUpdateComponent,
     ProductSearchComponent,
     ProductViewComponent,
+    UserSelectBranchComponent,
 
 
   ],

@@ -40,7 +40,7 @@ export class AuthenticationService {
       userRoleId: branch.userRoleId
     }
 
-    let menuGroups: any = await this.http.post(environment.API_URL + 'authen/pc/getUserRole', param).toPromise();
+    let menuGroups: any = await this.http.post(environment.API_URL + 'authen/getUserRole', param).toPromise();
 
     let user = this.getLoginUser();
     user.branch = branch;

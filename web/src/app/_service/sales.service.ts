@@ -36,4 +36,9 @@ export class SalesService {
     return await this.http.get(environment.API_URL + 'sales/get-embroidery').toPromise();
   }
 
+  public async getDocNo(_branch_id : number) {
+    return await this.http.get<string>(environment.API_URL + 'sales/get-docNo/'+ _branch_id).toPromise();
+  }
+  
+  
 }
