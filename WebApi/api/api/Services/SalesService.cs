@@ -76,14 +76,60 @@ namespace api.Services
             }
         }
 
-        public string GetDocNo(long branch)
+        public DocNoView SearchDocNo(DocNoSearchView model)
         {
             using (var ctx = new ConXContext())
             {
-                string docNbr = Util.Util.GetDocNo(branch, "POR", ctx);
+                string nextDocId = "";
+                string RunningNo = "";
+                string dateFormat = "yyMM";
+                int running = 4;
+                DateTime dateNow = DateTime.Now;
 
-                return docNbr;
-            }
+                Branch branch = ctx.Branchs.Where(z => z.branchId == model.BranchId).SingleOrDefault();
+
+                doc_mast docontrol = ctx.DocMasts.Where(x => x.doc_code == model.doc_code).SingleOrDefault();
+
+                string preFix = docontrol.doc_ctrl + branch.docRunningPrefix.Trim() + string.Format("{0:" + dateFormat + "}", dateNow);
+
+                
+                string formatRuning = "00000000000000000000000";
+                formatRuning = formatRuning.Substring(1, running);
+
+                string sql = "select RIGHT(max(doc_no),4) from CO_TRNS_MAST where doc_code = @p_doc_code and doc_no like @p_preFix";
+                string docRunning = ctx.Database.SqlQuery<string>(sql, new System.Data.SqlClient.SqlParameter("@p_doc_code", model.doc_code), new System.Data.SqlClient.SqlParameter("@p_preFix", preFix + "%")).SingleOrDefault();
+
+                if (docRunning == null)
+                {
+                    int no = 1;
+
+                    RunningNo = no.ToString(formatRuning);
+                    nextDocId = preFix + RunningNo;
+                }
+                else
+                {
+
+                    int no = Int32.Parse(docRunning) + 1;
+
+                    RunningNo = no.ToString(formatRuning);
+                    nextDocId = preFix + RunningNo;
+                }
+
+                //return nextDocId;
+
+                return new DocNoView
+                {
+                    doc_no = nextDocId
+
+                };
+
+                //DocNoView view = new DocNoView()
+                //{
+                //    doc_no = docNbr
+                //};
+
+                //return view;
+            }        
         }
 
         public List<EmbMastView> GetEmbroidery()
@@ -357,6 +403,6 @@ namespace api.Services
             }
         }
 
-
+        
     }
 }

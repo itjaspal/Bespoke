@@ -35,6 +35,19 @@ export class SalesTransactionView
         public total_amt: number = 0;
         public sign_customer:string ="";
         public sign_manager:string = "";
+        //public branchId: number = undefined;
+        public doc_no: string = "";
+        public doc_date: any = new Date();
+        public req_date: any = null;
+        public ref_no: string = "";
+        public cust_name: string = "";
+        public address1: string = "";
+        public district: string = "";
+        public subDistrict: string = "";
+        public province: string = undefined;
+        public zipCode: string = "";
+        public tel: string = "";
+        public remark: string = "";
         public transactionItem: TransactionItemView[] = []
 }
 export class TransactionItemView
@@ -118,5 +131,15 @@ export class FontSelectedView
     public tot_qty:number = 0;
     public tot_amt:number = 0;
     public remark:string="";
+}
+
+export class DocNoSearchView
+{
+        public branchId:number =0;
+        public doc_code:string = AppSetting.doc_code;
+}
+export class DocNoView
+{
+        public doc_no:string ="";
 }
 

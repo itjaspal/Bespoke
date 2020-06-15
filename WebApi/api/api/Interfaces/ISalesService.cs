@@ -15,7 +15,8 @@ namespace api.Interfaces
         List<CatalogColorView> GetColorInCatalog(long catalog);
         List<EmbMastView> GetEmbroidery();
         List<CatalogEmbColorView> GetCatalogEmbColor(long catalog);
-        string GetDocNo(long branchId);
+        //DocNoView GetDocNo(long branchId);
+        DocNoView SearchDocNo(DocNoSearchView model);
 
     }
 }

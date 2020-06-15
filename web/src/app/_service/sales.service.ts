@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { CommonSearchView } from '../_model/common-search-view';
 import { environment } from '../../environments/environment';
-import { SalesSearchView, SalesView } from '../_model/sales';
+import { SalesSearchView, SalesView, DocNoView, DocNoSearchView } from '../_model/sales';
 import { CatalogMastSearchView, CatalogMastView } from '../_model/catalog-mast';
 
 @Injectable({
@@ -36,9 +36,14 @@ export class SalesService {
     return await this.http.get(environment.API_URL + 'sales/get-embroidery').toPromise();
   }
 
-  public async getDocNo(_branch_id : number) {
-    return await this.http.get<string>(environment.API_URL + 'sales/get-docNo/'+ _branch_id).toPromise();
+  // public async getDocNo(_branch_id: number) {
+  //   return await this.http.get(environment.API_URL + 'sales/get-docNo/'+ _branch_id).toPromise();
+  // }
+  public async searchDocNo(_model: DocNoSearchView) {
+    // console.log('parameter  : '+ _model);
+    return await this.http.post<DocNoView>(environment.API_URL + 'sales/postSearchDocNo', _model).toPromise();
   }
   
+ 
   
 }

@@ -94,4 +94,15 @@ namespace api.ModelViews
         public long font_color { get; set; }
         public decimal add_price { get; set; }
     }
-}
+
+    public class DocNoSearchView
+    {
+        public long BranchId { get; set; }
+        public string doc_code { get; set; }
+    }
+
+    public class DocNoView
+    {
+        public string doc_no { get; set; }
+    }
+}   

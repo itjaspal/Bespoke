@@ -111,14 +111,16 @@ namespace api.Controllers
         }
 
 
-        [Route("sales/get-docNo/{branchId}")]
-        public HttpResponseMessage getDocNo(long branchId)
+        [Route("sales/postSearchDocNo")]
+        public HttpResponseMessage postSearchDocNo(DocNoSearchView model)
         {
             try
             {
-                var result = salesSvc.GetDocNo(branchId);
+                var result = salesSvc.SearchDocNo(model);
 
                 return Request.CreateResponse(HttpStatusCode.OK, result);
+                
+
             }
             catch (Exception ex)
             {
