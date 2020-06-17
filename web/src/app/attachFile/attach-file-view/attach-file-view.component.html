@@ -2,8 +2,11 @@
 
   <mat-card-subtitle>
     <h6>รายการไฟล์แนบ</h6>
-    <button mat-fab type="button" color="primary" [routerLink]="['/app/attachFile/'+ docCode +'/' + refId]"
+    <!-- <button mat-fab type="button" color="primary" [routerLink]="['/app/attachFile/'+ docCode +'/' + refId]"
       *ngIf="(statusId == 'PAL' || statusId == 'A') && UPLOAD">
+      <mat-icon class="material-icons">edit</mat-icon>
+    </button> -->
+    <button mat-fab type="button" color="primary" [routerLink]="['/app/attachFile/'+ docCode +'/' + refId]">
       <mat-icon class="material-icons">edit</mat-icon>
     </button>
   </mat-card-subtitle>
@@ -17,9 +20,9 @@
       <div class="col-sm-7">
         <b>ชื่อไฟล์</b>
       </div>
-      <div class="col-sm-3">
+      <!-- <div class="col-sm-3">
         <b>ประเภท</b>
-      </div>
+      </div> -->
       <div class="col-2"></div>
     </div>
     <div class="row card-table-body" *ngFor="let x of datas;let i = index;">
@@ -32,10 +35,10 @@
         <dd>{{x.fileName}}</dd>
       </div>
 
-      <div class="col-sm-3 col-10">
+      <!-- <div class="col-sm-3 col-10">
         <small>ประเภท</small>
         <dd>{{x.attachFileTypeName}}</dd>
-      </div>
+      </div> -->
 
       <div class="col-2 text-right">
         <button type="button" mat-icon-button [matMenuTriggerFor]="appMenu">

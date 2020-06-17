@@ -29,15 +29,7 @@
             
           </div>
 
-          <!-- <div class="row">
-            
-            <div class="col-sm-6">
-              เลขที่เอกสาร : {{docNo}}
-             
-            </div>
-            
-          </div> -->
-
+       
           <div class="row">
            
             <div class="col-sm-6 col-12">
@@ -665,24 +657,62 @@
 
 
   
-  <app-attach-file-view ></app-attach-file-view>
+  <!-- <app-attach-file-view [refId]="model.co_trns_mast_id" [UPLOAD]="actions.UPLOAD"></app-attach-file-view> -->
+
+  <!-- <div class="row" style="margin-top: 15px;">
+              
+    <div class="col-12">
+        <dt>รูป Catalog </dt>
+        
+    </div>
+    <div class="col-sm-12 ">
+        
+        <input type="file" #fileInput class="d-none" (change)="fileChange($event)">
+        <button matPrefix mat-raised-button color="accent" class="btn-w-md" type="button"
+            (click)="fileInput.click()">
+            Choose file
+        </button>
+        <br>
+        <div class="output">ไฟล์ที่เลือก: {{ fileName }} </div>
+    </div>
+  </div> -->
+  <mat-card class="mat-subcard">
+  <mat-card-subtitle>
+    <h6>รายการไฟล์แนบ</h6>
+    <input type="file" #fileInput class="d-none" (change)="fileChange($event)">
+                  <!-- <button matPrefix mat-raised-button color="accent" class="btn-w-md" type="button"
+                      (click)="fileInput.click()">
+                      Choose file
+                  </button> -->
+    <button mat-fab type="button" color="primary" (click)="fileInput.click()">
+      <mat-icon class="material-icons">edit</mat-icon>
+    </button>
+  </mat-card-subtitle>
+  <mat-card-content>
+    <div class="output" >ไฟล์ที่เลือก: {{ fileName }} </div>
+  </mat-card-content>
+</mat-card>
+
+
 
   <mat-card>
     <mat-card-content>
       <div class="row card-table-body" >
-        <div class="col-12">
+        <!-- <div class="col-12">
           <hr />
-        </div>
+        </div> -->
         <div class="col-12">
           <div class="row">
-            <div class="col-4 col-sm-4">
-              <canvas id="stage" width="200" height="100"></canvas>
+            <div class="col-4 col-sm-4 sig-container">
+              <!-- <canvas id="stage" width="200" height="100"></canvas> -->
+              <signature-pad [options]="options"  formControlName="sign_manager"   (onBeginEvent)="drawStart()" (onEndEvent)="drawComplete_manager()"></signature-pad>
             </div>
             <div class="col-4 col-sm-4">
 
             </div>
             <div class="col-4 col-sm-4">
-              <canvas id="stage" width="200" height="100"></canvas>
+              <!-- <canvas id="stage" width="200" height="100"></canvas> -->
+              <signature-pad  [options]="options"  formControlName="sign_customer" (onBeginEvent)="drawStart()" (onEndEvent)="drawComplete_customer()"></signature-pad>
             </div>
           </div>
         </div>
@@ -690,13 +720,15 @@
         <div class="col-12">
           <div class="row">
             <div class="col-4 col-sm-4 text-center">
-              Shop Manager Approve <button >Sign</button>
+              <hr>
+              Shop Manager Approve 
             </div>
             <div class="col-4 col-sm-4">
 
             </div>
             <div class="col-4 col-sm-4 text-center" >
-              Customer Approve <button >Sign</button>
+              <hr>
+              Customer Approve 
             </div>
           </div>
         </div>

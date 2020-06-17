@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit ,ViewChild} from '@angular/core';
 import { Router } from '@angular/router';
 import { ShareDataService } from '../../_service/share-data.service';
 import { AuthenticationService } from '../../_service/authentication.service';
@@ -11,6 +11,7 @@ import { forkJoin, Observable, of } from 'rxjs';
 import { AddressDBView } from '../../_model/address-dbview';
 import { CustomerView } from '../../_model/customer-view';
 import { CommonService } from '../../_service/common.service';
+import { SignaturePad } from 'angular2-signaturepad/signature-pad';
 
 @Component({
   selector: 'app-sales-summary',
@@ -18,6 +19,17 @@ import { CommonService } from '../../_service/common.service';
   styleUrls: ['./sales-summary.component.scss']
 })
 export class SalesSummaryComponent implements OnInit {
+
+  @ViewChild(SignaturePad) manager_sign: SignaturePad;
+  @ViewChild(SignaturePad) customer_sign: SignaturePad;
+ 
+  
+  public options: Object = { // passed through to szimek/signature_pad constructor
+    'backgroundColor': 'rgb(222, 224, 226)',
+    'minWidth': 5,
+    //'canvasWidth': '350',
+    // 'canvasHeight': 120
+  };
 
   constructor(
     private _data: ShareDataService,
@@ -50,6 +62,12 @@ export class SalesSummaryComponent implements OnInit {
   public docNo: any;
   public model_doc_search: DocNoSearchView = new DocNoSearchView();  
   public model_doc: DocNoView = new DocNoView();  
+  actions: any = {};
+  selectedFiles: FileList;
+  fileName: any;
+  
+
+  
 
   async ngOnInit() {
     this.buildForm();
@@ -96,10 +114,55 @@ export class SalesSummaryComponent implements OnInit {
       district: [null, [Validators.required]],
       province: [null, [Validators.required]],
       zipCode: [null, [Validators.required]],
-      tel: [null, [Validators.required]]
+      tel: [null, [Validators.required]],
+      sign_manager: [null, []],
+      sign_customer: [null, []],
       
     });
   }
+
+  fileChange(event) {
+    this.selectedFiles = event.target.files;
+    this.selectedFiles = event.target.files;
+    this.fileName = this.selectedFiles[0].name;
+    //console.log('selectedFiles: ' + this.fileName );
+    if (this.selectedFiles.length > 0) {
+      this.model.file = this.selectedFiles[0];
+    } else {
+      this.model.file = null;
+    }
+  
+   
+    console.log(this.model.file);
+  }
+
+  ngAfterViewInit() {
+    // this.signaturePad is now available
+    this.manager_sign.set('minWidth', 5); // set szimek/signature_pad options at runtime
+    this.manager_sign.clear(); // invoke functions from szimek/signature_pad API
+
+    this.customer_sign.set('minWidth', 5); // set szimek/signature_pad options at runtime
+    this.customer_sign.clear(); // invoke functions from szimek/signature_pad API
+  }
+ 
+  drawComplete_manager() {
+    // will be notified of szimek/signature_pad's onEnd event
+    console.log(this.manager_sign.toDataURL());
+    //console.log(this.customer_sign.toDataURL());
+  }
+
+  drawComplete_customer() {
+    // will be notified of szimek/signature_pad's onEnd event
+    //console.log(this.manager_sign.toDataURL());
+    console.log(this.customer_sign.toDataURL());
+  }
+ 
+  drawStart() {
+    // will be notified of szimek/signature_pad's onBegin event
+    //console.log('begin drawing');
+  }
+
+  
 
   Confirm()
   {

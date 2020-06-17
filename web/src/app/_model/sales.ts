@@ -27,6 +27,7 @@ export class SalesSearchView
 
 export class SalesTransactionView
 {
+        public co_trns_mast_id: number = 0;
         public embroidery: string="";
         public font_name: number = 0;
         public font_color: number = 0;
@@ -48,6 +49,7 @@ export class SalesTransactionView
         public zipCode: string = "";
         public tel: string = "";
         public remark: string = "";
+        public file:any = null;
         public transactionItem: TransactionItemView[] = []
 }
 export class TransactionItemView

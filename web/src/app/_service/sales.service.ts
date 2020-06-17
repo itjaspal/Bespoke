@@ -40,8 +40,7 @@ export class SalesService {
   //   return await this.http.get(environment.API_URL + 'sales/get-docNo/'+ _branch_id).toPromise();
   // }
   public async searchDocNo(_model: DocNoSearchView) {
-    // console.log('parameter  : '+ _model);
-    return await this.http.post<DocNoView>(environment.API_URL + 'sales/postSearchDocNo', _model).toPromise();
+       return await this.http.post<DocNoView>(environment.API_URL + 'sales/postSearchDocNo', _model).toPromise();
   }
   
  

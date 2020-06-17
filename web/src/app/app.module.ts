@@ -73,6 +73,7 @@ import { SharedModule } from './shared/shared.module';
 //3rd party
 import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
 import { ZXingScannerModule } from '@zxing/ngx-scanner';
+import { SignaturePadModule } from 'angular2-signaturepad';
 
 // hmr
 import { removeNgStyles, createNewHosts } from '@angularclass/hmr';
@@ -250,6 +251,7 @@ import { UserSelectBranchComponent } from './user-select-branch/user-select-bran
     //3rd party
     NgxMatSelectSearchModule,
     ZXingScannerModule.forRoot(),
+    SignaturePadModule,
 
   
 
