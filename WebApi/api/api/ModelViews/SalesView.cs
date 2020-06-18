@@ -44,11 +44,12 @@ namespace api.ModelViews
         public string size_sp { get; set; }
         public string remark { get; set; }
         public string pic_type { get; set; }
+        public string pic_color { get; set; }
         //public string embroidery { get; set; }
         //public long font_name { get; set; }
         //public long font_color { get; set; }
         //public decimal add_price { get; set; }
-        
+
         public List<TypeCatalogView> catalogType { get; set; }
         public List<SizeCatalogView> catalogSize { get; set; }
 

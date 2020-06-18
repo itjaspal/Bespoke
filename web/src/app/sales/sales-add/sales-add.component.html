@@ -117,7 +117,7 @@
               
               <div class="hiddenradio"  >
                 <label *ngFor="let emb of color">
-                  <input type="radio" name="catalog_emb_color_id" [ngModel]="model_font.font_color" value="{{emb.catalog_emb_color_id}}" (change)="radioColorChange(emb.catalog_emb_color_id)">
+                  <input type="radio" name="catalog_emb_color_id" [ngModel]="model_font.font_color" value="{{emb.catalog_emb_color_id}}" (change)="radioColorChange(emb)">
                   <img src="{{emb.pic_base64}}" style="width: 25px;margin-top: 17px;" class="responsive">
                   
                   &nbsp;

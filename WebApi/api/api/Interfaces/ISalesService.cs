@@ -17,6 +17,7 @@ namespace api.Interfaces
         List<CatalogEmbColorView> GetCatalogEmbColor(long catalog);
         //DocNoView GetDocNo(long branchId);
         DocNoView SearchDocNo(DocNoSearchView model);
+        void SendMail();
 
     }
 }

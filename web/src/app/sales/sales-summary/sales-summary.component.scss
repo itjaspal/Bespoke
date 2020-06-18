@@ -19,17 +19,36 @@
   }
   
   .sig-container canvas {
-    background-image: url(/assets/images/sign-here.png);
+    background-image: url('/assets/images/sign-here.png');
     background-repeat: no-repeat;
     background-position-y: 95%;
   }
   
-  .sig-container-image {
-    height: 400px;
-    width: 700px;
-  }
+  .wrapper {
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 8px;
+    position: relative;
+    width: 262px;
+    height: 150px;
+    -moz-user-select: none;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+// .signature_client,
+// .signature_tech {
+//     position: absolute;
+//     left: 0;
+//     top: 0;
+//     width: 280px;
+//     height: 150px;
+// }
   
-  .sig-container-image canvas {
-    background-image: url(/assets/cat-sig.png);
+  .signature-pad {
+    width:100%;
+    height:100%;
+    //background-color: white;
   }
   

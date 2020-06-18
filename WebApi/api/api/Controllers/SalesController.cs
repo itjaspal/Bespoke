@@ -128,5 +128,22 @@ namespace api.Controllers
             }
         }
 
+        [Route("sales/sendMail")]
+        public HttpResponseMessage postSendMail()
+        {
+            try
+            {
+                
+                salesSvc.SendMail();
+
+                return Request.CreateResponse(HttpStatusCode.OK, "Send Success");
+
+            }
+            catch (Exception ex)
+            {
+                return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, ex.ToString());
+            }
+        }
+
     }
 }

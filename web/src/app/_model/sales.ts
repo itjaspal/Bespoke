@@ -30,7 +30,9 @@ export class SalesTransactionView
         public co_trns_mast_id: number = 0;
         public embroidery: string="";
         public font_name: number = 0;
+        public font_name_base64: string = ""
         public font_color: number = 0;
+        public font_color_base64: string = ""
         public add_price: number = 0; 
         public total_qty: number = 0;
         public total_amt: number = 0;
@@ -89,10 +91,7 @@ export class SalesSelectTypeView
         public size_sp: string = "";
         public remark:string = "";
         public pic_type:string = "";
-        // public embroidery: string="";
-        // public font_name: number = 0;
-        // public font_color: number = 0;
-        // public add_price: number = 0; 
+        public pic_color:string = "";
         public catalogType: TypeCatalogView[] = [];
         public catalogSize: SizeCatalogView[] = [];
         
@@ -128,7 +127,9 @@ export class FontSelectedView
 {
     public embroidery: string="";
     public font_name: number = 0;
+    public font_name_base64: string = "";
     public font_color: number = 0;
+    public font_color_base64: string = "";
     public add_price: number = 0; 
     public tot_qty:number = 0;
     public tot_amt:number = 0;
@@ -143,5 +144,33 @@ export class DocNoSearchView
 export class DocNoView
 {
         public doc_no:string ="";
+}
+
+export class ConfirmDataView{
+        public catalog_id : number = 0;
+        public catalog_color_id: number = 0;
+        public catalog_type_id: number = 0;
+        public catalog_pic_id: number = 0;
+        public catalog_size_id: number = 0;
+        public pdtype_code:string = "";
+        public pdtype_tname:string = "";
+        public is_border:boolean = false;
+        public catalog_type_code: string = "";
+        public type_base64:string = "";
+        public pdsize_code:string ="";
+        public pdsize_name: string = "";
+        public size_sp: string = "";
+        public color_base64: string = "";
+        public embroidery : string = "";
+        public font_name: number = 0;
+        public font_name_base64: string = "";
+        public font_color: number = 0;
+        public font_color_base64: string = "";
+        public add_price: number = 0; 
+        public qty : number = 0;
+        public unit_price : number = 0;
+        public amt : number = 0;
+        public remark : string = "";
+        
 }
 

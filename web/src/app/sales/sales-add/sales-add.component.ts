@@ -5,6 +5,7 @@ import { AuthenticationService } from '../../_service/authentication.service';
 import { DomSanitizer } from '@angular/platform-browser';
 import { ShareDataService } from '../../_service/share-data.service';
 import { SalesService } from '../../_service/sales.service';
+import { concat } from 'core-js/fn/array';
 
 @Component({
   selector: 'app-sales-add',
@@ -56,11 +57,16 @@ export class SalesAddComponent implements OnInit {
 
   radioColorChange(color) {
    
-    this.model_font.font_color = color;
+    this.model_font.font_color = color.catalog_emb_color_id;
+
+    this.model_font.font_color_base64 = color.pic_base64;
+
+    console.log(color);
   }
 
   radioFontChange(font) {
     this.model_font.font_name = font.emb_mast_id;
+    this.model_font.font_name_base64 = font.pic_base64;
     this.model_font.add_price = font.unit_price;
     //console.log(this.emb_mast_id);
   }
@@ -99,7 +105,9 @@ export class SalesAddComponent implements OnInit {
     this.model_sales.add_price = this.model_font.add_price;
     this.model_sales.embroidery = this.model_font.embroidery;
     this.model_sales.font_color = this.model_font.font_color;
+    this.model_sales.font_color_base64 = this.model_font.font_color_base64;
     this.model_sales.font_name = this.model_font.font_name;
+    this.model_sales.font_name_base64 = this.model_font.font_name_base64;
 
     
     this._data.selectedSales.subscribe(message => this.sales = this.model_sales)

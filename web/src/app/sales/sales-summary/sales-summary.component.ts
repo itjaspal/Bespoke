@@ -20,15 +20,16 @@ import { SignaturePad } from 'angular2-signaturepad/signature-pad';
 })
 export class SalesSummaryComponent implements OnInit {
 
-  @ViewChild(SignaturePad) manager_sign: SignaturePad;
-  @ViewChild(SignaturePad) customer_sign: SignaturePad;
+  @ViewChild(SignaturePad) sign_manager: SignaturePad;
+  @ViewChild(SignaturePad) sign_customer: SignaturePad;
  
   
   public options: Object = { // passed through to szimek/signature_pad constructor
-    'backgroundColor': 'rgb(222, 224, 226)',
-    'minWidth': 5,
-    //'canvasWidth': '350',
-    // 'canvasHeight': 120
+    //'backgroundColor': 'rgb(222, 224, 226)',
+    //'backgroundColor': 'rgb(255, 255, 255)',
+    'minWidth': 3,
+    'canvasWidth':  270,
+    'canvasHeight': 120
   };
 
   constructor(
@@ -88,6 +89,8 @@ export class SalesSummaryComponent implements OnInit {
     this._data.selectedSales.subscribe(sales => this.salesList = sales)
     console.log(this.salesList);
     for (var i = 0; i < this.salesList.length; i++) {
+      
+
       for(var j=0;j<this.salesList[i].catalogType.length; j++)
       {
         if(this.salesList[i].catalogType[j].qty > 0)
@@ -102,24 +105,7 @@ export class SalesSummaryComponent implements OnInit {
     
   }
 
-  buildForm() {
-    this.validationForm = this._formBuilder.group({
-      doc_date: [null, [Validators.required]],
-      req_date: [null, [Validators.required]],  
-      ref_no: [null, [Validators.required]],    
-      remark: [null, []],
-      cust_name: [null, [Validators.required]],
-      address1: [null, [Validators.required]],
-      subDistrict: [null, [Validators.required]],
-      district: [null, [Validators.required]],
-      province: [null, [Validators.required]],
-      zipCode: [null, [Validators.required]],
-      tel: [null, [Validators.required]],
-      sign_manager: [null, []],
-      sign_customer: [null, []],
-      
-    });
-  }
+  
 
   fileChange(event) {
     this.selectedFiles = event.target.files;
@@ -137,24 +123,28 @@ export class SalesSummaryComponent implements OnInit {
   }
 
   ngAfterViewInit() {
+    //this.buildForm();
     // this.signaturePad is now available
-    this.manager_sign.set('minWidth', 5); // set szimek/signature_pad options at runtime
-    this.manager_sign.clear(); // invoke functions from szimek/signature_pad API
+    this.sign_manager.set('minWidth', 3); // set szimek/signature_pad options at runtime
+    this.sign_manager.clear(); // invoke functions from szimek/signature_pad API
 
-    this.customer_sign.set('minWidth', 5); // set szimek/signature_pad options at runtime
-    this.customer_sign.clear(); // invoke functions from szimek/signature_pad API
+     this.sign_customer.set('minWidth', 3); // set szimek/signature_pad options at runtime
+     this.sign_customer.clear(); // invoke functions from szimek/signature_pad API
   }
  
   drawComplete_manager() {
     // will be notified of szimek/signature_pad's onEnd event
-    console.log(this.manager_sign.toDataURL());
-    //console.log(this.customer_sign.toDataURL());
+    //console.log(this.sign_manager.toDataURL());
+    this.model.sign_manager = this.sign_manager.toDataURL();
+    console.log(this.model.sign_manager);
   }
 
   drawComplete_customer() {
     // will be notified of szimek/signature_pad's onEnd event
     //console.log(this.manager_sign.toDataURL());
-    console.log(this.customer_sign.toDataURL());
+    //console.log(this.sign_customer.toDataURL());
+    this.model.sign_customer = this.sign_customer.toDataURL();
+    console.log(this.model.sign_customer);
   }
  
   drawStart() {
@@ -162,7 +152,24 @@ export class SalesSummaryComponent implements OnInit {
     //console.log('begin drawing');
   }
 
-  
+  buildForm() {
+    this.validationForm = this._formBuilder.group({
+      doc_date: [null, [Validators.required]],
+      req_date: [null, [Validators.required]],  
+      ref_no: [null, [Validators.required]],    
+      remark: [null, []],
+      cust_name: [null, [Validators.required]],
+      address1: [null, [Validators.required]],
+      subDistrict: [null, [Validators.required]],
+      district: [null, [Validators.required]],
+      province: [null, [Validators.required]],
+      zipCode: [null, [Validators.required]],
+      tel: [null, [Validators.required]],
+      sign_manager: [null, []],
+      //sign_customer: [null, []],
+      
+    });
+  }
 
   Confirm()
   {
@@ -179,12 +186,12 @@ export class SalesSummaryComponent implements OnInit {
     // window.open('file:///D:/Angular/Project/Bespoke/web/src/assets/images-prod/tel.pdf');
     window.open('http://192.168.9.50/bespoke/assets/images-prod/order.pdf','_blank');
   }
-  points = [];
-  signatureImage;
+  // points = [];
+  // signatureImage;
 
-  showImage(data) {
-    this.signatureImage = data;
-  }
+  // showImage(data) {
+  //   this.signatureImage = data;
+  // }
 
 
   //========= AutoComplete ================//

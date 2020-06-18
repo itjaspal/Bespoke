@@ -14,17 +14,12 @@
 
           <div class="row">
             <div class="col-sm-9">
-              <!-- ห้าง : {{branchName}} -->
               <dt>ห้าง</dt>
               <dd>{{branchName}}</dd>
-              
-              <!-- <dd>{{user.branch.branch.branchCode}}-{{user.branch.branch.branchNameThai}}</dd> -->
             </div>
             <div class="col-sm-3">
               <dt>เลขที่เอกสาร</dt>
-              <dd>{{docNo}}</dd>
-              <!-- เลขที่เอกสาร : {{docNo}} -->
-             
+              <dd>{{docNo}}</dd>             
             </div>
             
           </div>
@@ -656,26 +651,6 @@
   </mat-card>
 
 
-  
-  <!-- <app-attach-file-view [refId]="model.co_trns_mast_id" [UPLOAD]="actions.UPLOAD"></app-attach-file-view> -->
-
-  <!-- <div class="row" style="margin-top: 15px;">
-              
-    <div class="col-12">
-        <dt>รูป Catalog </dt>
-        
-    </div>
-    <div class="col-sm-12 ">
-        
-        <input type="file" #fileInput class="d-none" (change)="fileChange($event)">
-        <button matPrefix mat-raised-button color="accent" class="btn-w-md" type="button"
-            (click)="fileInput.click()">
-            Choose file
-        </button>
-        <br>
-        <div class="output">ไฟล์ที่เลือก: {{ fileName }} </div>
-    </div>
-  </div> -->
   <mat-card class="mat-subcard">
   <mat-card-subtitle>
     <h6>รายการไฟล์แนบ</h6>
@@ -685,10 +660,11 @@
                       Choose file
                   </button> -->
     <button mat-fab type="button" color="primary" (click)="fileInput.click()">
-      <mat-icon class="material-icons">edit</mat-icon>
+      <mat-icon class="material-icons">cloud_upload</mat-icon>
     </button>
   </mat-card-subtitle>
   <mat-card-content>
+    <br>
     <div class="output" >ไฟล์ที่เลือก: {{ fileName }} </div>
   </mat-card-content>
 </mat-card>
@@ -705,14 +681,13 @@
           <div class="row">
             <div class="col-4 col-sm-4 sig-container">
               <!-- <canvas id="stage" width="200" height="100"></canvas> -->
-              <signature-pad [options]="options"  formControlName="sign_manager"   (onBeginEvent)="drawStart()" (onEndEvent)="drawComplete_manager()"></signature-pad>
+              <signature-pad class="signature-pad" [options]="options"  (onBeginEvent)="drawStart()" (onEndEvent)="drawComplete_manager()"></signature-pad>
             </div>
             <div class="col-4 col-sm-4">
 
             </div>
-            <div class="col-4 col-sm-4">
-              <!-- <canvas id="stage" width="200" height="100"></canvas> -->
-              <signature-pad  [options]="options"  formControlName="sign_customer" (onBeginEvent)="drawStart()" (onEndEvent)="drawComplete_customer()"></signature-pad>
+            <div class="col-4 col-sm-4 sig-container">
+              <signature-pad class="signature-pad" [options]="options" (onBeginEvent)="drawStart()" (onEndEvent)="drawComplete_customer()"></signature-pad>
             </div>
           </div>
         </div>
@@ -749,9 +724,9 @@
       <mat-icon class="material-icons">save</mat-icon> บันทึกข้อมูล
     </button>
     &nbsp;&nbsp;
-    <button mat-raised-button class="btn-w-md " type="button" (click)="print()">
+    <!-- <button mat-raised-button class="btn-w-md " type="button" (click)="print()">
       <mat-icon class="material-icons">print</mat-icon> Print
-    </button>
+    </button> -->
 
   </div>
 </form>

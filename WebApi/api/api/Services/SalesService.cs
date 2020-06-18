@@ -6,6 +6,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using System.Net.Mail;
+using System.Net;
 
 namespace api.Services
 {
@@ -196,6 +198,7 @@ namespace api.Services
                         TypeCatalogView tView = new TypeCatalogView()
                         {
                             catalog_type_id = y.catalog_type_id,
+                            catalog_pic_id = y.catalog_pic_id,
                             catalog_id = y.catalog_id,
                             catalog_type_code = y.catalog_type_code,
                             pic_base64 = y.pic_base64,
@@ -256,6 +259,7 @@ namespace api.Services
                     string sqlpic = "select TOP 1  pic_base64 from catalog_pic where catalog_id = @p_catalog_id and catalog_type_id = @p_catalog_type_id  order by catalog_type_code";
                     string pic_type = ctx.Database.SqlQuery<string>(sqlpic, new System.Data.SqlClient.SqlParameter("@p_catalog_id", i.catalog_id), new System.Data.SqlClient.SqlParameter("@p_catalog_type_id", i.catalog_type_id)).SingleOrDefault();
 
+                    
 
                     SalesSelectTypeView view = new SalesSelectTypeView()
                     {
@@ -266,6 +270,7 @@ namespace api.Services
                         pdtype_code = i.pdtype_code,
                         pdtype_tname = i.pdtype_tname,
                         pic_type = pic_type,
+                        pic_color = colors.pic_base64,
                         sort_seq = i.sort_seq,
                         catalogType = typecodeViews,
                         catalogSize = sizeViews
@@ -403,6 +408,30 @@ namespace api.Services
             }
         }
 
-        
+        public void SendMail()
+        {
+            MailAddress to = new MailAddress("harudee@jaspalhome.com");
+            MailAddress from = new MailAddress("harudee@jaspalhome.com");
+
+            MailMessage message = new MailMessage(from, to);
+            message.Subject = "Good morning, Elizabeth";
+            message.Body = "Elizabeth, Long time no talk. Would you be up for lunch in Soho on Monday? I'm paying.;";
+
+            SmtpClient client = new SmtpClient("mail.jaspalhome.com", 25)
+            {
+                Credentials = new NetworkCredential("harudee@jaspalhome.com", "haruning"),
+                EnableSsl = false
+            };
+            // code in brackets above needed if authentication required 
+
+            try
+            {
+                client.Send(message);
+            }
+            catch (SmtpException ex)
+            {
+                Console.WriteLine(ex.ToString());
+            }
+        }
     }
 }
