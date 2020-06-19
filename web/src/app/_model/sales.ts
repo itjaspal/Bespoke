@@ -56,25 +56,51 @@ export class SalesTransactionView
 }
 export class TransactionItemView
 {
-        public catalog_type_id: number = undefined;
-        public catalog_id: number = undefined;
-        public catalog_color_id: number = undefined;
-        public catalog_pic_id : number = undefined;
+        // public catalog_type_id: number = undefined;
+        // public catalog_id: number = undefined;
+        // public catalog_color_id: number = undefined;
+        // public catalog_pic_id : number = undefined;
+        // public pdtype_code:string = "";
+        // public pdtype_tname:string = "";
+        // public is_border:boolean = false;
+        // public sort_seq:number = 0; 
+        // public catalog_type_code: string = "";
+        // public pic_base64: string = "";
+        // public qty : number = 0;
+        // public catalog_size_id: number = undefined;
+        // public pdsize_code: string = "";
+        // public pdsize_name: string = "";
+        // public prod_code: string;
+        // public prod_tname: string;
+        // public unit_price: number = 0;
+        // public size_sp: string = "";
+        // public remark:string = "";
+        public catalog_id : number = 0;
+        public catalog_color_id: number = 0;
+        public catalog_type_id: number = 0;
+        public catalog_pic_id: number = 0;
+        public catalog_size_id: number = 0;
         public pdtype_code:string = "";
         public pdtype_tname:string = "";
         public is_border:boolean = false;
-        public sort_seq:number = 0; 
         public catalog_type_code: string = "";
-        public pic_base64: string = "";
-        public qty : number = 0;
-        public catalog_size_id: number = undefined;
-        public pdsize_code: string = "";
+        public type_base64:string = "";
+        public pdsize_code:string ="";
         public pdsize_name: string = "";
-        public prod_code: string;
-        public prod_tname: string;
-        public unit_price: number = 0;
         public size_sp: string = "";
-        public remark:string = "";
+        public color_base64: string = "";
+        public embroidery : string = "";
+        public font_name: number = 0;
+        public font_name_base64: string = "";
+        public font_color: number = 0;
+        public font_color_base64: string = "";
+        public add_price: number = 0; 
+        public prod_code: string = "";
+        public prod_tname: string = "";
+        public qty : number = 0;
+        public unit_price : number = 0;
+        public amt : number = 0;
+        public remark : string = "";
         
 }
 

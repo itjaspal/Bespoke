@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { ShareDataService } from '../../_service/share-data.service';
 import { AuthenticationService } from '../../_service/authentication.service';
 import { SalesService } from '../../_service/sales.service';
-import { DocNoView, DocNoSearchView, SalesTransactionView } from '../../_model/sales';
+import { DocNoView, DocNoSearchView, SalesTransactionView, TransactionItemView } from '../../_model/sales';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { CustomerService } from '../../_service/customer.service';
 import { startWith, debounceTime, switchMap, map, catchError } from 'rxjs/operators';
@@ -12,6 +12,7 @@ import { AddressDBView } from '../../_model/address-dbview';
 import { CustomerView } from '../../_model/customer-view';
 import { CommonService } from '../../_service/common.service';
 import { SignaturePad } from 'angular2-signaturepad/signature-pad';
+import { analyzeAndValidateNgModules } from '@angular/compiler';
 
 @Component({
   selector: 'app-sales-summary',
@@ -45,6 +46,7 @@ export class SalesSummaryComponent implements OnInit {
   toHighlight: string = '';
 
   public model: SalesTransactionView = new SalesTransactionView();
+  public model_item: TransactionItemView = new TransactionItemView();
   
 
 
@@ -66,7 +68,11 @@ export class SalesSummaryComponent implements OnInit {
   actions: any = {};
   selectedFiles: FileList;
   fileName: any;
-  
+  confirmList:any;
+  sizeSelected:any;
+  typeSelected:any;
+  total_qty:any;
+  total_amt:any;
 
   
 
@@ -77,31 +83,155 @@ export class SalesSummaryComponent implements OnInit {
     this.branchName = this.user.branch.branch.branchCode + ' - ' + this.user.branch.branch.branchNameThai;
 
     this.model_doc_search.branchId = this.user.branch.branchId;
-    //console.log(this.model_doc_search);
     
     this.model_doc = await this._salesSvc.searchDocNo(this.model_doc_search);
-    //console.log(this.model_doc.doc_no);
     this.docNo = this.model_doc.doc_no;
-
-    
-   
 
     this._data.selectedSales.subscribe(sales => this.salesList = sales)
     console.log(this.salesList);
-    for (var i = 0; i < this.salesList.length; i++) {
-      
 
-      for(var j=0;j<this.salesList[i].catalogType.length; j++)
+    this.confirmList=[];
+    this.sizeSelected=[];
+    this.typeSelected=[];
+    this.total_qty = 0;
+    this.total_amt = 0;
+    
+    
+    for (var i = 0; i < this.salesList.length; i++) {
+      for(var k = 0;k < this.salesList[i].catalogSize.length; k++)
       {
+        if(this.salesList[i].catalogSize[k].isSelected == true)
+        {
+          this.sizeSelected.push(this.salesList[i].catalogSize[k]);
+        }
+        //console.log(this.sizeSelected);
+      }
+      
+      for(var j = 0;j < this.salesList[i].catalogType.length; j++)
+      {
+        //console.log(this.salesList[i].catalogType[j].catalog_pic_id);
         if(this.salesList[i].catalogType[j].qty > 0)
         {
+          this.typeSelected.push(this.salesList[i].catalogType[j]);
           
-          console.log(this.salesList[i].catalogType[j].catalog_type_id);
+        }
+        
+       
+        
+      }
+     
+      
+    }
+    // console.log(this.sizeSelected);
+    //console.log(this.typeSelected);
+    
+
+    for (var i = 0; i < this.salesList.length; i++) {
+      
+      this.model_item = new TransactionItemView();
+      // this.model_item.catalog_id = this.salesList[i].catalog_id;
+      // this.model_item.catalog_color_id = this.salesList[i].catalog_color_id;
+      // this.model_item.catalog_type_id = this.salesList[i].catalog_type_id;
+      // this.model_item.pdtype_code = this.salesList[i].pdtype_code;
+      // this.model_item.pdtype_tname = this.salesList[i].pdtype_tname;
+      // this.model_item.is_border = this.salesList[i].is_border;
+      // this.model_item.size_sp = this.salesList[i].size_sp;
+      // this.model_item.color_base64 = this.salesList[i].pic_color;
+      // this.model_item.remark = this.salesList[i].remark;
+      
+      // this.model_item.amt  = this.model_item.qty * this.model_item.unit_price;
+      
+
+            
+
+      
+      
+      for (j = 0; j < this.sizeSelected.length; j++)
+      { 
+         
+        // console.log('j : '+j);
+        // console.log('size : ' + this.salesList[i].catalog_size_id);
+        // console.log('type : '+ this.sizeSelected[j].catalog_type_id); 
+        if(this.salesList[i].catalog_id == this.sizeSelected[j].catalog_id && this.salesList[i].catalog_type_id == this.sizeSelected[j].catalog_type_id)
+        {
+          console.log(this.sizeSelected[j]);
+          this.model_item.catalog_size_id = this.sizeSelected[j].catalog_size_id;
+          this.model_item.pdsize_code = this.sizeSelected[j].pdsize_code;
+          this.model_item.pdsize_name = this.sizeSelected[j].pdsize_name;
+          this.model_item.prod_code = this.sizeSelected[j].prod_code;
+          this.model_item.prod_tname = this.sizeSelected[j].prod_tname;
+          this.model_item.unit_price = this.sizeSelected[j].unit_price;
+          
         }
       }
       
+      console.log(this.salesList[i]);
+      for (k = 0; k < this.typeSelected.length;k++)
+      {
+        if(this.salesList[i].catalog_id == this.typeSelected[k].catalog_id && this.salesList[i].catalog_type_id == this.typeSelected[k].catalog_type_id)
+        {
+            console.log(this.typeSelected[k]);
+            this.confirmList.push(this.model_item);  
+            
+        }
+        
+        // if(this.salesList[i].catalog_id == this.typeSelected[k].catalog_id && this.salesList[i].catalog_type_id == this.typeSelected[k].catalog_type_id)
+        // {
+        //   this.model_item.catalog_pic_id = this.typeSelected[k].catalog_id;
+        //   this.model_item.catalog_type_code = this.typeSelected[k].catalog_type_code;
+        //   this.model_item.type_base64 = this.typeSelected[k].pic_base64;
+        //   this.model_item.qty = this.typeSelected[k].qty;
+        //   this.total_qty = this.total_qty + this.typeSelected[k].qty;
+
+        //   this.model_item.catalog_id = this.salesList[i].catalog_id;
+        //   this.model_item.catalog_color_id = this.salesList[i].catalog_color_id;
+        //   this.model_item.catalog_type_id = this.salesList[i].catalog_type_id;
+        //   this.model_item.pdtype_code = this.salesList[i].pdtype_code;
+        //   this.model_item.pdtype_tname = this.salesList[i].pdtype_tname;
+        //   this.model_item.is_border = this.salesList[i].is_border;
+        //   this.model_item.size_sp = this.salesList[i].size_sp;
+        //   this.model_item.color_base64 = this.salesList[i].pic_color;
+          
+        //   this.model_item.amt  = this.model_item.qty * this.model_item.unit_price;
+        //   this.model_item.remark = this.salesList[i].remark;
+
+
+        //   if(this.model_item.catalog_type_code == 'A')
+        //   {
+        //     this.model_item.embroidery  = "";
+        //     this.model_item.font_name = 0;
+        //     this.model_item.font_name_base64 = "";
+        //     this.model_item.font_color = 0;
+        //     this.model_item.font_color_base64 = "";
+        //     this.model_item.add_price = 0;
+        //   }
+        //   else
+        //   {
+        //     this.model_item.embroidery  = this.salesList.embroidery;
+        //     this.model_item.font_name = this.salesList.font_name;
+        //     this.model_item.font_name_base64 = this.salesList.font_name_base64;
+        //     this.model_item.font_color = this.salesList.font_color;
+        //     this.model_item.font_color_base64 = this.salesList.font_color_base64;
+        //     this.model_item.add_price = this.salesList.add_price;
+        //   }
+        //   this.confirmList.push(this.model_item);  
+        // }
+        
+        
+        //this.confirmList.push(this.model_item);
+      }
+
+      
+      
+      
+
+      this.total_amt = this.total_amt + this.model_item.amt;
+      //console.log(this.model_item);
+      //this.confirmList.push(this.model_item);
       
     }
+
+    console.log(this.confirmList);
     
   }
 

@@ -61,7 +61,7 @@ export class SalesAddComponent implements OnInit {
 
     this.model_font.font_color_base64 = color.pic_base64;
 
-    console.log(color);
+    //console.log(color);
   }
 
   radioFontChange(font) {
@@ -86,7 +86,7 @@ export class SalesAddComponent implements OnInit {
     // }  
       
 
-   console.log(size);
+   //console.log(size);
     if(size=="OTH")
     {
       this.show_spSize = true;
