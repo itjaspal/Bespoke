@@ -81,7 +81,7 @@
           <div class="row">
             <div class="col-6">
               <mat-form-field class="full-width">
-                <input matInput placeholder="ชื่อลูกค้า *" aria-label="customerName"
+                <input matInput placeholder="ชื่อลูกค้า *" aria-label="cust_name"
                   [matAutocomplete]="autoCustomerName" formControlName="cust_name" name="cust_name"
                   [(ngModel)]="model.cust_name">
                 <button mat-button *ngIf="model.cust_name" matSuffix mat-icon-button aria-label="Clear"
@@ -90,14 +90,14 @@
                 </button>
                 <mat-autocomplete #autoCustomerName="matAutocomplete" autoActiveFirstOption
                   name="matAutocomplete_customerName">
-                  <mat-option *ngFor="let x of filteredCustomerByName | async" [value]="x.name"
+                  <mat-option *ngFor="let x of filteredCustomerByName | async" [value]="x.cust_name"
                     (onSelectionChange)="customerSelected(x)" class="autoComplete-option">
 
                     <div class="row">
 
                       <div class="col-3">
                         <small>ชื่อลูกค้า</small>
-                        <dd class="highlight-auto-complete" [innerHTML]="x.name | highlight: toHighlight"></dd>
+                        <dd class="highlight-auto-complete" [innerHTML]="x.cust_name | highlight: toHighlight"></dd>
                       </div>
 
                       <div class="col-3">
@@ -131,7 +131,7 @@
 
                       <div class="col-3">
                         <small>ชื่อลูกค้า</small>
-                        <dd>{{x.name}}</dd>
+                        <dd>{{x.cust_name}}</dd>
                       </div>
 
                       <div class="col-3">
@@ -366,299 +366,101 @@
       </div>
 
       <div class="col-sm-12">
-        Design Name : AHANA
+        Design Name : {{designName}}
       </div>
       <div class="row card-table-body" >
         <div class="col-12">
           <hr />
         </div>
-      
+      </div>
+      <div class="row card-table-body" *ngFor="let x of confirmList; let i = index">
         <div class="col-sm-1 col-6">
           <small>ลำดับ</small>
-          <dd>1</dd>
-        </div>
-        <div class="col-sm-1 col-6">
-          <small>รายการสินค้า</small>
-          <dd>Flat Sheet</dd><img src="./assets/images-prod/ahana-bronze-flat-sheet-b.png" class="responsive"/>
+          <dd>{{i+1}}</dd>
         </div>
         <div class="col-sm-2 col-6">
+          <small>รายการสินค้า</small>
+          <dd>{{x.pdtype_tname}}</dd><img src="{{x.type_base64}}" class="responsive"/>
+        </div>
+        <div class="col-sm-1 col-6">
           <small>ขนาด</small>
-          <dd>108" X 108"</dd>
+          <dd>{{x.pdsize_name}}</dd>
         </div>
         <div class="col-sm-1 col-6">
           <small>สี</small>
-          <dd></dd><img src="./assets/images-prod/ahana-bronze.png" style="width: 25px;margin-top: 17px;" class="responsive"/>
+          <dd></dd><img src="{{x.color_base64}}" style="width: 25px;margin-top: 17px;" class="responsive"/>
         </div>
         <div class="col-sm-1 col-6">
           <small>รายปัก</small>
-          <dd>JH</dd>
+          <dd>{{x.embroidery}}</dd>
         </div>
         <div class="col-sm-2 col-6">
           <small>แบบตัวอักษรและสี</small>
-          <dd></dd><img src="./assets/images-prod/font-a.png" class="responsive"/><img src="./assets/images-prod/ahana-bronze-font_color-1.png" style="width: 25px;margin-top: 17px;" class="responsive"/>
+          <dd></dd><img src="{{x.font_name_base64}}" class="responsive"/><img src="{{x.font_color_base64}}" style="width: 25px;margin-top: 17px;" class="responsive"/>
         </div>
         <div class="col-sm-1 col-6">
           <small>จำนวน</small>
-          <dd>2</dd>
+          <dd>{{x.qty}}</dd>
         </div>
         <div class="col-sm-1 col-6">
           <small>ราคา</small>
-          <dd>5,000</dd>
+          <dd>{{x.unit_price}}</dd>
         </div>
         <div class="col-sm-2 col-5">
           <small>จำนวนเงิน</small>
-          <dd>10,000</dd>
+          <dd>{{x.amt | number:'1.2-2'}}</dd>
         </div>
       </div>
-    </mat-card-content>
-
-   
-    
-    
-  
-
-    <!-- <mat-card-content>
-      <div class="row">
-        <div class="col-sm-12">
-          <div class="row">
-            <div class="col-sm-5 col-5">
-              <h6>สรุปการสั่งซื้อสินค้า</h6> 
-            </div>
-            <div class="col-sm-7 col-7 text-right" >
-            
-              
-            </div>
-          </div>
-        </div>  
-      </div>    
-
-      <div class="row">
-        <div class="col-sm-12">
-          <div class="row">
-            <div class="col-sm-5 col-5">
-              ห้าง - ร้าน : {{branchName}}
-            </div>
-            <div class="col-sm-2 col-2" >
-            </div>
-            <div class="col-sm-5 col-5" >
-              เลขที่เอกสาร : {{docNo}}
-            </div>
-          </div>
-        </div>  
-      </div>    
-
-      
-
-      
-      
-      <div class="row">
-        <div class="col-sm-12">
-          <div class="row">
-            <div class="col-sm-5 col-5">
-              <mat-form-field class="full-width">
-                <input matInput placeholder="ชื่อลูกค้า" name="remark">
-              </mat-form-field>
-              
-            </div>
-            <div class="col-sm-2 col-2" >
-            </div>
-            <div class="col-sm-5 col-5" >
-              <mat-form-field class="full-width">
-                <input matInput [matDatepicker]="picker" placeholder="วันที่ขาย *"
-                  formControlName="doc_date">
-                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-                <mat-datepicker #picker></mat-datepicker>
-              </mat-form-field>
-              <mat-error class="error-message"
-                *ngIf="validationForm.get('doc_date').hasError('required') && (validationForm.get('doc_date').dirty || validationForm.get('doc_date').touched)">
-                โปรดระบุข้อมูล
-              </mat-error>
-            </div>
-          </div>
-        </div>  
-      </div>    
-
-      <div class="row">
-        <div class="col-sm-12">
-          <div class="row">
-            <div class="col-sm-5 col-5">
-              <mat-form-field class="full-width">
-                <input matInput placeholder="ที่อยู่" name="remark">
-              </mat-form-field>
-            </div>
-            <div class="col-sm-2 col-2" >
-            </div>
-            <div class="col-sm-5 col-5" >
-              <mat-form-field class="full-width">
-                <input matInput [matDatepicker]="picker2" placeholder="วันที่ต้องการ *"
-                  formControlName="req_date">
-                <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
-                <mat-datepicker #picker2></mat-datepicker>
-              </mat-form-field>
-              <mat-error class="error-message"
-                *ngIf="validationForm.get('req_date').hasError('required') && (validationForm.get('req_date').dirty || validationForm.get('req_date').touched)">
-                โปรดระบุข้อมูล
-              </mat-error>
-            </div>
-          </div>
-        </div>  
-      </div>    
-
-      <div class="row">
-        <div class="col-sm-12">
-          <div class="row">
-            <div class="col-sm-5 col-5">
-              <mat-form-field class="full-width">
-                <input matInput placeholder="" name="remark">
-              </mat-form-field>
-            </div>
-            <div class="col-sm-2 col-2" >
-            </div>
-            <div class="col-sm-5 col-5" >
-              <mat-form-field class="full-width">
-                <input matInput placeholder="Invoice No. *" name="ref_no" formControlName="ref_no" name="ref_no">
-              </mat-form-field>
-              <mat-error class="error-message"
-                  *ngIf="validationForm.get('ref_no').hasError('required') && (validationForm.get('ref_no').dirty || validationForm.get('ref_no').touched)">
-                  โปรดระบุข้อมูล
-                </mat-error>
-            </div>
-          </div>
-        </div>  
-      </div>    
-
-      <div class="row">
-        <div class="col-sm-12">
-          Design Name : AHANA
-        </div>
+      <div class="row card-table-body">
+        <hr />
       </div>
-      
 
-      <div class="row card-table-body" >
-        <div class="col-12">
-          <hr />
-        </div>
-        <div class="col-sm-1 col-6">
-          <small>ลำดับ</small>
-          <dd>1</dd>
-        </div>
-        <div class="col-sm-1 col-6">
-          <small>รายการสินค้า</small>
-          <dd>Flat Sheet</dd><img src="./assets/images-prod/ahana-bronze-flat-sheet-b.png" class="responsive"/>
-        </div>
-        <div class="col-sm-2 col-6">
-          <small>ขนาด</small>
-          <dd>108" X 108"</dd>
-        </div>
-        <div class="col-sm-1 col-6">
-          <small>สี</small>
-          <dd></dd><img src="./assets/images-prod/ahana-bronze.png" style="width: 25px;margin-top: 17px;" class="responsive"/>
-        </div>
-        <div class="col-sm-1 col-6">
-          <small>รายปัก</small>
-          <dd>JH</dd>
-        </div>
-        <div class="col-sm-2 col-6">
-          <small>แบบตัวอักษรและสี</small>
-          <dd></dd><img src="./assets/images-prod/font-a.png" class="responsive"/><img src="./assets/images-prod/ahana-bronze-font_color-1.png" style="width: 25px;margin-top: 17px;" class="responsive"/>
-        </div>
-        <div class="col-sm-1 col-6">
-          <small>จำนวน</small>
-          <dd>2</dd>
-        </div>
-        <div class="col-sm-1 col-6">
-          <small>ราคา</small>
-          <dd>5,000</dd>
-        </div>
-        <div class="col-sm-2 col-5">
-          <small>จำนวนเงิน</small>
-          <dd>10,000</dd>
-        </div>
+      <div class="row card-table-body">
         
-      </div>
-
-
-      <div class="row card-table-body" >
-        <div class="col-12">
-          <hr />
+        <div class="col-sm-1 col-6">
+         
         </div>
         <div class="col-sm-1 col-6">
-          <small>ลำดับ</small>
-          <dd>2</dd>
-        </div>
-        <div class="col-sm-1 col-6">
-          <small>รายการสินค้า</small>
-          <dd>Duvet Cover</dd><img src="./assets/images-prod/ahana-bronze-duvet-cover-b.png" class="responsive"/>
+         
         </div>
         <div class="col-sm-2 col-6">
-          <small>ขนาด</small>
-          <dd>100" X 90"</dd>
+         
         </div>
         <div class="col-sm-1 col-6">
-          <small>สี</small>
-          <dd></dd><img src="./assets/images-prod/ahana-bronze.png" style="width: 25px;margin-top: 17px;" class="responsive"/>
+         
         </div>
         <div class="col-sm-1 col-6">
-          <small>รายปัก</small>
-          <dd>JH</dd>
-        </div>
-        <div class="col-sm-2 col-6">
-          <small>แบบตัวอักษรและสี</small>
-          <dd></dd><img src="./assets/images-prod/font-a.png" class="responsive"/><img src="./assets/images-prod/ahana-bronze-font_color-1.png" style="width: 25px;margin-top: 17px;" class="responsive"/>
-        </div>
-        <div class="col-sm-1 col-6">
-          <small>จำนวน</small>
-          <dd>1</dd>
-        </div>
-        <div class="col-sm-1 col-6">
-          <small>ราคา</small>
-          <dd>5,000</dd>
-        </div>
-        <div class="col-sm-2 col-5">
-          <small>จำนวนเงิน</small>
-          <dd>5,000</dd>
-        </div>
-        
-      </div>
-      
-      <div class="row card-table-body" >
-        <div class="col-12">
-          <hr />
-        </div>
-        <div class="col-sm-6 col-6">
-          <mat-form-field class="full-width">
-            <input matInput placeholder="หมายเหตุ" name="font">
-          </mat-form-field>
+         
         </div>
         <div class="col-sm-2 col-6">
           รวมทั้งสิ้น
         </div>
         <div class="col-sm-1 col-6">
-          3
+          
+          <dd>{{total_qty}}</dd>
         </div>
         <div class="col-sm-1 col-6">
-          10,000
+          
+          
         </div>
-        <div class="col-sm-1 col-6">
-          15,000
+        <div class="col-sm-2 col-5">
+          
+          <dd>{{total_amt | number:'1.2-2'}}</dd>
         </div>
       </div>
 
-      
+    </mat-card-content>
 
-    </mat-card-content> -->
+   
 
   </mat-card>
 
 
-  <mat-card class="mat-subcard">
+  <!-- <mat-card class="mat-subcard">
   <mat-card-subtitle>
     <h6>รายการไฟล์แนบ</h6>
     <input type="file" #fileInput class="d-none" (change)="fileChange($event)">
-                  <!-- <button matPrefix mat-raised-button color="accent" class="btn-w-md" type="button"
-                      (click)="fileInput.click()">
-                      Choose file
-                  </button> -->
+                 
     <button mat-fab type="button" color="primary" (click)="fileInput.click()">
       <mat-icon class="material-icons">cloud_upload</mat-icon>
     </button>
@@ -667,7 +469,7 @@
     <br>
     <div class="output" >ไฟล์ที่เลือก: {{ fileName }} </div>
   </mat-card-content>
-</mat-card>
+</mat-card> -->
 
 
 
@@ -719,8 +521,7 @@
     </button>
 
     
-    <button mat-raised-button color="primary" class="btn-w-md pull-right" type="button" (click)="Confirm()"
-     >
+    <button mat-raised-button color="primary" class="btn-w-md pull-right" type="button" (click)="Confirm()" [disabled]="!validationForm.valid">
       <mat-icon class="material-icons">save</mat-icon> บันทึกข้อมูล
     </button>
     &nbsp;&nbsp;

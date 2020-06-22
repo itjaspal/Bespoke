@@ -112,7 +112,7 @@ export class CustomerCreateComponent implements OnInit {
             if (value.length <= 2) return [];
 
             //inquiry from service
-            let result = this.inquiryCustomer("cust_name", value);
+            let result = this.inquiryCustomer("name", value);
             return (result) ? result : [];
           } else {
             // if no value is present, return null

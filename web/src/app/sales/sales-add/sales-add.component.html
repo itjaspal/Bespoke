@@ -11,7 +11,7 @@
         <div class="col-sm-12">
           <div class="row">
             <div class="col-sm-5 col-5">
-              <h6>Design: AHANA</h6> 
+              <h6>Design: {{designName}}</h6> 
             </div>
             <!-- <div class="col-sm-7 col-7 text-right" >
             
@@ -61,7 +61,7 @@
           <!-- <div class="col-sm-12"> -->
             <div class="col-sm-3 col-3" style="margin-top: 10px;">
               <div *ngFor="let y of x.catalogSize let i = index">
-                <mat-checkbox class="example-margin" [(ngModel)]="y.isSelected" (change)="getCheckedSizeList(y.pdsize_code)" (change)="selected = i" value="{{y.catalog_size_id}}">{{y.pdsize_name}} ({{y.unit_price}})</mat-checkbox>
+                <mat-checkbox class="example-margin" [(ngModel)]="y.isSelected" (change)="getCheckedSizeList(y.pdsize_code)" (change)="selected = i" value="{{y.catalog_size_id}}">{{y.pdsize_name}} ({{y.unit_price | number:'1.2-2'}})</mat-checkbox>
               </div>
               <!-- <div *ngFor="let y of x.catalogSize">
                 <mat-radio-button class="example-margin" name="{{y.catalog_type_id}}"  [(ngModel)]="y.isSelected" [value]="y.catalog_size_id" (change)="getCheckedSizeList(y.pdsize_code)">{{y.pdsize_name}} ({{y.unit_price}})</mat-radio-button>

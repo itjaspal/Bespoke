@@ -128,6 +128,24 @@ namespace api.Controllers
             }
         }
 
+        [Route("sales/postCreate")]
+        public HttpResponseMessage postCreate(SalesTransactionView model)
+        {
+            try
+            {
+               
+
+                salesSvc.Create(model);
+
+                return Request.CreateResponse(HttpStatusCode.OK, "บันทึกข้อมูลสำเร็จ");
+
+            }
+            catch (Exception ex)
+            {
+                return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, ex.ToString());
+            }
+        }
+
         [Route("sales/sendMail")]
         public HttpResponseMessage postSendMail()
         {
@@ -141,6 +159,40 @@ namespace api.Controllers
             }
             catch (Exception ex)
             {
+                return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, ex.ToString());
+            }
+        }
+
+        //[POST("postCancelSaleTransaction")]
+        [Route("sales/postCancelSaleTransaction")]
+        public HttpResponseMessage postCancelSaleTransaction(SalesTransactionUpdateStatusView model)
+        {
+            try
+            {
+                salesSvc.CancelSalesTransaction(model.co_trns_mast_id, model.userId);
+
+                return Request.CreateResponse(HttpStatusCode.OK);
+            }
+            catch (Exception ex)
+            {
+                //logSale.Error(ex);
+                return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, ex.ToString());
+            }
+        }
+
+        //[GET("getInquirySaleTransactionInfo/{saleTransactionId}")]
+        [Route("sales/getInquirySalesTransactionInfo/{saleTransactionId}")]
+        public HttpResponseMessage getInquirySalesTransactionInfo(long saleTransactionId)
+        {
+            try
+            {
+                var result = salesSvc.InquirySalesTransactionInfo(saleTransactionId);
+
+                return Request.CreateResponse(HttpStatusCode.OK, result);
+            }
+            catch (Exception ex)
+            {
+                //logSale.Error(ex);
                 return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, ex.ToString());
             }
         }

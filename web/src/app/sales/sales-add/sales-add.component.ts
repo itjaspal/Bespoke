@@ -6,6 +6,8 @@ import { DomSanitizer } from '@angular/platform-browser';
 import { ShareDataService } from '../../_service/share-data.service';
 import { SalesService } from '../../_service/sales.service';
 import { concat } from 'core-js/fn/array';
+import { CatalogDesignService } from '../../_service/catalog-design.service';
+import { CatalogMastView } from '../../_model/catalog-mast';
 
 @Component({
   selector: 'app-sales-add',
@@ -18,6 +20,7 @@ export class SalesAddComponent implements OnInit {
   
   constructor(
     private _salesSvc: SalesService,
+    private _catalgDesignSvc: CatalogDesignService,
     private _actRoute:ActivatedRoute,
     private _authSvc: AuthenticationService,
     private sanitizer: DomSanitizer, 
@@ -28,6 +31,7 @@ export class SalesAddComponent implements OnInit {
   public model : SalesSelectTypeView = new SalesSelectTypeView();
   public model_sales : SalesTransactionView = new SalesTransactionView();
   public model_font : FontSelectedView = new FontSelectedView();
+  public model_design: CatalogMastView = new CatalogMastView();  
   public checkedList:any;
   public sizeList:any;
   public emb: any = [];
@@ -42,10 +46,17 @@ export class SalesAddComponent implements OnInit {
   public CheckBoxType : any;
   //public selected = -1;
   public catalog_color_id : any;
+  public designName : any;
   
   async ngOnInit() {
 
     this.catalog_id = this._actRoute.snapshot.params.catalog;
+
+    if(this.catalog_id != undefined)
+    {
+      this.model_design = await this._catalgDesignSvc.getInfo(this.catalog_id);
+    }
+    this.designName = this.model_design.dsgn_name;
     
     this._data.currentMessage.subscribe(message => this.checkedList = message)
     this.model_sales = this.checkedList;

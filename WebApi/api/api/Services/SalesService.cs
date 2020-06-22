@@ -8,11 +8,17 @@ using System.Linq;
 using System.Web;
 using System.Net.Mail;
 using System.Net;
+using System.Transactions;
 
 namespace api.Services
 {
     public class SalesService : ISalesService
     {
+        ICustomerService custSvc;
+        public SalesService()
+        {
+            custSvc = new CustomerService();
+        }
         public List<CatalogEmbColorView> GetCatalogEmbColor(long catalog)
         {
             using (var ctx = new ConXContext())
@@ -297,15 +303,21 @@ namespace api.Services
                     datas = new List<ModelViews.SalesView>()
                 };
 
+                DateTime to_doc_date = model.to_doc_date;
+                if (to_doc_date != DateTime.MinValue)
+                {
+                    to_doc_date = to_doc_date.AddDays(1);
+                }
+
                 //query data
                 List<CO_TRNS_MAST> trans = ctx.CoTransMasts
                     .Where(x =>
-                        (x.entity_code == model.entity_code || model.entity_code == "")
+                        (x.cust_code == model.entity_code || model.entity_code == "")
                         && x.doc_no.Contains(model.doc_no)
                         && x.ref_no.Contains(model.invoice_no)
                         && (model.status.Contains(x.doc_status) || model.status.Length == 0)
                         && (x.doc_date >= model.from_doc_date || model.from_doc_date == DateTime.MinValue)
-                        && (x.doc_date < model.to_doc_date.Date || model.to_doc_date == DateTime.MinValue)
+                        && (x.doc_date < to_doc_date.Date || model.to_doc_date == DateTime.MinValue)
                     )
                     .OrderByDescending(o => o.co_trns_mast_id)
                     .ToList();
@@ -322,8 +334,9 @@ namespace api.Services
                     view.datas.Add(new ModelViews.SalesView()
                     {
                         co_trns_mast_id = i.co_trns_mast_id,
+                        doc_no = i.doc_no,
                         doc_date = i.doc_date,
-                        cust_name = i.cust_name,
+                        cust_name = i.ship_custname,
                         invoice_no = i.ref_no,
                         tot_amt = i.tot_amt,
                         status = i.doc_status
@@ -410,27 +423,235 @@ namespace api.Services
 
         public void SendMail()
         {
-            MailAddress to = new MailAddress("harudee@jaspalhome.com");
-            MailAddress from = new MailAddress("harudee@jaspalhome.com");
+            
+            var fromAddress = new MailAddress("harudee@gmail.com", "Bespoke");
+            var toAddress = new MailAddress("harudee@jaspalhome.com", "CS Jaspalhome");
+            const string fromPassword = "HaNing30!";
+            const string subject = "test";
+            const string body = "Hey now!!";
 
-            MailMessage message = new MailMessage(from, to);
-            message.Subject = "Good morning, Elizabeth";
-            message.Body = "Elizabeth, Long time no talk. Would you be up for lunch in Soho on Monday? I'm paying.;";
-
-            SmtpClient client = new SmtpClient("mail.jaspalhome.com", 25)
+            var smtp = new SmtpClient
             {
-                Credentials = new NetworkCredential("harudee@jaspalhome.com", "haruning"),
-                EnableSsl = false
+                Host = "smtp.gmail.com",
+                Port = 587,
+                EnableSsl = true,
+                DeliveryMethod = SmtpDeliveryMethod.Network,
+                Credentials = new NetworkCredential(fromAddress.Address, fromPassword),
+                Timeout = 20000
             };
-            // code in brackets above needed if authentication required 
-
-            try
+            using (var message = new MailMessage(fromAddress, toAddress)
             {
-                client.Send(message);
+                Subject = subject,
+                Body = body
+            })
+            {
+                smtp.Send(message);
             }
-            catch (SmtpException ex)
+        }
+
+        public void Create(SalesTransactionView model)
+        {
+            using (var ctx = new ConXContext())
             {
-                Console.WriteLine(ex.ToString());
+
+                using (TransactionScope scope = new TransactionScope())
+                {
+                    if (model.customerId != null)
+                    {
+                        //สร้างลูกค้าใหม่
+                        cust_mast checkCust = new Models.cust_mast()
+                        {
+                            cust_name = model.cust_name,
+                            //surname = "",
+                            address1 = model.address1,
+                            address2 = "",
+                            subDistrict = model.subDistrict,
+                            district = model.district,
+                            province = model.province,
+                            zipCode = model.zipCode,
+                            fax = "",
+                            tel = model.tel,
+                            sex = "",
+                            line = "",
+                            status = "A",
+                            cust_code = "Z0000"
+                           
+                            
+                        };
+                        model.customerId = custSvc.IsExitingCustomer(checkCust);
+
+                        if (model.customerId == 0)
+                        {
+                            model.customerId = custSvc.Create(checkCust);
+                        }
+                    }
+
+                    EMB_MAST font = ctx.EmbMasts
+                        .Where(z => z.emb_mast_id == model.font_name)
+                        .SingleOrDefault();
+
+                    CATALOG_EMB_COLOR color = ctx.CatalogEmbColors
+                        .Where(z => z.catalog_emb_color_id == model.font_color)
+                        .SingleOrDefault();
+
+                    CO_TRNS_MAST newObj = new CO_TRNS_MAST()
+                    {
+                        //catalog_type_id = model.catalog_type_id,
+                        entity_code = "H10",
+                        cos_no = "",
+                        emb_character = model.embroidery,
+                        font_name = font.font_name,
+                        emb_color_code = color.emb_color_code,
+                        add_price = model.add_price,
+                        tot_qty = model.total_qty,
+                        tot_amt = model.total_amt,
+                        cust_signature_base64 = model.sign_customer,
+                        apv_signature_base64 = model.sign_manager,
+                        doc_no = model.doc_no,
+                        doc_date = model.doc_date.Date,
+                        req_date = model.req_date.Date,
+                        ref_no = model.ref_no,
+                        remark1 = model.remark,
+                        doc_status = "PAL",
+                        doc_code = "POR",
+                        cust_code = model.branch_code,
+                        cust_name = model.branch_name,
+                        ship_custname = model.cust_name,
+                        ship_address1 = model.address1 + ' ' + model.subDistrict,
+                        ship_address2 = model.district + ' ' + model.province + ' ' + model.zipCode,
+                        ship_tel = model.tel,
+                        prov_name = model.province,
+                        post_code = model.zipCode,
+                        created_by = model.user_code,
+                        created_at = DateTime.Now,
+                        updated_by = model.user_code,
+                        updated_at = DateTime.Now
+
+                };
+
+                    ctx.CoTransMasts.Add(newObj);
+                    ctx.SaveChanges();
+
+                    //Get the inserted id
+                    int insertedid = Convert.ToInt32(newObj.co_trns_mast_id);
+                    int i = 1;
+                    foreach (var saleItem in model.transactionItem)
+                    {
+
+                        CO_TRNS_DET newDetObj = new CO_TRNS_DET()
+                        {
+                            co_trns_mast_id = insertedid,
+                            entity_code = "H10",
+                            cos_no = "",
+                            doc_code = "POR",
+                            doc_no = model.doc_no,
+                            item = i,
+                            prod_code = saleItem.prod_code,
+                            prod_name = saleItem.prod_tname,
+                            unit_price = saleItem.unit_price,
+                            sale_price = saleItem.unit_price,
+                            qty = saleItem.qty,
+                            amt = saleItem.amt,
+                            size_spec = saleItem.size_sp,
+                            remark1 = saleItem.remark,
+                            catalog_color_id = saleItem.catalog_color_id,
+                            catalog_id = saleItem.catalog_id,
+                            catalog_pic_id = saleItem.catalog_pic_id,
+                            catalog_size_id = saleItem.catalog_size_id,
+                            catalog_type_code = saleItem.catalog_type_code,
+                            catalog_type_id = saleItem.catalog_type_id,
+                            prod_pic_base64 = saleItem.type_base64
+
+                        };
+
+                        ctx.CoTransDets.Add(newDetObj);
+                        ctx.SaveChanges();
+                        i++;
+                    }
+
+
+                    scope.Complete();
+                }
+            }
+        }
+
+        public SalesTransactionView InquirySalesTransactionInfo(long co_trns_mast_id)
+        {
+            using (var ctx = new ConXContext())
+            {
+                CO_TRNS_MAST model = ctx.CoTransMasts
+                    .Where(x => x.co_trns_mast_id == co_trns_mast_id)
+                    .SingleOrDefault();
+
+                SalesTransactionView view = new ModelViews.SalesTransactionView()
+                {
+                    co_trns_mast_id = model.co_trns_mast_id,
+                    branch_code = model.cust_code,
+                    branch_name = model.cust_name,
+                    doc_no = model.doc_no,
+                    ref_no = model.ref_no,
+                    doc_date = model.doc_date,
+                    req_date = model.req_date,
+                    cust_name = model.ship_custname,
+                    address1 = model.ship_address1,
+                    district = model.ship_address2,
+                    province = model.prov_code,
+                    zipCode = model.post_code,
+                    tel = model.ship_tel,
+                    remark = model.remark1,
+                    add_price = model.add_price,
+                    sign_customer = model.cust_signature_base64,
+                    sign_manager = model.apv_signature_base64,
+                    total_qty = model.tot_qty,
+                    total_amt = model.tot_amt,
+                    embroidery = model.emb_character,
+                    //font_name = model.font_name,
+                    //font_color = model.emb_color_code,
+
+
+                    transactionItem = new List<ModelViews.TransactionItemView>()
+                };
+
+                List<CO_TRNS_DET> item = ctx.CoTransDets.Where(x => x.co_trns_mast_id == co_trns_mast_id).OrderBy(o => o.item).ToList();
+
+                foreach (var i in item)
+                {
+
+                    view.transactionItem.Add(new ModelViews.TransactionItemView()
+                    {
+                        catalog_id = i.catalog_id,
+                        catalog_color_id = i.catalog_color_id,
+                        catalog_pic_id = i.catalog_pic_id,
+                        catalog_size_id = i.catalog_size_id,
+                        catalog_type_id = i.catalog_type_id,
+                        
+
+                    });
+                }
+                
+
+                return view;
+            }
+        }
+
+        public void CancelSalesTransaction(long co_trns_mast_id, string userId)
+        {
+            using (var ctx = new ConXContext())
+            {
+                using (var scope = new TransactionScope())
+                {
+                    CO_TRNS_MAST update = ctx.CoTransMasts
+                        .Where(x => x.co_trns_mast_id == co_trns_mast_id)
+                        .SingleOrDefault();
+
+                    update.doc_status = "OCL"; //ยกเลิก
+                    update.doccan_by = userId;
+                    update.doccan_date = DateTime.Now;
+                    ctx.SaveChanges();
+
+                    scope.Complete();
+                }
+                
             }
         }
     }

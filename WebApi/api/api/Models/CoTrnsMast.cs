@@ -9,7 +9,7 @@ namespace api.Models
     public class CO_TRNS_MAST
     {
         [Key]
-        public int co_trns_mast_id { get; set; }
+        public long co_trns_mast_id { get; set; }
 
         [StringLength(8)]
         public string entity_code { get; set; }
@@ -69,13 +69,13 @@ namespace api.Models
         [StringLength(30)]
         public string email_address { get; set; }
 
-        public float gp1 { get; set; }
+        public decimal gp1 { get; set; }
 
-        public float gp2 { get; set; }
+        public decimal gp2 { get; set; }
 
-        public float gp3 { get; set; }
+        public decimal gp3 { get; set; }
 
-        public float disc_cust { get; set; }
+        public decimal disc_cust { get; set; }
 
         [StringLength(20)]
         public string ref_no { get; set; }
@@ -109,7 +109,7 @@ namespace api.Models
         [StringLength(15)]
         public string doccan_by { get; set; }
 
-        public DateTime doccan_date { get; set; }
+        public DateTime? doccan_date { get; set; }
 
         [StringLength(50)]
         public string doccan_rem { get; set; }
@@ -129,7 +129,7 @@ namespace api.Models
         [StringLength(15)]
         public string tf_by { get; set; }
 
-        public DateTime tf_date { get; set; }
+        public DateTime? tf_date { get; set; }
 
         [StringLength(4)]
         public string ictran_code { get; set; }
@@ -158,7 +158,7 @@ namespace api.Models
         [StringLength(100)]
         public string emb_color_name { get; set; }
 
-        public float add_price { get; set; }
+        public decimal add_price { get; set; }
 
         [StringLength(15)]
         public string created_by { get; set; }

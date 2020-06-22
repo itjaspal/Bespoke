@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { CommonSearchView } from '../_model/common-search-view';
 import { environment } from '../../environments/environment';
-import { SalesSearchView, SalesView, DocNoView, DocNoSearchView } from '../_model/sales';
+import { SalesSearchView, SalesView, DocNoView, DocNoSearchView, SalesTransactionView } from '../_model/sales';
 import { CatalogMastSearchView, CatalogMastView } from '../_model/catalog-mast';
 
 @Injectable({
@@ -43,6 +43,11 @@ export class SalesService {
        return await this.http.post<DocNoView>(environment.API_URL + 'sales/postSearchDocNo', _model).toPromise();
   }
   
- 
+  public async create(_model: SalesTransactionView) {
+    return await this.http.post<number>(environment.API_URL + 'sales/postCreate', _model).toPromise();
+  }
   
+  public async postCancelSaleTransaction(_model: any) {
+    return await this.http.post<number>(environment.API_URL + 'sales/postCancelSaleTransaction', _model).toPromise();
+  }
 }

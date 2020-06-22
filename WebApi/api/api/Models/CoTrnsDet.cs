@@ -9,8 +9,8 @@ namespace api.Models
     public class CO_TRNS_DET
     {
         [Key]
-        public int co_trns_det_id { get; set; }
-        public int co_trns_mast_id { get; set; }
+        public long co_trns_det_id { get; set; }
+        public long co_trns_mast_id { get; set; }
 
         [StringLength(8)]
         public string entity_code { get; set; }
@@ -62,7 +62,7 @@ namespace api.Models
         [StringLength(22)]
         public string sku { get; set; }
 
-        public float gp { get; set; }
+        public decimal gp { get; set; }
 
         [StringLength(100)]
         public string size_spec { get; set; }
@@ -87,5 +87,10 @@ namespace api.Models
 
         [StringLength(100)]
         public string border_color_name { get; set; }
+        public long catalog_id { get; set; }
+        public long catalog_color_id { get; set; }
+        public long catalog_type_id { get; set; }
+        public long catalog_pic_id { get; set; }
+        public long catalog_size_id { get; set; }
     }
 }

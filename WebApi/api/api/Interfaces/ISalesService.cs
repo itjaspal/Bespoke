@@ -18,6 +18,9 @@ namespace api.Interfaces
         //DocNoView GetDocNo(long branchId);
         DocNoView SearchDocNo(DocNoSearchView model);
         void SendMail();
+        void Create(SalesTransactionView model);
+        SalesTransactionView InquirySalesTransactionInfo(long co_trns_mast_id);
+        void CancelSalesTransaction(long co_trns_mast_id, string userId);
 
     }
 }

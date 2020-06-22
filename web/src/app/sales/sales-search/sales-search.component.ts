@@ -6,7 +6,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { AuthenticationService } from '../../_service/authentication.service';
 import { DomSanitizer } from '@angular/platform-browser';
 import { SalesService } from '../../_service/sales.service';
-import { SalesView, SalesSearchView } from '../../_model/sales';
+import { SalesView, SalesSearchView, SalesTransactionView } from '../../_model/sales';
 import { CommonSearchView } from '../../_model/common-search-view';
 
 @Component({
@@ -51,10 +51,21 @@ export class SalesSearchComponent implements OnInit {
   }
   
 
-  cancel()
-  {
+  async cancel(_row: SalesTransactionView) {
+    this._msgSvc.confirmPopup("ยืนยันยกเลิกรายการขาย", async result => {
 
+      if (result) {
+        await this._salesSvc.postCancelSaleTransaction({
+          co_trns_mast_id: _row.co_trns_mast_id,
+          userId: this.user.username
+        });
+
+        await this._msgSvc.successPopup("ยกเลิกรายการเรียบร้อย");
+        this.search();
+      }
+    });
   }
+
 
   
 }

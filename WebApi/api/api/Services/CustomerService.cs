@@ -21,7 +21,7 @@ namespace api.Services
                     .Where(x =>
                     x.cust_name == cust.cust_name
                     && x.address1 == cust.address1
-                    && x.address2 == cust.address2
+                    //&& x.address2 == cust.address2
                     && x.subDistrict == cust.subDistrict
                     && x.district == cust.district
                     && x.province == cust.province
@@ -44,7 +44,7 @@ namespace api.Services
                         cust_name = customer.cust_name,
                         //surname = customer.surname,
                         address1 = customer.address1,
-                        address2 = customer.address2,
+                        //address2 = customer.address2,
                         subDistrict = customer.subDistrict,
                         district = customer.district,
                         province = customer.province,
