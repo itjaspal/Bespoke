@@ -392,6 +392,7 @@ export class SalesSummaryComponent implements OnInit {
     this.model.font_color = this.font_color;
     this.model.add_price = this.add_price;
     this.model.user_code = this.user.username;
+    this.model.doc_status = "PAL";
     this.model.transactionItem = this.confirmList;
     console.log(this.model);
     

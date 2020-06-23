@@ -157,6 +157,8 @@ namespace api.Models
 
         [StringLength(100)]
         public string emb_color_name { get; set; }
+        public long emb_mast_id { get; set; }
+        public long emb_color_id { get; set; }
 
         public decimal add_price { get; set; }
 

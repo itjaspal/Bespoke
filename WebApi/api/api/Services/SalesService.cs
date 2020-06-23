@@ -502,6 +502,8 @@ namespace api.Services
                         emb_character = model.embroidery,
                         font_name = font.font_name,
                         emb_color_code = color.emb_color_code,
+                        emb_mast_id = model.font_name,
+                        emb_color_id = model.font_color,
                         add_price = model.add_price,
                         tot_qty = model.total_qty,
                         tot_amt = model.total_amt,
@@ -512,7 +514,7 @@ namespace api.Services
                         req_date = model.req_date.Date,
                         ref_no = model.ref_no,
                         remark1 = model.remark,
-                        doc_status = "PAL",
+                        doc_status = model.doc_status,
                         doc_code = "POR",
                         cust_code = model.branch_code,
                         cust_name = model.branch_name,
@@ -583,6 +585,15 @@ namespace api.Services
                     .Where(x => x.co_trns_mast_id == co_trns_mast_id)
                     .SingleOrDefault();
 
+                EMB_MAST font = ctx.EmbMasts
+                        .Where(z => z.emb_mast_id == model.emb_mast_id)
+                        .SingleOrDefault();
+
+                COLOR_OF_FONT_MAST color = ctx.ColorFontMasts
+                    .Where(z => z.color_code == model.emb_color_code)
+                    .SingleOrDefault();
+
+
                 SalesTransactionView view = new ModelViews.SalesTransactionView()
                 {
                     co_trns_mast_id = model.co_trns_mast_id,
@@ -605,8 +616,10 @@ namespace api.Services
                     total_qty = model.tot_qty,
                     total_amt = model.tot_amt,
                     embroidery = model.emb_character,
-                    //font_name = model.font_name,
-                    //font_color = model.emb_color_code,
+                    font_name = model.emb_mast_id,
+                    font_color = model.emb_color_id,
+                    font_name_base64 = font.pic_base64,
+                    font_color_base64 = color.pic_base64,
 
 
                     transactionItem = new List<ModelViews.TransactionItemView>()
@@ -616,17 +629,99 @@ namespace api.Services
 
                 foreach (var i in item)
                 {
+                    CATALOG_TYPE type = ctx.CatalogTypes
+                    .Where(z => z.catalog_type_id == i.catalog_type_id)
+                    .SingleOrDefault();
 
-                    view.transactionItem.Add(new ModelViews.TransactionItemView()
+                    PDTYPE_MAST type_mast = ctx.TypeMasts
+                        .Where(z => z.pdtype_code == type.pdtype_code)
+                        .SingleOrDefault();
+
+                    CATALOG_PIC pic = ctx.CatalogPics
+                        .Where(z => z.catalog_pic_id == i.catalog_pic_id)
+                        .SingleOrDefault();
+
+                    CATALOG_COLOR catalog_color = ctx.CatalogColors
+                        .Where(z => z.catalog_color_id == i.catalog_color_id)
+                        .SingleOrDefault();
+
+                    CATALOG_SIZE catalog_size = ctx.CatalogSizes
+                        .Where(z => z.catalog_size_id == i.catalog_size_id)
+                        .SingleOrDefault();
+
+                    PDSIZE_MAST size_mast = ctx.SizeMasts
+                        .Where(z => z.pdsize_code == catalog_size.pdsize_code)
+                        .SingleOrDefault();
+
+                    if (i.catalog_type_code == "A")
                     {
-                        catalog_id = i.catalog_id,
-                        catalog_color_id = i.catalog_color_id,
-                        catalog_pic_id = i.catalog_pic_id,
-                        catalog_size_id = i.catalog_size_id,
-                        catalog_type_id = i.catalog_type_id,
-                        
+                        view.transactionItem.Add(new ModelViews.TransactionItemView()
+                        {
 
-                    });
+                            catalog_id = i.catalog_id,
+                            catalog_color_id = i.catalog_color_id,
+                            catalog_pic_id = i.catalog_pic_id,
+                            catalog_size_id = i.catalog_size_id,
+                            catalog_type_id = i.catalog_type_id,
+                            pdtype_code = type.pdtype_code,
+                            pdtype_tname = type_mast.pdtype_tname,
+                            is_border = type.is_border,
+                            catalog_type_code = pic.catalog_type_code,
+                            type_base64 = pic.pic_base64,
+                            pdsize_code = catalog_size.pdsize_code,
+                            pdsize_name = size_mast.pdsize_tname,
+                            size_sp = i.size_spec,
+                            color_base64 = catalog_color.pic_base64,
+                            embroidery = "",
+                            font_name = 0,
+                            font_name_base64 = "",
+                            font_color = 0,
+                            font_color_base64 = "",
+                            add_price = 0,
+                            prod_code = i.prod_code,
+                            prod_tname = i.prod_name,
+                            qty = i.qty,
+                            unit_price = i.unit_price,
+                            amt = i.amt,
+                            remark = i.remark1
+                        });
+                    }
+                    else
+                    {
+                        view.transactionItem.Add(new ModelViews.TransactionItemView()
+                        {
+
+                            catalog_id = i.catalog_id,
+                            catalog_color_id = i.catalog_color_id,
+                            catalog_pic_id = i.catalog_pic_id,
+                            catalog_size_id = i.catalog_size_id,
+                            catalog_type_id = i.catalog_type_id,
+                            pdtype_code = type.pdtype_code,
+                            pdtype_tname = type_mast.pdtype_tname,
+                            is_border = type.is_border,
+                            catalog_type_code = pic.catalog_type_code,
+                            type_base64 = pic.pic_base64,
+                            pdsize_code = catalog_size.pdsize_code,
+                            pdsize_name = size_mast.pdsize_tname,
+                            size_sp = i.size_spec,
+                            color_base64 = catalog_color.pic_base64,
+                            embroidery = model.emb_character,
+                            font_name = model.emb_mast_id,
+                            font_name_base64 = font.pic_base64,
+                            font_color = model.emb_color_id,
+                            font_color_base64 = color.pic_base64,
+                            add_price = model.add_price,
+                            prod_code = i.prod_code,
+                            prod_tname = i.prod_name,
+                            qty = i.qty,
+                            unit_price = i.unit_price,
+                            amt = i.amt,
+                            remark = i.remark1
+                        });
+                    }
+
+
+                   
                 }
                 
 

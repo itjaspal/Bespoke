@@ -137,6 +137,7 @@ namespace api.ModelViews
         public string tel { get; set; }
         public string remark { get; set; }
         public string user_code { get; set; }
+        public string doc_status { get; set; }
         //public string fullPath
         //{
         //    get
@@ -164,14 +165,14 @@ namespace api.ModelViews
         public string size_sp { get; set; }
         public string color_base64 { get; set; }
         public string embroidery { get; set; }
-        public string font_name { get; set; }
+        public long font_name { get; set; }
         public string font_name_base64 { get; set; }
         public long font_color { get; set; }
         public string font_color_base64 { get; set; }
         public decimal add_price { get; set; }
         public string prod_code { get; set; }
         public string prod_tname { get; set; }
-        public int qty { get; set; }
+        public decimal qty { get; set; }
         public decimal unit_price { get; set; }
         public decimal amt { get; set; }
         public string remark { get; set; }

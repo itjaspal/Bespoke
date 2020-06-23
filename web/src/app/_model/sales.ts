@@ -54,6 +54,7 @@ export class SalesTransactionView
         public tel: string = "";
         public remark: string = "";
         public user_code:string = "";
+        public doc_status:string ="";
         public file:any = null;
         public transactionItem: TransactionItemView[] = []
 }

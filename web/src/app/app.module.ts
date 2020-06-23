@@ -197,6 +197,7 @@ import { ProductSearchComponent } from './master-product/product-search/product-
 import { ProductViewComponent } from './master-product/product-view/product-view.component';
 import { CustomerViewComponent } from './customer/customer-view/customer-view.component';
 import { UserSelectBranchComponent } from './user-select-branch/user-select-branch/user-select-branch.component';
+import { SalesAttachFileComponent } from './sales/sales-attach-file/sales-attach-file.component';
 
 
 
@@ -425,6 +426,7 @@ import { UserSelectBranchComponent } from './user-select-branch/user-select-bran
     ProductSearchComponent,
     ProductViewComponent,
     UserSelectBranchComponent,
+    SalesAttachFileComponent,
 
 
   ],
