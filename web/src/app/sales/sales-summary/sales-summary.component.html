@@ -482,14 +482,17 @@
         <div class="col-12">
           <div class="row">
             <div class="col-4 col-sm-4 sig-container">
-              <!-- <canvas id="stage" width="200" height="100"></canvas> -->
-              <signature-pad class="signature-pad" [options]="options"  (onBeginEvent)="drawStart()" (onEndEvent)="drawComplete_manager()"></signature-pad>
+              
+              <signature-pad class="signature-pad" #sign_manager [options]="options"  (onBeginEvent)="drawStart()" (onEndEvent)="drawComplete_manager()"></signature-pad>
+              
             </div>
+            
+           
             <div class="col-4 col-sm-4">
 
             </div>
             <div class="col-4 col-sm-4 sig-container">
-              <signature-pad class="signature-pad" [options]="options" (onBeginEvent)="drawStart()" (onEndEvent)="drawComplete_customer()"></signature-pad>
+              <signature-pad class="signature-pad" #sign_customer [options]="options" (onBeginEvent)="drawStart()" (onEndEvent)="drawComplete_customer()"></signature-pad>
             </div>
           </div>
         </div>

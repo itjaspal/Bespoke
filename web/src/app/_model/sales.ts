@@ -56,6 +56,7 @@ export class SalesTransactionView
         public user_code:string = "";
         public doc_status:string ="";
         public file:any = null;
+        public catalog_id : number = 0;
         public transactionItem: TransactionItemView[] = []
 }
 export class TransactionItemView
@@ -184,5 +185,14 @@ export class ConfirmDataView{
         public amt : number = 0;
         public remark : string = "";
         
+}
+
+export class SalesAttachView
+{
+    public co_trns_mast_id : number = 0;
+    public pic_file_path: string = "";
+    public pic_base64: string = "";
+    public fullPath: string = "";
+    public file:any = null;
 }
 

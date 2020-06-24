@@ -73,6 +73,7 @@ import { ProductCreateComponent } from '../master-product/product-create/product
 import { ProductUpdateComponent } from '../master-product/product-update/product-update.component';
 import { CustomerUpdateComponent } from '../customer/customer-update/customer-update.component';
 import { ProductViewComponent } from '../master-product/product-view/product-view.component';
+import { SalesAttachFileComponent } from '../sales/sales-attach-file/sales-attach-file.component';
 
  
 
@@ -194,7 +195,7 @@ const routes: Routes = [
       { path: "sale/design", component: SalesDesignComponent, canActivate: [AuthenGuard], data: { parentUrl: "/app/sale" } },
       { path: "sale/product/:catalog/:color", component: SalesProductComponent, canActivate: [AuthenGuard], data: { parentUrl: "/app/sale" } },
       { path: "sale/summary/:catalog/:color", component: SalesSummaryComponent, canActivate: [AuthenGuard], data: { parentUrl: "/app/sale" } },
-      
+      { path: "sale/attach/:id", component: SalesAttachFileComponent, canActivate: [AuthenGuard], data: { parentUrl: "/app/sale" } },
       //Tracking
       { path: "track", component: TrackSearchComponent, canActivate: [AuthenGuard], data: { parentUrl: "/app/track" } },
       { path: "track/view/:id", component: TrackViewComponent, canActivate: [AuthenGuard], data: { parentUrl: "/app/track" } },

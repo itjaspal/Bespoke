@@ -1,4 +1,4 @@
-import { Component, OnInit ,ViewChild} from '@angular/core';
+import { Component, OnInit ,ViewChild, ViewChildren, QueryList, ElementRef} from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { ShareDataService } from '../../_service/share-data.service';
 import { AuthenticationService } from '../../_service/authentication.service';
@@ -24,8 +24,13 @@ import { MessageService } from '../../_service/message.service';
 })
 export class SalesSummaryComponent implements OnInit {
 
-  @ViewChild(SignaturePad) sign_manager: SignaturePad;
-  @ViewChild(SignaturePad) sign_customer: SignaturePad;
+  //  @ViewChild(SignaturePad) sign_manager: SignaturePad;
+  //  @ViewChild(SignaturePad) sign_customer: SignaturePad;
+   @ViewChild('sign_manager') sign_manager: SignaturePad;
+   @ViewChild('sign_customer') sign_customer: SignaturePad;
+ 
+  
+ 
  
   
   public options: Object = { // passed through to szimek/signature_pad constructor
@@ -162,23 +167,7 @@ export class SalesSummaryComponent implements OnInit {
 
     for (var i = 0; i < this.salesList.length; i++) {
       
-      // this.model_item = new TransactionItemView();
-
-
-      // this.model_item.catalog_id = this.salesList[i].catalog_id;
-      // this.model_item.catalog_color_id = this.salesList[i].catalog_color_id;
-      // this.model_item.catalog_type_id = this.salesList[i].catalog_type_id;
-      // this.model_item.pdtype_code = this.salesList[i].pdtype_code;
-      // this.model_item.pdtype_tname = this.salesList[i].pdtype_tname;
-      // this.model_item.is_border = this.salesList[i].is_border;
-      // this.model_item.size_sp = this.salesList[i].size_sp;
-      // this.model_item.color_base64 = this.salesList[i].pic_color;
-      // this.model_item.remark = this.salesList[i].remark;
-      
-      // this.model_item.amt  = this.model_item.qty * this.model_item.unit_price;
-      
-
-            
+                  
       this.catalog_size_id = 0;
       this.pdsize_code ="";
       this.pdsize_name ="";
@@ -190,9 +179,7 @@ export class SalesSummaryComponent implements OnInit {
       for (j = 0; j < this.sizeSelected.length; j++)
       { 
          
-        // console.log('j : '+j);
-        // console.log('size : ' + this.salesList[i].catalog_size_id);
-        // console.log('type : '+ this.sizeSelected[j].catalog_type_id); 
+       
         if(this.salesList[i].catalog_id == this.sizeSelected[j].catalog_id && this.salesList[i].catalog_type_id == this.sizeSelected[j].catalog_type_id)
         {
           
@@ -226,7 +213,7 @@ export class SalesSummaryComponent implements OnInit {
         if(this.salesList[i].catalog_id == this.typeSelected[k].catalog_id && this.salesList[i].catalog_type_id == this.typeSelected[k].catalog_type_id)
         {
             
-            this.model_item.catalog_pic_id = this.typeSelected[k].catalog_id;
+            this.model_item.catalog_pic_id = this.typeSelected[k].catalog_pic_id;
              this.model_item.catalog_type_code = this.typeSelected[k].catalog_type_code;
             this.model_item.type_base64 = this.typeSelected[k].pic_base64;
             this.model_item.qty = this.typeSelected[k].qty;
@@ -257,6 +244,7 @@ export class SalesSummaryComponent implements OnInit {
 
             this.model.branch_code = this.branch_code;
             this.model.branch_name = this.branch_name;
+            this.model.catalog_id = this.salesList[i].catalog_id;
 
             if(this.model_item.catalog_type_code == 'A')
             {
@@ -337,9 +325,11 @@ export class SalesSummaryComponent implements OnInit {
     this.sign_manager.set('minWidth', 3); // set szimek/signature_pad options at runtime
     this.sign_manager.clear(); // invoke functions from szimek/signature_pad API
 
-     this.sign_customer.set('minWidth', 3); // set szimek/signature_pad options at runtime
-     this.sign_customer.clear(); // invoke functions from szimek/signature_pad API
+    this.sign_customer.set('minWidth', 3); // set szimek/signature_pad options at runtime
+    this.sign_customer.clear(); // invoke functions from szimek/signature_pad API
   }
+
+  
  
   drawComplete_manager() {
     // will be notified of szimek/signature_pad's onEnd event
@@ -358,8 +348,21 @@ export class SalesSummaryComponent implements OnInit {
  
   drawStart() {
     // will be notified of szimek/signature_pad's onBegin event
-    //console.log('begin drawing');
+    
+    console.log('begin drawing');
+    //console.log("Manager : " + this.sign_manager.toDataURL());
+    //console.log("Customer : " + this.sign_customer.toDataURL());
   }
+
+  drawStart2() {
+    // will be notified of szimek/signature_pad's onBegin event
+    
+    console.log('begin drawing 2');
+    //console.log("Manager : " + this.sign_manager.toDataURL());
+    //console.log("Customer : " + this.sign_customer.toDataURL());
+  }
+
+  
 
   buildForm() {
     this.validationForm = this._formBuilder.group({

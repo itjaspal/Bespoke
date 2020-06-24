@@ -1,3 +1,240 @@
-<p>
-  sales-view works!
-</p>
+<div class="container-fluid no-breadcrumbs">
+
+  <mat-card>
+
+    <mat-card-title>
+      <h6>ข้อมูลการขาย</h6>
+    </mat-card-title>
+
+    <mat-card-content>
+
+      <div class="row">
+
+        <div class="col-sm-8">
+
+          <div class="row">
+            <div class="col-sm-8">
+              <dt>ห้าง</dt>
+              <dd>{{model.branch_code}} - {{model.branch_name}}</dd>
+            </div>
+            <div class="col-sm-4">
+              <dt>เลขที่เอกสาร</dt>
+              <dd>{{model.doc_no}}</dd>             
+            </div>
+            
+          </div>
+
+       
+          <div class="row">
+           
+            <div class="col-sm-4 col-12">
+              <dt>วันที่เอกสาร</dt>
+              <dd>{{model.doc_date  | date:'dd/MM/yyyy'}}</dd>
+            </div>
+            <div class="col-sm-4 col-12">
+              <dt>วันที่ต้องการ</dt>
+              <dd>{{model.req_date  | date:'dd/MM/yyyy'}}</dd>
+            </div>
+            <div class="col-sm-4 col-12">
+              <dt>Invoice No.</dt>
+              <dd>{{model.ref_no}}</dd>
+            </div>
+            
+          </div>
+
+          <div class="row" >
+            <div class="col-12">
+              <dt>หมายเหคุ</dt>
+              <dd>{{model.remark}}</dd>
+            </div>
+          </div>
+
+        </div>
+
+        <div class="col-sm-4 customer-box">
+
+          <div class="row">
+            <div class="col-6">
+              <dt>ชื่อ - ที่อยู่ลูกค้า</dt>
+              {{model.cust_name}}
+            </div>
+            
+          </div>
+
+          <div class="row">
+            <div class="col-12">
+              {{model.address1}}
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-12">
+            {{model.district}}
+            </div>
+          </div>
+
+          <div class="row">
+            
+            <div class="col-12">
+               เบอร์โทรศัพท์ : {{model.tel}}
+              </div>
+            
+          </div>
+
+          
+
+        </div>
+
+      </div>
+      <br>
+      <div class="row">
+        <div class="col-sm-12">
+          Design Name : {{designName}}
+        </div>
+      </div>
+      
+      <div class="row card-table-body" >
+        <div class="col-12">
+          <hr />
+        </div>
+      </div>
+      <div class="row card-table-body" *ngFor="let x of model.transactionItem; let i = index">
+        <div class="col-sm-1 col-6">
+          <small>ลำดับ</small>
+          <dd>{{i+1}}</dd>
+        </div>
+        <div class="col-sm-2 col-6">
+          <small>รายการสินค้า</small>
+          <dd>{{x.pdtype_tname}}</dd><img src="{{x.type_base64}}" class="responsive"/>
+        </div>
+        <div class="col-sm-1 col-6">
+          <small>ขนาด</small>
+          <dd>{{x.pdsize_name}}</dd>
+        </div>
+        <div class="col-sm-1 col-6">
+          <small>สี</small>
+          <dd></dd><img src="{{x.color_base64}}" style="width: 25px;margin-top: 17px;" class="responsive"/>
+        </div>
+        <div class="col-sm-1 col-6">
+          <small>รายปัก</small>
+          <dd>{{x.embroidery}}</dd>
+        </div>
+        <div class="col-sm-2 col-6">
+          <small>แบบตัวอักษรและสี</small>
+          <dd></dd><img src="{{x.font_name_base64}}" class="responsive"/><img src="{{x.font_color_base64}}" style="width: 25px;margin-top: 17px;" class="responsive"/>
+        </div>
+        <div class="col-sm-1 col-6">
+          <small>จำนวน</small>
+          <dd>{{x.qty}}</dd>
+        </div>
+        <div class="col-sm-1 col-6">
+          <small>ราคา</small>
+          <dd>{{x.unit_price | number:'1.2-2'}}</dd>
+        </div>
+        <div class="col-sm-2 col-5">
+          <small>จำนวนเงิน</small>
+          <dd>{{x.amt | number:'1.2-2'}}</dd>
+        </div>
+      </div>
+      <div class="row card-table-body">
+        <hr />
+      </div>
+
+      <div class="row card-table-body">
+        
+        <div class="col-sm-1 col-6">
+         
+        </div>
+        <div class="col-sm-1 col-6">
+         
+        </div>
+        <div class="col-sm-2 col-6">
+         
+        </div>
+        <div class="col-sm-1 col-6">
+         
+        </div>
+        <div class="col-sm-1 col-6">
+         
+        </div>
+        <div class="col-sm-2 col-6">
+          รวมทั้งสิ้น
+        </div>
+        <div class="col-sm-1 col-6">
+          
+          <dd>{{model.total_qty}}</dd>
+        </div>
+        <div class="col-sm-1 col-6">
+          
+          
+        </div>
+        <div class="col-sm-2 col-5">
+          
+          <dd>{{model.total_amt | number:'1.2-2'}}</dd>
+        </div>
+      </div>
+
+    </mat-card-content>
+
+  </mat-card>
+
+  
+
+  <!-- <app-attach-file-view [refId]="model.co_trns_mast_id"></app-attach-file-view> -->
+
+  <mat-card>
+    <mat-card-content>
+      <div class="row card-table-body" >
+        <!-- <div class="col-12">
+          <hr />
+        </div> -->
+        <div class="col-12">
+          <div class="row">
+            <div class="col-4 col-sm-4 sig-container">
+              <img src="{{model.sign_manager}}" class="responsive"/>
+              <!-- <canvas id="stage" width="200" height="100"> </canvas> -->
+              
+            </div>
+            <div class="col-4 col-sm-4">
+
+            </div>
+            <div class="col-4 col-sm-4 sig-container">
+              <img src="{{model.sign_customer}}" class="responsive"/>
+              <!-- <canvas id="stage" width="200" height="100"></canvas> -->
+            </div>
+          </div>
+        </div>
+
+        <div class="col-12">
+          <div class="row">
+            <div class="col-4 col-sm-4 text-center">
+              <hr>
+              Shop Manager Approve 
+            </div>
+            <div class="col-4 col-sm-4">
+
+            </div>
+            <div class="col-4 col-sm-4 text-center" >
+              <hr>
+              Customer Approve 
+            </div>
+          </div>
+        </div>
+      </div>
+    </mat-card-content>  
+  </mat-card>
+
+  <div class="form-action">
+
+    <button mat-raised-button class="btn-w-md" type="button" (click)="close()">
+      <mat-icon class="material-icons">close</mat-icon> ปิด
+    </button>
+
+    <!-- <button mat-raised-button color="primary" class="btn-w-md pull-right" type="button" (click)="sendToReady()"
+      *ngIf="(model.statusId == 'PAL' && actions.SEND)">
+      <mat-icon class="material-icons">send</mat-icon> ส่งรายการ
+    </button> -->
+
+  </div>
+
+</div>

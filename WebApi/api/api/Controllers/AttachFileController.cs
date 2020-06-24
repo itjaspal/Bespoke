@@ -17,7 +17,7 @@ using System.Web.Http;
 namespace api.Controllers
 {
     [AuthorizationRequired]
-    [RoutePrefix("/attach")]
+    //[RoutePrefix("/attach")]
 
     public class AttachFileController : ApiController
     {
@@ -89,6 +89,7 @@ namespace api.Controllers
         }
 
         [POST("postInquiryAttachFile")]
+        //[Route("attach/postInquiryAttachFile")]
         public HttpResponseMessage postInquiryAttachFile(AttachFileView model)
         {
             try

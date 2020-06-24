@@ -138,6 +138,7 @@ namespace api.ModelViews
         public string remark { get; set; }
         public string user_code { get; set; }
         public string doc_status { get; set; }
+        public long catalog_id { get; set; }
         //public string fullPath
         //{
         //    get
@@ -157,7 +158,7 @@ namespace api.ModelViews
         public long catalog_size_id { get; set; }
         public string pdtype_code { get; set; }
         public string pdtype_tname { get; set; }
-        public bool is_border { get; set; }
+        public bool? is_border { get; set; }
         public string catalog_type_code { get; set; }
         public string type_base64 { get; set; }
         public string pdsize_code { get; set; }

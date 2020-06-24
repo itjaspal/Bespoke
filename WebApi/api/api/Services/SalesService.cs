@@ -625,7 +625,9 @@ namespace api.Services
                     transactionItem = new List<ModelViews.TransactionItemView>()
                 };
 
-                List<CO_TRNS_DET> item = ctx.CoTransDets.Where(x => x.co_trns_mast_id == co_trns_mast_id).OrderBy(o => o.item).ToList();
+                List<CO_TRNS_DET> item = ctx.CoTransDets
+                    .Where(x => x.co_trns_mast_id == co_trns_mast_id)
+                    .OrderBy(o => o.item).ToList();
 
                 foreach (var i in item)
                 {
@@ -653,7 +655,7 @@ namespace api.Services
                         .Where(z => z.pdsize_code == catalog_size.pdsize_code)
                         .SingleOrDefault();
 
-                    if (i.catalog_type_code == "A")
+                    if (pic.catalog_type_code == "A")
                     {
                         view.transactionItem.Add(new ModelViews.TransactionItemView()
                         {
@@ -719,9 +721,11 @@ namespace api.Services
                             remark = i.remark1
                         });
                     }
+                    view.catalog_id = i.catalog_id;
 
 
-                   
+
+
                 }
                 
 

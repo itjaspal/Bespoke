@@ -164,8 +164,8 @@ namespace api.Controllers
         }
 
         //[POST("postCancelSaleTransaction")]
-        [Route("sales/postCancelSaleTransaction")]
-        public HttpResponseMessage postCancelSaleTransaction(SalesTransactionUpdateStatusView model)
+        [Route("sales/postCancelSalesTransaction")]
+        public HttpResponseMessage postCancelSalesTransaction(SalesTransactionUpdateStatusView model)
         {
             try
             {

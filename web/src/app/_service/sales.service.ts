@@ -1,3 +1,4 @@
+import { SalesAttachView } from './../_model/sales';
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { CommonSearchView } from '../_model/common-search-view';
@@ -47,7 +48,23 @@ export class SalesService {
     return await this.http.post<number>(environment.API_URL + 'sales/postCreate', _model).toPromise();
   }
   
-  public async postCancelSaleTransaction(_model: any) {
-    return await this.http.post<number>(environment.API_URL + 'sales/postCancelSaleTransaction', _model).toPromise();
+  public async postCancelSalesTransaction(_model: any) {
+    return await this.http.post<number>(environment.API_URL + 'sales/postCancelSalesTransaction', _model).toPromise();
+  }
+
+  public async getInquirySalesTransactionInfo(_saleTransactionId) {
+    return await this.http.get<SalesTransactionView>(environment.API_URL + 'sales/getInquirySalesTransactionInfo/' + _saleTransactionId).toPromise();
+  }
+
+  public async postSalesAttach(_model: SalesAttachView) {
+    var fd = new FormData();
+    fd.append('file', _model.file);
+    fd.append('pic_base64',_model.pic_base64);
+    fd.append('co_trns_mast_id', _model.co_trns_mast_id.toString());
+    fd.append('pic_file_path',_model.pic_file_path);
+    
+    
+    return await this.http.post<number>(environment.API_URL + 'sales/postSalesAttach', fd).toPromise();
+    
   }
 }

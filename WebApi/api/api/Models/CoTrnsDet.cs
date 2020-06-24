@@ -42,19 +42,19 @@ namespace api.Models
 
         public decimal sale_price { get; set; }
 
-        public decimal disc_rate { get; set; }
+        public decimal? disc_rate { get; set; }
 
-        public decimal vat_rate { get; set; }
+        public decimal? vat_rate { get; set; }
 
         public decimal qty { get; set; }
 
         public decimal amt { get; set; }
 
-        public decimal disc_amt { get; set; }
+        public decimal? disc_amt { get; set; }
 
-        public decimal vat_amt { get; set; }
+        public decimal? vat_amt { get; set; }
 
-        public decimal net_amt { get; set; }
+        public decimal? net_amt { get; set; }
 
         [StringLength(12)]
         public string ds_no { get; set; }
@@ -62,7 +62,7 @@ namespace api.Models
         [StringLength(22)]
         public string sku { get; set; }
 
-        public decimal gp { get; set; }
+        public decimal? gp { get; set; }
 
         [StringLength(100)]
         public string size_spec { get; set; }

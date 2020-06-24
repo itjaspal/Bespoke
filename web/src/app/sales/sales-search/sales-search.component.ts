@@ -55,7 +55,7 @@ export class SalesSearchComponent implements OnInit {
     this._msgSvc.confirmPopup("ยืนยันยกเลิกรายการขาย", async result => {
 
       if (result) {
-        await this._salesSvc.postCancelSaleTransaction({
+        await this._salesSvc.postCancelSalesTransaction({
           co_trns_mast_id: _row.co_trns_mast_id,
           userId: this.user.username
         });
