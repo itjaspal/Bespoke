@@ -186,4 +186,21 @@ namespace api.ModelViews
         public string userId { get; set; }
         
     }
+
+    public class SalesAttachView
+    {
+        public long co_trns_mast_id { get; set; }
+        public long co_trns_att_file_id { get; set; }
+        public string pic_file_path { get; set; }
+        public string pic_base64 { get; set; }
+
+        public string fullPath
+        {
+            get
+            {
+                string urlPrefix = ConfigurationManager.AppSettings["upload.urlPrefix"];
+                return urlPrefix + this.pic_file_path;
+            }
+        }
+    }
 }

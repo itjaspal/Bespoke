@@ -753,5 +753,55 @@ namespace api.Services
                 
             }
         }
+
+        public void SalesAtthach(SalesAttachView model)
+        {
+            using (var ctx = new ConXContext())
+            {
+                using (TransactionScope scope = new TransactionScope())
+                {
+                    CO_TRNS_ATTACH_FILE newObj = new CO_TRNS_ATTACH_FILE()
+                    {
+                        co_trns_mast_id = model.co_trns_mast_id,
+                        pic_file_path = model.pic_file_path,
+                        pic_base64 = model.pic_base64,
+
+                    };
+
+                    ctx.CoTransAttachs.Add(newObj);
+                    ctx.SaveChanges();
+                    scope.Complete();
+                }
+            }
+        }
+
+        public List<SalesAttachView> InquiryAttachFile(long co_trns_mast_id)
+        {
+            using (var ctx = new ConXContext())
+            {
+                List<CO_TRNS_ATTACH_FILE> atth = ctx.CoTransAttachs
+                .Where(x => x.co_trns_mast_id == co_trns_mast_id)
+                .OrderBy(z => z.co_trns_att_file_id)
+                .ToList();
+
+                List<SalesAttachView> atthViews = new List<SalesAttachView>();
+               
+
+                foreach (var i in atth)
+                {
+                    SalesAttachView view = new SalesAttachView()
+                    {
+                        co_trns_att_file_id = i.co_trns_att_file_id,
+                        co_trns_mast_id = i.co_trns_mast_id,
+                        pic_file_path = i.pic_file_path,
+                        pic_base64 = i.pic_base64
+                    };
+
+                    atthViews.Add(view);
+                }
+
+                return atthViews;
+            }
+        }
     }
 }

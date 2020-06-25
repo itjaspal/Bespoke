@@ -6,12 +6,12 @@ using System.Web;
 
 namespace api.Models
 {
-    public class CoTrnsAttachFile
+    public class CO_TRNS_ATTACH_FILE
     {
         [Key]
         public long co_trns_att_file_id { get; set; }
         public long co_trns_mast_id { get; set; }
-
+        
         [StringLength(200)]
         public string pic_file_path { get; set; }
 

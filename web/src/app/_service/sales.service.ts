@@ -62,9 +62,16 @@ export class SalesService {
     fd.append('pic_base64',_model.pic_base64);
     fd.append('co_trns_mast_id', _model.co_trns_mast_id.toString());
     fd.append('pic_file_path',_model.pic_file_path);
+    //fd.append('pic_base64',_model.pic_base64);
     
     
     return await this.http.post<number>(environment.API_URL + 'sales/postSalesAttach', fd).toPromise();
     
   }
+
+  public async getInquiryAttachFile(_saleTransactionId: number) {
+    //return this.http.post<SalesAttachView[]>(environment.API_URL + 'sales/postInquiryAttachFile/', _saleTransactionId).toPromise();
+    return await this.http.get(environment.API_URL + 'sales/getInquiryAttachFile/'+ _saleTransactionId).toPromise();
+  }
+
 }

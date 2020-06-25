@@ -56,8 +56,11 @@ export class SalesAttachFileComponent implements OnInit {
   async save() {
 
     
-    this.model.co_trns_mast_id = this._actRoute.snapshot.params.catalog_id;
+    this.model.co_trns_mast_id = this._actRoute.snapshot.params.id;
     this.model.pic_file_path = this.model.file.name;
+    this.model.pic_base64 = this.model.file.name;
+
+    console.log(this.model);
 
     if(this.model.co_trns_mast_id == 0)
     {

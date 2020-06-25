@@ -21,6 +21,8 @@ namespace api.Interfaces
         void Create(SalesTransactionView model);
         SalesTransactionView InquirySalesTransactionInfo(long co_trns_mast_id);
         void CancelSalesTransaction(long co_trns_mast_id, string userId);
+        void SalesAtthach(SalesAttachView model);
+        List<SalesAttachView> InquiryAttachFile(long co_trns_mast_id);
 
     }
 }

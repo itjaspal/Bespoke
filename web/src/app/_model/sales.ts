@@ -189,10 +189,11 @@ export class ConfirmDataView{
 
 export class SalesAttachView
 {
-    public co_trns_mast_id : number = 0;
-    public pic_file_path: string = "";
-    public pic_base64: string = "";
-    public fullPath: string = "";
-    public file:any = null;
+        public co_trns_att_file_id : number = 0;
+        public co_trns_mast_id : number = 0;
+        public pic_file_path: string = "";
+        public pic_base64: string = "";
+        public fullPath: string = "";
+        public file:any = null;
 }
 

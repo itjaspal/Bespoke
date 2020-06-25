@@ -3,9 +3,13 @@ using api.ModelViews;
 using api.Services;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
+using System.Globalization;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Web;
 using System.Web.Http;
 
 namespace api.Controllers
@@ -163,7 +167,7 @@ namespace api.Controllers
             }
         }
 
-        //[POST("postCancelSaleTransaction")]
+
         [Route("sales/postCancelSalesTransaction")]
         public HttpResponseMessage postCancelSalesTransaction(SalesTransactionUpdateStatusView model)
         {
@@ -180,7 +184,6 @@ namespace api.Controllers
             }
         }
 
-        //[GET("getInquirySaleTransactionInfo/{saleTransactionId}")]
         [Route("sales/getInquirySalesTransactionInfo/{saleTransactionId}")]
         public HttpResponseMessage getInquirySalesTransactionInfo(long saleTransactionId)
         {
@@ -194,6 +197,84 @@ namespace api.Controllers
             {
                 //logSale.Error(ex);
                 return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, ex.ToString());
+            }
+        }
+
+        [Route("sales/postSalesAttach")]
+        public HttpResponseMessage postSalesAttach()
+        {
+            try
+            {
+
+                System.Web.HttpFileCollection files = System.Web.HttpContext.Current.Request.Files;
+
+                string path = ConfigurationManager.AppSettings["upload.folder"];
+                string year = DateTime.Now.Year.ToString();
+                string month = DateTime.Now.Month.ToString();
+
+                //check exist folder
+                if (!Directory.Exists(path)) Directory.CreateDirectory(path);
+
+                //check exist folder year
+                path += "\\" + year;
+                if (!Directory.Exists(path)) Directory.CreateDirectory(path);
+
+                //check exist folder month
+                path += "\\" + month;
+                if (!Directory.Exists(path)) Directory.CreateDirectory(path);
+
+                SalesAttachView model = new SalesAttachView();
+                foreach (string key in files)
+                {
+                    System.Web.HttpPostedFile htf = files[key];
+
+                    //rename
+                    string[] fileNameOldArr = htf.FileName.Split('.');
+                    string fileNameOld = htf.FileName;
+                    string fileNameNew = DateTime.Now.ToString("ddMMyyyy-HHmmss-fff", new CultureInfo("en-US").DateTimeFormat);
+                    fileNameNew = string.Format("{0}_{1}.{2}", fileNameOldArr[0], fileNameNew, fileNameOldArr[fileNameOldArr.Length - 1]);
+
+                    string physicalPath = path + "\\" + fileNameNew;
+                    htf.SaveAs(physicalPath);
+
+                    string co_trns_mast_id = HttpContext.Current.Request.Params["co_trns_mast_id"];
+                    
+                    string pic_base64 = HttpContext.Current.Request.Params["pic_base64"];
+                   
+
+                    model.co_trns_mast_id = long.Parse(co_trns_mast_id);             
+                    model.pic_base64 = pic_base64;
+                   
+
+                    model.pic_file_path = string.Format("{0}/{1}/{2}", year, month, fileNameNew);
+
+                }
+
+                salesSvc.SalesAtthach(model);
+
+                return Request.CreateResponse(HttpStatusCode.OK, "บันทึกข้อมูลสำเร็จ");
+
+             
+
+            }
+            catch (Exception ex)
+            {
+                return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, ex.Message.ToString());
+            }
+           
+        }
+
+        [Route("sales/getInquiryAttachFile/{co_trns_mast_id}")]
+        public HttpResponseMessage getInquiryAttachFile(long co_trns_mast_id)
+        {
+            try
+            {
+                var result = salesSvc.InquiryAttachFile(co_trns_mast_id);
+                return Request.CreateResponse(HttpStatusCode.OK, result);
+            }
+            catch (Exception ex)
+            {
+                return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, ex.Message.ToString());
             }
         }
 

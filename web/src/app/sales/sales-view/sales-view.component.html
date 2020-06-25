@@ -180,7 +180,52 @@
 
   
 
-  <!-- <app-attach-file-view [refId]="model.co_trns_mast_id"></app-attach-file-view> -->
+  <mat-card class="mat-subcard">
+
+    <mat-card-subtitle>
+      <h6>รายการไฟล์แนบ</h6>
+    </mat-card-subtitle>
+  
+    <mat-card-content>
+  
+      <div class="row card-table-header">
+        <div class="col-12">
+          <hr>
+        </div>
+        <div class="col-sm-7">
+          <b>ชื่อไฟล์</b>
+        </div>
+        <!-- <div class="col-sm-3">
+          <b>ประเภท</b>
+        </div> -->
+        <div class="col-2"></div>
+      </div>
+      <div class="row card-table-body" *ngFor="let x of datas;let i = index;">
+        <div class="col-12">
+          <!-- <hr> -->
+        </div>
+  
+        <div class="col-sm-7">
+          <!-- <small>ชื่อไฟล์</small> -->
+          <dd>{{x.pic_base64}}</dd>
+        </div>
+  
+       
+        <div class="col-2 text-right">
+          <button type="button" mat-icon-button [matMenuTriggerFor]="appMenu">
+            <mat-icon class="material-icons">more_horiz</mat-icon>
+          </button>
+  
+          <mat-menu #appMenu="matMenu">
+            <button type="button" mat-menu-item (click)="view(x)">
+              <mat-icon class="material-icons">search</mat-icon> <span>ดู</span>
+            </button>
+          </mat-menu>
+        </div>
+      </div>
+    </mat-card-content>
+  </mat-card>
+  
 
   <mat-card>
     <mat-card-content>
@@ -226,14 +271,13 @@
 
   <div class="form-action">
 
-    <button mat-raised-button class="btn-w-md" type="button" (click)="close()">
+    <button mat-raised-button  class="btn-w-md" type="button" (click)="close()">
       <mat-icon class="material-icons">close</mat-icon> ปิด
     </button>
 
-    <!-- <button mat-raised-button color="primary" class="btn-w-md pull-right" type="button" (click)="sendToReady()"
-      *ngIf="(model.statusId == 'PAL' && actions.SEND)">
-      <mat-icon class="material-icons">send</mat-icon> ส่งรายการ
-    </button> -->
+    <button mat-raised-button color="primary" class="btn-w-md pull-right" type="button" (click)="print()">
+      <mat-icon class="material-icons">print</mat-icon> Print
+    </button>
 
   </div>
 

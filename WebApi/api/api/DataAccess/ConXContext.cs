@@ -57,6 +57,7 @@ namespace api.DataAccess
         public DbSet<DocStatus> DocStatus { get; set; }
         public DbSet<CO_TRNS_MAST> CoTransMasts { get; set; }
         public DbSet<CO_TRNS_DET> CoTransDets { get; set; }
+        public DbSet<CO_TRNS_ATTACH_FILE> CoTransAttachs { get; set; }
         public DbSet<doc_mast> DocMasts { get; set; }
 
 
