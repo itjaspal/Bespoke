@@ -102,7 +102,7 @@ export class SalesSummaryComponent implements OnInit {
 
   public branch_code : string = "";
   public branch_name : string = "";
-  
+  public total : any;
 
   async ngOnInit() {
     this.buildForm();
@@ -164,6 +164,7 @@ export class SalesSummaryComponent implements OnInit {
 
     this.total_qty = 0;
     this.total_amt = 0;
+    this.total = 0;
 
     for (var i = 0; i < this.salesList.length; i++) {
       
@@ -276,6 +277,7 @@ export class SalesSummaryComponent implements OnInit {
               this.add_price = this.salesList.add_price;
               
             }
+            this.total = this.total_amt + this.add_price;
           
             console.log(this.typeSelected[k].catalog_type_code);
             console.log(this.model_item.catalog_type_code);
@@ -396,6 +398,7 @@ export class SalesSummaryComponent implements OnInit {
     this.model.add_price = this.add_price;
     this.model.user_code = this.user.username;
     this.model.doc_status = "PAL";
+    
     this.model.transactionItem = this.confirmList;
     console.log(this.model);
     

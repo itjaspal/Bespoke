@@ -8,11 +8,11 @@ import { SalesTransactionView, SalesAttachView } from '../../_model/sales';
 import { CatalogMastView } from '../../_model/catalog-mast';
 
 @Component({
-  selector: 'app-track-view',
-  templateUrl: './track-view.component.html',
-  styleUrls: ['./track-view.component.scss']
+  selector: 'app-sales-print',
+  templateUrl: './sales-print.component.html',
+  styleUrls: ['./sales-print.component.scss']
 })
-export class TrackViewComponent implements OnInit {
+export class SalesPrintComponent implements OnInit {
 
   constructor(
     private _salesSvc: SalesService,
@@ -56,22 +56,18 @@ export class TrackViewComponent implements OnInit {
   //   window.open(x.fullPath);
   // }
 
-  // print() {
-  //   let head = document.head;
-  //   let style = document.createElement('style');
-  //   style.type = 'text/css';
-  //   style.media = 'print';
+  print() {
+    let head = document.head;
+    let style = document.createElement('style');
+    style.type = 'text/css';
+    style.media = 'print';
 
-  //   // style.appendChild(document.createTextNode('@page { size: A4 landscape; margin: 4mm 0;}'));
-  //   style.appendChild(document.createTextNode('@page { size: A4 portiate; margin: 4mm 0;}'));
+    // style.appendChild(document.createTextNode('@page { size: A4 landscape; margin: 4mm 0;}'));
+    style.appendChild(document.createTextNode('@page { size: A4 portiate; margin: 4mm 0;}'));
 
-  //   head.appendChild(style);
+    head.appendChild(style);
 
-  //   window.print();
-  // }
-
-  close() {
-    this._router.navigateByUrl('/app/track');
+    window.print();
   }
 
 }

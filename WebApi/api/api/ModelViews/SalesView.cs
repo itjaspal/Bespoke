@@ -16,6 +16,7 @@ namespace api.ModelViews
         public string cust_name { get; set; }
         public decimal tot_amt { get; set; }
         public string status { get; set; }
+        public string order_status { get; set; }
     }
 
     public class SalesSearchView
@@ -27,7 +28,8 @@ namespace api.ModelViews
         public string invoice_no { get; set; }
         public DateTime to_doc_date { get; set; }
         public DateTime from_doc_date { get; set; }
-        public string status { get; set; }
+        //public string status { get; set; }
+        public List<string> status { get; set; }
     }
 
     public class SalesSelectTypeView

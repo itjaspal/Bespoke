@@ -198,6 +198,9 @@ import { ProductViewComponent } from './master-product/product-view/product-view
 import { CustomerViewComponent } from './customer/customer-view/customer-view.component';
 import { UserSelectBranchComponent } from './user-select-branch/user-select-branch/user-select-branch.component';
 import { SalesAttachFileComponent } from './sales/sales-attach-file/sales-attach-file.component';
+import { SalesPrintComponent } from './sales/sales-print/sales-print.component';
+import { DailySalesReportComponent } from './report/daily-sales-report/daily-sales-report.component';
+import { MonthlySalesReportComponent } from './report/monthly-sales-report/monthly-sales-report.component';
 
 
 
@@ -427,6 +430,9 @@ import { SalesAttachFileComponent } from './sales/sales-attach-file/sales-attach
     ProductViewComponent,
     UserSelectBranchComponent,
     SalesAttachFileComponent,
+    SalesPrintComponent,
+    DailySalesReportComponent,
+    MonthlySalesReportComponent,
 
 
   ],

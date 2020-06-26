@@ -74,6 +74,9 @@ import { ProductUpdateComponent } from '../master-product/product-update/product
 import { CustomerUpdateComponent } from '../customer/customer-update/customer-update.component';
 import { ProductViewComponent } from '../master-product/product-view/product-view.component';
 import { SalesAttachFileComponent } from '../sales/sales-attach-file/sales-attach-file.component';
+import { SalesPrintComponent } from '../sales/sales-print/sales-print.component';
+import { DailySalesReportComponent } from '../report/daily-sales-report/daily-sales-report.component';
+import { MonthlySalesReportComponent } from '../report/monthly-sales-report/monthly-sales-report.component';
 
  
 
@@ -196,9 +199,15 @@ const routes: Routes = [
       { path: "sale/product/:catalog/:color", component: SalesProductComponent, canActivate: [AuthenGuard], data: { parentUrl: "/app/sale" } },
       { path: "sale/summary/:catalog/:color", component: SalesSummaryComponent, canActivate: [AuthenGuard], data: { parentUrl: "/app/sale" } },
       { path: "sale/attach/:id", component: SalesAttachFileComponent, canActivate: [AuthenGuard], data: { parentUrl: "/app/sale" } },
+      { path: "sale/print/:id", component: SalesPrintComponent, canActivate: [AuthenGuard], data: { parentUrl: "/app/sale" } },
+      
       //Tracking
       { path: "track", component: TrackSearchComponent, canActivate: [AuthenGuard], data: { parentUrl: "/app/track" } },
       { path: "track/view/:id", component: TrackViewComponent, canActivate: [AuthenGuard], data: { parentUrl: "/app/track" } },
+
+      //Report
+      { path: "daily-sales-report", component: DailySalesReportComponent, canActivate: [AuthenGuard], data: { parentUrl: "/app/daily-sales-report" } },
+      { path: "monthly-sales-report", component: MonthlySalesReportComponent, canActivate: [AuthenGuard], data: { parentUrl: "/app/monthly-sales-report" } },
 
        { path: '**', redirectTo: 'home', pathMatch: 'full' },
     ]

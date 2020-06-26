@@ -315,12 +315,14 @@ namespace api.Services
                         (x.cust_code == model.entity_code || model.entity_code == "")
                         && x.doc_no.Contains(model.doc_no)
                         && x.ref_no.Contains(model.invoice_no)
-                        && (model.status.Contains(x.doc_status) || model.status.Length == 0)
+                        && (model.status.Contains(x.doc_status) || model.status.Count == 0)
                         && (x.doc_date >= model.from_doc_date || model.from_doc_date == DateTime.MinValue)
                         && (x.doc_date < to_doc_date.Date || model.to_doc_date == DateTime.MinValue)
                     )
                     .OrderByDescending(o => o.co_trns_mast_id)
                     .ToList();
+
+               
 
                 //count , select data from pageIndex, itemPerPage
                 view.totalItem = trans.Count;
@@ -339,7 +341,8 @@ namespace api.Services
                         cust_name = i.ship_custname,
                         invoice_no = i.ref_no,
                         tot_amt = i.tot_amt,
-                        status = i.doc_status
+                        status = i.doc_status,
+                        order_status = i.order_status
 
                     });
                 }

@@ -32,6 +32,7 @@ export class SalesViewComponent implements OnInit {
   actions: any = {};
   public designName : any;
   datas: any;
+  total : any = 0;
 
   async ngOnInit() {
 
@@ -39,6 +40,8 @@ export class SalesViewComponent implements OnInit {
 
     this.saleTransactionId = this._actRoute.snapshot.params.id;
     this.model = await this._salesSvc.getInquirySalesTransactionInfo(this.saleTransactionId);
+    
+    this.total = this.model.total_amt + this.model.add_price;
     if(this.model.catalog_id != undefined)
     {
       this.model_design = await this._catalgDesignSvc.getInfo(this.model.catalog_id);
@@ -46,6 +49,8 @@ export class SalesViewComponent implements OnInit {
     this.designName = this.model_design.dsgn_name;
 
     this.datas = await this._salesSvc.getInquiryAttachFile(this.saleTransactionId);
+
+    
   }
 
   view(x: SalesAttachView) {

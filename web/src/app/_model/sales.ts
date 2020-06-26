@@ -10,6 +10,8 @@ export class SalesView
     public cust_name :string = "";
     public tot_amt :number = 0;
     public status :string = "";
+    public order_status :string = "";
+    //public status: string[] = [];
 }
 
 export class SalesSearchView
@@ -21,7 +23,8 @@ export class SalesSearchView
         public invoice_no :string = "";
         public to_doc_date :any = null;
         public from_doc_date :any = null;
-        public status :string = "";
+        //public status :string = "";
+        public status: string[] = [];
 }
 
 

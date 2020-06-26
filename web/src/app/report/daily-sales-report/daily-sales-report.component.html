@@ -1,0 +1,425 @@
+<div class="container-fluid no-breadcrumbs">
+  <mat-card class="inq-condition">
+    <mat-card-title>
+      <h6>รายงานการขาย</h6>
+    </mat-card-title>
+    <mat-card-content>
+      <mat-card-content class="no-margin">
+        <form>
+          <div class="row">
+            <div class="col-sm-6 col-lg-4">
+              <mat-form-field class="full-width">
+                <mat-select placeholder="ห้าง"  name="entity_code" [(ngModel)]="model.entity_code">
+                  <mat-option *ngFor="let x of branchLists" [value]="x.key">{{x.value}}</mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+          </div>
+          <div class="row"> 
+            
+            <div class="col-sm-6 col-lg-4">
+              <mat-form-field class="full-width">
+                <input name="fromDate" [(ngModel)]="model.fromDate" matInput [matDatepicker]="fromDate"
+                  placeholder="จากวันที่">
+                <mat-datepicker-toggle matSuffix [for]="fromDate"></mat-datepicker-toggle>
+                <mat-datepicker #fromDate></mat-datepicker>
+              </mat-form-field>
+            </div>
+            <div class="col-sm-6 col-lg-4">
+              <mat-form-field class="full-width">
+                <input name="toDate" [(ngModel)]="model.toDate" matInput [matDatepicker]="toDate"
+                  placeholder="ถึงวันที่">
+                <mat-datepicker-toggle matSuffix [for]="toDate"></mat-datepicker-toggle>
+                <mat-datepicker #toDate></mat-datepicker>
+              </mat-form-field>
+            </div>
+          </div>
+
+        </form>
+      </mat-card-content>
+
+      <mat-card-actions class="no-margin">
+        <div class="row">
+          <div class="col-4 col-sm-2">
+            <button (click)="search();" mat-raised-button color="primary">
+              <mat-icon class="material-icons">search</mat-icon> ค้นหา
+            </button>
+          </div>
+          <div class="col-4 col-sm-2">
+            <button mat-raised-button color="default" (click)="print()">
+              <mat-icon class="material-icons">print</mat-icon> Print
+            </button>
+          </div>
+          <div class="col-4 col-sm-2">
+            <button mat-raised-button color="default" (click)="export()">
+              <mat-icon class="material-icons">cloud_download</mat-icon> Export
+            </button>
+          </div>
+        </div>
+      </mat-card-actions>
+    </mat-card-content>
+  </mat-card>
+
+
+
+  <!-- <mat-card style="margin-top: 40px" class="inq-data">
+    <mat-card-content *ngIf="data.saleTransactionReports.length == 0">
+      <div class="col-12 col-sm-12">
+        <div class="detail">
+          <small></small>
+          <span>ไม่มีข้อมูล</span>
+        </div>
+      </div>
+    </mat-card-content>
+
+    <mat-card-content *ngIf="data.saleTransactionReports.length != 0">
+      <mat-card-content class="no-margin">
+        <div class="row">
+          <div class="col-6 col-sm-3">
+            <div class="detail">
+              <small>วันที่</small>
+              <span>{{data.dateCondition}}</span>
+            </div>
+          </div>
+          <div class="d-none d-sm-block col-sm-6"></div>
+          <div class="col-6 col-sm-3">
+            <div class="detail">
+              <small>วันที่พิมพ์</small>
+              <span>{{data.printDate | date:'dd/MM/yyyy'}}</span>
+            </div>
+          </div>
+          <div class="col-12">
+            <hr />
+          </div>
+        </div>
+      </mat-card-content>
+
+      <mat-card-content class="no-margin" *ngFor="let s of data.saleTransactionReports">
+        <div class="row">
+          <div class="col-12 col-sm-12">
+            <div class="detail">
+              <small>ห้าง</small>
+              <span>{{s.branchNameThai}}</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="row card-table-header">
+          <div class="col-sm-2">
+            <b>เลขที่เอกสาร</b>
+          </div>
+          <div class="col-sm-1">
+            <b>วันที่</b>
+          </div>
+          <div class="col-sm-1">
+            <b>พนักงาน PC</b>
+          </div>
+          <div class="col-sm-2">
+            <b>รหัสสินค้า</b>
+          </div>
+          <div class="col-sm-2">
+            <b>ชื่อสินค้า</b>
+          </div>
+          <div class="col-sm-1">
+            <b>หน่วย</b>
+          </div>
+          <div class="col-sm-1 text-right">
+            <b>ราคาขาย</b>
+          </div>
+          <div class="col-sm-1 text-right">
+            <b>จำนวน</b>
+          </div>
+          <div class="col-sm-1 text-right">
+            <b>จำนวนเงิน</b>
+          </div>
+        </div>
+
+        <div class="row card-table-body" *ngFor="let x of s.saleTransactionItems">
+          <div class="col-6 col-sm-2">
+            <small>เลขที่เอกสาร</small>
+            <dd>{{x.docNbr}}</dd>
+          </div>
+          <div class="col-6 col-sm-1">
+            <small>วันที่</small>
+            <dd>{{x.transactionDate | date:'dd/MM/yyyy'}}</dd>
+          </div>
+          <div class="col-12 col-sm-1">
+            <small>พนักงาน PC</small>
+            <dd>{{x.pc}}</dd>
+          </div>
+          <div class="col-6 col-sm-2">
+            <small>รหัสสินค้า</small>
+            <dd>{{x.barcode}}</dd>
+          </div>
+          <div class="col-6 col-sm-2">
+            <small>ชื่อสินค้า</small>
+            <dd>{{x.productName}}</dd>
+          </div>
+          <div class="col-6 col-sm-1">
+            <small>หน่วย</small>
+            <dd>{{x.unit}}</dd>
+          </div>
+          <div class="col-6 col-sm-1 text-right">
+            <small>ราคาขาย</small>
+            <dd>{{x.unitPrice | number:'1.2-2'}}</dd>
+          </div>
+          <div class="col-6 col-sm-1 text-right">
+            <small>จำนวน</small>
+            <dd>{{x.qty | number}}</dd>
+          </div>
+          <div class="col-6 col-sm-1 text-right">
+            <small>จำนวนเงิน</small>
+            <dd>{{x.netAmount | number:'1.2-2'}}</dd>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-12">
+            <hr />
+          </div>
+          <div class="col-12 col-sm-1">
+            <div class="detail">
+              <small></small>
+              <span>รวม</span>
+            </div>
+          </div>
+          <div class="d-none d-sm-block col-sm-9"></div>
+          <div class="col-6 col-sm-1">
+            <div class="detail text-right">
+              <small></small>
+              <span>{{s.totalQty | number}}</span>
+            </div>
+          </div>
+          <div class="col-6 col-sm-1">
+            <div class="detail text-right">
+              <small></small>
+              <span>{{s.totalNetAmount | number:'1.2-2'}}</span>
+            </div>
+          </div>
+          <div class="col-12">
+            <hr />
+          </div>
+        </div>
+      </mat-card-content>
+
+      <mat-card-content class="no-margin">
+        <div class="row">
+          <div class="col-12 col-sm-1">
+            <div class="detail">
+              <small></small>
+              <span>รวมทั้งหมด</span>
+            </div>
+          </div>
+          <div class="d-none d-sm-block col-sm-9"></div>
+          <div class="col-6 col-sm-1">
+            <div class="detail text-right">
+              <small></small>
+              <span>{{data.totalQty | number}}</span>
+            </div>
+          </div>
+          <div class="col-6 col-sm-1">
+            <div class="detail text-right">
+              <small></small>
+              <span>{{data.totalNetAmount | number:'1.2-2'}}</span>
+            </div>
+          </div>
+          <div class="col-12">
+            <hr />
+          </div>
+        </div>
+      </mat-card-content>
+
+    </mat-card-content>
+  </mat-card> -->
+</div>
+
+<div class="container-fluid no-breadcrumbs" style="margin-top: -70px" *ngIf="model.reportType=='1'">
+
+  <mat-card style="margin-top: 40px" class="inq-data" *ngIf="data.saleTransactionReports.length != 0">
+    <mat-card-content class="no-margin">
+
+      <div class="row">
+        <div class="col-12">
+          <b>รายงานสรุปยอดขาย</b>
+        </div>
+        <div #tb_export class="col-12" style="overflow-x:auto;">
+
+          <table style="width: 100%;">
+            <thead>
+              <tr>
+                <th>ห้าง</th>
+                <th>วันที่ขาย</th>
+                <th>ประเภทการขาย</th>
+                <th class="text-center" style="width: 120px">จำนวนใบขาย</th>
+                <th class="text-right" style="width: 120px">ยอดขาย</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let x of data.saleTransactionReports">
+                <td>{{x.branchNameThai}}</td>
+                <td>{{x.transactionDate | date:'dd/MM/yyyy'}}</td>
+                <td>{{x.locationName}}</td>
+                <td class="text-center" style="width: 120px">{{x.totalQty | number}}</td>
+                <td class="text-right" style="width: 120px">{{x.totalNetAmount | number:'1.2-2'}}</td>
+              </tr>
+            </tbody>
+            <tfoot>
+              <tr>
+                <td colspan="3" class="text-center">รวม</td>
+                <td class="text-center" style="width: 120px">{{data.totalQty | number}}</td>
+                <td class="text-right" style="width: 120px">{{data.totalNetAmount | number:'1.2-2'}}</td>
+              </tr>
+            </tfoot>
+
+          </table>
+
+        </div>
+
+      </div>
+
+    </mat-card-content>
+  </mat-card>
+
+</div>
+
+<div class="container-fluid no-breadcrumbs" style="margin-top: -70px" *ngIf="model.reportType=='2'">
+
+  <mat-card style="margin-top: 40px" class="inq-data" *ngIf="data.saleTransactionReports.length != 0">
+    <mat-card-content class="no-margin">
+
+      <div class="row">
+        <div class="col-12"> <b>รายงานสรุปรายการขาย</b> </div>
+        <div #tb_export class="col-12" style="overflow-x:auto;">
+
+          <table style="width: 100%;" *ngFor="let s of data.saleTransactionReports;let i = index">
+            <thead>
+              <tr>
+                <th colspan="9">
+                  {{s.branchNameThai}}
+                </th>
+              </tr>
+              <tr>
+                <th>วันที่ขาย</th>
+                <th>วันที่จัดส่ง</th>
+                <th>เลขที่เอกสาร</th>
+                <th>เอกสารอ้างอิง</th>
+                <th>ประเภทการขาย</th>
+                <th>พนักงาน PC</th>
+                <th class="text-center" style="width: 80px">จำนวน</th>
+                <th class="text-right" style="width: 120px">จำนวนเงิน</th>
+                <th class="text-center">สถานะ</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let x of s.saleTransactionItems">
+                <td>{{x.transactionDate | date:'dd/MM/yyyy'}}</td>
+                <td>{{x.deliveryDate | date:'dd/MM/yyyy'}}</td>
+                <td>{{x.docNbr}}</td>
+                <td>{{x.refDocNbr}}</td>
+                <td>{{x.locationName}}</td>
+                <td>{{x.pc}}</td>
+                <td class="text-center" style="width: 80px">{{x.qty | number}}</td>
+                <td class="text-right" style="width: 120px">{{x.netAmount | number:'1.2-2'}}</td>
+                <td class="text-center" style="width: 120px">{{x.status}}</td>
+              </tr>
+            </tbody>
+            <tfoot>
+              <tr>
+                <td colspan="6" class="text-center">รวม</td>
+                <td class="text-center" style="width: 80px">{{s.totalQty | number}}</td>
+                <td class="text-right" style="width: 120px">{{s.totalNetAmount | number:'1.2-2'}}</td>
+                <td style="width: 120px"></td>
+              </tr>
+
+            </tfoot>
+
+          </table>
+
+          <table style="width: 100%;">
+            <tfoot>
+              <tr>
+                <td colspan="6" class="text-center">รวมทั้งหมด</td>
+                <td class="text-center" style="width: 80px">{{data.totalQty | number}}</td>
+                <td class="text-right" style="width: 120px">{{data.totalNetAmount | number:'1.2-2'}}</td>
+                <td style="width: 120px"></td>
+              </tr>
+            </tfoot>
+          </table>
+
+        </div>
+      </div>
+
+    </mat-card-content>
+  </mat-card>
+
+</div>
+
+<div class="container-fluid no-breadcrumbs" style="margin-top: -70px" *ngIf="model.reportType=='3'">
+
+  <mat-card style="margin-top: 40px" class="inq-data" *ngIf="data.saleTransactionReports.length != 0">
+    <mat-card-content class="no-margin">
+
+      <div class="row">
+        <div class="col-12">
+          <b>รายงานรายละเอียดการขาย</b>
+        </div>
+        <div #tb_export class="col-12" style="overflow-x:auto;">
+
+          <table style="width: 100%;" *ngFor="let s of data.saleTransactionReports;let i= index">
+            <thead>
+              <tr>
+                <th colspan="9">
+                  {{s.branchNameThai}}
+                </th>
+              </tr>
+              <tr>
+                <th>เลขที่เอกสาร</th>
+                <th>วันที่</th>
+                <th>พนักงาน PC</th>
+                <th>รหัสสินค้า</th>
+                <th>ชื่อสินค้า</th>
+                <th>หน่วย</th>
+                <th class="text-right">ราคาขาย</th>
+                <th class="text-center" style="width: 80px">จำนวน</th>
+                <th class="text-right" style="width: 120px">จำนวนเงิน</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let x of s.saleTransactionItems">
+                <td>{{x.docNbr}}</td>
+                <td>{{x.transactionDate | date:'dd/MM/yyyy'}}</td>
+                <td>{{x.pc}}</td>
+                <td>{{x.barcode}}</td>
+                <td>{{x.productName}}</td>
+                <td>{{x.unit}}</td>
+                <td class="text-right">{{x.unitPrice | number:'1.2-2'}}</td>
+                <td class="text-center" style="width: 80px">{{x.qty | number}}</td>
+                <td class="text-right" style="width: 120px">{{x.netAmount | number:'1.2-2'}}</td>
+              </tr>
+            </tbody>
+            <tfoot>
+              <tr>
+                <td colspan="7" class="text-center">รวม</td>
+                <td class="text-center" style="width: 80px">{{s.totalQty | number}}</td>
+                <td class="text-right" style="width: 120px">{{s.totalNetAmount | number:'1.2-2'}}</td>
+              </tr>
+            </tfoot>
+
+          </table>
+
+          <table style="width: 100%;">
+            <tr>
+              <td colspan="7" class="text-center">รวมทั้งหมด</td>
+              <td class="text-center" style="width: 80px">{{data.totalQty | number}}</td>
+              <td class="text-right" style="width: 120px">{{data.totalNetAmount | number:'1.2-2'}}</td>
+            </tr>
+          </table>
+
+        </div>
+
+      </div>
+
+    </mat-card-content>
+  </mat-card>
+
+</div>
