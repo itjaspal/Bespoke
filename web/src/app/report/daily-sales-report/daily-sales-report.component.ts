@@ -6,6 +6,8 @@ import { MessageService } from '../../_service/message.service';
 import { ActivatedRoute } from '@angular/router';
 import { ReportService } from '../../_service/report.service';
 
+
+
 @Component({
   selector: 'app-daily-sales-report',
   templateUrl: './daily-sales-report.component.html',
@@ -18,7 +20,8 @@ export class DailySalesReportComponent implements OnInit {
     toDate: new Date(),
     //branchGroupId: 0,
     //branchId: 0,
-    entity_code: ""
+    entity_code: "",
+    reportType: "1"
   }
   public data: any = {
     saleTransactionReports: []
@@ -44,6 +47,8 @@ export class DailySalesReportComponent implements OnInit {
     this.branchLists = await this._ddlSvc.getDdlUserBranch(this.user.username);
 
     this.model.entity_code = this.user.branch.branch.branchCode;
+
+    console.log(this.model);
 
     //#region select one
     // if (this.user.username == "admin") {
@@ -82,7 +87,7 @@ export class DailySalesReportComponent implements OnInit {
       return;
     }
     this.data = await this._reportService.dailySalesReport(this.model);
-    //console.log(this.data);
+    console.log(this.data);
   }
 
   async clearSearchResult() {
@@ -103,13 +108,15 @@ export class DailySalesReportComponent implements OnInit {
     head.appendChild(style);
 
     window.print();
+
+    
   }
 
   export() {
 
     let title = "";
     if (this.model.reportType == '1') {
-      title = "รายงานสรุปยอดขาย";
+      title = "รายงานขายประจำวัน - "+ this.data.docName;
     } else if (this.model.reportType == '2') {
       title = "รายงานสรุปรายการขาย";
     } else {

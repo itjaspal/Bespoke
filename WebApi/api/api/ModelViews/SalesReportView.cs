@@ -10,6 +10,7 @@ namespace api.ModelViews
         public string entity_code { get; set; }
         public DateTime fromDate { get; set; }
         public DateTime toDate { get; set; }
+        public string reportType { get; set; }
     }
 
     public class headSaleTransactionReport
@@ -18,7 +19,7 @@ namespace api.ModelViews
         public string dateCondition { get; set; }
         public DateTime printDate { get; set; }
         public virtual List<SalesReportView> saleTransactionReports { get; set; }
-        public int totalQty { get; set; } = 0;
+        public decimal totalQty { get; set; } = 0;
         public decimal totalNetAmount { get; set; } = 0;
     }
 

@@ -456,6 +456,8 @@ namespace api.Services
         {
             using (var ctx = new ConXContext())
             {
+                var font_name = "";
+                var color_code = "";
 
                 using (TransactionScope scope = new TransactionScope())
                 {
@@ -493,9 +495,27 @@ namespace api.Services
                         .Where(z => z.emb_mast_id == model.font_name)
                         .SingleOrDefault();
 
+                    if(font == null)
+                    {
+                        font_name = "";
+                    }
+                    else
+                    {
+                        font_name = font.font_name;
+                    }
+
                     CATALOG_EMB_COLOR color = ctx.CatalogEmbColors
                         .Where(z => z.catalog_emb_color_id == model.font_color)
                         .SingleOrDefault();
+
+                    if(color == null)
+                    {
+                        color_code = "";
+                    }
+                    else
+                    {
+                        color_code = color.emb_color_code;
+                    }
 
                     CO_TRNS_MAST newObj = new CO_TRNS_MAST()
                     {
@@ -503,8 +523,8 @@ namespace api.Services
                         entity_code = "H10",
                         cos_no = "",
                         emb_character = model.embroidery,
-                        font_name = font.font_name,
-                        emb_color_code = color.emb_color_code,
+                        font_name = font_name,
+                        emb_color_code = color_code,
                         emb_mast_id = model.font_name,
                         emb_color_id = model.font_color,
                         add_price = model.add_price,
@@ -577,6 +597,38 @@ namespace api.Services
 
                     scope.Complete();
                 }
+
+                //Send Mail
+                var fromAddress = new MailAddress("consignmt@gmail.com", "Bespoke");
+                var toAddress = new MailAddress("it_job@jaspalhome.com", "Bespoke Admin");
+                const string fromPassword = "Cos@2018!";
+                string subject = "New Order : " + model.doc_no + " - " + model.branch_name;
+                string body = "New Order" + "\r\n" 
+                            + "Japal Home สาขา : " + model.branch_name  + "\r\n" 
+                            + "เลขที่เอกสาร : " + model.doc_no + "\r\n" 
+                            + "วันที่ : " + model.doc_date + "\r\n"
+                            + "วันที่ต้องการ : " + model.req_date + "\r\n"
+                            + "ลูกค้า : " + model.cust_name;
+
+                var smtp = new SmtpClient
+                {
+                    Host = "smtp.gmail.com",
+                    Port = 587,
+                    EnableSsl = true,
+                    DeliveryMethod = SmtpDeliveryMethod.Network,
+                    Credentials = new NetworkCredential(fromAddress.Address, fromPassword),
+                    Timeout = 20000
+                };
+                using (var message = new MailMessage(fromAddress, toAddress)
+                {
+                    Subject = subject,
+                    Body = body
+                })
+                {
+                    smtp.Send(message);
+                }
+
+
             }
         }
 
