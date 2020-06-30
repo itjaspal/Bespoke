@@ -1,0 +1,60 @@
+@media print {
+    body {
+      margin: 4mm;
+    }
+  
+    .app-content {
+      padding-top: 5px !important;
+    }
+  
+    .container-fluid.no-breadcrumbs {
+      padding-top: 0 !important;
+    }
+  
+    .inq-data.mat-card {
+      margin-top: 0 !important;
+      padding: 0 !important;
+    }
+  
+    .inq-condition.mat-card {
+      display: none !important;
+    }
+  
+    .card-table-header {
+      display: none !important;
+    }
+  
+    body,
+    div,
+    div.row,
+    html,
+    mat-card,
+    mat-card-content,
+    section,
+    table,
+    tbody,
+    tfoot,
+    thead {
+      page-break-before: unset !important;
+      page-break-inside: unset !important;
+      page-break-after: unset !important;
+    }
+  
+    .card-table-header {
+      display: flex !important;
+    }
+  
+    .card-table-body {
+      div {
+        small {
+          display: none !important;
+        }
+      }
+    }
+  
+  }
+  
+  table {
+    margin-top: 20px;
+  }
+  

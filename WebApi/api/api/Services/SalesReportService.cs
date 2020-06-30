@@ -18,64 +18,59 @@ namespace api.Services
                 search.fromDate = search.fromDate.Date;
                 search.toDate = search.toDate.Date;
 
-               
-                List<SalesReportView> saleTransactionReportList = new List<SalesReportView>();
-                //define model view
-                //CommonSearchView<SalesReportView> view = new ModelViews.CommonSearchView<ModelViews.SalesView>()
-                //{
-                   
-                //    datas = new List<ModelViews.SalesView>()
-                //};
 
-                //DateTime to_doc_date = model.to_doc_date;
-                //if (to_doc_date != DateTime.MinValue)
-                //{
-                //    to_doc_date = to_doc_date.AddDays(1);
-                //}
+                Branch branch = ctx.Branchs
+                        .Where(z => z.branchCode == search.entity_code)
+                        .SingleOrDefault();
+
+
+                headSaleTransactionReport view = new ModelViews.headSaleTransactionReport()
+                {
+                    docName = branch.branchNameThai,
+                    dateCondition = search.fromDate.ToString("dd/MM/yyyy") + " - " + search.toDate.ToString("dd/MM/yyyy"),
+                    printDate = DateTime.Now,
+                    
+
+                    saleTransactionReports = new List<ModelViews.SalesReportView>()
+                };
+
 
                 //query data
                 List<CO_TRNS_MAST> trans = ctx.CoTransMasts
                     .Where(x =>
                         (x.cust_code == search.entity_code || search.entity_code == "")
                         && (x.doc_date >= search.fromDate || search.fromDate == DateTime.MinValue)
-                        && (x.doc_date < search.toDate || search.toDate == DateTime.MinValue)
+                        && (x.doc_date <= search.toDate || search.toDate == DateTime.MinValue)
                     )
                     .OrderByDescending(o => o.co_trns_mast_id)
                     .ToList();
 
 
+                decimal tot_qty = 0;
+                decimal tot_amt = 0;
 
-                //count , select data from pageIndex, itemPerPage
-                //view.totalItem = trans.Count;
-                //trans = trans.Skip(view.pageIndex * view.itemPerPage)
-                //    .Take(view.itemPerPage)
-                //    .ToList();
+                foreach (var i in trans)
+                {
+                    tot_qty += i.tot_qty;
+                    tot_amt += i.tot_amt;
+                    
 
-                //prepare model to modelView
-                //foreach (var i in trans)
-                //{
-                //    view.datas.Add(new ModelViews.SalesView()
-                //    {
-                //        co_trns_mast_id = i.co_trns_mast_id,
-                //        doc_no = i.doc_no,
-                //        doc_date = i.doc_date,
-                //        cust_name = i.ship_custname,
-                //        invoice_no = i.ref_no,
-                //        tot_amt = i.tot_amt,
-                //        status = i.doc_status,
-                //        order_status = i.order_status
+                    view.saleTransactionReports.Add(new ModelViews.SalesReportView()
+                    {
+                        doc_no = i.doc_no,
+                        doc_date = i.doc_date,
+                        req_date = i.req_date,
+                        invoice_no = i.ref_no,
+                        cust_name = i.ship_custname,
+                        tot_amt = i.tot_amt + i.add_price,
+                       
+                    });
+                }
 
-                //    });
-                //}
+                view.totalQty = tot_qty;
+                view.totalNetAmount = tot_amt;
+               
 
-                //headSaleTransactionReport headSaleTransactionReport = new headSaleTransactionReport();
-                //headSaleTransactionReport.printDate = DateTime.Now;
-                //headSaleTransactionReport.dateCondition = search.fromDate.ToString("dd/MM/yyyy") + " - " + search.toDate.ToString("dd/MM/yyyy");
-                //headSaleTransactionReport.saleTransactionReports = saleTransactionReportList;
-                //headSaleTransactionReport.totalQty = headSaleTransactionReport.saleTransactionReports.Sum(s => s.totalQty);
-                //headSaleTransactionReport.totalNetAmount = headSaleTransactionReport.saleTransactionReports.Sum(s => s.totalNetAmount);
-
-                //return headSaleTransactionReport;
                 //return data to contoller
                 return view;
             }
