@@ -598,35 +598,35 @@ namespace api.Services
                     scope.Complete();
                 }
 
-                //Send Mail
-                var fromAddress = new MailAddress("consignmt@gmail.com", "Bespoke");
-                var toAddress = new MailAddress("it_job@jaspalhome.com", "Bespoke Admin");
-                const string fromPassword = "Cos@2018!";
-                string subject = "New Order : " + model.doc_no + " - " + model.branch_name;
-                string body = "New Order" + "\r\n" 
-                            + "Japal Home สาขา : " + model.branch_name  + "\r\n" 
-                            + "เลขที่เอกสาร : " + model.doc_no + "\r\n" 
-                            + "วันที่ : " + model.doc_date + "\r\n"
-                            + "วันที่ต้องการ : " + model.req_date + "\r\n"
-                            + "ลูกค้า : " + model.cust_name;
+                ////Send Mail
+                //var fromAddress = new MailAddress("consignmt@gmail.com", "Bespoke");
+                //var toAddress = new MailAddress("bespoke@jaspalhome.com", "Bespoke Admin");
+                //const string fromPassword = "Cos@2018!";
+                //string subject = "New Order : " + model.doc_no + " - " + model.branch_name;
+                //string body = "New Order" + "\r\n" 
+                //            + "Japal Home สาขา : " + model.branch_name  + "\r\n" 
+                //            + "เลขที่เอกสาร : " + model.doc_no + "\r\n" 
+                //            + "วันที่ : " + model.doc_date + "\r\n"
+                //            + "วันที่ต้องการ : " + model.req_date + "\r\n"
+                //            + "ลูกค้า : " + model.cust_name;
 
-                var smtp = new SmtpClient
-                {
-                    Host = "smtp.gmail.com",
-                    Port = 587,
-                    EnableSsl = true,
-                    DeliveryMethod = SmtpDeliveryMethod.Network,
-                    Credentials = new NetworkCredential(fromAddress.Address, fromPassword),
-                    Timeout = 20000
-                };
-                using (var message = new MailMessage(fromAddress, toAddress)
-                {
-                    Subject = subject,
-                    Body = body
-                })
-                {
-                    smtp.Send(message);
-                }
+                //var smtp = new SmtpClient
+                //{
+                //    Host = "smtp.gmail.com",
+                //    Port = 587,
+                //    EnableSsl = true,
+                //    DeliveryMethod = SmtpDeliveryMethod.Network,
+                //    Credentials = new NetworkCredential(fromAddress.Address, fromPassword),
+                //    Timeout = 20000
+                //};
+                //using (var message = new MailMessage(fromAddress, toAddress)
+                //{
+                //    Subject = subject,
+                //    Body = body
+                //})
+                //{
+                //    smtp.Send(message);
+                //}
 
 
             }
@@ -675,6 +675,7 @@ namespace api.Services
                     font_color = model.emb_color_id,
                     font_name_base64 = font.pic_base64,
                     font_color_base64 = color.pic_base64,
+                    doc_status = model.doc_status,
 
 
                     transactionItem = new List<ModelViews.TransactionItemView>()
@@ -856,6 +857,62 @@ namespace api.Services
                 }
 
                 return atthViews;
+            }
+        }
+
+        public void UpdateToReady(long saleTransactionId, string userId)
+        {
+            using (var ctx = new ConXContext())
+            {
+                using (var scope = new TransactionScope())
+                {
+                    CO_TRNS_MAST update = ctx.CoTransMasts
+                        .Where(x => x.co_trns_mast_id == saleTransactionId)
+                        .SingleOrDefault();
+
+                    update.doc_status = "PAP"; //กำลังส่ง
+                    update.updated_by = userId;
+                    update.updated_at = DateTime.Now;
+                    ctx.SaveChanges();
+
+                    scope.Complete();
+                }
+
+                //Send Mail
+                CO_TRNS_MAST model = ctx.CoTransMasts
+                    .Where(x => x.co_trns_mast_id == saleTransactionId)
+                    .SingleOrDefault();
+
+
+                var fromAddress = new MailAddress("consignmt@gmail.com", "Bespoke");
+                var toAddress = new MailAddress("bespoke@jaspalhome.com", "Bespoke Admin");
+                //var toAddress = new MailAddress("it_job@jaspalhome.com", "Bespoke Admin");
+                const string fromPassword = "Cos@2018!";
+                string subject = "New Order : " + model.doc_no + " - " + model.cust_name;
+                string body = "New Order" + "\r\n"
+                            + "Japal Home สาขา : " + model.cust_name + "\r\n"
+                            + "เลขที่เอกสาร : " + model.doc_no + "\r\n"
+                            + "วันที่ : " + model.doc_date.ToString("dd/MM/yyyy") + "\r\n"
+                            + "วันที่ต้องการ : " + model.req_date.ToString("dd/MM/yyyy") + "\r\n"
+                            + "ลูกค้า : " + model.ship_custname;
+
+                var smtp = new SmtpClient
+                {
+                    Host = "smtp.gmail.com",
+                    Port = 587,
+                    EnableSsl = true,
+                    DeliveryMethod = SmtpDeliveryMethod.Network,
+                    Credentials = new NetworkCredential(fromAddress.Address, fromPassword),
+                    Timeout = 20000
+                };
+                using (var message = new MailMessage(fromAddress, toAddress)
+                {
+                    Subject = subject,
+                    Body = body
+                })
+                {
+                    smtp.Send(message);
+                }
             }
         }
     }

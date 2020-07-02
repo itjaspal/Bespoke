@@ -309,8 +309,12 @@
       <mat-icon class="material-icons">close</mat-icon> ปิด
     </button>
 
-    <button mat-raised-button color="primary" class="btn-w-md pull-right" type="button" (click)="print()">
-      <mat-icon class="material-icons">print</mat-icon> Print
+    <!-- <button mat-raised-button color="primary" class="btn-w-md pull-right" type="button" (click)="print()">
+      <mat-icon class="material-icons">send</mat-icon> Confirm Order
+    </button> -->
+    <button mat-raised-button color="primary" class="btn-w-md pull-right" type="button" (click)="sendToReady()"
+      *ngIf="(model.doc_status == 'PAL')">
+      <mat-icon class="material-icons">send</mat-icon> ส่ง Order
     </button>
 
   </div>

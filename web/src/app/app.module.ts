@@ -201,6 +201,7 @@ import { SalesAttachFileComponent } from './sales/sales-attach-file/sales-attach
 import { SalesPrintComponent } from './sales/sales-print/sales-print.component';
 import { DailySalesReportComponent } from './report/daily-sales-report/daily-sales-report.component';
 import { MonthlySalesReportComponent } from './report/monthly-sales-report/monthly-sales-report.component';
+import { ImportDesignComponent } from './import-data/import-design/import-design.component';
 
 
 
@@ -433,6 +434,7 @@ import { MonthlySalesReportComponent } from './report/monthly-sales-report/month
     SalesPrintComponent,
     DailySalesReportComponent,
     MonthlySalesReportComponent,
+    ImportDesignComponent,
 
 
   ],

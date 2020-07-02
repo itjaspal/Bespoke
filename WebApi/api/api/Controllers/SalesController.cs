@@ -278,5 +278,23 @@ namespace api.Controllers
             }
         }
 
+        //[POST("postUpdateToReady")]
+        [Route("sales/postUpdateToReady")]
+        public HttpResponseMessage postUpdateToReady(SalesTransactionUpdateStatusView model)
+        {
+            try
+            {
+               
+                salesSvc.UpdateToReady(model.co_trns_mast_id, model.userId);
+
+                return Request.CreateResponse(HttpStatusCode.OK);
+            }
+            catch (Exception ex)
+            {
+                //logSale.Error(ex);
+                return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, ex.ToString());
+            }
+        }
+
     }
 }

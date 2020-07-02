@@ -74,4 +74,8 @@ export class SalesService {
     return await this.http.get(environment.API_URL + 'sales/getInquiryAttachFile/'+ _saleTransactionId).toPromise();
   }
 
+  public async postUpdateToReady(_model: any) {
+    return await this.http.post<number>(environment.API_URL + 'sales/postUpdateToReady', _model).toPromise();
+  }
+
 }
