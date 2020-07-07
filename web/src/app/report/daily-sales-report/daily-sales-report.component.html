@@ -35,6 +35,19 @@
             </div>
           </div>
 
+          <div class="row">
+            <div class="col-sm-6 col-lg-6">
+              <mat-radio-group name="status" class="mat-radio-group-spacing" [(ngModel)]="model.reportType">
+                <mat-radio-button class="condition" value="1" (click)="clearSearchResult()"> แบบยอดขายประจำวัน
+                </mat-radio-button>
+                
+                <mat-radio-button class="condition" value="2" (click)="clearSearchResult()"> แบบแสดงรายละเอียด
+                </mat-radio-button>
+              </mat-radio-group>
+            </div>
+
+          </div>
+
         </form>
       </mat-card-content>
 
@@ -190,7 +203,7 @@
 
 </div> -->
 
-<!-- <div class="container-fluid no-breadcrumbs" style="margin-top: -70px" *ngIf="model.reportType=='3'">
+<div class="container-fluid no-breadcrumbs" style="margin-top: -70px" *ngIf="model.reportType=='2'">
 
   <mat-card style="margin-top: 40px" class="inq-data" *ngIf="data.saleTransactionReports.length != 0">
     <mat-card-content class="no-margin">
@@ -200,44 +213,62 @@
           <b>รายงานรายละเอียดการขาย</b>
         </div>
         <div #tb_export class="col-12" style="overflow-x:auto;">
-
-          <table style="width: 100%;" *ngFor="let s of data.saleTransactionReports;let i= index">
+          
+          <table style="width: 100%;" *ngFor="let x of data.saleTransactionReports;let i= index">
             <thead>
               <tr>
-                <th colspan="9">
-                  {{s.branchNameThai}}
-                </th>
+                <th style="width: 10%">เลขที่เอกสาร</th>
+                <th style="width: 15%">วันที่ขาย</th>
+                <th style="width: 15%">วันที่ต้องการ</th>
+                <th style="width: 15%">Invoice No.</th>
+                <th style="width: 15%">ชื่อลูกค้า</th>
+                <th style="width: 5%"></th>
+                <th style="width: 10%"></th>
+                <th style="width: 15%"></th>
+                <!-- <th style="width: 150px"></th> -->
+                <!-- <th class="text-center" style="width: 120px">จำนวนใบขาย</th> -->
+                <!-- <th class="text-right" style="width: 15%">จำนวนเงิน</th> -->
               </tr>
+
               <tr>
-                <th>เลขที่เอกสาร</th>
-                <th>วันที่</th>
-                <th>พนักงาน PC</th>
+                <th></th>
                 <th>รหัสสินค้า</th>
-                <th>ชื่อสินค้า</th>
-                <th>หน่วย</th>
-                <th class="text-right">ราคาขาย</th>
-                <th class="text-center" style="width: 80px">จำนวน</th>
-                <th class="text-right" style="width: 120px">จำนวนเงิน</th>
+                <th colspan="2">ชื่อสินค้า</th>
+                <th colspan="2" class="text-right">ราคาต่อหน่วย</th>
+                <th class="text-center">จำนวน</th>
+                <th class="text-right">จำนวนเงิน</th>
+                
+                <!-- <th style="width: 150px"></th> -->
+                <!-- <th class="text-center" style="width: 120px">จำนวนใบขาย</th> -->
+                <!-- <th class="text-right" style="width: 15%">จำนวนเงิน</th> -->
               </tr>
             </thead>
             <tbody>
-              <tr *ngFor="let x of s.saleTransactionItems">
-                <td>{{x.docNbr}}</td>
-                <td>{{x.transactionDate | date:'dd/MM/yyyy'}}</td>
-                <td>{{x.pc}}</td>
-                <td>{{x.barcode}}</td>
-                <td>{{x.productName}}</td>
-                <td>{{x.unit}}</td>
-                <td class="text-right">{{x.unitPrice | number:'1.2-2'}}</td>
-                <td class="text-center" style="width: 80px">{{x.qty | number}}</td>
-                <td class="text-right" style="width: 120px">{{x.netAmount | number:'1.2-2'}}</td>
+              <tr>
+                <td>{{x.doc_no}}</td>
+                <td>{{x.doc_date | date:'dd/MM/yyyy'}}</td>
+                <td>{{x.req_date | date:'dd/MM/yyyy'}}</td>
+                <td>{{x.invoice_no}}</td>
+                <td colspan="4">{{x.cust_name}} </td>
+                
+                <!-- <td class="text-center" style="width: 120px">{{x.totalQty | number}}</td> -->
+                <!-- <td class="text-right" style="width: 120px">{{x.tot_amt | number:'1.2-2'}}</td> -->
+              </tr>
+              <tr *ngFor="let s of x.saleTransactionItems">
+                <td></td>
+                <!-- <td>{{s.doc_date | date:'dd/MM/yyyy'}}</td> -->
+                <td>{{s.prod_code}}</td>
+                <td colspan="2">{{s.prod_name}}</td>
+                <td class="text-right" colspan="2">{{s.unit_price | number:'1.2-2'}}</td>
+                <td class="text-center" style="width: 80px">{{s.qty | number}}</td>
+                <td class="text-right" style="width: 120px">{{s.amt | number:'1.2-2'}}</td>
               </tr>
             </tbody>
             <tfoot>
               <tr>
-                <td colspan="7" class="text-center">รวม</td>
-                <td class="text-center" style="width: 80px">{{s.totalQty | number}}</td>
-                <td class="text-right" style="width: 120px">{{s.totalNetAmount | number:'1.2-2'}}</td>
+                <td colspan="6" class="text-center">รวม</td>
+                <td class="text-center">{{x.tot_qty | number}} </td>
+                <td class="text-right">{{x.tot_amt | number:'1.2-2'}}</td>
               </tr>
             </tfoot>
 
@@ -245,9 +276,9 @@
 
           <table style="width: 100%;">
             <tr>
-              <td colspan="7" class="text-center">รวมทั้งหมด</td>
-              <td class="text-center" style="width: 80px">{{data.totalQty | number}}</td>
-              <td class="text-right" style="width: 120px">{{data.totalNetAmount | number:'1.2-2'}}</td>
+              <td style="width: 75%" class="text-center">รวมทั้งหมด</td>
+              <td class="text-center" style="width: 10%">{{data.totalQty | number}}</td>
+              <td class="text-right" style="width: 15%">{{data.totalNetAmount | number:'1.2-2'}}</td>
             </tr>
           </table>
 
@@ -258,4 +289,4 @@
     </mat-card-content>
   </mat-card>
 
-</div> -->
+</div>

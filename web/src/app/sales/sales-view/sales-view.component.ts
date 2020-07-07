@@ -74,19 +74,7 @@ export class SalesViewComponent implements OnInit {
   async sendToReady() {
     this.saleTransactionId = this._actRoute.snapshot.params.id;
     console.log(this.saleTransactionId);
-    // this._msgSvc.confirmPopup("ยืนยันส่งรายการขาย", async result => {
-    //   if (result) {
-
-    //     await this._salesSvc.postUpdateToReady({
-    //       saleTransactionId: this.saleTransactionId,
-    //       userId: this.user.username
-          
-    //     });
-        
-    //     await this._msgSvc.successPopup("ส่งรายการเรียบร้อย");
-    //     this._router.navigateByUrl('/app/sale');
-    //   }
-    // });
+   
     this._msgSvc.confirmPopup("ยืนยันส่งรายการขาย", async result => {
       if (result) {
 

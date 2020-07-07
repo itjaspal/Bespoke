@@ -33,5 +33,20 @@ namespace api.Controllers
                 return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, ex.ToString());
             }
         }
+
+        [Route("report/postSaleTransactionDetailReport")]
+        public HttpResponseMessage postSaleTransactionDetailReport(SalesReportSearchView model)
+        {
+            try
+            {
+                var result = reportSvc.SaleTransactionDetailReport(model);
+
+                return Request.CreateResponse(HttpStatusCode.OK, result);
+            }
+            catch (Exception ex)
+            {
+                return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, ex.ToString());
+            }
+        }
     }
 }

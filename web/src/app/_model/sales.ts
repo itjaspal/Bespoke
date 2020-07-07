@@ -64,7 +64,7 @@ export class SalesTransactionView
 }
 export class TransactionItemView
 {
-        
+        public co_trns_det_id : number = 0;
         public catalog_id : number = 0;
         public catalog_color_id: number = 0;
         public catalog_type_id: number = 0;

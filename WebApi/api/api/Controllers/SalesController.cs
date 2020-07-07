@@ -296,5 +296,21 @@ namespace api.Controllers
             }
         }
 
+        [Route("sales/getSalesTransactionInfo/{saleTransactionId}")]
+        public HttpResponseMessage getSalesTransactionInfo(long saleTransactionId)
+        {
+            try
+            {
+                var result = salesSvc.SalesTransactionInfo(saleTransactionId);
+
+                return Request.CreateResponse(HttpStatusCode.OK, result);
+            }
+            catch (Exception ex)
+            {
+                //logSale.Error(ex);
+                return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, ex.ToString());
+            }
+        }
+
     }
 }

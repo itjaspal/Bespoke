@@ -331,6 +331,15 @@ export class SalesSummaryComponent implements OnInit {
     this.sign_customer.clear(); // invoke functions from szimek/signature_pad API
   }
 
+  clear_manager_sign()
+  {
+    this.sign_manager.clear();
+  }
+
+  clear_customer_sign()
+  {
+    this.sign_customer.clear();
+  }
   
  
   drawComplete_manager() {

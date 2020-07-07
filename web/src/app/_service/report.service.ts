@@ -14,4 +14,8 @@ export class ReportService {
     public async dailySalesReport(_model: any) {
         return await this.http.post(environment.API_URL + 'report/postSaleTransactionReport', _model).toPromise();
     }
+
+    public async dailySalesDetailReport(_model: any) {
+      return await this.http.post(environment.API_URL + 'report/postSaleTransactionDetailReport', _model).toPromise();
+  }
 }

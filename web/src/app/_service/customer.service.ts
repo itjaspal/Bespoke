@@ -41,6 +41,10 @@ export class CustomerService {
     return await this.http.get<CustomerView>(environment.API_URL + 'master-customer/getInfo/' + _id).toPromise();
   }
 
+  public async getInfoByName(_name: string) {
+    return await this.http.get<CustomerView>(environment.API_URL + 'master-customer/getInfoByName/' + _name).toPromise();
+  }
+
   public async update(_model: CustomerView) {
     return await this.http.post<number>(environment.API_URL + 'master-customer/postUpdate', _model).toPromise();
   }

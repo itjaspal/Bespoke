@@ -1,3 +1,594 @@
-<p>
-  sales-edit works!
-</p>
+<div class="container-fluid no-breadcrumbs">
+  <form [formGroup]="validationForm">
+  <mat-card>
+
+    <mat-card-title>
+      <h6>Order Summary</h6>
+    </mat-card-title>
+
+    <mat-card-content>
+
+      <div class="row">
+
+        <div class="col-sm-6">
+
+          <div class="row">
+            <div class="col-sm-9">
+              <dt>ห้าง</dt>
+              <dd>{{model.branch_code}} - {{model.branch_name}}</dd>
+            </div>
+            <div class="col-sm-3">
+              <dt>เลขที่เอกสาร</dt>
+              <dd>{{model.doc_no}}</dd>             
+            </div>
+            
+          </div>
+
+       
+          <div class="row">
+           
+            <div class="col-sm-6 col-12">
+              <mat-form-field class="full-width">
+                <input matInput [matDatepicker]="picker" placeholder="วันที่ขาย *" [(ngModel)]="model.doc_date"
+                  formControlName="doc_date">
+                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                <mat-datepicker #picker></mat-datepicker>
+              </mat-form-field>
+              <mat-error class="error-message"
+                *ngIf="validationForm.get('doc_date').hasError('required') && (validationForm.get('doc_date').dirty || validationForm.get('doc_date').touched)">
+                โปรดระบุข้อมูล
+              </mat-error>
+            </div>
+            <div class="col-sm-6 col-12">
+              <mat-form-field class="full-width">
+                <input matInput [matDatepicker]="picker2" placeholder="วันที่ต้องการ *"
+                  [(ngModel)]="model.req_date" formControlName="req_date">
+                <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+                <mat-datepicker #picker2></mat-datepicker>
+              </mat-form-field>
+              <mat-error class="error-message"
+                *ngIf="validationForm.get('req_date').hasError('required') && (validationForm.get('req_date').dirty || validationForm.get('req_date').touched)">
+                โปรดระบุข้อมูล
+              </mat-error>
+            </div>
+            <div class="col-sm-6 col-12">
+              <mat-form-field class="full-width">
+                <input matInput placeholder="Invoice No. *" formControlName="ref_no"
+                  [(ngModel)]="model.ref_no" name="ref_no">
+              </mat-form-field>
+              <mat-error class="error-message"
+                *ngIf="validationForm.get('ref_no').hasError('required') && (validationForm.get('ref_no').dirty || validationForm.get('ref_no').touched)">
+                โปรดระบุข้อมูล
+              </mat-error>
+            </div>
+            
+          </div>
+
+          <div class="row" >
+            <div class="col-12">
+              <mat-form-field class="full-width">
+                <textarea matInput placeholder="หมายเหตุ" formControlName="remark" [(ngModel)]="model.remark"
+                  name="remark" maxlength="999" rows="2"></textarea>
+                <mat-hint align="end">{{model.remark.length}} / 999</mat-hint>
+              </mat-form-field>
+            </div>
+          </div>
+
+        </div>
+
+        <div class="col-sm-6 customer-box">
+
+          <div class="row">
+            <div class="col-6">
+              <mat-form-field class="full-width">
+                <input matInput placeholder="ชื่อลูกค้า *" aria-label="cust_name"
+                  [matAutocomplete]="autoCustomerName" formControlName="cust_name" name="cust_name"
+                  [(ngModel)]="model.cust_name">
+                <button mat-button *ngIf="model.cust_name" matSuffix mat-icon-button aria-label="Clear"
+                  type="button" (click)="model.cust_name = ''">
+                  <mat-icon>close</mat-icon>
+                </button>
+                <mat-autocomplete #autoCustomerName="matAutocomplete" autoActiveFirstOption
+                  name="matAutocomplete_customerName">
+                  <mat-option *ngFor="let x of filteredCustomerByName | async" [value]="x.cust_name"
+                    (onSelectionChange)="customerSelected(x)" class="autoComplete-option">
+
+                    <div class="row">
+
+                      <div class="col-3">
+                        <small>ชื่อลูกค้า</small>
+                        <dd class="highlight-auto-complete" [innerHTML]="x.cust_name | highlight: toHighlight"></dd>
+                      </div>
+
+                      <div class="col-3">
+                        <small>เบอร์โทร</small>
+                        <dd>{{x.tel}}</dd>
+                      </div>
+
+                    </div>
+
+                  </mat-option>
+                </mat-autocomplete>
+              </mat-form-field>
+              <mat-error class="error-message"
+                *ngIf="validationForm.get('cust_name').hasError('required') && (validationForm.get('cust_name').dirty || validationForm.get('cust_name').touched)">
+                โปรดระบุข้อมูล
+              </mat-error>
+            </div>
+            <div class="col-6">
+              <mat-form-field class="full-width">
+                <input matInput placeholder="เบอร์โทร *" aria-label="tel" [matAutocomplete]="autotel"
+                  formControlName="tel" name="tel" [(ngModel)]="model.tel">
+                <button mat-button *ngIf="model.tel" matSuffix mat-icon-button aria-label="Clear" type="button"
+                  (click)="model.tel = ''">
+                  <mat-icon>close</mat-icon>
+                </button>
+                <mat-autocomplete #autotel="matAutocomplete" autoActiveFirstOption name="matAutocomplete_tel">
+                  <mat-option *ngFor="let x of filteredCustomerByTel | async" [value]="x.tel"
+                    (onSelectionChange)="customerSelected(x)" class="autoComplete-option">
+
+                    <div class="row">
+
+                      <div class="col-3">
+                        <small>ชื่อลูกค้า</small>
+                        <dd>{{x.cust_name}}</dd>
+                      </div>
+
+                      <div class="col-3">
+                        <small>เบอร์โทร</small>
+                        <dd class="highlight-auto-complete" [innerHTML]="x.tel | highlight: toHighlight"></dd>
+                      </div>
+
+                    </div>
+
+                  </mat-option>
+                </mat-autocomplete>
+              </mat-form-field>
+              <mat-error class="error-message"
+                *ngIf="validationForm.get('tel').hasError('required') && (validationForm.get('tel').dirty || validationForm.get('tel').touched)">
+                โปรดระบุข้อมูล
+              </mat-error>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-12">
+              <mat-form-field class="full-width">
+                <textarea matInput placeholder="ที่อยู่ *" formControlName="address1"
+                  [(ngModel)]="model.address1" name="address1"></textarea>
+              </mat-form-field>
+              <mat-error class="error-message"
+                *ngIf="validationForm.get('address1').hasError('required') && (validationForm.get('address1').dirty || validationForm.get('address1').touched)">
+                โปรดระบุข้อมูล
+              </mat-error>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-6">
+              <mat-form-field class="full-width">
+                <input matInput placeholder="แขวง/ตำบล *" aria-label="subDistrict" [matAutocomplete]="autosubDistrict"
+                  formControlName="subDistrict" name="subDistrict" [(ngModel)]="model.subDistrict">
+                <button mat-button *ngIf="model.subDistrict" matSuffix mat-icon-button aria-label="Clear"
+                  type="button" (click)="model.subDistrict = ''">
+                  <mat-icon>close</mat-icon>
+                </button>
+                <mat-autocomplete #autosubDistrict="matAutocomplete" autoActiveFirstOption
+                  name="matAutocomplete_subDistrict">
+                  <mat-option *ngFor="let x of filteredAddressBySubDistrict | async" [value]="x.subDistrict"
+                    (onSelectionChange)="addressSelected(x)" class="autoComplete-option">
+
+                    <div class="row">
+
+                      <div class="col-3">
+                        <small>ตำบล/แขวง</small>
+                        <dd class="highlight-auto-complete" [innerHTML]="x.subDistrict | highlight: toHighlight"></dd>
+                      </div>
+
+                      <div class="col-3">
+                        <small>เขต/อำเภอ</small>
+                        <dd>{{x.district}}</dd>
+                      </div>
+
+                    </div>
+                    <div class="row">
+
+                      <div class="col-3">
+                        <small>จังหวัด</small>
+                        <dd>{{x.province}}</dd>
+                      </div>
+
+                      <div class="col-3">
+                        <small>รหัสไปรษณีย์</small>
+                        <dd>{{x.zipcode}}</dd>
+                      </div>
+
+                    </div>
+
+                  </mat-option>
+                </mat-autocomplete>
+              </mat-form-field>
+              <mat-error class="error-message"
+                *ngIf="validationForm.get('subDistrict').hasError('required') && (validationForm.get('subDistrict').dirty || validationForm.get('subDistrict').touched)">
+                โปรดระบุข้อมูล
+              </mat-error>
+            </div>
+            <div class="col-6">
+              <mat-form-field class="full-width">
+                <input matInput placeholder="" aria-label="district" [matAutocomplete]="autodistrict"
+                  formControlName="district" name="district" [(ngModel)]="model.district">
+                <button mat-button *ngIf="model.district" matSuffix mat-icon-button aria-label="Clear" type="button"
+                  (click)="model.district = ''">
+                  <mat-icon>close</mat-icon>
+                </button>
+                <mat-autocomplete #autodistrict="matAutocomplete" autoActiveFirstOption
+                  name="matAutocomplete_district">
+                  <mat-option *ngFor="let x of filteredAddressByDistrict | async" [value]="x.district"
+                    (onSelectionChange)="addressSelected(x)" class="autoComplete-option">
+
+                    <div class="row">
+
+                      <div class="col-3">
+                        <small>ตำบล/แขวง</small>
+                        <dd>{{x.subDistrict}}</dd>
+                      </div>
+
+                      <div class="col-3">
+                        <small>เขต/อำเภอ</small>
+                        <dd class="highlight-auto-complete" [innerHTML]="x.district | highlight: toHighlight"></dd>
+                      </div>
+
+                    </div>
+                    <div class="row">
+
+                      <div class="col-3">
+                        <small>จังหวัด</small>
+                        <dd>{{x.province}}</dd>
+                      </div>
+
+                      <div class="col-3">
+                        <small>รหัสไปรษณีย์</small>
+                        <dd>{{x.zipcode}}</dd>
+                      </div>
+
+                    </div>
+
+                  </mat-option>
+                </mat-autocomplete>
+              </mat-form-field>
+              <mat-error class="error-message"
+                *ngIf="validationForm.get('district').hasError('required') && (validationForm.get('district').dirty || validationForm.get('district').touched)">
+                โปรดระบุข้อมูล
+              </mat-error>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-6">
+              <mat-form-field class="full-width">
+                <input matInput placeholder="จังหวัด *" aria-label="province" [matAutocomplete]="autoprovince"
+                  formControlName="province" name="province" [(ngModel)]="model.province">
+                <button mat-button *ngIf="model.province" matSuffix mat-icon-button aria-label="Clear" type="button"
+                  (click)="model.province = ''">
+                  <mat-icon>close</mat-icon>
+                </button>
+                <mat-autocomplete #autoprovince="matAutocomplete" autoActiveFirstOption
+                  name="matAutocomplete_province">
+                  <mat-option *ngFor="let x of filteredAddressByProvince | async" [value]="x.province"
+                    (onSelectionChange)="addressSelected(x)" class="autoComplete-option">
+
+                    <div class="row">
+
+                      <div class="col-3">
+                        <small>ตำบล/แขวง</small>
+                        <dd>{{x.subDistrict}}</dd>
+                      </div>
+
+                      <div class="col-3">
+                        <small>เขต/อำเภอ</small>
+                        <dd>{{x.district}}</dd>
+                      </div>
+
+                    </div>
+                    <div class="row">
+
+                      <div class="col-3">
+                        <small>จังหวัด</small>
+                        <dd class="highlight-auto-complete" [innerHTML]="x.province | highlight: toHighlight"></dd>
+                      </div>
+
+                      <div class="col-3">
+                        <small>รหัสไปรษณีย์</small>
+                        <dd>{{x.zipcode}}</dd>
+                      </div>
+
+                    </div>
+
+                  </mat-option>
+                </mat-autocomplete>
+              </mat-form-field>
+              <mat-error class="error-message"
+                *ngIf="validationForm.get('province').hasError('required') && (validationForm.get('province').dirty || validationForm.get('province').touched)">
+                โปรดระบุข้อมูล
+              </mat-error>
+            </div>
+            <div class="col-6">
+              <mat-form-field class="full-width">
+                <input matInput placeholder="รหัสไปรษณีย์ *" aria-label="zipCode" [matAutocomplete]="autozipCode"
+                  formControlName="zipCode" name="zipCode" [(ngModel)]="model.zipCode">
+                <button mat-button *ngIf="model.zipCode" matSuffix mat-icon-button aria-label="Clear" type="button"
+                  (click)="model.zipCode = ''">
+                  <mat-icon>close</mat-icon>
+                </button>
+                <mat-autocomplete #autozipCode="matAutocomplete" autoActiveFirstOption name="matAutocomplete_zipCode">
+                  <mat-option *ngFor="let x of filteredAddressByZipCode | async" [value]="x.zipcode"
+                    (onSelectionChange)="addressSelected(x)" class="autoComplete-option">
+
+                    <div class="row">
+
+                      <div class="col-3">
+                        <small>ตำบล/แขวง</small>
+                        <dd>{{x.subDistrict}}</dd>
+                      </div>
+
+                      <div class="col-3">
+                        <small>เขต/อำเภอ</small>
+                        <dd>{{x.district}}</dd>
+                      </div>
+
+                    </div>
+                    <div class="row">
+
+                      <div class="col-3">
+                        <small>จังหวัด</small>
+                        <dd>{{x.province}}</dd>
+                      </div>
+
+                      <div class="col-3">
+                        <small>รหัสไปรษณีย์</small>
+                        <dd class="highlight-auto-complete" [innerHTML]="x.zipcode | highlight: toHighlight"></dd>
+                      </div>
+
+                    </div>
+
+                  </mat-option>
+                </mat-autocomplete>
+              </mat-form-field>
+              <mat-error class="error-message"
+                *ngIf="validationForm.get('zipCode').hasError('required') && (validationForm.get('zipCode').dirty || validationForm.get('zipCode').touched)">
+                โปรดระบุข้อมูล
+              </mat-error>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+      <div class="row">
+        <div class="col-sm-10 col-6">
+          Design Name : {{designName}}
+        </div>
+        <diV class="col-sm-2 col-6 "><button mat-fab type="button" class="pull-right" color="primary" (click)="openSearchItemModal()">
+          <mat-icon class="material-icons">add</mat-icon>
+        </button></diV> 
+      </div>
+      
+      <div class="row card-table-body" >
+        <div class="col-12">
+          <hr />
+        </div>
+      </div>
+      <div class="row card-table-body" *ngFor="let x of model.transactionItem; let i = index">
+        <div class="col-sm-1 col-6">
+          <small>ลำดับ</small>
+          <dd>{{i+1}}</dd>
+        </div>
+        <div class="col-sm-2 col-6">
+          <small>รายการสินค้า</small>
+          <dd>{{x.pdtype_tname}}</dd><img src="{{x.type_base64}}" class="responsive"/>
+        </div>
+        <div class="col-sm-1 col-6">
+          <small>ขนาด</small>
+          <dd>{{x.pdsize_name}}</dd>
+        </div>
+        <div class="col-sm-1 col-6">
+          <small>สี</small>
+          <dd></dd><img src="{{x.color_base64}}" style="width: 25px;margin-top: 17px;" class="responsive"/>
+        </div>
+        <div class="col-sm-1 col-6">
+          <small>รายปัก</small>
+          <dd>{{x.embroidery}}</dd>
+        </div>
+        <div class="col-sm-2 col-6">
+          <small>แบบตัวอักษรและสี</small>
+          <dd></dd><img src="{{x.font_name_base64}}" class="responsive"/><img src="{{x.font_color_base64}}" style="width: 25px;margin-top: 17px;" class="responsive"/>
+        </div>
+        <div class="col-sm-1 col-6">
+          <small>จำนวน</small>
+          <dd>{{x.qty}}</dd>
+        </div>
+        <div class="col-sm-1 col-6">
+          <small>ราคา</small>
+          <dd>{{x.unit_price | number:'1.2-2'}}</dd>
+        </div>
+        <div class="col-sm-1 col-5">
+          <small>จำนวนเงิน</small>
+          <dd>{{x.amt | number:'1.2-2'}}</dd>
+        </div>
+        <div class="col-sm-1 col-1 text-right">
+          <button mat-icon-button [matMenuTriggerFor]="appMenu">
+            <mat-icon class="material-icons">more_horiz</mat-icon>
+          </button>
+
+          <mat-menu #appMenu="matMenu">
+            
+
+            <button type="button" mat-menu-item (click)="delete(i)" >
+              <mat-icon class="material-icons">delete</mat-icon> <span>ลบ</span>
+            </button>
+          </mat-menu>
+
+        </div>
+      </div>
+      <div class="row card-table-body">
+        <hr />
+      </div>
+
+      <div class="row card-table-body">
+        
+        <div class="col-sm-1 col-6">
+         
+        </div>
+        <div class="col-sm-1 col-6">
+         
+        </div>
+        <div class="col-sm-2 col-6">
+         
+        </div>
+        <div class="col-sm-1 col-6">
+         
+        </div>
+        <div class="col-sm-1 col-6">
+         
+        </div>
+        <div class="col-sm-2 col-6">
+          ราคารายปัก (เพิ่ม)
+        </div>
+        <div class="col-sm-1 col-6">
+          
+          <dd></dd>
+        </div>
+        <div class="col-sm-1 col-6">
+          
+          
+        </div>
+        <div class="col-sm-2 col-5">
+          
+          <dd>{{add_price | number:'1.2-2'}}</dd>
+        </div>
+      </div>
+
+      <div class="row card-table-body">
+        
+        <div class="col-sm-1 col-6">
+         
+        </div>
+        <div class="col-sm-1 col-6">
+         
+        </div>
+        <div class="col-sm-2 col-6">
+         
+        </div>
+        <div class="col-sm-1 col-6">
+         
+        </div>
+        <div class="col-sm-1 col-6">
+         
+        </div>
+        <div class="col-sm-2 col-6">
+          รวมทั้งสิ้น
+        </div>
+        <div class="col-sm-1 col-6">
+          
+          <dd>{{model.total_qty}}</dd>
+        </div>
+        <div class="col-sm-1 col-6">
+          
+          
+        </div>
+        <div class="col-sm-2 col-5">
+          
+          <dd>{{total | number:'1.2-2'}}</dd>
+        </div>
+      </div>
+
+    </mat-card-content>
+
+   
+
+  </mat-card>
+
+
+  <!-- <mat-card class="mat-subcard">
+  <mat-card-subtitle>
+    <h6>รายการไฟล์แนบ</h6>
+    <input type="file" #fileInput class="d-none" (change)="fileChange($event)">
+                 
+    <button mat-fab type="button" color="primary" (click)="fileInput.click()">
+      <mat-icon class="material-icons">cloud_upload</mat-icon>
+    </button>
+  </mat-card-subtitle>
+  <mat-card-content>
+    <br>
+    <div class="output" >ไฟล์ที่เลือก: {{ fileName }} </div>
+  </mat-card-content>
+</mat-card> -->
+
+
+
+  <mat-card>
+    <mat-card-content>
+      <div class="row card-table-body" >
+        <!-- <div class="col-12">
+          <hr />
+        </div> -->
+        <div class="col-12">
+          <div class="row">
+            <div class="col-4 col-sm-4 sig-container">
+              
+              <signature-pad class="signature-pad" #sign_manager [options]="options"  (onBeginEvent)="drawStart()" (onEndEvent)="drawComplete_manager()"></signature-pad>
+              
+            </div>
+            
+           
+            <div class="col-4 col-sm-4">
+
+            </div>
+            <div class="col-4 col-sm-4 sig-container">
+              <signature-pad class="signature-pad" #sign_customer [options]="options" (onBeginEvent)="drawStart()" (onEndEvent)="drawComplete_customer()"></signature-pad>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-12">
+          <div class="row">
+            <div class="col-4 col-sm-4 text-center">
+              <hr>
+              Shop Manager Approve 
+            </div>
+            <div class="col-4 col-sm-4">
+
+            </div>
+            <div class="col-4 col-sm-4 text-center" >
+              <hr>
+              Customer Approve 
+            </div>
+          </div>
+        </div>
+      </div>
+    </mat-card-content>  
+  </mat-card>
+
+
+  <div class="form-action">
+
+    <button mat-raised-button class="btn-w-md" type="button" (click)="close()">
+      <mat-icon class="material-icons">close</mat-icon> ปิด
+    </button>
+
+    
+    <button mat-raised-button color="primary" class="btn-w-md pull-right" type="button" (click)="Confirm()" [disabled]="!validationForm.valid">
+      <mat-icon class="material-icons">save</mat-icon> บันทึกข้อมูล
+    </button>
+    &nbsp;&nbsp;
+    <!-- <button mat-raised-button class="btn-w-md " type="button" (click)="print()">
+      <mat-icon class="material-icons">print</mat-icon> Print
+    </button> -->
+
+  </div>
+</form>
+
+</div>
+
+
+

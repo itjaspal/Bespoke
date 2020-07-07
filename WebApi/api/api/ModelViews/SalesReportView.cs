@@ -30,6 +30,18 @@ namespace api.ModelViews
         public DateTime doc_date { get; set; }
         public DateTime req_date { get; set; }
         public string cust_name { get; set; }
+        public decimal tot_qty { get; set; }
         public decimal tot_amt { get; set; }
+        public virtual List<SalesReportItemView> saleTransactionItems { get; set; }
+    }
+
+    public class SalesReportItemView
+    {
+        public string doc_no { get; set; } = "";
+        public string prod_code { get; set; } = "";
+        public string prod_name { get; set; } = "";
+        public decimal unit_price { get; set; } = 0;
+        public decimal qty { get; set; } = 0;
+        public decimal amt { get; set; } = 0;
     }
 }

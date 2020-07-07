@@ -10,5 +10,6 @@ namespace api.Interfaces
     interface ISalesReportService
     {
         headSaleTransactionReport SaleTransactionReport(SalesReportSearchView search);
+        headSaleTransactionReport SaleTransactionDetailReport(SalesReportSearchView search);
     }
 }

@@ -216,3 +216,6 @@ D:\Angular\Project\Bespoke\WebApi\api\api\obj\Release\api.csprojResolveAssemblyR
 D:\Angular\Project\Bespoke\WebApi\api\api\obj\Release\api.csproj.CoreCompileInputs.cache
 D:\Angular\Project\Bespoke\WebApi\api\api\obj\Release\api.dll
 D:\Angular\Project\Bespoke\WebApi\api\api\obj\Release\api.pdb
+D:\Angular\Project\Bespoke\WebApi\api\api\bin\ExcelDataReader.DataSet.dll
+D:\Angular\Project\Bespoke\WebApi\api\api\bin\ExcelDataReader.DataSet.pdb
+D:\Angular\Project\Bespoke\WebApi\api\api\bin\ExcelDataReader.DataSet.xml

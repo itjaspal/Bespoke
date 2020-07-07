@@ -78,4 +78,8 @@ export class SalesService {
     return await this.http.post<number>(environment.API_URL + 'sales/postUpdateToReady', _model).toPromise();
   }
 
+  public async getSalesTransactionInfo(_saleTransactionId) {
+    return await this.http.get<SalesTransactionView>(environment.API_URL + 'sales/getSalesTransactionInfo/' + _saleTransactionId).toPromise();
+  }
+
 }

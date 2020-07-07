@@ -153,6 +153,7 @@ namespace api.ModelViews
     }
     public class TransactionItemView
     {
+        public long co_trns_det_id { get; set; }
         public long catalog_id { get; set; }
         public long catalog_color_id { get; set; }
         public long catalog_type_id { get; set; }

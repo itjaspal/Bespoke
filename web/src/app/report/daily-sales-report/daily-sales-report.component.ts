@@ -86,7 +86,15 @@ export class DailySalesReportComponent implements OnInit {
       this.messageService.errorPopup('กรุณาเลือก กลุ่มห้าง');
       return;
     }
-    this.data = await this._reportService.dailySalesReport(this.model);
+
+    if(this.model.reportType == 1)
+    {
+      this.data = await this._reportService.dailySalesReport(this.model);
+    }
+    else
+    {
+      this.data = await this._reportService.dailySalesDetailReport(this.model);
+    }
     console.log(this.data);
   }
 
@@ -112,13 +120,15 @@ export class DailySalesReportComponent implements OnInit {
     
   }
 
+  
+
   export() {
 
     let title = "";
     if (this.model.reportType == '1') {
       title = "รายงานขายประจำวัน - "+ this.data.docName;
     } else if (this.model.reportType == '2') {
-      title = "รายงานสรุปรายการขาย";
+      title = "รายงานรายละเอียดการขาย";
     } else {
       title = "รายงานรายละเอียดการขาย";
     }

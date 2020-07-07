@@ -24,6 +24,7 @@ namespace api.Interfaces
         void SalesAtthach(SalesAttachView model);
         List<SalesAttachView> InquiryAttachFile(long co_trns_mast_id);
         void UpdateToReady(long saleTransactionId, string userId);
+        SalesTransactionView SalesTransactionInfo(long co_trns_mast_id);
 
     }
 }
