@@ -12,6 +12,9 @@ export class ShareDataService {
   private confirmData = new BehaviorSubject('');
   selectedSales = this.confirmData.asObservable();
 
+  private oldData = new BehaviorSubject('');
+  oldSales = this.oldData.asObservable();
+
   constructor() { }
 
   changeMessage(message: any) {
@@ -20,6 +23,10 @@ export class ShareDataService {
 
   confirmSales(sales: any) {
     this.confirmData.next(sales)
+  }
+
+  editSales(old: any) {
+    this.oldData.next(old)
   }
 
 }

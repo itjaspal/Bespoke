@@ -141,6 +141,7 @@ namespace api.ModelViews
         public string user_code { get; set; }
         public string doc_status { get; set; }
         public long catalog_id { get; set; }
+        public long catalog_color_id { get; set; }
         //public string fullPath
         //{
         //    get

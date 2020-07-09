@@ -202,6 +202,10 @@ import { SalesPrintComponent } from './sales/sales-print/sales-print.component';
 import { DailySalesReportComponent } from './report/daily-sales-report/daily-sales-report.component';
 import { MonthlySalesReportComponent } from './report/monthly-sales-report/monthly-sales-report.component';
 import { ImportDesignComponent } from './import-data/import-design/import-design.component';
+import { SalesProductSearchComponent } from './sales/sales-product-search/sales-product-search.component';
+import { SalesAddProductComponent } from './sales/sales-add-product/sales-add-product.component';
+import { SalesAddSummaryComponent } from './sales/sales-add-summary/sales-add-summary.component';
+
 
 
 
@@ -435,13 +439,18 @@ import { ImportDesignComponent } from './import-data/import-design/import-design
     DailySalesReportComponent,
     MonthlySalesReportComponent,
     ImportDesignComponent,
+    SalesProductSearchComponent,
+    SalesAddProductComponent,
+    SalesAddSummaryComponent,
+    
 
 
   ],
   entryComponents: [
     PopupMessageComponent,
     ConfirmMessageComponent,
-    //RawmatSearchComponent
+    SalesProductSearchComponent,
+    SalesAddProductComponent
   ],
   bootstrap: [AppComponent]
 })

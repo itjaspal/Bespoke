@@ -9,6 +9,7 @@ using System.Web;
 using System.Net.Mail;
 using System.Net;
 using System.Transactions;
+using System.Configuration;
 
 namespace api.Services
 {
@@ -908,15 +909,20 @@ namespace api.Services
 
                 var fromAddress = new MailAddress("consignmt@gmail.com", "Bespoke");
                 var toAddress = new MailAddress("bespoke@jaspalhome.com", "Bespoke Admin");
+                string url = ConfigurationManager.AppSettings["urlDetail"];
+
+
                 //var toAddress = new MailAddress("it_job@jaspalhome.com", "Bespoke Admin");
                 const string fromPassword = "Cos@2018!";
                 string subject = "New Order : " + model.doc_no + " - " + model.cust_name;
-                string body = "New Order" + "\r\n"
-                            + "Japal Home สาขา : " + model.cust_name + "\r\n"
-                            + "เลขที่เอกสาร : " + model.doc_no + "\r\n"
-                            + "วันที่ : " + model.doc_date.ToString("dd/MM/yyyy") + "\r\n"
-                            + "วันที่ต้องการ : " + model.req_date.ToString("dd/MM/yyyy") + "\r\n"
-                            + "ลูกค้า : " + model.ship_custname;
+                string body = "<html><body>New Order" + "<br>"
+                            + "Japal Home สาขา : " + model.cust_name + "<br>"
+                            + "เลขที่เอกสาร : " + model.doc_no + "<br>"
+                            + "วันที่ : " + model.doc_date.ToString("dd/MM/yyyy") + "<br>"
+                            + "วันที่ต้องการ : " + model.req_date.ToString("dd/MM/yyyy") + "<br>"
+                            + "ลูกค้า : " + model.ship_custname + "<br><br>"
+                            + "<a href="+ url + saleTransactionId + "> Click for Detail </a>"
+                            + "</body></html>";
 
                 var smtp = new SmtpClient
                 {
@@ -929,10 +935,12 @@ namespace api.Services
                 };
                 using (var message = new MailMessage(fromAddress, toAddress)
                 {
+                    
                     Subject = subject,
                     Body = body
                 })
                 {
+                    message.IsBodyHtml = true;
                     smtp.Send(message);
                 }
             }
@@ -1111,6 +1119,7 @@ namespace api.Services
                         });
                     }
                     view.catalog_id = i.catalog_id;
+                    view.catalog_color_id = i.catalog_color_id;
 
 
 
@@ -1120,6 +1129,155 @@ namespace api.Services
 
                 return view;
             }
+        }
+
+        public void Update(SalesTransactionView model)
+        {
+            using (var ctx = new ConXContext())
+            {
+                var font_name = "";
+                var color_code = "";
+
+                using (TransactionScope scope = new TransactionScope())
+                {
+                    if (model.customerId != null)
+                    {
+                        //สร้างลูกค้าใหม่
+                        cust_mast checkCust = new Models.cust_mast()
+                        {
+                            cust_name = model.cust_name,
+                            //surname = "",
+                            address1 = model.address1,
+                            address2 = "",
+                            subDistrict = model.subDistrict,
+                            district = model.district,
+                            province = model.province,
+                            zipCode = model.zipCode,
+                            fax = "",
+                            tel = model.tel,
+                            sex = "",
+                            line = "",
+                            status = "A",
+                            cust_code = "Z0000"
+
+
+                        };
+                        model.customerId = custSvc.IsExitingCustomer(checkCust);
+
+                        if (model.customerId == 0)
+                        {
+                            model.customerId = custSvc.Create(checkCust);
+                        }
+                    }
+
+                    EMB_MAST font = ctx.EmbMasts
+                        .Where(z => z.emb_mast_id == model.font_name)
+                        .SingleOrDefault();
+
+                    if (font == null)
+                    {
+                        font_name = "";
+                    }
+                    else
+                    {
+                        font_name = font.font_name;
+                    }
+
+                    CATALOG_EMB_COLOR color = ctx.CatalogEmbColors
+                        .Where(z => z.catalog_emb_color_id == model.font_color)
+                        .SingleOrDefault();
+
+                    if (color == null)
+                    {
+                        color_code = "";
+                    }
+                    else
+                    {
+                        color_code = color.emb_color_code;
+                    }
+
+                    CO_TRNS_MAST updateObj = ctx.CoTransMasts.Where(z => z.co_trns_mast_id == model.co_trns_mast_id).SingleOrDefault();
+
+
+                    //updateObj.entity_code = "H10";
+                    //updateObj.cos_no = "";
+                    updateObj.emb_character = model.embroidery;
+                    updateObj.font_name = font_name;
+                    updateObj.emb_color_code = color_code;
+                    updateObj.emb_mast_id = model.font_name;
+                    updateObj.emb_color_id = model.font_color;
+                    updateObj.add_price = model.add_price;
+                    updateObj.tot_qty = model.total_qty;
+                    updateObj.tot_amt = model.total_amt;
+                    //cust_signature_base64 = model.sign_customer,
+                    //apv_signature_base64 = model.sign_manager,
+                    //doc_no = model.doc_no,
+                    //doc_date = model.doc_date.Date,
+                    updateObj.req_date = model.req_date.Date;
+                    updateObj.ref_no = model.ref_no;
+                    updateObj.remark1 = model.remark;
+                    //doc_status = model.doc_status,
+                    //doc_code = "POR",
+                    //updateObj.cust_code = model.branch_code,
+                    //updateObj.cust_name = model.branch_name,
+                    updateObj.ship_custname = model.cust_name;
+                    updateObj.ship_address1 = model.address1 + ' ' + model.subDistrict;
+                    updateObj.ship_address2 = model.district + ' ' + model.province + ' ' + model.zipCode;
+                    updateObj.ship_tel = model.tel;
+                    updateObj.prov_name = model.province;
+                    updateObj.post_code = model.zipCode;
+                    //created_by = model.user_code;
+                    //created_at = DateTime.Now,
+                    updateObj.updated_by = model.user_code;
+                    updateObj.updated_at = DateTime.Now;
+
+
+                    ctx.SaveChanges();
+
+                    ctx.CoTransDets.RemoveRange(ctx.CoTransDets.Where(z => z.co_trns_mast_id == model.co_trns_mast_id));
+                    ctx.SaveChanges();
+
+                    
+                    int i = 1;
+                    foreach (var saleItem in model.transactionItem)
+                    {
+
+                        CO_TRNS_DET newDetObj = new CO_TRNS_DET()
+                        {
+                            co_trns_mast_id = model.co_trns_mast_id,
+                            entity_code = "H10",
+                            cos_no = "",
+                            doc_code = "POR",
+                            doc_no = model.doc_no,
+                            item = i,
+                            prod_code = saleItem.prod_code,
+                            prod_name = saleItem.prod_tname,
+                            unit_price = saleItem.unit_price,
+                            sale_price = saleItem.unit_price,
+                            qty = saleItem.qty,
+                            amt = saleItem.amt,
+                            size_spec = saleItem.size_sp,
+                            remark1 = saleItem.remark,
+                            catalog_color_id = saleItem.catalog_color_id,
+                            catalog_id = saleItem.catalog_id,
+                            catalog_pic_id = saleItem.catalog_pic_id,
+                            catalog_size_id = saleItem.catalog_size_id,
+                            catalog_type_code = saleItem.catalog_type_code,
+                            catalog_type_id = saleItem.catalog_type_id,
+                            prod_pic_base64 = saleItem.type_base64
+
+                        };
+
+                        ctx.CoTransDets.Add(newDetObj);
+                        ctx.SaveChanges();
+                        i++;
+                    }
+
+
+                    scope.Complete();
+                }
+            }
+                
         }
     }
 }

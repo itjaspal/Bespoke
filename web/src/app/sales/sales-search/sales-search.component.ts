@@ -51,6 +51,7 @@ export class SalesSearchComponent implements OnInit {
   }
   
 
+
   async cancel(_row: SalesTransactionView) {
     this._msgSvc.confirmPopup("ยืนยันยกเลิกรายการขาย", async result => {
 

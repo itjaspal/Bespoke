@@ -47,6 +47,10 @@ export class SalesService {
   public async create(_model: SalesTransactionView) {
     return await this.http.post<number>(environment.API_URL + 'sales/postCreate', _model).toPromise();
   }
+
+  public async update(_model: SalesTransactionView) {
+    return await this.http.post<number>(environment.API_URL + 'sales/postUpdate', _model).toPromise();
+  }
   
   public async postCancelSalesTransaction(_model: any) {
     return await this.http.post<number>(environment.API_URL + 'sales/postCancelSalesTransaction', _model).toPromise();

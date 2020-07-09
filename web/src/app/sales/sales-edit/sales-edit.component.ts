@@ -1,4 +1,5 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { SalesProductSearchComponent } from './../sales-product-search/sales-product-search.component';
+import { Component, OnInit, ViewChild, ChangeDetectorRef } from '@angular/core';
 import { SalesService } from '../../_service/sales.service';
 import { CatalogDesignService } from '../../_service/catalog-design.service';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -15,6 +16,8 @@ import { AddressDBView } from '../../_model/address-dbview';
 import { CommonService } from '../../_service/common.service';
 import { CustomerService } from '../../_service/customer.service';
 import { AnyMxRecord } from 'dns';
+import { MatDialog, MatSnackBar, PageEvent } from '@angular/material';
+import { ShareDataService } from '../../_service/share-data.service';
 
 @Component({
   selector: 'app-sales-edit',
@@ -23,15 +26,19 @@ import { AnyMxRecord } from 'dns';
 })
 export class SalesEditComponent implements OnInit {
 
-  @ViewChild('sign_manager') sign_manager: SignaturePad;
-  @ViewChild('sign_customer') sign_customer: SignaturePad;
+  
+  // *********** Set for Signature Pad  ***************//
+  // @ViewChild('sign_manager') sign_manager: SignaturePad;
+  // @ViewChild('sign_customer') sign_customer: SignaturePad;
 
-  public options: Object = { // passed through to szimek/signature_pad constructor
+  // public options: Object = { // passed through to szimek/signature_pad constructor
 
-    'minWidth': 3,
-    'canvasWidth':  270,
-    'canvasHeight': 120
-  };
+  //   'minWidth': 3,
+  //   'canvasWidth':  270,
+  //   'canvasHeight': 120
+  // };
+  // *********** End Signature Pad  ***************//
+
 
 
   constructor(
@@ -39,13 +46,19 @@ export class SalesEditComponent implements OnInit {
     private _catalgDesignSvc: CatalogDesignService,
     private _actRoute: ActivatedRoute,
     private _router: Router,
+    private _dialog: MatDialog,
     private _authSvc: AuthenticationService,
     private _msgSvc: MessageService,
     private _formBuilder: FormBuilder,
     private _customerSvc: CustomerService,
-    private _commonSvc: CommonService
+    private _commonSvc: CommonService,
+    private _data: ShareDataService,
+    private cdr: ChangeDetectorRef
   ) { }
 
+
+
+  // ********************* Set for Autocomplete ************************//
   toHighlight: string = ''; 
   public filteredCustomerByName: Observable<CustomerView>;
   public filteredCustomerByTel: Observable<CustomerView>;
@@ -54,23 +67,26 @@ export class SalesEditComponent implements OnInit {
   public filteredAddressByDistrict: Observable<AddressDBView>;
   public filteredAddressByProvince: Observable<AddressDBView>;
 
+  // ************************** End Autocomplete ************************//
 
-   
+
 
   public model: SalesTransactionView = new SalesTransactionView();
   public model_item: TransactionItemView = new TransactionItemView();
   public model_design: CatalogMastView = new CatalogMastView(); 
-  public model_customer: any;
+  //public model_customer: any;
   public saleTransactionId: number = 0;
   public user: any;
   
-  public model_attach: SalesAttachView = new SalesAttachView();
+  //public model_attach: SalesAttachView = new SalesAttachView();
   actions: any = {};
   public designName : any;
   datas: any;
   total : any = 0;
   public total_qty:any;
   public total_amt:any;
+  public catalog_id : any;
+  public catalog_color_id : any;
 
   public validationForm: FormGroup;
   
@@ -82,23 +98,34 @@ export class SalesEditComponent implements OnInit {
 
   public branch_code : string = "";
   public branch_name : string = "";
-  
+  public type: any = [];
+  public color: any = [];
+  public emb: any = [];
+  public color_font: any = []; 
+  public message:any;
 
   async ngOnInit() {
     this.buildForm();
     this.setupAutoComplete();
     this.user = this._authSvc.getLoginUser();
-    //this.branchName = this.user.branch.branch.branchCode + ' - ' + this.user.branch.branch.branchNameThai;
-
     this.branch_code = this.user.branch.branch.branchCode;
     this.branch_name = this.user.branch.branch.branchNameThai;
-    //this.model_doc_search.branchId = this.user.branch.branchId;
+    
 
     this.saleTransactionId = this._actRoute.snapshot.params.id;
     this.model = await this._salesSvc.getSalesTransactionInfo(this.saleTransactionId);
-
-   
     console.log(this.model);
+
+    this.catalog_id = this.model.catalog_id;
+    this.catalog_color_id = this.model.catalog_color_id;
+   
+    this.type = await this._salesSvc.getTypeInCatalogColor(this.catalog_id,this.catalog_color_id);
+    this.color = await this._salesSvc.getColorInCatalog(this.catalog_id);
+
+    this.emb = await this._salesSvc.getEmbroidery();
+    this.color_font = await this._salesSvc.getColorFont(this.catalog_id);
+
+    
     
     this.total = this.model.total_amt + this.model.add_price;
     if(this.model.catalog_id != undefined)
@@ -108,8 +135,12 @@ export class SalesEditComponent implements OnInit {
     this.designName = this.model_design.dsgn_name;
 
     this.datas = await this._salesSvc.getInquiryAttachFile(this.saleTransactionId);
+    
+    console.log(this.model);
+    this.confirmList = this.model.transactionItem;
   }
 
+  
   calculate() {
     this.model.add_price = 0;
     this.model.total_amt = 0;
@@ -118,65 +149,75 @@ export class SalesEditComponent implements OnInit {
       
       this.model.total_amt += this.model.transactionItem[i].amt;
       this.model.total_qty += this.model.transactionItem[i].qty;
-      this.model.add_price = this.model.transactionItem[i].add_price;
+      if(this.model.transactionItem[i].add_price != 0)
+      {
+        this.model.add_price = this.model.transactionItem[i].add_price;
+      }
     }
 
     this.total = this.model.total_amt + this.model.add_price;
   }
 
+
   delete(_index) {
     this.model.transactionItem.splice(_index, 1);
+    this.confirmList = this.model.transactionItem;
     this.calculate();
   }
 
-  openSearchItemModal()
+  openSearchItem()
   {
+    
+    this._data.oldSales.subscribe(message => this.message = this.model)
+    //console.log(this.message);
+    this._data.editSales(this.message)
 
+    
+    this._router.navigateByUrl('/app/sale/product-search/'+this.catalog_id+'/'+this.catalog_color_id+'/'+this.model.co_trns_mast_id); 
   }
   
-  ngAfterViewInit() {
-    //this.buildForm();
-    // this.signaturePad is now available
-    this.sign_manager.set('minWidth', 3); // set szimek/signature_pad options at runtime
-    this.sign_manager.clear(); // invoke functions from szimek/signature_pad API
-
-    this.sign_customer.set('minWidth', 3); // set szimek/signature_pad options at runtime
-    this.sign_customer.clear(); // invoke functions from szimek/signature_pad API
-  }
-
+ 
   
+
+  // ************************** Function for Signature Pad ***************************** //
+
+  // ngAfterViewInit() {
+  //   this.sign_manager.set('minWidth', 3); // set szimek/signature_pad options at runtime
+  //   this.sign_manager.clear(); // invoke functions from szimek/signature_pad API
+
+  //   this.sign_customer.set('minWidth', 3); // set szimek/signature_pad options at runtime
+  //   this.sign_customer.clear(); // invoke functions from szimek/signature_pad API
+  // }
+
+  // drawComplete_manager() {
+  //   // will be notified of szimek/signature_pad's onEnd event   
+  //   this.model.sign_manager = this.sign_manager.toDataURL();
+  //   console.log(this.model.sign_manager);
+  // }
+
+  // drawComplete_customer() {
+  //   // will be notified of szimek/signature_pad's onEnd event
  
-  drawComplete_manager() {
-    // will be notified of szimek/signature_pad's onEnd event
-    //console.log(this.sign_manager.toDataURL());
-    this.model.sign_manager = this.sign_manager.toDataURL();
-    console.log(this.model.sign_manager);
-  }
-
-  drawComplete_customer() {
-    // will be notified of szimek/signature_pad's onEnd event
-    //console.log(this.manager_sign.toDataURL());
-    //console.log(this.sign_customer.toDataURL());
-    this.model.sign_customer = this.sign_customer.toDataURL();
-    console.log(this.model.sign_customer);
-  }
+  //   this.model.sign_customer = this.sign_customer.toDataURL();
+  //   console.log(this.model.sign_customer);
+  // }
  
-  drawStart() {
-    // will be notified of szimek/signature_pad's onBegin event
-    
-    console.log('begin drawing');
-    //console.log("Manager : " + this.sign_manager.toDataURL());
-    //console.log("Customer : " + this.sign_customer.toDataURL());
-  }
+  // drawStart() {
 
-  drawStart2() {
-    // will be notified of szimek/signature_pad's onBegin event
+   
+  //   // will be notified of szimek/signature_pad's onBegin event
     
-    console.log('begin drawing 2');
-    //console.log("Manager : " + this.sign_manager.toDataURL());
-    //console.log("Customer : " + this.sign_customer.toDataURL());
-  }
+  //   console.log('begin drawing');    
+    
+ 
+  // }
 
+  // drawStart2() {
+  //   // will be notified of szimek/signature_pad's onBegin event    
+  //   console.log('begin drawing 2');
+  // }
+
+ // ******************** End of Function for Signature Pad ********************** //
   
 
   buildForm() {
@@ -203,29 +244,30 @@ export class SalesEditComponent implements OnInit {
     //console.log(this.confirmList);
     
     //this.model.doc_no = this.docNo;
-    this.model.total_qty = this.total_qty;
-    this.model.total_amt = this.total_amt;
-    this.model.embroidery = this.embroidery;
-    this.model.font_name = this.font_name;
-    this.model.font_color = this.font_color;
-    this.model.add_price = this.add_price;
-    this.model.user_code = this.user.username;
-    this.model.doc_status = "PAL";
+    // this.model.total_qty = this.total_qty;
+    // this.model.total_amt = this.total_amt;
+    // this.model.embroidery = this.embroidery;
+    // this.model.font_name = this.font_name;
+    // this.model.font_color = this.font_color;
+    // this.model.add_price = this.add_price;
+    // this.model.user_code = this.user.username;
+    // this.model.doc_status = "PAL";
     
     this.model.transactionItem = this.confirmList;
     console.log(this.model);
     
-    if(this.model.sign_customer == "" || this.model.sign_manager == "")
-    {
-      await this._msgSvc.warningPopup("ต้องใส่ข้อมูล");
-    }
-    else
-    {
-      await this._salesSvc.create(this.model);
+    // if(this.model.sign_customer == "" || this.model.sign_manager == "")
+    // {
+    //   await this._msgSvc.warningPopup("ต้องใส่ข้อมูล");
+    // }
+    // else
+    // {
+      
+      await this._salesSvc.update(this.model);
 
       await this._msgSvc.successPopup("บันทึกข้อมูลเรียบร้อย");
       this._router.navigateByUrl('/app/sale'); 
-    }
+    // }
     //console.log(this.model.file);
   }
 
@@ -233,6 +275,8 @@ export class SalesEditComponent implements OnInit {
   {
     window.history.back();
   }
+
+
 
   //========= AutoComplete ================//
   setupAutoComplete() {
@@ -402,4 +446,6 @@ export class SalesEditComponent implements OnInit {
     this.model.province = _addr.province;
     this.model.zipCode = _addr.zipcode;
   }
+
+  //========= End of AutoComplete ================//
 }

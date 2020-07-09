@@ -60,6 +60,7 @@ export class SalesTransactionView
         public doc_status:string ="";
         public file:any = null;
         public catalog_id : number = 0;
+        public catalog_color_id : number = 0;
         public transactionItem: TransactionItemView[] = []
 }
 export class TransactionItemView
@@ -198,5 +199,26 @@ export class SalesAttachView
         public pic_base64: string = "";
         public fullPath: string = "";
         public file:any = null;
+}
+
+export class SalesProductSearchView
+{
+        public catalog_id : number = 0;
+        public catalog_color_id : number = 0;
+        public design_name : string = "";
+        public type : any;
+        public color : any;
+        public emb : any;
+        public color_font : any;
+}
+
+export class SalesProductSelectedView
+{
+        public catalog_id : number = 0;
+        public catalog_color_id : number = 0;
+        public design_name : string = "";
+        public checkedList : any;
+        public emb : any;
+        public color : any;
 }
 

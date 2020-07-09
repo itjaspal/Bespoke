@@ -77,6 +77,9 @@ import { SalesAttachFileComponent } from '../sales/sales-attach-file/sales-attac
 import { SalesPrintComponent } from '../sales/sales-print/sales-print.component';
 import { DailySalesReportComponent } from '../report/daily-sales-report/daily-sales-report.component';
 import { MonthlySalesReportComponent } from '../report/monthly-sales-report/monthly-sales-report.component';
+import { SalesProductSearchComponent } from '../sales/sales-product-search/sales-product-search.component';
+import { SalesAddProductComponent } from '../sales/sales-add-product/sales-add-product.component';
+import { SalesAddSummaryComponent } from '../sales/sales-add-summary/sales-add-summary.component';
 
  
 
@@ -193,14 +196,18 @@ const routes: Routes = [
       //Sales
       { path: "sale", component: SalesSearchComponent, canActivate: [AuthenGuard], data: { parentUrl: "/app/sale" } },
       { path: "sale/create/:catalog/:color", component: SalesAddComponent, canActivate: [AuthenGuard], data: { parentUrl: "/app/sale" } },
-      { path: "sale/view/:id", component: SalesViewComponent, canActivate: [AuthenGuard], data: { parentUrl: "/app/sale" } },
+      //{ path: "sale/view/:id", component: SalesViewComponent, canActivate: [AuthenGuard], data: { parentUrl: "/app/sale" } },
+      { path: "sale/view/:id", component: SalesViewComponent, data: { parentUrl: "/app/sale" } },
       { path: "sale/update/:id", component: SalesEditComponent, canActivate: [AuthenGuard], data: { parentUrl: "/app/sale" } },
       { path: "sale/design", component: SalesDesignComponent, canActivate: [AuthenGuard], data: { parentUrl: "/app/sale" } },
       { path: "sale/product/:catalog/:color", component: SalesProductComponent, canActivate: [AuthenGuard], data: { parentUrl: "/app/sale" } },
       { path: "sale/summary/:catalog/:color", component: SalesSummaryComponent, canActivate: [AuthenGuard], data: { parentUrl: "/app/sale" } },
       { path: "sale/attach/:id", component: SalesAttachFileComponent, canActivate: [AuthenGuard], data: { parentUrl: "/app/sale" } },
       { path: "sale/print/:id", component: SalesPrintComponent, canActivate: [AuthenGuard], data: { parentUrl: "/app/sale" } },
-      
+      { path: "sale/product-search/:catalog/:color/:id", component: SalesProductSearchComponent, canActivate: [AuthenGuard], data: { parentUrl: "/app/sale" } },
+      { path: "sale/product-add/:catalog/:color/:id", component: SalesAddProductComponent, canActivate: [AuthenGuard], data: { parentUrl: "/app/sale" } },
+      { path: "sale/sales-add-summary/:catalog/:color/:id", component: SalesAddSummaryComponent, canActivate: [AuthenGuard], data: { parentUrl: "/app/sale" } },
+
       //Tracking
       { path: "track", component: TrackSearchComponent, canActivate: [AuthenGuard], data: { parentUrl: "/app/track" } },
       { path: "track/view/:id", component: TrackViewComponent, canActivate: [AuthenGuard], data: { parentUrl: "/app/track" } },

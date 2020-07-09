@@ -150,6 +150,24 @@ namespace api.Controllers
             }
         }
 
+        [Route("sales/postUpdate")]
+        public HttpResponseMessage postUpdate(SalesTransactionView model)
+        {
+            try
+            {
+
+
+                salesSvc.Update(model);
+
+                return Request.CreateResponse(HttpStatusCode.OK, "บันทึกข้อมูลสำเร็จ");
+
+            }
+            catch (Exception ex)
+            {
+                return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, ex.ToString());
+            }
+        }
+
         [Route("sales/sendMail")]
         public HttpResponseMessage postSendMail()
         {
