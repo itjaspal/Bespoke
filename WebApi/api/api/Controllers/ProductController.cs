@@ -152,6 +152,23 @@ namespace api.Controllers
             }
         }
 
+        [Route("product/postUpdateProduct")]
+        public HttpResponseMessage postUpdateProduct(MasterProductView model)
+        {
+            try
+            {
+
+
+                productSvc.UpdateProduct(model);
+
+                return Request.CreateResponse(HttpStatusCode.OK, "บันทึกข้อมูลสำเร็จ");
+            }
+            catch (Exception ex)
+            {
+                return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, ex.ToString());
+            }
+        }
+
         [Route("product/postSearchProduct")]
         public HttpResponseMessage postSearchProduct(MasterProductSearchView model)
         {

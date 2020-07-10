@@ -563,11 +563,50 @@ namespace api.Services
                     pddsgn_code = products.pddsgn_code,
                     pdcolor_code = products.pdcolor_code,
                     pdsize_code = products.pdsize_code,
-                    uom_code = products.prod_tname,
                     unit_price = products.unit_price,
                     status = products.prod_status,
                     
                 };
+            }
+        }
+
+        public void UpdateProduct(MasterProductView model)
+        {
+            using (var ctx = new ConXContext())
+            {
+                using (TransactionScope scope = new TransactionScope())
+                {
+                    Product updateObj = ctx.Products.Where(z => z.id == model.id).SingleOrDefault();
+
+                    PDBRND_MAST brand = ctx.BrandMasts.Where(z => z.pdbrnd_code == model.pdbrnd_code).SingleOrDefault();
+                    PDDESIGN_MAST design = ctx.DesignMasts.Where(z => z.pddsgn_code == model.pddsgn_code).SingleOrDefault();
+                    PDTYPE_MAST type = ctx.TypeMasts.Where(z => z.pdtype_code == model.pdtype_code).SingleOrDefault();
+                    PDCOLOR_MAST color = ctx.ColorMasts.Where(z => z.pdcolor_code == model.pdcolor_code).SingleOrDefault();
+                    PDSIZE_MAST size = ctx.SizeMasts.Where(z => z.pdsize_code == model.pdsize_code).SingleOrDefault();
+
+                    updateObj.prod_tname = model.prod_tname;
+                    updateObj.prod_ename = model.prod_tname;
+                    updateObj.pdtype_code = model.pdtype_code;
+                    updateObj.pdbrnd_code = model.pdbrnd_code;
+                    updateObj.pddsgn_code = model.pddsgn_code;
+                    updateObj.pdcolor_code = model.pdcolor_code;
+                    updateObj.pdsize_code = model.pdsize_code;                  
+                    updateObj.pdtype_desc = type.pdtype_tname;
+                    updateObj.pdbrnd_desc = brand.pdbrnd_tname;
+                    updateObj.pddsgn_desc = design.pddsgn_tname;
+                    updateObj.pdcolor_desc = color.pdcolor_tname;
+                    updateObj.pdsize_desc = size.pdsize_tname;
+                    updateObj.unit_price = model.unit_price;
+                    updateObj.prod_status = model.status;
+                    updateObj.unit_price = model.unit_price;
+
+
+                    ctx.SaveChanges();
+
+
+
+                    scope.Complete();
+                }
             }
         }
 

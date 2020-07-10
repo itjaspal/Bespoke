@@ -83,6 +83,8 @@ async search(event: PageEvent = null) {
   console.log(this.data);
 }
 
+
+
 delete(row: ProductView) {
 
 }

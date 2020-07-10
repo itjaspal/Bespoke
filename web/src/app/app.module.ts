@@ -211,6 +211,7 @@ import { ImportSizeComponent } from './import-data/import-size/import-size.compo
 import { ImportProductComponent } from './import-data/import-product/import-product.component';
 import { ImportMenuComponent } from './import-data/import-menu/import-menu.component';
 import { ProductUpdatePriceComponent } from './master-product/product-update-price/product-update-price.component';
+import { ProductSyncComponent } from './master-product/product-sync/product-sync.component';
 
 
 
@@ -454,6 +455,7 @@ import { ProductUpdatePriceComponent } from './master-product/product-update-pri
     ImportProductComponent,
     ImportMenuComponent,
     ProductUpdatePriceComponent,
+    ProductSyncComponent,
     
 
 

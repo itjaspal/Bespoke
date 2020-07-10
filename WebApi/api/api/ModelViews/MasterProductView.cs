@@ -40,7 +40,7 @@ namespace api.ModelViews
         public string statusText { get; set; }
         public string pdtype_desc { get; set; }
         public string pdbrnd_desc { get; set; }
-        public string pdsgn_desc { get; set; }
+        public string pddsgn_desc { get; set; }
         public string pdcolor_desc { get; set; }
         public string pdsize_desc { get; set; }
         public decimal unit_price { get; set; }

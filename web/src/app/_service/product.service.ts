@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { ProductAttributeSearchView, ProductAttributeView } from '../_model/productAttribute';
 import { CommonSearchView } from '../_model/common-search-view';
 import { environment } from '../../environments/environment';
-import { ProductSearchView, ProductView } from '../_model/product';
+import { ProductSearchView, ProductView, ProductSyncSearchView } from '../_model/product';
 
 @Injectable({
   providedIn: 'root'
@@ -22,6 +22,11 @@ export class ProductService {
 
   public async update(_model: ProductAttributeView) {
     return await this.http.post(environment.API_URL + 'product/postUpdate', _model).toPromise();
+  }
+
+
+  public async updateProduct(_model: ProductView) {
+    return await this.http.post(environment.API_URL + 'product/postUpdateProduct', _model).toPromise();
   }
 
   public async getInfoBrand(_productAttributeId: number) {
@@ -50,27 +55,11 @@ export class ProductService {
 
   
   public async getInfoProduct(_productId: number) {
-    return await this.http.get<ProductView>(environment.API_URL + 'master-product/getInfo/' + _productId).toPromise();
+    return await this.http.get<ProductView>(environment.API_URL + 'product/getInfoProduct/' + _productId).toPromise();
   }
 
-  
-  
-  // public postInquiryProductByText(_model: ProductSearchView): Observable<ProductView> {
-  //   return this.http.post<ProductView[]>(environment.API_URL + 'master-product/postInquiryProductByText', _model)
-  //     .pipe(
-  //       map((res: any) => {
-  //         return res;
-  //       })
-  //     );
-  // }
-
-  // public postInquiryProduct(_model: ProductSearchView){
-  //   return this.http.post<ProductView[]>(environment.API_URL + 'master-product/postInquiryProductByText', _model).toPromise();
-  // }
-
-  // public async postInquiryByManual(_model: ProductSearchView) {
-  //   return await this.http.post<ProductView[]>(environment.API_URL + 'master-product/postInquiryByManual', _model).toPromise();
-  // }
-
+  public async syncProduct(_model: ProductSyncSearchView) {
+    return await this.http.post<CommonSearchView<ProductView>>(environment.API_SYNC_URL + 'product/postSync', _model).toPromise();
+  }
   
 }

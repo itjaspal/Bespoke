@@ -8,6 +8,7 @@
         <mat-card-content class="no-margin">
           <div class="row">
             <div class="col-6 col-lg-3">
+              <small>ชื่อสินค้า</small>
               {{model.prod_code}}
               <!-- <mat-form-field class="full-width">
                 <input matInput placeholder="รหัสสินค้า" [(ngModel)]="model.prod_code" name="prod_code">
@@ -15,13 +16,13 @@
             </div>
             <div class="col-6 col-lg-3">
               <mat-form-field class="full-width">
-                <input matInput placeholder="ชื่อสินค้า" [(ngModel)]="model.prod_tname" name="prod_tname">
+                <input matInput placeholder="ชื่อสินค้า" formControlName="prod_tname" [(ngModel)]="model.prod_tname" name="prod_tname">
               </mat-form-field>
             </div>
             <div class="col-6 col-lg-3">
               <mat-form-field class="full-width">
-                <mat-select placeholder="Brand" [(ngModel)]="model.pdbrnd_code" name="pdbrnd_code">
-                  <mat-option>ทั้งหมด</mat-option>
+                <mat-select placeholder="Brand" formControlName="pdbrnd_code" [(ngModel)]="model.pdbrnd_code" name="pdbrnd_code">
+                  
                   <mat-option *ngFor="let pdbrnd_code of ddlProductBrand" [value]="pdbrnd_code.key">{{pdbrnd_code.value}}</mat-option>
                 </mat-select>
               </mat-form-field>
@@ -29,40 +30,40 @@
             
             <div class="col-6 col-lg-3">
               <mat-form-field class="full-width">
-                <mat-select placeholder="Design" [(ngModel)]="model.pddsgn_code" name="pddsgn_code">
-                  <mat-option>ทั้งหมด</mat-option>
+                <mat-select placeholder="Design" formControlName="pddsgn_code" [(ngModel)]="model.pddsgn_code" name="pddsgn_code">
+                  <!-- <mat-option>ทั้งหมด</mat-option> -->
                   <mat-option *ngFor="let x of ddlProductDesign" [value]="x.key">{{x.value}}</mat-option>
                 </mat-select>
               </mat-form-field>
             </div>
             <div class="col-6 col-lg-3">
               <mat-form-field class="full-width">
-                <mat-select placeholder="Type" [(ngModel)]="model.pdtype_code" name="pdtype_code">
-                  <mat-option>ทั้งหมด</mat-option>
+                <mat-select placeholder="Type" formControlName="pdtype_code" [(ngModel)]="model.pdtype_code" name="pdtype_code">
+                  <!-- <mat-option>ทั้งหมด</mat-option> -->
                   <mat-option *ngFor="let x of ddlProductType" [value]="x.key">{{x.value}}</mat-option>
                 </mat-select>
               </mat-form-field>
             </div>
             <div class="col-6 col-lg-3">
                 <mat-form-field class="full-width">
-                  <mat-select placeholder="Color" [(ngModel)]="model.pdcolor_code" name="pdcolor_code">
-                    <mat-option>ทั้งหมด</mat-option>
+                  <mat-select placeholder="Color" formControlName="pdcolor_code" [(ngModel)]="model.pdcolor_code" name="pdcolor_code">
+                    <!-- <mat-option>ทั้งหมด</mat-option> -->
                     <mat-option *ngFor="let x of ddlProductColor" [value]="x.key">{{x.value}}</mat-option>
                   </mat-select>
                 </mat-form-field>
               </div>
             <div class="col-6 col-lg-3">
               <mat-form-field class="full-width">
-                <mat-select placeholder="Size" [(ngModel)]="model.pdsize_code" name="pdsize_code">
-                  <mat-option>ทั้งหมด</mat-option>
+                <mat-select placeholder="Size"  formControlName="pdsize_code" [(ngModel)]="model.pdsize_code" name="pdsize_code">
+                  <!-- <mat-option>ทั้งหมด</mat-option> -->
                   <mat-option *ngFor="let x of ddlProductSize" [value]="x.key">{{x.value}}</mat-option>
                 </mat-select>
               </mat-form-field>
             </div>            
             <div class="col-6 col-lg-3">
               <mat-form-field class="full-width">
-                <mat-select placeholder="สถานะ" [(ngModel)]="model.status" name="status">
-                  <mat-option>ทั้งหมด</mat-option>
+                <mat-select placeholder="สถานะ" formControlName="status" [(ngModel)]="model.status" name="status">
+                  <!-- <mat-option>ทั้งหมด</mat-option> -->
                         <mat-option value="A">Active</mat-option>
                         <mat-option value="I">Inactive</mat-option>
                 </mat-select>
@@ -71,7 +72,7 @@
             
             <div class="col-6 col-lg-3">
               <mat-form-field class="full-width">
-                <input matInput placeholder="ราคา" [(ngModel)]="model.unit_price" name="unit_price">
+                <input matInput placeholder="ราคา" formControlName="unit_price" [(ngModel)]="model.unit_price" name="unit_price">
               </mat-form-field>
             </div>
             

@@ -22,6 +22,7 @@ namespace api.Interfaces
         void Create(MasterProductAttributeView model);
 
         void Update(MasterProductAttributeView model);
+        void UpdateProduct(MasterProductView model);
 
         bool CheckDupplicate(string productAttributeTypeCode, string code);
 

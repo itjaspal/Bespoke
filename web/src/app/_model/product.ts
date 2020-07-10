@@ -42,3 +42,8 @@ export class ProductView {
     public unit_price: number = 0;
        
 }
+
+export class ProductSyncSearchView
+{
+    public pddsgn_code : string = "";
+}

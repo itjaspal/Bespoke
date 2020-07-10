@@ -56,8 +56,14 @@ export class ProductUpdatePriceComponent implements OnInit {
   buildForm() {
     this.validationForm = this._formBuilder.group({
       prod_code: [null, []],
-      prod_tname: [null, [Validators.required]],     
-      prod_status: [null, [Validators.required]],
+      prod_tname: [null, [Validators.required]],
+      pdbrnd_code: [null, [Validators.required]],   
+      pddsgn_code: [null, [Validators.required]],  
+      pdtype_code: [null, [Validators.required]],     
+      pdcolor_code: [null, [Validators.required]], 
+      pdsize_code: [null, [Validators.required]],   
+      unit_price: [null, [Validators.required]],   
+      status: [null, [Validators.required]],
     });
   }
 
@@ -65,9 +71,12 @@ export class ProductUpdatePriceComponent implements OnInit {
     window.history.back();
   }
 
-  save()
+  async save()
   {
-
+    console.log(this.model);
+    await this._productSvc.updateProduct(this.model);
+    await this._msgSvc.successPopup("บันทึกข้อมูลเรียบร้อย");
+    this._router.navigateByUrl('/app/product/view');
   }
 
 }

@@ -87,6 +87,7 @@ import { ImportSizeComponent } from '../import-data/import-size/import-size.comp
 import { ImportProductComponent } from '../import-data/import-product/import-product.component';
 import { ImportMenuComponent } from '../import-data/import-menu/import-menu.component';
 import { ProductUpdatePriceComponent } from '../master-product/product-update-price/product-update-price.component';
+import { ProductSyncComponent } from '../master-product/product-sync/product-sync.component';
 
  
 
@@ -199,7 +200,7 @@ const routes: Routes = [
       { path: "product/update/:attr/:id", component: ProductUpdateComponent, canActivate: [AuthenGuard], data: { parentUrl: "/app/product" } },
       { path: "product/view", component: ProductViewComponent, canActivate: [AuthenGuard], data: { parentUrl: "/app/product" } },
       { path: "product/update-price/:id", component: ProductUpdatePriceComponent, canActivate: [AuthenGuard], data: { parentUrl: "/app/product" } },
-      
+      { path: "product/sync", component: ProductSyncComponent, canActivate: [AuthenGuard], data: { parentUrl: "/app/product" } },
 
       //Sales
       { path: "sale", component: SalesSearchComponent, canActivate: [AuthenGuard], data: { parentUrl: "/app/sale" } },
