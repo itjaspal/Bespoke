@@ -367,6 +367,7 @@
     <Compile Include="Interfaces\IDepartmentService.cs" />
     <Compile Include="Interfaces\IDropdownlistService.cs" />
     <Compile Include="Interfaces\IEmbMastService.cs" />
+    <Compile Include="Interfaces\IImportDataService.cs" />
     <Compile Include="Interfaces\IMenuGroupService.cs" />
     <Compile Include="Interfaces\IMenuService.cs" />
     <Compile Include="Interfaces\IOrganizationService.cs" />
@@ -435,6 +436,7 @@
     <Compile Include="ModelViews\CustomerView.cs" />
     <Compile Include="ModelViews\Dropdownlist.cs" />
     <Compile Include="ModelViews\EmbMastView.cs" />
+    <Compile Include="ModelViews\ImportDataView.cs" />
     <Compile Include="ModelViews\MasterBranchGroupView.cs" />
     <Compile Include="ModelViews\MasterDepartmentView.cs" />
     <Compile Include="ModelViews\MasterMenuGroupView.cs" />
@@ -461,6 +463,7 @@
     <Compile Include="Services\DepartmentService.cs" />
     <Compile Include="Services\DropdownlistService.cs" />
     <Compile Include="Services\EmbMastService.cs" />
+    <Compile Include="Services\ImportDataService.cs" />
     <Compile Include="Services\MenuGroupService.cs" />
     <Compile Include="Services\MenuService.cs" />
     <Compile Include="Services\OrganizationService.cs" />

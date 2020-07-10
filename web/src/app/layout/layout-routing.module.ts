@@ -80,6 +80,13 @@ import { MonthlySalesReportComponent } from '../report/monthly-sales-report/mont
 import { SalesProductSearchComponent } from '../sales/sales-product-search/sales-product-search.component';
 import { SalesAddProductComponent } from '../sales/sales-add-product/sales-add-product.component';
 import { SalesAddSummaryComponent } from '../sales/sales-add-summary/sales-add-summary.component';
+import { ImportDesignComponent } from '../import-data/import-design/import-design.component';
+import { ImportTypeComponent } from '../import-data/import-type/import-type.component';
+import { ImportColorComponent } from '../import-data/import-color/import-color.component';
+import { ImportSizeComponent } from '../import-data/import-size/import-size.component';
+import { ImportProductComponent } from '../import-data/import-product/import-product.component';
+import { ImportMenuComponent } from '../import-data/import-menu/import-menu.component';
+import { ProductUpdatePriceComponent } from '../master-product/product-update-price/product-update-price.component';
 
  
 
@@ -191,6 +198,7 @@ const routes: Routes = [
       { path: "product/create/:attr", component: ProductCreateComponent, canActivate: [AuthenGuard], data: { parentUrl: "/app/product" } },
       { path: "product/update/:attr/:id", component: ProductUpdateComponent, canActivate: [AuthenGuard], data: { parentUrl: "/app/product" } },
       { path: "product/view", component: ProductViewComponent, canActivate: [AuthenGuard], data: { parentUrl: "/app/product" } },
+      { path: "product/update-price/:id", component: ProductUpdatePriceComponent, canActivate: [AuthenGuard], data: { parentUrl: "/app/product" } },
       
 
       //Sales
@@ -215,6 +223,15 @@ const routes: Routes = [
       //Report
       { path: "daily-sales-report", component: DailySalesReportComponent, canActivate: [AuthenGuard], data: { parentUrl: "/app/daily-sales-report" } },
       { path: "monthly-sales-report", component: MonthlySalesReportComponent, canActivate: [AuthenGuard], data: { parentUrl: "/app/monthly-sales-report" } },
+
+
+      //Import
+      { path: "import-menu", component: ImportMenuComponent, canActivate: [AuthenGuard], data: { parentUrl: "/app/import-menu" } },
+      { path: "import-design", component: ImportDesignComponent, canActivate: [AuthenGuard], data: { parentUrl: "/app/import-design" } },
+      { path: "import-type", component: ImportTypeComponent, canActivate: [AuthenGuard], data: { parentUrl: "/app/import-type" } },
+      { path: "import-color", component: ImportColorComponent, canActivate: [AuthenGuard], data: { parentUrl: "/app/import-color" } },
+      { path: "import-size", component: ImportSizeComponent, canActivate: [AuthenGuard], data: { parentUrl: "/app/import-size" } },
+      { path: "import-product", component: ImportProductComponent, canActivate: [AuthenGuard], data: { parentUrl: "/app/import-product" } },
 
        { path: '**', redirectTo: 'home', pathMatch: 'full' },
     ]

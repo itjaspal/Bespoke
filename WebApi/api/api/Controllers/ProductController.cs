@@ -169,6 +169,21 @@ namespace api.Controllers
             }
         }
 
+        [Route("product/getInfoProduct/{id}")]
+        public HttpResponseMessage getInfoProduct(long id)
+        {
+            try
+            {
+                var result = productSvc.GetInfoProduct(id);
+
+                return Request.CreateResponse(HttpStatusCode.OK, result);
+            }
+            catch (Exception ex)
+            {
+                return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, ex.ToString());
+            }
+        }
+
         //[Route("catalog-bordercolor/post/Delete")]
         //public HttpResponseMessage postDelete(MasterProductAttributeView model)
         //{

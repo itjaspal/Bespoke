@@ -131,22 +131,22 @@
               <small>สถานะ</small>
               <dd>{{x.statusText}}</dd>
             </div>
-            <!-- <div class="col-6 col-lg-1 text-right">
+            <div class="col-6 col-lg-1 text-right">
               <button mat-icon-button [matMenuTriggerFor]="appMenu">
                 <mat-icon class="material-icons">more_horiz</mat-icon>
               </button>
 
               <mat-menu #appMenu="matMenu">
-                <button mat-menu-item [routerLink]="['/app/product/view/'+x.productId]" *ngIf="actions.VIEW">
+                <!-- <button mat-menu-item [routerLink]="['/app/product/view/'+x.productId]" *ngIf="actions.VIEW">
                   <mat-icon class="material-icons">search</mat-icon> <span>แสดง</span>
-                </button>
-                <button mat-menu-item [routerLink]="['/app/product/update/'+x.productId]" *ngIf="actions.EDIT">
+                </button> -->
+                <button mat-menu-item [routerLink]="['/app/product/update-price/'+x.id]">
                   <mat-icon class="material-icons">edit</mat-icon> <span>แก้ไข</span>
                 </button>
               
               </mat-menu>
 
-            </div> -->
+            </div>
             <div class="col-12">
               <hr />
             </div>

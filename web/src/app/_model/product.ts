@@ -27,7 +27,7 @@ export class ProductView {
     public bar_code: string = "";
     public prod_tname: string = "";
     public pdtype_code: string = "";
-    public pdgrnd_code: string = "";
+    public pdbrnd_code: string = "";
     public pddsgn_code: string = "";
     public pdcolor_code: string = "";
     public pdsize_code: string = "";

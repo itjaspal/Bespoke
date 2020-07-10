@@ -1,3 +1,32 @@
-<p>
-  import-design works!
-</p>
+<div class="container-fluid no-breadcrumbs">
+  <mat-card>
+    <mat-card-title>
+      <h6>Import Data Design</h6>
+    </mat-card-title>
+    <mat-card-content>
+        <input type="file" (change)="onFileChange($event)" multiple="false" />
+       
+        <table class="sjs-table">
+          <tbody>
+            <tr *ngFor="let row of data">
+            <td *ngFor="let val of row">
+              {{val}}
+            </td>
+          </tr>
+          </tbody>
+        </table>
+        <!-- <button (click)="import()">Export!</button> -->
+        
+    </mat-card-content>
+    <mat-card-actions>
+      <button mat-raised-button class="btn-w-md" type="button" (click)="close()">
+        <mat-icon class="material-icons">close</mat-icon> ปิด
+      </button>
+
+      <button mat-raised-button color="primary" class="btn-w-md pull-right" type="button" (click)="import()">
+        <mat-icon class="material-icons">save</mat-icon> Import Data
+      </button>
+    </mat-card-actions>
+  </mat-card>
+</div>
+

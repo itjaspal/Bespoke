@@ -1,0 +1,92 @@
+<div class="container-fluid no-breadcrumbs">
+  <mat-card>
+    <mat-card-title>
+      <h6>Import Data Menu</h6>
+    </mat-card-title>
+    <mat-card-content>
+       <div class="row">
+         <div class="col-sm-1 col-1">
+
+        </div>
+        <div class="col-sm-3 col-6">
+          <li><a  [routerLink]="['/app/import-design']"><span>Import Data - Design</span></a></li>
+          
+        </div>
+
+        <div class="col-sm-4 col-6">
+            Format [code , name]
+        </div>
+
+       </div>
+
+       <div class="row">
+        <div class="col-sm-1 col-1">
+
+       </div>
+       <div class="col-sm-3 col-6">
+         <li><a  [routerLink]="['/app/import-type']"><span>Import Data - Type</span></a></li>
+       </div>
+       <div class="col-sm-4 col-6">
+        Format [code , name]
+      </div>
+
+      </div>
+
+      <div class="row">
+        <div class="col-sm-1 col-1">
+
+       </div>
+       <div class="col-sm-3 col-6">
+         <li><a [routerLink]="['/app/import-color']"><span>Import Data - Color</span></a></li>
+       </div>
+       <div class="col-sm-4 col-6">
+        Format [code , name]
+      </div>
+
+      </div>
+
+      <div class="row">
+        <div class="col-sm-1 col-1">
+
+       </div>
+       <div class="col-sm-3 col-6">
+         <li><a [routerLink]="['/app/import-size']"><span>Import Data - Size</span></a></li>
+       </div>
+       <div class="col-sm-4 col-6">
+        Format [code , name]
+      </div>
+
+      </div>
+
+      <div class="row">
+        <div class="col-sm-1 col-1">
+
+       </div>
+       <div class="col-sm-6 col-7">
+         <li><a  [routerLink]="['/app/import-product']"><span>Import Data - Product</span></a></li>
+       </div>
+       <!-- <div class="col-sm-7 col-5">
+        Format [prod_code , prod_name , uom_code , bar_code , entity , pdgrp_code , pdbrnd_code , pdtype_code , pddsgn_code , pdsize_code , pdcolor_code , pdmisc_code , pdmodel_code , pdgrp_desc , pdbrnd_desc , pdtype_desc , pddsgn_desc , pdcolor_desc , pdsize_desc , pdmisc_desc , pdmodel_desc , unit_price]
+      </div> -->
+
+      </div>
+
+      <div class="row">
+        <div class="col-sm-2 col-1">
+
+       </div>
+       <div class="col-sm-10 col-10">
+        Format [prod_code , prod_name , uom_code , bar_code , entity , pdgrp_code , pdbrnd_code , pdtype_code , pddsgn_code , pdsize_code , pdcolor_code , pdmisc_code , pdmodel_code , pdgrp_desc , pdbrnd_desc , pdtype_desc , pddsgn_desc , pdcolor_desc , pdsize_desc , pdmisc_desc , pdmodel_desc , unit_price]
+       </div>
+      </div>
+        
+    </mat-card-content>
+    <mat-card-actions>
+      <button mat-raised-button class="btn-w-md" type="button" (click)="close()">
+        <mat-icon class="material-icons">close</mat-icon> ปิด
+      </button>
+
+      
+    </mat-card-actions>
+  </mat-card>
+</div>

@@ -19,6 +19,7 @@ namespace api.ModelViews
         public string pdsize_code { get; set; }
         public string uom_code { get; set; }
         public string status { get; set; }
+       
       
 
     }

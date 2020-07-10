@@ -49,9 +49,9 @@ export class ProductService {
   }
 
   
-  // public async getInfo(_productId: number) {
-  //   return await this.http.get<ProductView>(environment.API_URL + 'master-product/getInfo/' + _productId).toPromise();
-  // }
+  public async getInfoProduct(_productId: number) {
+    return await this.http.get<ProductView>(environment.API_URL + 'master-product/getInfo/' + _productId).toPromise();
+  }
 
   
   

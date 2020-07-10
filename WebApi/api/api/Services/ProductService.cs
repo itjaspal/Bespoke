@@ -548,6 +548,29 @@ namespace api.Services
             }
         }
 
+        public MasterProductView GetInfoProduct(long id)
+        {
+            using (var ctx = new ConXContext())
+            {
+                Product products = ctx.Products.Where(z => z.id == id).SingleOrDefault();
+                return new MasterProductView
+                {
+                    id = products.id,
+                    prod_code = products.prod_code,
+                    prod_tname = products.prod_tname,
+                    pdtype_code = products.pdtype_code,
+                    pdbrnd_code = products.pdbrnd_code,
+                    pddsgn_code = products.pddsgn_code,
+                    pdcolor_code = products.pdcolor_code,
+                    pdsize_code = products.pdsize_code,
+                    uom_code = products.prod_tname,
+                    unit_price = products.unit_price,
+                    status = products.prod_status,
+                    
+                };
+            }
+        }
+
 
 
         //public bool CanInactive(long productAttributeId)

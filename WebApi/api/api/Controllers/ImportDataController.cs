@@ -1,5 +1,8 @@
 ﻿using api.DataAccess;
+using api.Interfaces;
 using api.Models;
+using api.ModelViews;
+using api.Services;
 using ExcelDataReader;
 using System;
 using System.Collections.Generic;
@@ -15,89 +18,100 @@ namespace api.Controllers
 {
     public class ImportDataController : ApiController
     {
-        //[Route("UploadExcel")]
-        //[HttpPost]
-        [Route("import-data/postImportDesign")]
-        public string postImportDesign()
+        IImportDataService importSvc;
+
+        public ImportDataController()
         {
-            string message = "";
-            HttpResponseMessage result = null;
-            var httpRequest = HttpContext.Current.Request;
-            using (var ctx = new ConXContext())
+            importSvc = new ImportDataService();
+        }
+        [Route("import-data/postImportDesign")]
+        public HttpResponseMessage postImportDesign(ImportDataView model)
+        {
+            try
             {
 
-                if (httpRequest.Files.Count > 0)
-                {
-                    HttpPostedFile file = httpRequest.Files[0];
-                    Stream stream = file.InputStream;
 
-                    IExcelDataReader reader = null;
+                importSvc.ImportDataDesign(model);
 
-                    if (file.FileName.EndsWith(".xls"))
-                    {
-                        reader = ExcelReaderFactory.CreateBinaryReader(stream);
-                    }
-                    else if (file.FileName.EndsWith(".xlsx"))
-                    {
-                        reader = ExcelReaderFactory.CreateOpenXmlReader(stream);
-                    }
-                    else
-                    {
-                        message = "This file format is not supported";
-                    }
+                return Request.CreateResponse(HttpStatusCode.OK, "บันทึกข้อมูลสำเร็จ");
 
-                    DataSet excelRecords = reader.AsDataSet();
-                    reader.Close();
-
-                    var finalRecords = excelRecords.Tables[0];
-                    for (int i = 0; i < finalRecords.Rows.Count; i++)
-                    {
-                        PDDESIGN_MAST updateObj = ctx.DesignMasts.Where(z => z.pddsgn_code == finalRecords.Rows[i][0].ToString()).SingleOrDefault();
-
-                        PDDESIGN_MAST productAttribute = new PDDESIGN_MAST()
-                        {
-                            pddsgn_code = finalRecords.Rows[i][0].ToString(),
-                            pddsgn_tname = finalRecords.Rows[i][1].ToString(),
-                            pddsgn_ename = finalRecords.Rows[i][2].ToString(),
-                            status = "A",
-                            created_by = "admin",
-                            created_at = DateTime.Now,
-                            updated_by = "admin",
-                            updated_at = DateTime.Now
-                        };
-
-                        ctx.DesignMasts.Add(productAttribute);
-                        ctx.SaveChanges();
-                        //UserDetail objUser = new UserDetail();
-                        //objUser.UserName = finalRecords.Rows[i][0].ToString();
-                        //objUser.EmailId = finalRecords.Rows[i][1].ToString();
-                        //objUser.Gender = finalRecords.Rows[i][2].ToString();
-                        //objUser.Address = finalRecords.Rows[i][3].ToString();
-                        //objUser.MobileNo = finalRecords.Rows[i][4].ToString();
-                        //objUser.PinCode = finalRecords.Rows[i][5].ToString();
-
-                        //objEntity.UserDetails.Add(objUser);
-
-                    }
-
-                    int output = ctx.SaveChanges();
-                    if (output > 0)
-                    {
-                        message = "Excel file has been successfully uploaded";
-                    }
-                    else
-                    {
-                        message = "Excel file uploaded has fiald";
-                    }
-
-                }
-
-                else
-                {
-                    result = Request.CreateResponse(HttpStatusCode.BadRequest);
-                }
             }
-            return message;
+            catch (Exception ex)
+            {
+                return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, ex.ToString());
+            }
+        }
+
+        [Route("import-data/postImportType")]
+        public HttpResponseMessage postImportType(ImportDataView model)
+        {
+            try
+            {
+
+
+                importSvc.ImportDataType(model);
+
+                return Request.CreateResponse(HttpStatusCode.OK, "บันทึกข้อมูลสำเร็จ");
+
+            }
+            catch (Exception ex)
+            {
+                return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, ex.ToString());
+            }
+        }
+
+        [Route("import-data/postImportColor")]
+        public HttpResponseMessage postImportColor(ImportDataView model)
+        {
+            try
+            {
+
+
+                importSvc.ImportDataColor(model);
+
+                return Request.CreateResponse(HttpStatusCode.OK, "บันทึกข้อมูลสำเร็จ");
+
+            }
+            catch (Exception ex)
+            {
+                return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, ex.ToString());
+            }
+        }
+
+        [Route("import-data/postImportSize")]
+        public HttpResponseMessage postImportSize(ImportDataView model)
+        {
+            try
+            {
+
+
+                importSvc.ImportDataSize(model);
+
+                return Request.CreateResponse(HttpStatusCode.OK, "บันทึกข้อมูลสำเร็จ");
+
+            }
+            catch (Exception ex)
+            {
+                return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, ex.ToString());
+            }
+        }
+
+        [Route("import-data/postImportProduct")]
+        public HttpResponseMessage postImportProduct(ImportProductView model)
+        {
+            try
+            {
+
+
+                importSvc.ImportDataProduct(model);
+
+                return Request.CreateResponse(HttpStatusCode.OK, "บันทึกข้อมูลสำเร็จ");
+
+            }
+            catch (Exception ex)
+            {
+                return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, ex.ToString());
+            }
         }
     }
 }

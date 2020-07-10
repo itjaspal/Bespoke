@@ -205,6 +205,12 @@ import { ImportDesignComponent } from './import-data/import-design/import-design
 import { SalesProductSearchComponent } from './sales/sales-product-search/sales-product-search.component';
 import { SalesAddProductComponent } from './sales/sales-add-product/sales-add-product.component';
 import { SalesAddSummaryComponent } from './sales/sales-add-summary/sales-add-summary.component';
+import { ImportColorComponent } from './import-data/import-color/import-color.component';
+import { ImportTypeComponent } from './import-data/import-type/import-type.component';
+import { ImportSizeComponent } from './import-data/import-size/import-size.component';
+import { ImportProductComponent } from './import-data/import-product/import-product.component';
+import { ImportMenuComponent } from './import-data/import-menu/import-menu.component';
+import { ProductUpdatePriceComponent } from './master-product/product-update-price/product-update-price.component';
 
 
 
@@ -442,6 +448,12 @@ import { SalesAddSummaryComponent } from './sales/sales-add-summary/sales-add-su
     SalesProductSearchComponent,
     SalesAddProductComponent,
     SalesAddSummaryComponent,
+    ImportColorComponent,
+    ImportTypeComponent,
+    ImportSizeComponent,
+    ImportProductComponent,
+    ImportMenuComponent,
+    ProductUpdatePriceComponent,
     
 
 

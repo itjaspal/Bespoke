@@ -17,6 +17,7 @@ namespace api.Interfaces
         MasterProductAttributeView GetInfoType(long productAttributeId);
         MasterProductAttributeView GetInfoColor(long productAttributeId);
         MasterProductAttributeView GetInfoSize(long productAttributeId);
+        MasterProductView GetInfoProduct(long id);
 
         void Create(MasterProductAttributeView model);
 

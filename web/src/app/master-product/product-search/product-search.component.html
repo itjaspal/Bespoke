@@ -40,11 +40,11 @@
         </mat-card-content>
         <mat-card-actions class="no-margin">
           <button mat-raised-button color="primary" class="btn-w-md" type="button" (click)="search()"
-            [disabled]="model.productAttributeTypeCode == ''">
+            [disabled]="model.productAttributeTypeCode == '' ">
             <mat-icon class="material-icons">search</mat-icon> ค้นหา
           </button>
           <button mat-raised-button type="button" mat-button class="btn-w-md pull-right"
-            (click) ="add(model.productAttributeTypeCode)">
+            (click) ="add(model.productAttributeTypeCode)" [disabled]="model.productAttributeTypeCode == '' || model.productAttributeTypeCode == 'PRODUCT'">
             <mat-icon class="material-icons">add</mat-icon> เพิ่มข้อมูล
           </button>
           <!-- <button mat-raised-button type="button" mat-button class="btn-w-md pull-right"
