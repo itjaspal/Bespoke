@@ -504,13 +504,13 @@ namespace api.Services
                 //query data
                 List<Product> prod = ctx.Products
                     .Where(x => (x.prod_code.Contains(model.prod_code) || model.prod_code == "")
-                    //&& (x.bar_code.Contains(model.bar_code) || model.bar_code == "") && (x.prod_tname.Contains(model.prod_tname) || model.prod_tname == "")
-                    //&& (x.pdtype_code == model.pdtype_code || model.pdtype_code == "")
-                    //&& (x.pdbrnd_code == model.pdbrnd_code || model.pdbrnd_code == "")
-                    //&& (x.pdcolor_code == model.pdcolor_code || model.pdcolor_code == "")
-                    //&& (x.pdsize_code == model.pdsize_code || model.pdsize_code == "")
-                    //&& (x.pddsgn_code == model.pddsgn_code || model.pddsgn_code == "")
-                    //&& (x.prod_status == model.status || model.status == null)
+                    && (x.bar_code.Contains(model.bar_code) || model.bar_code == "") && (x.prod_tname.Contains(model.prod_tname) || model.prod_tname == "")
+                    && (x.pdtype_code == model.pdtype_code || model.pdtype_code == "")
+                    && (x.pdbrnd_code == model.pdbrnd_code || model.pdbrnd_code == "")
+                    && (x.pdcolor_code == model.pdcolor_code || model.pdcolor_code == "")
+                    && (x.pdsize_code == model.pdsize_code || model.pdsize_code == "")
+                    && (x.pddsgn_code == model.pddsgn_code || model.pddsgn_code == "")
+                    && (x.prod_status == model.status || model.status == null)
                     )
                     .OrderBy(o => o.prod_code)
                     .ToList();

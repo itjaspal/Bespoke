@@ -72,11 +72,15 @@ export class SalesViewComponent implements OnInit {
   }
 
   async sendToReady() {
+
+    console.log(this.model);
     this.saleTransactionId = this._actRoute.snapshot.params.id;
     console.log(this.saleTransactionId);
    
     this._msgSvc.confirmPopup("ยืนยันส่งรายการขาย", async result => {
       if (result) {
+
+        
 
         await this._salesSvc.postUpdateToReady({
           co_trns_mast_id: this.saleTransactionId,

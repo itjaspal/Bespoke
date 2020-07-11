@@ -24,6 +24,8 @@ namespace api.Interfaces
         void Update(MasterProductAttributeView model);
         void UpdateProduct(MasterProductView model);
 
+        //void SyncProduct(MasterProductView model);
+
         bool CheckDupplicate(string productAttributeTypeCode, string code);
 
         //bool CanInactive(long productAttributeId);

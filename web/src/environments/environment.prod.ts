@@ -2,5 +2,6 @@ export const environment = {
   production: true,
   hmr: false,
   API_URL: "./api/",
-  version: '1.0.2'
+  API_SYNC_URL: "http://localhost/api/",
+  version: '1.0.1'
 };

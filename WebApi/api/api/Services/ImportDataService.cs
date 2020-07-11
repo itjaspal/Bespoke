@@ -129,6 +129,71 @@ namespace api.Services
                             };
                             ctx.Products.Add(productAttribute);
                             ctx.SaveChanges();
+
+                            PDTYPE_MAST type = ctx.TypeMasts
+                           .Where(z => z.pdtype_code == x.pdtype_code)
+                           .SingleOrDefault();
+
+                                if (type == null)
+                                {
+                                    PDTYPE_MAST typeData = new PDTYPE_MAST()
+                                    {
+                                        pdtype_code = x.pdtype_code,
+                                        pdtype_tname = x.pdtype_desc,
+                                        pdtype_ename = x.pdtype_desc,
+                                        status = "A",
+                                        created_by = "SYSTEM",
+                                        created_at = DateTime.Now,
+                                        updated_by = "SYSTEM",
+                                        updated_at = DateTime.Now
+                                    };
+                                    ctx.TypeMasts.Add(typeData);
+                                    ctx.SaveChanges();
+                                }
+
+                            PDSIZE_MAST size = ctx.SizeMasts
+                            .Where(z => z.pdsize_code == x.pdsize_code)
+                            .SingleOrDefault();
+
+                                if (size == null)
+                                {
+                                    PDSIZE_MAST sizeData = new PDSIZE_MAST()
+                                    {
+                                        pdsize_code = x.pdsize_code,
+                                        pdsize_tname = x.pdsize_desc,
+                                        pdsize_ename = x.pdsize_desc,
+                                        status = "A",
+                                        created_by = "SYSTEM",
+                                        created_at = DateTime.Now,
+                                        updated_by = "SYSTEM",
+                                        updated_at = DateTime.Now
+                                    };
+                                    ctx.SizeMasts.Add(sizeData);
+                                    ctx.SaveChanges();
+                                }
+
+                            PDCOLOR_MAST color = ctx.ColorMasts
+                            .Where(z => z.pdcolor_code == x.pdcolor_code)
+                            .SingleOrDefault();
+
+                                if (color == null)
+                                {
+                                    PDCOLOR_MAST colorData = new PDCOLOR_MAST()
+                                    {
+                                        pdcolor_code = x.pdcolor_code,
+                                        pdcolor_tname = x.pdcolor_desc,
+                                        pdcolor_ename = x.pdcolor_desc,
+                                        status = "A",
+                                        created_by = "SYSTEM",
+                                        created_at = DateTime.Now,
+                                        updated_by = "SYSTEM",
+                                        updated_at = DateTime.Now
+                                    };
+                                    ctx.ColorMasts.Add(colorData);
+                                    ctx.SaveChanges();
+                                }
+
+
                         }
                     }
                     scope.Complete();

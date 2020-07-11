@@ -7,7 +7,7 @@ export const environment = {
   production: false,
   hmr: false,
   API_URL: "http://localhost:65387/",
-  API_SYNC_URL: "http://localhost:65387/",
+  API_SYNC_URL: "http://localhost:50979/",
   //API_URL: "./api/",
   version: 'Development'
 };
