@@ -101,4 +101,37 @@ namespace api.ModelViews
         public string remark { get; set; }
 
     }
+
+    public class CustomerAddressView
+    {
+        public string address1 { get; set; }
+        public string address2 { get; set; }
+    }
+
+    public class ProductDataView
+    {
+        public string prod_code { get; set; }
+        public string prod_name { get; set; }
+        public string uom_code { get; set; }
+        public string bar_code { get; set; }
+        public string entity { get; set; }
+        public string pdgrp_code { get; set; }
+        public string pdbrnd_code { get; set; }
+        public string pdtype_code { get; set; }
+        public string pddsgn_code { get; set; }
+        public string pdsize_code { get; set; }
+        public string pdcolor_code { get; set; }
+        public string pdmisc_code { get; set; }
+        public string pdmodel_code { get; set; }
+        public string pdgrp_desc { get; set; }
+        public string pdbrnd_desc { get; set; }
+        public string pdtype_desc { get; set; }
+        public string pddsgn_desc { get; set; }
+        public string pdcolor_desc { get; set; }
+        public string pdsize_desc { get; set; }
+        public string pdmisc_desc { get; set; }
+        public string pdmodel_desc { get; set; }
+        public decimal unit_price { get; set; }
+        public string size_uom { get; set; }
+    }
 }

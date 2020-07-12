@@ -86,4 +86,8 @@ export class SalesService {
     return await this.http.get<SalesTransactionView>(environment.API_URL + 'sales/getSalesTransactionInfo/' + _saleTransactionId).toPromise();
   }
 
+  public async syncSendOrder(_model: SalesTransactionView) {
+    return await this.http.post<number>(environment.API_SYNC_URL + 'sync-data/postSendOrderData', _model).toPromise();
+  }
+
 }

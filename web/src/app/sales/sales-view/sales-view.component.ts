@@ -80,7 +80,7 @@ export class SalesViewComponent implements OnInit {
     this._msgSvc.confirmPopup("ยืนยันส่งรายการขาย", async result => {
       if (result) {
 
-        
+        await this._salesSvc.syncSendOrder(this.model);
 
         await this._salesSvc.postUpdateToReady({
           co_trns_mast_id: this.saleTransactionId,

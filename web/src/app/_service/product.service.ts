@@ -61,5 +61,6 @@ export class ProductService {
   public async syncProduct(_model: ProductSyncSearchView) {
     return await this.http.post<CommonSearchView<ProductView>>(environment.API_SYNC_URL + 'sync-data/postSyncProduct', _model).toPromise();
   }
+
   
 }
