@@ -427,20 +427,44 @@ namespace api.Services
 
         public void SendMail()
         {
-            
-            var fromAddress = new MailAddress("harudee@gmail.com", "Bespoke");
+            // Send by Google
+            //var fromAddress = new MailAddress("harudee@gmail.com", "Bespoke");
+            //var toAddress = new MailAddress("harudee@jaspalhome.com", "CS Jaspalhome");
+            //const string fromPassword = "HaNing30!";
+            //const string subject = "test";
+            //const string body = "Hey now!!";
+
+            //var smtp = new SmtpClient
+            //{
+            //    Host = "smtp.gmail.com",
+            //    Port = 587,
+            //    EnableSsl = true,
+            //    DeliveryMethod = SmtpDeliveryMethod.Network,
+            //    Credentials = new NetworkCredential(fromAddress.Address, fromPassword),
+            //    Timeout = 20000
+            //};
+            //using (var message = new MailMessage(fromAddress, toAddress)
+            //{
+            //    Subject = subject,
+            //    Body = body
+            //})
+            //{
+            //    smtp.Send(message);
+            //}
+
+            var fromAddress = new MailAddress("admin@jaspalhome.com", "Bespoke");
             var toAddress = new MailAddress("harudee@jaspalhome.com", "CS Jaspalhome");
-            const string fromPassword = "HaNing30!";
+            //const string fromPassword = "haruning";
             const string subject = "test";
             const string body = "Hey now!!";
 
             var smtp = new SmtpClient
             {
-                Host = "smtp.gmail.com",
-                Port = 587,
+                Host = "mail.jaspalhome.com",
+                Port = 25,
                 EnableSsl = true,
                 DeliveryMethod = SmtpDeliveryMethod.Network,
-                Credentials = new NetworkCredential(fromAddress.Address, fromPassword),
+                Credentials = new NetworkCredential("consign", "Consign"),
                 Timeout = 20000
             };
             using (var message = new MailMessage(fromAddress, toAddress)
@@ -699,6 +723,7 @@ namespace api.Services
                     font_name_base64 = font_base64,
                     font_color_base64 = color_base64,
                     doc_status = model.doc_status,
+                    user_code = model.created_by,
 
 
                     transactionItem = new List<ModelViews.TransactionItemView>()
@@ -907,13 +932,14 @@ namespace api.Services
                     .SingleOrDefault();
 
 
-                var fromAddress = new MailAddress("consignmt@gmail.com", "Bespoke");
+                //var fromAddress = new MailAddress("consignmt@gmail.com", "Bespoke");
+                var fromAddress = new MailAddress("admin@jaspalhome.com", "Bespoke");
                 var toAddress = new MailAddress("bespoke@jaspalhome.com", "Bespoke Admin");
                 string url = ConfigurationManager.AppSettings["urlDetail"];
 
 
                 //var toAddress = new MailAddress("it_job@jaspalhome.com", "Bespoke Admin");
-                const string fromPassword = "Cos@2018!";
+                //const string fromPassword = "Cos@2018!";
                 string subject = "New Order : " + model.doc_no + " - " + model.cust_name;
                 string body = "<html><body>New Order" + "<br>"
                             + "Japal Home สาขา : " + model.cust_name + "<br>"
@@ -926,11 +952,18 @@ namespace api.Services
 
                 var smtp = new SmtpClient
                 {
-                    Host = "smtp.gmail.com",
-                    Port = 587,
+                    //Host = "smtp.gmail.com",
+                    //Port = 587,
+                    //EnableSsl = true,
+                    //DeliveryMethod = SmtpDeliveryMethod.Network,
+                    //Credentials = new NetworkCredential(fromAddress.Address, fromPassword),
+                    //Timeout = 20000
+
+                    Host = "mail.jaspalhome.com",
+                    Port = 25,
                     EnableSsl = true,
                     DeliveryMethod = SmtpDeliveryMethod.Network,
-                    Credentials = new NetworkCredential(fromAddress.Address, fromPassword),
+                    Credentials = new NetworkCredential("consign", "Consign"),
                     Timeout = 20000
                 };
                 using (var message = new MailMessage(fromAddress, toAddress)
@@ -1278,6 +1311,45 @@ namespace api.Services
                 }
             }
                 
+        }
+
+        public void DeleteAttachFile(SalesAttachView model)
+        {
+            using (var ctx = new ConXContext())
+            {
+                using (TransactionScope scope = new TransactionScope())
+                {
+
+                    CO_TRNS_ATTACH_FILE attach = ctx.CoTransAttachs
+                        .Where(z => z.co_trns_att_file_id == model.co_trns_att_file_id)
+                        .SingleOrDefault();
+
+                    //ctx.UserBranchPrvlgs.RemoveRange(ctx.UserBranchPrvlgs.Where(z => z.username == colorView.emb_color_mast_id));
+                    //ctx.SaveChanges();
+
+                    ctx.CoTransAttachs.Remove(attach);
+
+                    ctx.SaveChanges();
+
+                    scope.Complete();
+                }
+            }
+        }
+
+        public SalesTransactionUpdateStatusView GetTransctionId(string doc_no)
+        {
+            using (var ctx = new ConXContext())
+            {
+                CO_TRNS_MAST model = ctx.CoTransMasts
+                    .Where(x => x.doc_no == doc_no)
+                    .SingleOrDefault();
+
+                return new SalesTransactionUpdateStatusView
+                {
+                    co_trns_mast_id = model.co_trns_mast_id
+
+                };
+            }
         }
     }
 }

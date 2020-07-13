@@ -218,5 +218,4 @@ D:\Angular\Project\Bespoke\WebApi\api\api\bin\SinaptIQPKCS7.dll
 D:\Angular\Project\Bespoke\WebApi\api\api\bin\ExcelDataReader.DataSet.dll
 D:\Angular\Project\Bespoke\WebApi\api\api\bin\ExcelDataReader.DataSet.pdb
 D:\Angular\Project\Bespoke\WebApi\api\api\bin\ExcelDataReader.DataSet.xml
-D:\Angular\project\Bespoke\WebApi\api\api\obj\Debug\api.csprojAssemblyReference.cache
-D:\Angular\project\Bespoke\WebApi\api\api\obj\Debug\api.csproj.CopyComplete
+D:\Angular\Project\Bespoke\WebApi\api\api\obj\Debug\api.csprojResolveAssemblyReference.cache

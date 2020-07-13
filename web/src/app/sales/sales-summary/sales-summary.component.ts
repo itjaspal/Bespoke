@@ -86,6 +86,8 @@ export class SalesSummaryComponent implements OnInit {
   public total_amt:any;
   public designName : any;
   public catalog_id : any;
+
+  public transaction_id : any;
   
 
   catalog_size_id:any;
@@ -420,7 +422,10 @@ export class SalesSummaryComponent implements OnInit {
       await this._salesSvc.create(this.model);
 
       await this._msgSvc.successPopup("บันทึกข้อมูลเรียบร้อย");
-      this._router.navigateByUrl('/app/sale'); 
+      
+      this.transaction_id = await this._salesSvc.getTransactionId(this.docNo);
+
+      this._router.navigateByUrl('/app/sale/attach/'+this.transaction_id.co_trns_mast_id); 
     }
     //console.log(this.model.file);
   }

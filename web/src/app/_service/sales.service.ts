@@ -1,4 +1,4 @@
-import { SalesAttachView } from './../_model/sales';
+import { SalesAttachView, SalesTransactionUpdateStatusView } from './../_model/sales';
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { CommonSearchView } from '../_model/common-search-view';
@@ -78,6 +78,12 @@ export class SalesService {
     return await this.http.get(environment.API_URL + 'sales/getInquiryAttachFile/'+ _saleTransactionId).toPromise();
   }
 
+  public async deleteAttachFile(params) {
+    return await this.http.post(environment.API_URL + 'sales/postDeleteAttachFile',params).toPromise();
+  }
+
+  
+
   public async postUpdateToReady(_model: any) {
     return await this.http.post<number>(environment.API_URL + 'sales/postUpdateToReady', _model).toPromise();
   }
@@ -88,6 +94,10 @@ export class SalesService {
 
   public async syncSendOrder(_model: SalesTransactionView) {
     return await this.http.post<number>(environment.API_SYNC_URL + 'sync-data/postSendOrderData', _model).toPromise();
+  }
+
+  public async getTransactionId(_doc_no : string) {
+    return await this.http.get<SalesTransactionUpdateStatusView>(environment.API_URL + 'sales/getTransactionId/' + _doc_no).toPromise();
   }
 
 }

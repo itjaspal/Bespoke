@@ -296,6 +296,28 @@ namespace api.Controllers
             }
         }
 
+        [Route("sales/postDeleteAttachFile")]
+        public HttpResponseMessage postDeleteAttachFile(SalesAttachView model)
+        {
+            try
+            {
+
+                salesSvc.DeleteAttachFile(model);
+
+                CommonResponseView res = new CommonResponseView()
+                {
+                    status = CommonStatus.SUCCESS,
+                    message = "ลบข้อมูลสำเร็จ"
+                };
+
+                return Request.CreateResponse(HttpStatusCode.OK, res);
+            }
+            catch (Exception ex)
+            {
+                return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, ex.ToString());
+            }
+        }
+
         //[POST("postUpdateToReady")]
         [Route("sales/postUpdateToReady")]
         public HttpResponseMessage postUpdateToReady(SalesTransactionUpdateStatusView model)
@@ -327,6 +349,20 @@ namespace api.Controllers
             {
                 //logSale.Error(ex);
                 return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, ex.ToString());
+            }
+        }
+
+        [Route("sales/getTransactionId/{doc_no}")]
+        public HttpResponseMessage getTransactionId(string doc_no)
+        {
+            try
+            {
+                var result = salesSvc.GetTransctionId(doc_no);
+                return Request.CreateResponse(HttpStatusCode.OK, result);
+            }
+            catch (Exception ex)
+            {
+                return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, ex.Message.ToString());
             }
         }
 

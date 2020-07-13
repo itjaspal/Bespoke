@@ -24,8 +24,11 @@ namespace api.Interfaces
         void CancelSalesTransaction(long co_trns_mast_id, string userId);
         void SalesAtthach(SalesAttachView model);
         List<SalesAttachView> InquiryAttachFile(long co_trns_mast_id);
+        void DeleteAttachFile(SalesAttachView model);
         void UpdateToReady(long saleTransactionId, string userId);
         SalesTransactionView SalesTransactionInfo(long co_trns_mast_id);
+        SalesTransactionUpdateStatusView GetTransctionId(string doc_no);
+
 
     }
 }

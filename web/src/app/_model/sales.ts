@@ -222,3 +222,8 @@ export class SalesProductSelectedView
         public color : any;
 }
 
+export class SalesTransactionUpdateStatusView
+{
+        public co_trns_mast_id : number = 0;
+        public userId : string = "";
+}

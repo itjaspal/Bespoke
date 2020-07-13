@@ -50,11 +50,29 @@ export class SalesViewComponent implements OnInit {
 
     this.datas = await this._salesSvc.getInquiryAttachFile(this.saleTransactionId);
 
+    console.log(this.datas);
     
   }
 
   view(x: SalesAttachView) {
     window.open(x.fullPath);
+  }
+
+  
+  async delete(x: SalesAttachView) {
+    
+    console.log(x);
+    this._msgSvc.confirmPopup("ยืนยันลบข้อมูล", async result => {
+      if (result) {
+        let res: any = await this._salesSvc.deleteAttachFile(x);
+
+        this._msgSvc.successPopup(res.message);
+
+        this._router.navigateByUrl('/', {skipLocationChange: true}).then(()=>
+        this._router.navigate(["/app/sale/view/"+ x.co_trns_mast_id]));
+      }
+    })
+
   }
 
   print() {
