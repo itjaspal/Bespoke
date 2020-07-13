@@ -415,7 +415,7 @@ export class SalesSummaryComponent implements OnInit {
     
     if(this.model.sign_customer == "" || this.model.sign_manager == "")
     {
-      await this._msgSvc.warningPopup("ต้องใส่ข้อมูล");
+      await this._msgSvc.warningPopup("ต้องเซ็นต์ชื่อ");
     }
     else
     {

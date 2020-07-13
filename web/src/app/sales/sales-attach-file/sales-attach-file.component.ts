@@ -50,7 +50,7 @@ export class SalesAttachFileComponent implements OnInit {
   }
 
   close() {
-    window.history.back();
+    this._router.navigateByUrl('/app/sale'); 
   }
 
   async save() {
