@@ -19,7 +19,7 @@ namespace api.Controllers
             syncSvc = new SyncDataService();
         }
 
-        [Route("sync-product/postSyncProduct")]
+        [Route("sync-data/postSyncProduct")]
         public HttpResponseMessage postSyncProductData(SyncProductDataSearchView model)
         {
             try

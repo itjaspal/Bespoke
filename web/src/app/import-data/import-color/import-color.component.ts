@@ -21,8 +21,8 @@ export class ImportColorComponent  {
   ) { }
 
   data: AOA = [[, ], [, ]];
-  wopts: XLSX.WritingOptions = { bookType: 'xlsx', type: 'array' };
-  fileName: string = 'SheetJS.xlsx';
+  //wopts: XLSX.WritingOptions = { bookType: 'xlsx', type: 'array' };
+  //fileName: string = 'SheetJS.xlsx';
 
   
   public model: ImportDataView = new ImportDataView();

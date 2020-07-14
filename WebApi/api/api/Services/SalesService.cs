@@ -661,6 +661,8 @@ namespace api.Services
         {
             var font_base64 = "";
             var color_base64 = "";
+            var size_code = "";
+            var size_name = "";
 
             using (var ctx = new ConXContext())
             {
@@ -755,9 +757,27 @@ namespace api.Services
                         .Where(z => z.catalog_size_id == i.catalog_size_id)
                         .SingleOrDefault();
 
+                    if(catalog_size == null)
+                    {
+                        size_code = "";
+                    }
+                    else
+                    {
+                        size_code = catalog_size.pdsize_code;
+                    }
+
                     PDSIZE_MAST size_mast = ctx.SizeMasts
-                        .Where(z => z.pdsize_code == catalog_size.pdsize_code)
+                        .Where(z => z.pdsize_code == size_code)
                         .SingleOrDefault();
+
+                    if(size_mast == null)
+                    {
+                        size_name = "";
+                    }
+                    else
+                    {
+                        size_name = size_mast.pdsize_tname;
+                    }
 
                     if (pic.catalog_type_code == "A")
                     {
@@ -774,8 +794,8 @@ namespace api.Services
                             is_border = type.is_border,
                             catalog_type_code = pic.catalog_type_code,
                             type_base64 = pic.pic_base64,
-                            pdsize_code = catalog_size.pdsize_code,
-                            pdsize_name = size_mast.pdsize_tname,
+                            pdsize_code = size_code,
+                            pdsize_name = size_name,
                             size_sp = i.size_spec,
                             color_base64 = catalog_color.pic_base64,
                             embroidery = "",
@@ -807,15 +827,15 @@ namespace api.Services
                             is_border = type.is_border,
                             catalog_type_code = pic.catalog_type_code,
                             type_base64 = pic.pic_base64,
-                            pdsize_code = catalog_size.pdsize_code,
-                            pdsize_name = size_mast.pdsize_tname,
+                            pdsize_code = size_code,
+                            pdsize_name = size_name,
                             size_sp = i.size_spec,
                             color_base64 = catalog_color.pic_base64,
                             embroidery = model.emb_character,
                             font_name = model.emb_mast_id,
-                            font_name_base64 = font.pic_base64,
+                            font_name_base64 = font_base64,
                             font_color = model.emb_color_id,
-                            font_color_base64 = color.pic_base64,
+                            font_color_base64 = color_base64,
                             add_price = model.add_price,
                             prod_code = i.prod_code,
                             prod_tname = i.prod_name,
@@ -983,6 +1003,9 @@ namespace api.Services
         {
             var font_base64 = "";
             var color_base64 = "";
+            var size_code = "";
+            var size_name = "";
+
             using (var ctx = new ConXContext())
             {
                 CO_TRNS_MAST model = ctx.CoTransMasts
@@ -1081,9 +1104,27 @@ namespace api.Services
                         .Where(z => z.catalog_size_id == i.catalog_size_id)
                         .SingleOrDefault();
 
+                    if(catalog_size == null)
+                    {
+                        size_code = "";
+                    }
+                    else
+                    {
+                        size_code = catalog_size.pdsize_code;
+                    }
+
                     PDSIZE_MAST size_mast = ctx.SizeMasts
-                        .Where(z => z.pdsize_code == catalog_size.pdsize_code)
+                        .Where(z => z.pdsize_code == size_code)
                         .SingleOrDefault();
+
+                    if(size_mast == null)
+                    {
+                        size_name = "";
+                    }
+                    else
+                    {
+                        size_name = size_mast.pdsize_tname;
+                    }
 
                     if (pic.catalog_type_code == "A")
                     {
@@ -1100,8 +1141,8 @@ namespace api.Services
                             is_border = type.is_border,
                             catalog_type_code = pic.catalog_type_code,
                             type_base64 = pic.pic_base64,
-                            pdsize_code = catalog_size.pdsize_code,
-                            pdsize_name = size_mast.pdsize_tname,
+                            pdsize_code = size_code,
+                            pdsize_name = size_name,
                             size_sp = i.size_spec,
                             color_base64 = catalog_color.pic_base64,
                             embroidery = "",
@@ -1133,15 +1174,15 @@ namespace api.Services
                             is_border = type.is_border,
                             catalog_type_code = pic.catalog_type_code,
                             type_base64 = pic.pic_base64,
-                            pdsize_code = catalog_size.pdsize_code,
-                            pdsize_name = size_mast.pdsize_tname,
+                            pdsize_code = size_code,
+                            pdsize_name = size_name,
                             size_sp = i.size_spec,
                             color_base64 = catalog_color.pic_base64,
                             embroidery = model.emb_character,
                             font_name = model.emb_mast_id,
-                            font_name_base64 = font.pic_base64,
+                            font_name_base64 = font_base64,
                             font_color = model.emb_color_id,
-                            font_color_base64 = color.pic_base64,
+                            font_color_base64 = color_base64,
                             add_price = model.add_price,
                             prod_code = i.prod_code,
                             prod_tname = i.prod_name,

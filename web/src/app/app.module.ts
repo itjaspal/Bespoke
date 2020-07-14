@@ -212,6 +212,7 @@ import { ImportProductComponent } from './import-data/import-product/import-prod
 import { ImportMenuComponent } from './import-data/import-menu/import-menu.component';
 import { ProductUpdatePriceComponent } from './master-product/product-update-price/product-update-price.component';
 import { ProductSyncComponent } from './master-product/product-sync/product-sync.component';
+import { SalesAttachFileAddComponent } from './sales/sales-attach-file-add/sales-attach-file-add.component';
 
 
 
@@ -456,6 +457,7 @@ import { ProductSyncComponent } from './master-product/product-sync/product-sync
     ImportMenuComponent,
     ProductUpdatePriceComponent,
     ProductSyncComponent,
+    SalesAttachFileAddComponent,
     
 
 

@@ -88,6 +88,7 @@ import { ImportProductComponent } from '../import-data/import-product/import-pro
 import { ImportMenuComponent } from '../import-data/import-menu/import-menu.component';
 import { ProductUpdatePriceComponent } from '../master-product/product-update-price/product-update-price.component';
 import { ProductSyncComponent } from '../master-product/product-sync/product-sync.component';
+import { SalesAttachFileAddComponent } from '../sales/sales-attach-file-add/sales-attach-file-add.component';
 
  
 
@@ -212,6 +213,7 @@ const routes: Routes = [
       { path: "sale/product/:catalog/:color", component: SalesProductComponent, canActivate: [AuthenGuard], data: { parentUrl: "/app/sale" } },
       { path: "sale/summary/:catalog/:color", component: SalesSummaryComponent, canActivate: [AuthenGuard], data: { parentUrl: "/app/sale" } },
       { path: "sale/attach/:id", component: SalesAttachFileComponent, canActivate: [AuthenGuard], data: { parentUrl: "/app/sale" } },
+      { path: "sale/attach-add/:id", component: SalesAttachFileAddComponent, canActivate: [AuthenGuard], data: { parentUrl: "/app/sale" } },
       { path: "sale/print/:id", component: SalesPrintComponent, canActivate: [AuthenGuard], data: { parentUrl: "/app/sale" } },
       { path: "sale/product-search/:catalog/:color/:id", component: SalesProductSearchComponent, canActivate: [AuthenGuard], data: { parentUrl: "/app/sale" } },
       { path: "sale/product-add/:catalog/:color/:id", component: SalesAddProductComponent, canActivate: [AuthenGuard], data: { parentUrl: "/app/sale" } },

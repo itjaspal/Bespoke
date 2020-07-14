@@ -56,7 +56,7 @@ export class SalesService {
     return await this.http.post<number>(environment.API_URL + 'sales/postCancelSalesTransaction', _model).toPromise();
   }
 
-  public async getInquirySalesTransactionInfo(_saleTransactionId) {
+  public async getInquirySalesTransactionInfo(_saleTransactionId : number) {
     return await this.http.get<SalesTransactionView>(environment.API_URL + 'sales/getInquirySalesTransactionInfo/' + _saleTransactionId).toPromise();
   }
 
