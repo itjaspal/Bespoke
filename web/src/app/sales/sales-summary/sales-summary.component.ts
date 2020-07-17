@@ -36,7 +36,7 @@ export class SalesSummaryComponent implements OnInit {
   public options: Object = { // passed through to szimek/signature_pad constructor
     //'backgroundColor': 'rgb(222, 224, 226)',
     //'backgroundColor': 'rgb(255, 255, 255)',
-    'minWidth': 3,
+    'minWidth': 1,
     'canvasWidth':  270,
     'canvasHeight': 120
   };
@@ -326,10 +326,10 @@ export class SalesSummaryComponent implements OnInit {
   ngAfterViewInit() {
     //this.buildForm();
     // this.signaturePad is now available
-    this.sign_manager.set('minWidth', 3); // set szimek/signature_pad options at runtime
+    this.sign_manager.set('minWidth', 1); // set szimek/signature_pad options at runtime
     this.sign_manager.clear(); // invoke functions from szimek/signature_pad API
 
-    this.sign_customer.set('minWidth', 3); // set szimek/signature_pad options at runtime
+    this.sign_customer.set('minWidth', 1); // set szimek/signature_pad options at runtime
     this.sign_customer.clear(); // invoke functions from szimek/signature_pad API
   }
 
