@@ -95,6 +95,8 @@ namespace api.Services
                                 new OracleParameter("p_pdtype_code", product.pdtype_code),
                                 new OracleParameter("p_pddsgn_code", product.pddsgn_code),
                                 new OracleParameter("p_qty_ord", saleItem.qty),
+                                new OracleParameter("p_qty_req", saleItem.qty),
+                                new OracleParameter("p_qty_bal", saleItem.qty),
                                 new OracleParameter("p_remark", saleItem.remark),
                                 new OracleParameter("p_pdsize_code", product.pdsize_code),
                                 new OracleParameter("p_pdcolor_code", product.pdcolor_code),
@@ -108,7 +110,7 @@ namespace api.Services
                         };
                         oraCommanddet.BindByName = true;
                         oraCommanddet.Parameters.AddRange(paramdet);
-                        oraCommanddet.CommandText = "insert into por_det ( pd_entity , por_no , line_no , prod_code , pdgrp_code , pdbrnd_code , pdtype_code , pddsgn_code , qty_ord , remark , pdsize_code , pdcolor_code , skb_flag , gplabel_no , design , uom , prod_name , sizes , size_uom , dsgn_no , cr_flag ,wh_code) values ( 'H10' , :p_por_no , :p_line_no , :p_prod_code , :p_pdgrp_code , :p_pdbrnd_code , :p_pdtype_code , :p_pddsgn_code , :p_qty_ord , :p_remark , :p_pdsize_code , :p_pdcolor_code , 'Y' , :p_gplabel_no , :p_design , :p_uom , :p_prod_name , :p_size , :p_size_uom , :p_dsgn_no , 'N' , 'FH')";
+                        oraCommanddet.CommandText = "insert into por_det ( pd_entity , por_no , line_no , prod_code , pdgrp_code , pdbrnd_code , pdtype_code , pddsgn_code , qty_ord , qty_req , qty_bal , remark , pdsize_code , pdcolor_code , skb_flag , gplabel_no , design , uom , prod_name , sizes , size_uom , dsgn_no , cr_flag ,wh_code) values ( 'H10' , :p_por_no , :p_line_no , :p_prod_code , :p_pdgrp_code , :p_pdbrnd_code , :p_pdtype_code , :p_pddsgn_code , :p_qty_ord , :p_qty_req , :p_qty_bal , :p_remark , :p_pdsize_code , :p_pdcolor_code , 'Y' , :p_gplabel_no , :p_design , :p_uom , :p_prod_name , :p_size , :p_size_uom , :p_dsgn_no , 'N' , 'FH')";
 
 
                         oraCommanddet.ExecuteNonQuery();
