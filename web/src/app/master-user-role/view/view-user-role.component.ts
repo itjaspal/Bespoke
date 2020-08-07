@@ -68,4 +68,9 @@ export class ViewUserRoleComponent extends BaseComponent implements OnInit {
 
   }
 
+  checkAllGroup()
+  {
+    
+  }
+
 }

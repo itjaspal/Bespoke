@@ -28,6 +28,7 @@ namespace api.Interfaces
         void UpdateToReady(long saleTransactionId, string userId);
         SalesTransactionView SalesTransactionInfo(long co_trns_mast_id);
         SalesTransactionUpdateStatusView GetTransctionId(string doc_no);
+        bool CheckAttach(long co_trns_mast_id);
 
 
     }

@@ -74,8 +74,9 @@ export class ProductSearchComponent implements OnInit {
     else
     {
       this.data = await this._productSvc.search(this.model);
+      
     }
-    console.log(this.data);    
+    console.log(this.model);    
   }
 
   async add(attr)

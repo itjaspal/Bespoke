@@ -177,6 +177,7 @@ namespace api.ModelViews
         public decimal add_price { get; set; }
         public string prod_code { get; set; }
         public string prod_tname { get; set; }
+        public string bar_code { get; set; }
         public decimal qty { get; set; }
         public decimal unit_price { get; set; }
         public decimal amt { get; set; }

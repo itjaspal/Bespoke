@@ -24,7 +24,7 @@ namespace api.Services
         {
             using (var ctx = new ConXContext())
             {
-
+                var color_pic64 = ""; 
                 //query data
                 List<CATALOG_EMB_COLOR> color = ctx.CatalogEmbColors
                     .Where(x => x.catalog_id == catalog)
@@ -39,12 +39,21 @@ namespace api.Services
                         .Where(z => z.color_code == i.emb_color_code)
                         .SingleOrDefault();
 
+                    if (colorMast == null)
+                    {
+                        color_pic64 = "";
+                    }
+                    else
+                    {
+                        color_pic64 = colorMast.pic_base64;
+                    }
+
                     CatalogEmbColorView view = new CatalogEmbColorView()
                     {
                         catalog_emb_color_id = i.catalog_emb_color_id,
                         catalog_id = i.catalog_id,
                         emb_color_code = i.emb_color_code,
-                        pic_base64 = colorMast.pic_base64
+                        pic_base64 = color_pic64
                     };
 
                     colorViews.Add(view);
@@ -587,6 +596,10 @@ namespace api.Services
                     int i = 1;
                     foreach (var saleItem in model.transactionItem)
                     {
+                        string sqlp = "select bar_code from Product where prod_code = @p_prod_code ";
+                        string barcode = ctx.Database.SqlQuery<string>(sqlp, new System.Data.SqlClient.SqlParameter("@p_prod_code", saleItem.prod_code)).SingleOrDefault();
+
+                        
 
                         CO_TRNS_DET newDetObj = new CO_TRNS_DET()
                         {
@@ -598,6 +611,7 @@ namespace api.Services
                             item = i,
                             prod_code = saleItem.prod_code,
                             prod_name = saleItem.prod_tname,
+                            bar_code = barcode,
                             unit_price = saleItem.unit_price,
                             sale_price = saleItem.unit_price,
                             qty = saleItem.qty,
@@ -806,6 +820,7 @@ namespace api.Services
                             add_price = 0,
                             prod_code = i.prod_code,
                             prod_tname = i.prod_name,
+                            bar_code = i.bar_code,
                             qty = i.qty,
                             unit_price = i.unit_price,
                             amt = i.amt,
@@ -839,6 +854,7 @@ namespace api.Services
                             add_price = model.add_price,
                             prod_code = i.prod_code,
                             prod_tname = i.prod_name,
+                            bar_code = i.bar_code,
                             qty = i.qty,
                             unit_price = i.unit_price,
                             amt = i.amt,
@@ -932,6 +948,7 @@ namespace api.Services
         {
             using (var ctx = new ConXContext())
             {
+                
                 using (var scope = new TransactionScope())
                 {
                     CO_TRNS_MAST update = ctx.CoTransMasts
@@ -953,7 +970,7 @@ namespace api.Services
 
 
                 //var fromAddress = new MailAddress("consignmt@gmail.com", "Bespoke");
-                var fromAddress = new MailAddress("admin@jaspalhome.com", "Bespoke");
+                var fromAddress = new MailAddress("bespoke@jaspalhome.com", "Bespoke");
                 var toAddress = new MailAddress("bespoke@jaspalhome.com", "Bespoke Admin");
                 string url = ConfigurationManager.AppSettings["urlDetail"];
 
@@ -1315,6 +1332,8 @@ namespace api.Services
                     int i = 1;
                     foreach (var saleItem in model.transactionItem)
                     {
+                        string sqlp = "select bar_code from Product where prod_code = @p_prod_code ";
+                        string barcode = ctx.Database.SqlQuery<string>(sqlp, new System.Data.SqlClient.SqlParameter("@p_prod_code", saleItem.prod_code)).SingleOrDefault();
 
                         CO_TRNS_DET newDetObj = new CO_TRNS_DET()
                         {
@@ -1326,6 +1345,7 @@ namespace api.Services
                             item = i,
                             prod_code = saleItem.prod_code,
                             prod_name = saleItem.prod_tname,
+                            bar_code = barcode,
                             unit_price = saleItem.unit_price,
                             sale_price = saleItem.unit_price,
                             qty = saleItem.qty,
@@ -1390,6 +1410,26 @@ namespace api.Services
                     co_trns_mast_id = model.co_trns_mast_id
 
                 };
+            }
+        }
+
+        public bool CheckAttach(long co_trns_mast_id)
+        {
+            using (var ctx = new ConXContext())
+            {
+                bool isAttach = false;
+
+                CO_TRNS_ATTACH_FILE attach = ctx.CoTransAttachs
+                        .Where(z => z.co_trns_mast_id == co_trns_mast_id)
+                        .SingleOrDefault();
+               
+
+                isAttach = attach == null;
+
+                
+
+
+                return isAttach;
             }
         }
     }

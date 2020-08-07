@@ -46,13 +46,13 @@
 
         <mat-accordion>
           <mat-expansion-panel *ngFor="let group of functionGroup; let i = index;">
-            <!-- <mat-expansion-panel-header>
+            <mat-expansion-panel-header>
               <mat-panel-title>
                 <section style="margin-top: 10px;">
                   <mat-checkbox [disabled]="true" (change)="checkAllGroup($event.checked,group);" [(ngModel)]="group.isAll">{{group.menuFunctionGroupName}}</mat-checkbox>
                 </section>
               </mat-panel-title>
-            </mat-expansion-panel-header> -->
+            </mat-expansion-panel-header>
 
 
             <div class="list-detail" *ngFor="let functions of group.menuFunctionList">

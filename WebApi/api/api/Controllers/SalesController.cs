@@ -137,7 +137,11 @@ namespace api.Controllers
         {
             try
             {
-               
+                //var isAttach = salesSvc.CheckAttach(model.co_trns_mast_id);
+                //if (isAttach)
+                //{
+                //    return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, string.Format("ยังไม่มีการ Attach File"));
+                //}
 
                 salesSvc.Create(model);
 
@@ -324,8 +328,15 @@ namespace api.Controllers
         {
             try
             {
-               
-                salesSvc.UpdateToReady(model.co_trns_mast_id, model.userId);
+                var isAttach = salesSvc.CheckAttach(model.co_trns_mast_id);
+                if (isAttach)
+                {
+                    return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, string.Format("ยังไม่มีการ Attach File"));
+                }
+                else
+                {
+                    salesSvc.UpdateToReady(model.co_trns_mast_id, model.userId);
+                }
 
                 return Request.CreateResponse(HttpStatusCode.OK);
             }

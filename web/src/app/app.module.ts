@@ -74,6 +74,7 @@ import { SharedModule } from './shared/shared.module';
 import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
 import { ZXingScannerModule } from '@zxing/ngx-scanner';
 import { SignaturePadModule } from 'angular2-signaturepad';
+import { NgxBarcodeModule } from 'ngx-barcode';
 
 // hmr
 import { removeNgStyles, createNewHosts } from '@angularclass/hmr';
@@ -269,6 +270,7 @@ import { SalesAttachFileAddComponent } from './sales/sales-attach-file-add/sales
     NgxMatSelectSearchModule,
     ZXingScannerModule.forRoot(),
     SignaturePadModule,
+    NgxBarcodeModule
 
   
 

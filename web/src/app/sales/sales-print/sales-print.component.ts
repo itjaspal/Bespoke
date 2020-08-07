@@ -49,7 +49,7 @@ export class SalesPrintComponent implements OnInit {
 
     this.datas = await this._salesSvc.getInquiryAttachFile(this.saleTransactionId);
 
-    
+    console.log(this.model);
   }
 
   // view(x: SalesAttachView) {

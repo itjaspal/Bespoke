@@ -110,10 +110,13 @@
         <div class="col-sm-1 col-6">
           <small>ขนาด</small>
           <dd>{{x.pdsize_name}}</dd>
+          <br>
+          <ngx-barcode [bc-value]="x.bar_code" [bc-width]="1.5"
+          [bc-height]="50" [bc-text-align]="0" [bc-font-size]="14" [bc-display-value]="true"></ngx-barcode>
         </div>
         <div class="col-sm-1 col-6">
           <small>สี</small>
-          <dd></dd><img src="{{x.color_base64}}" style="width: 25px;margin-top: 17px;" class="responsive"/>
+          <dd></dd><img src="{{x.color_base64}}" style="width: 25px;margin-top: 5px;" class="responsive"/>
         </div>
         <div class="col-sm-1 col-6">
           <small>รายปัก</small>

@@ -10,7 +10,7 @@ export class SalesView
     public cust_name :string = "";
     public tot_amt :number = 0;
     public status :string = "";
-    public order_status :string = "";
+    public order_status :string = "PAL";
     //public status: string[] = [];
 }
 
@@ -88,6 +88,7 @@ export class TransactionItemView
         public add_price: number = 0; 
         public prod_code: string = "";
         public prod_tname: string = "";
+        public bar_code: string = "";
         public qty : number = 0;
         public unit_price : number = 0;
         public amt : number = 0;
