@@ -134,4 +134,16 @@ namespace api.ModelViews
         public decimal unit_price { get; set; }
         public string size_uom { get; set; }
     }
+
+    public class ProductDetailView
+    {
+        public string prod_code { get; set; }
+        public string bom_code { get; set; }
+        public string bom_name { get; set; }
+        public decimal width_inch { get; set; }
+        public decimal length_inch { get; set; }
+        public decimal height_inch { get; set; }
+        public int pack { get; set; }
+    }
+
 }
