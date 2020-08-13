@@ -137,7 +137,7 @@ namespace api.Services
 
                         //query data
                         string sql = "select a.prod_code , a.prod_code_sub bom_code , a.pack_qty pack , b.bom_name , b.width_inch , b.length_inch , b.height_inch from product_map_ctl a , bm_sub_bom_code b where a.prod_code_sub = b.bom_code";
-                        sql += " and prod_code = :p_prod_code and a.map_type='BP'";
+                        sql += " and a.prod_code = :p_prod_code and a.map_type='BP' and a.entity='H10'";
 
                         List<ProductDetailView> prod_det = ctx.Database.SqlQuery<ProductDetailView>(sql, new OracleParameter("p_prod_code", saleItem.prod_code)).ToList();
 
