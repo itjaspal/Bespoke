@@ -142,7 +142,7 @@ namespace api.Services
                     ctx.CatalogPics.RemoveRange(ctx.CatalogPics.Where(z => z.catalog_pic_id == typeView.catalog_pic_id));
                     ctx.SaveChanges();
 
-                    ctx.CatalogTypes.Remove(type);
+                    //ctx.CatalogTypes.Remove(type);
 
                     ctx.SaveChanges();
 
