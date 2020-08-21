@@ -20,7 +20,7 @@ namespace api.Services
                 search.fromDate = search.fromDate.Date;
                 search.toDate = search.toDate.Date;
 
-                string sql = "select  doc_no , ref_no invoice_no , doc_date , req_date , ship_custname cust_name , tot_amt from co_trns_mast";
+                string sql = "select  doc_no , ref_no invoice_no , doc_date , req_date , ship_custname cust_name , tot_amt , add_price addPrice from co_trns_mast";
                 sql += " where doc_date between @fromDate and @toDate";
                 sql += " and cust_code = @p_cust_code";
                 sql += " order by co_trns_mast_id";
@@ -68,10 +68,10 @@ namespace api.Services
                     //}
 
                     sale.tot_qty = sale.saleTransactionItems.Sum(s => s.qty);
-                    sale.tot_amt = sale.saleTransactionItems.Sum(s => s.amt);
+                    sale.tot_amt = sale.saleTransactionItems.Sum(s => s.amt) + sale.addPrice;
 
                     tot_qty = tot_qty + sale.tot_qty;
-                    tot_amt = tot_amt + sale.tot_amt;
+                    tot_amt = tot_amt + sale.tot_amt ;
                 }
 
                 headSaleTransactionReport headSaleTransactionReport = new headSaleTransactionReport();
@@ -127,7 +127,7 @@ namespace api.Services
                 foreach (var i in trans)
                 {
                     tot_qty += i.tot_qty;
-                    tot_amt += i.tot_amt;
+                    tot_amt += i.tot_amt + i.add_price;
                     
 
                     view.saleTransactionReports.Add(new ModelViews.SalesReportView()

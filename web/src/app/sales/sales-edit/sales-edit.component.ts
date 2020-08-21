@@ -128,6 +128,7 @@ export class SalesEditComponent implements OnInit {
     
     
     this.total = this.model.total_amt + this.model.add_price;
+    this.add_price = this.model.add_price;
     if(this.model.catalog_id != undefined)
     {
       this.model_design = await this._catalgDesignSvc.getInfo(this.model.catalog_id);

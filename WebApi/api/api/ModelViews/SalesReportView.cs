@@ -32,6 +32,7 @@ namespace api.ModelViews
         public string cust_name { get; set; }
         public decimal tot_qty { get; set; }
         public decimal tot_amt { get; set; }
+        public decimal addPrice { get; set; } = 0;
         public virtual List<SalesReportItemView> saleTransactionItems { get; set; }
     }
 

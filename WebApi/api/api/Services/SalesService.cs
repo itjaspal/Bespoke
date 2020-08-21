@@ -350,7 +350,7 @@ namespace api.Services
                         doc_date = i.doc_date,
                         cust_name = i.ship_custname,
                         invoice_no = i.ref_no,
-                        tot_amt = i.tot_amt,
+                        tot_amt = i.tot_amt+i.add_price,
                         status = i.doc_status,
                         order_status = i.order_status
 
