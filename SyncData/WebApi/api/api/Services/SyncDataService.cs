@@ -17,8 +17,11 @@ namespace api.Services
         {
             using (var ctx = new ConXContext())
             {
+
                 using (TransactionScope scope = new TransactionScope())
                 {
+                    var cmt_no = 0;
+
                     string sqlc = "select address1 , address2  from customer where cust_code = :p_cust_code";
 
                     CustomerAddressView cust = ctx.Database.SqlQuery<CustomerAddressView>(sqlc, new OracleParameter("p_cust_code", model.branch_code)).SingleOrDefault();
@@ -30,6 +33,13 @@ namespace api.Services
                     var dataConn = new OracleConnectionStringBuilder(strConn);
                     OracleConnection conn = new OracleConnection(dataConn.ToString());
 
+                    if (model.remark != null)
+                    {
+                        string sqlr = "select jotrcmt_seq.nextval from dual";
+                        cmt_no = ctx.Database.SqlQuery<int>(sqlr).SingleOrDefault();
+                    }
+
+
                     conn.Open();
 
                     OracleCommand oraCommand = conn.CreateCommand();
@@ -40,7 +50,7 @@ namespace api.Services
                                 new OracleParameter("p_cust_code", model.branch_code),
                                 new OracleParameter("p_ref_no", model.ref_no),
                                 new OracleParameter("p_req_date", vreq_date),
-                                new OracleParameter("p_por_remark", model.remark),
+                                new OracleParameter("p_por_remark", cmt_no.ToString()),
                                 new OracleParameter("p_cre_by", model.user_code),
                                 new OracleParameter("p_user_code", model.user_code),
                                 new OracleParameter("p_cust_name", model.branch_name),
@@ -55,11 +65,49 @@ namespace api.Services
 
                     oraCommand.ExecuteNonQuery();
 
+
+                    //Remark
+                    if (model.remark != null)
+                    {
+                        
+
+                        OracleCommand oraCommandrem = conn.CreateCommand();
+                        OracleParameter[] paramrem = new OracleParameter[]
+                        {
+                                    new OracleParameter("p_trcmt_no",cmt_no.ToString()),
+                                    new OracleParameter("p_trcmt_date", vdoc_date),
+                                    new OracleParameter("p_user_code", model.user_code),
+                        };
+                        oraCommandrem.BindByName = true;
+                        oraCommandrem.Parameters.AddRange(paramrem);
+                        oraCommandrem.CommandText = "insert into jotrcmt_mast (trcmt_no , trcmt_date , remark , sys_date , user_code ) values ( :p_trcmt_no , to_date(:p_trcmt_date,'dd/mm/yyyy') , '' , sysdate , :p_user_code)";
+
+
+                        oraCommandrem.ExecuteNonQuery();
+
+
+                        OracleCommand oraCommandremdet = conn.CreateCommand();
+                        OracleParameter[] paramremdet = new OracleParameter[]
+                        {
+                                    new OracleParameter("p_trcmt_no",cmt_no.ToString()),
+                                    new OracleParameter("p_trcmt_desc", model.remark),
+                                    new OracleParameter("p_user_code", model.user_code),
+                        };
+                        oraCommandremdet.BindByName = true;
+                        oraCommandremdet.Parameters.AddRange(paramremdet);
+                        oraCommandremdet.CommandText = "insert into jotrcmt_det (trcmt_no , line_no , trcmt_desc , systemid , sys_date , user_code ) values ( :p_trcmt_no ,1, :p_trcmt_desc , 'PP' , sysdate , :p_user_code)";
+
+
+                        oraCommandremdet.ExecuteNonQuery();
+                    }
+
+
+
                     //conn.Close();
 
                     // Detail
 
-                    
+
 
                     int i = 1;
                     foreach (var saleItem in model.transactionItem)
