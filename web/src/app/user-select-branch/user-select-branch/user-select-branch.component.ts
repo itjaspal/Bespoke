@@ -18,6 +18,7 @@ export class UserSelectBranchComponent implements OnInit {
 
   async ngOnInit() {
     this.user = this.authenticationService.getLoginUser();
+    console.log(this.user);
 
     if (this.user.userBranchPrvlgList.length == 1) {
       this.select(this.user.userBranchPrvlgList[0]);
