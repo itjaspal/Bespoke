@@ -15,6 +15,7 @@ namespace api.Services
     {
         public void sendOrderData(SalesTransactionView model)
         {
+            Console.WriteLine(model);
             using (var ctx = new ConXContext())
             {
 

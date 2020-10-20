@@ -93,6 +93,7 @@ export class SalesService {
   }
 
   public async syncSendOrder(_model: SalesTransactionView) {
+    console.log(_model);
     return await this.http.post<number>(environment.API_SYNC_URL + 'sync-data/postSendOrderData', _model).toPromise();
   }
 
