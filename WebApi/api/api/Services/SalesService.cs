@@ -186,6 +186,7 @@ namespace api.Services
                 var vprod_code = "";
                 var vprod_tname = "";
                 decimal vunit_price = 0;
+                var vpdtype_code = "";
 
                 //query data
                 CATALOG_MAST design = ctx.CatalogMasts
@@ -200,11 +201,12 @@ namespace api.Services
                 List<SalesSelectTypeView> typeCatalog = ctx.Database.SqlQuery<SalesSelectTypeView>(sql , new System.Data.SqlClient.SqlParameter("@p_catalog_id", catalog) , new System.Data.SqlClient.SqlParameter("@p_catalog_color_id", color)).ToList();
 
                 List<SalesSelectTypeView> typeViews = new List<SalesSelectTypeView>();
+                
 
                 foreach (var i in typeCatalog)
                 {
-                    List<TypeCatalogView> typecodeViews = new List<TypeCatalogView>();
 
+                    List<TypeCatalogView> typecodeViews = new List<TypeCatalogView>();
                     List<CATALOG_PIC> typecode = ctx.CatalogPics
                                                 .Where(x => x.catalog_id == i.catalog_id && x.catalog_type_id == i.catalog_type_id && x.catalog_color_id == i.catalog_color_id)
                                                 .ToList();
@@ -236,8 +238,17 @@ namespace api.Services
                     {
                         //Get Unit Price
 
+                        if(i.pdtype_code == "OX")
+                        {
+                            vpdtype_code = "PC";
+                        }
+                        else
+                        {
+                            vpdtype_code = i.pdtype_code;
+                        }
+
                         string sqlp = "select prod_code , prod_tname , unit_price from Product where pdbrnd_code = @p_pdbrnd_code and pddsgn_code = @p_pddsgn_code and pdtype_code = @p_pdtype_code and pdcolor_code = @p_pdcolor_code and pdsize_code = @p_pdsize_code";
-                        ProductView prod = ctx.Database.SqlQuery<ProductView>(sqlp, new System.Data.SqlClient.SqlParameter("@p_pdbrnd_code", design.pdbrnd_code), new System.Data.SqlClient.SqlParameter("@p_pddsgn_code", design.pddsgn_code), new System.Data.SqlClient.SqlParameter("@p_pdtype_code", i.pdtype_code), new System.Data.SqlClient.SqlParameter("@p_pdcolor_code", colors.pdcolor_code), new System.Data.SqlClient.SqlParameter("@p_pdsize_code", z.pdsize_code)).SingleOrDefault();
+                        ProductView prod = ctx.Database.SqlQuery<ProductView>(sqlp, new System.Data.SqlClient.SqlParameter("@p_pdbrnd_code", design.pdbrnd_code), new System.Data.SqlClient.SqlParameter("@p_pddsgn_code", design.pddsgn_code), new System.Data.SqlClient.SqlParameter("@p_pdtype_code", vpdtype_code), new System.Data.SqlClient.SqlParameter("@p_pdcolor_code", colors.pdcolor_code), new System.Data.SqlClient.SqlParameter("@p_pdsize_code", z.pdsize_code)).SingleOrDefault();
 
                         if(prod == null)
                         {
@@ -272,8 +283,8 @@ namespace api.Services
 
                     }
 
-                    string sqlpic = "select TOP 1  pic_base64 from catalog_pic where catalog_id = @p_catalog_id and catalog_type_id = @p_catalog_type_id  order by catalog_type_code";
-                    string pic_type = ctx.Database.SqlQuery<string>(sqlpic, new System.Data.SqlClient.SqlParameter("@p_catalog_id", i.catalog_id), new System.Data.SqlClient.SqlParameter("@p_catalog_type_id", i.catalog_type_id)).SingleOrDefault();
+                    string sqlpic = "select TOP 1  pic_base64 from catalog_pic where catalog_id = @p_catalog_id and catalog_type_id = @p_catalog_type_id  and catalog_color_id = @p_catalog_color_id order by catalog_type_code";
+                    string pic_type = ctx.Database.SqlQuery<string>(sqlpic, new System.Data.SqlClient.SqlParameter("@p_catalog_id", i.catalog_id), new System.Data.SqlClient.SqlParameter("@p_catalog_type_id", i.catalog_type_id), new System.Data.SqlClient.SqlParameter("@p_catalog_color_id", i.catalog_color_id)).SingleOrDefault();
 
                     
 
