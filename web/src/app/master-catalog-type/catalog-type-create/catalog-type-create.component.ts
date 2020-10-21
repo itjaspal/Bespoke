@@ -56,7 +56,7 @@ export class CatalogTypeCreateComponent implements OnInit {
     }
     this.designName = this.model_design.dsgn_name;
     
-    this.type = await this._typeSvc.getType(this.model_search.catalog_id);
+    // this.type = await this._typeSvc.getType(this.model_search.catalog_id);
     console.log(this.type);
   }
 
