@@ -88,17 +88,23 @@ export class SalesService {
     return await this.http.post<number>(environment.API_URL + 'sales/postUpdateToReady', _model).toPromise();
   }
 
-  public async getSalesTransactionInfo(_saleTransactionId) {
+  public async getSalesTransactionInfo(_saleTransactionId : number) {
     return await this.http.get<SalesTransactionView>(environment.API_URL + 'sales/getSalesTransactionInfo/' + _saleTransactionId).toPromise();
   }
 
   public async syncSendOrder(_model: SalesTransactionView) {
     console.log(_model);
-    return await this.http.post<number>(environment.API_SYNC_URL + 'sync-data/postSendOrderData', _model).toPromise();
+    return await this.http.post(environment.API_SYNC_URL + 'sync-data/postSendOrderData', _model).toPromise();
   }
 
+  
   public async getTransactionId(_doc_no : string) {
     return await this.http.get<SalesTransactionUpdateStatusView>(environment.API_URL + 'sales/getTransactionId/' + _doc_no).toPromise();
   }
+
+  public async getCheckAttach(_saleTransactionId : number) {
+    return await this.http.get(environment.API_URL + 'sales/getCheckAttach/' + _saleTransactionId).toPromise();
+  }
+
 
 }

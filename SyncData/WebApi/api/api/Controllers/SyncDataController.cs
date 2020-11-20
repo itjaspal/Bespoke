@@ -37,6 +37,7 @@ namespace api.Controllers
         [Route("sync-data/postSendOrderData")]
         public HttpResponseMessage postSendOrderData(SalesTransactionView model)
         {
+            //Console.WriteLine(model);
             try
             {
                 syncSvc.sendOrderData(model);
@@ -49,5 +50,6 @@ namespace api.Controllers
                 return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, ex.ToString());
             }
         }
+
     }
 }

@@ -377,5 +377,19 @@ namespace api.Controllers
             }
         }
 
+        [Route("sales/getCheckAttach/{saleTransactionId}")]
+        public HttpResponseMessage getCheckAttach(int saleTransactionId)
+        {
+            try
+            {
+                var result = salesSvc.CheckAttach(saleTransactionId);
+                return Request.CreateResponse(HttpStatusCode.OK, result);
+            }
+            catch (Exception ex)
+            {
+                return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, ex.ToString());
+            }
+        }
+
     }
 }

@@ -33,6 +33,7 @@ export class SalesViewComponent implements OnInit {
   public designName : any;
   datas: any;
   total : any = 0;
+  checkAttach : any;
 
   async ngOnInit() {
 
@@ -42,7 +43,7 @@ export class SalesViewComponent implements OnInit {
     this.saleTransactionId = this._actRoute.snapshot.params.id;
     
     this.model = await this._salesSvc.getInquirySalesTransactionInfo(this.saleTransactionId);
-    console.log(this.model);
+    // console.log(this.model);
     this.total = this.model.total_amt + this.model.add_price;
     if(this.model.catalog_id != undefined)
     {
@@ -52,7 +53,7 @@ export class SalesViewComponent implements OnInit {
 
     this.datas = await this._salesSvc.getInquiryAttachFile(this.saleTransactionId);
 
-    console.log(this.datas);
+    // console.log(this.datas);
     
   }
 
@@ -93,25 +94,37 @@ export class SalesViewComponent implements OnInit {
 
   async sendToReady() {
 
-    console.log(this.model);
+
     this.saleTransactionId = this._actRoute.snapshot.params.id;
-    console.log(this.saleTransactionId);
-   
-    this._msgSvc.confirmPopup("ยืนยันส่งรายการขาย", async result => {
-      if (result) {
+    // console.log(this.saleTransactionId);
 
-        await this._salesSvc.syncSendOrder(this.model);
-
-        await this._salesSvc.postUpdateToReady({
-          co_trns_mast_id: this.saleTransactionId,
-          userId: this.user.username
-        });
-
-        await this._msgSvc.successPopup("ส่งรายการเรียบร้อย");
-        this._router.navigateByUrl('/app/sale');
-      }
-    });
+    this.checkAttach = await this._salesSvc.getCheckAttach(this.saleTransactionId);
+    // console.log(this.checkAttach);
+    if(this.checkAttach == true)
+    {
+      this._msgSvc.warningPopup("ยังไม่มีการ Attach File");
+    }
+    else
+    {
+      this._msgSvc.confirmPopup("ยืนยันส่งรายการขาย", async result => {
+        if (result) {
   
+          console.log(this.model);
+          await this._salesSvc.syncSendOrder(this.model);
+  
+          await this._salesSvc.postUpdateToReady({
+            co_trns_mast_id: this.saleTransactionId,
+            userId: this.user.username
+          });
+  
+          await this._msgSvc.successPopup("ส่งรายการเรียบร้อย");
+          this._router.navigateByUrl('/app/sale');
+        }
+      });
+    
+    }
+   
+    
   }
 
   close() {

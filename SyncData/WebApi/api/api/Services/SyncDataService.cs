@@ -118,7 +118,7 @@ namespace api.Services
 
 
                         string sqlg = "select grplabel_no from product_label where prod_code = :p_prod_code";
-                        string vgrplabel_no = ctx.Database.SqlQuery<string>(sqlg, new OracleParameter("p_prod_code", saleItem.prod_code)).FirstOrDefault();
+                        string vgrplabel_no = ctx.Database.SqlQuery<string>(sqlg, new OracleParameter("p_prod_code", saleItem.prod_code)).SingleOrDefault();
 
                         if(vgrplabel_no == null)
                         {
