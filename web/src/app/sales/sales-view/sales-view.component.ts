@@ -109,6 +109,22 @@ export class SalesViewComponent implements OnInit {
       this._msgSvc.confirmPopup("ยืนยันส่งรายการขาย", async result => {
         if (result) {
   
+          // console.log(this.model);
+         
+          this.model.font_name_base64 = "";
+          this.model.sign_customer = "";
+          this.model.sign_manager = "";
+          this.model.font_color_base64 = "";
+          
+          for(var x = 0;x<this.model.transactionItem.length; x++)
+          {
+            this.model.transactionItem[x].color_base64 = "";
+            this.model.transactionItem[x].font_color_base64 = "";
+            this.model.transactionItem[x].font_name_base64 = "";
+            this.model.transactionItem[x].type_base64 = "";
+
+          }
+            
           console.log(this.model);
           await this._salesSvc.syncSendOrder(this.model);
   

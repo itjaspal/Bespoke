@@ -328,7 +328,7 @@ export class SalesAddSummaryComponent implements OnInit {
               
             }
 
-            if(this.is_addPrice == true && this.add_price == 0 )
+            if((this.is_addPrice == true && this.add_price == 0) ||this.embroidery =="" )
             {
               this.add_price = this.oldSaleList.add_price;
               this.embroidery = this.oldSaleList.embroidery;

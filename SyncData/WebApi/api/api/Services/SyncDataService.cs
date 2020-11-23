@@ -19,7 +19,7 @@ namespace api.Services
             using (var ctx = new ConXContext())
             {
 
-                using (TransactionScope scope = new TransactionScope())
+                using (TransactionScope scope = new TransactionScope(TransactionScopeOption.Required, new System.TimeSpan(0, 30, 0)))
                 {
                     var cmt_no = 0;
 
@@ -164,7 +164,7 @@ namespace api.Services
 
                         oraCommanddet.ExecuteNonQuery();
 
-
+                        
                         // Insert into POR_SPECIAL_DET
                         if (saleItem.size_sp != null)
                         {
@@ -226,10 +226,10 @@ namespace api.Services
                             }
                         }
 
-
-
-
                         i++;
+
+
+
 
                     }
 

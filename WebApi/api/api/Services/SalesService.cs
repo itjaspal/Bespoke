@@ -982,8 +982,8 @@ namespace api.Services
 
                 //var fromAddress = new MailAddress("consignmt@gmail.com", "Bespoke");
                 var fromAddress = new MailAddress("bespoke@jaspalhome.com", "Bespoke");
-                //var toAddress = new MailAddress("bespoke@jaspalhome.com", "Bespoke Admin");
-                var toAddress = new MailAddress("harudee@jaspalhome.com", "Bespoke Admin");
+                var toAddress = new MailAddress("bespoke@jaspalhome.com", "Bespoke Admin");
+                //var toAddress = new MailAddress("harudee@jaspalhome.com", "Bespoke Admin");
                 string url = ConfigurationManager.AppSettings["urlDetail"];
 
 
@@ -1302,8 +1302,7 @@ namespace api.Services
                     CO_TRNS_MAST updateObj = ctx.CoTransMasts.Where(z => z.co_trns_mast_id == model.co_trns_mast_id).SingleOrDefault();
 
 
-                    //updateObj.entity_code = "H10";
-                    //updateObj.cos_no = "";
+                                        
                     updateObj.emb_character = model.embroidery;
                     updateObj.font_name = font_name;
                     updateObj.emb_color_code = color_code;
@@ -1312,17 +1311,9 @@ namespace api.Services
                     updateObj.add_price = model.add_price;
                     updateObj.tot_qty = model.total_qty;
                     updateObj.tot_amt = model.total_amt;
-                    //cust_signature_base64 = model.sign_customer,
-                    //apv_signature_base64 = model.sign_manager,
-                    //doc_no = model.doc_no,
-                    //doc_date = model.doc_date.Date,
                     updateObj.req_date = model.req_date.Date;
                     updateObj.ref_no = model.ref_no;
                     updateObj.remark1 = model.remark;
-                    //doc_status = model.doc_status,
-                    //doc_code = "POR",
-                    //updateObj.cust_code = model.branch_code,
-                    //updateObj.cust_name = model.branch_name,
                     updateObj.ship_custname = model.cust_name;
                     updateObj.ship_address1 = model.address1 + ' ' + model.subDistrict;
                     updateObj.ship_address2 = model.district + ' ' + model.province + ' ' + model.zipCode;

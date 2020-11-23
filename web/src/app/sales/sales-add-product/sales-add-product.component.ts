@@ -151,13 +151,16 @@ export class SalesAddProductComponent implements OnInit {
   {
     this.catalog_id = this._actRoute.snapshot.params.catalog;
     this.catalog_color_id = this._actRoute.snapshot.params.color;
-    this.model_sale.add_price = this.model_font.add_price;
-    this.model_sale.embroidery = this.model_font.embroidery;
-    this.model_sale.font_color = this.model_font.font_color;
-    this.model_sale.font_color_base64 = this.model_font.font_color_base64;
-    this.model_sale.font_name = this.model_font.font_name;
-    this.model_sale.font_name_base64 = this.model_font.font_name_base64;
 
+    
+    
+      this.model_sale.add_price = this.model_font.add_price;
+      this.model_sale.embroidery = this.model_font.embroidery;
+      this.model_sale.font_color = this.model_font.font_color;
+      this.model_sale.font_color_base64 = this.model_font.font_color_base64;
+      this.model_sale.font_name = this.model_font.font_name;
+      this.model_sale.font_name_base64 = this.model_font.font_name_base64;
+    
     
     this._data.selectedSales.subscribe(message => this.sales = this.model_sale)
     //console.log(this.message);
