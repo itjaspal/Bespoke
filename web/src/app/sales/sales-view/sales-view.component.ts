@@ -43,7 +43,7 @@ export class SalesViewComponent implements OnInit {
     this.saleTransactionId = this._actRoute.snapshot.params.id;
     
     this.model = await this._salesSvc.getInquirySalesTransactionInfo(this.saleTransactionId);
-    // console.log(this.model);
+    console.log(this.model);
     this.total = this.model.total_amt + this.model.add_price;
     if(this.model.catalog_id != undefined)
     {

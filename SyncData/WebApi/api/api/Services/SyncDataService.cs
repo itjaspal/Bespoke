@@ -58,10 +58,11 @@ namespace api.Services
                                 new OracleParameter("p_address1", cust.address1),
                                 new OracleParameter("p_address2", cust.address2),
                                 new OracleParameter("p_upd_date", DateTime.Now),
+                                new OracleParameter("p_apv_by", model.user_code),
                     };
                     oraCommand.BindByName = true;
                     oraCommand.Parameters.AddRange(param);
-                    oraCommand.CommandText = "insert into por_mast (pd_entity , por_no , por_date , cust_code , ref_no , req_date , por_grp , por_priority , dsgn_spec , por_type , por_remark , por_status , cre_by , cre_date , sys_date , user_code , cust_name , ord_type , dept , grp_code , del_status , country , cntry_code , address1 , address2 , wh_code ) values ('H10' , :p_por_no , to_date(:p_por_date,'dd/mm/yyyy') , :p_cust_code , :p_ref_no , to_date(:p_req_date,'dd/mm/yyyy') , 'DM' , 'P' , 'Y' , 'BN' , :p_por_remark , 'APV' , :p_cre_by , sysdate , sysdate , :p_user_code , :p_cust_name , 'PO' , 'MRJ' , 'J' , 'N' , 'THAILAND' , 'TH' , :p_address1 , :p_address2 , 'FH' )";
+                    oraCommand.CommandText = "insert into por_mast (pd_entity , por_no , por_date , cust_code , ref_no , req_date , por_grp , por_priority , dsgn_spec , por_type , por_remark , por_status , cre_by , cre_date , sys_date , user_code , cust_name , ord_type , dept , grp_code , del_status , country , cntry_code , address1 , address2 , wh_code ,apv_by , apv_date) values ('H10' , :p_por_no , to_date(:p_por_date,'dd/mm/yyyy') , :p_cust_code , :p_ref_no , to_date(:p_req_date,'dd/mm/yyyy') , 'DM' , 'P' , 'Y' , 'BN' , :p_por_remark , 'APV' , :p_cre_by , sysdate , sysdate , :p_user_code , :p_cust_name , 'PO' , 'MRJ' , 'J' , 'N' , 'THAILAND' , 'TH' , :p_address1 , :p_address2 , 'FH',:p_apv_by , sysdate )";
 
 
                     oraCommand.ExecuteNonQuery();
@@ -70,6 +71,7 @@ namespace api.Services
                     //Remark
                     if (model.remark != null)
                     {
+
                         
 
                         OracleCommand oraCommandrem = conn.CreateCommand();
@@ -87,16 +89,21 @@ namespace api.Services
                         oraCommandrem.ExecuteNonQuery();
 
 
+                        string sql2 = "select nvl(max(line_no),0)+1 from  jotrcmt_det where trcmt_no= :p_trcmt_no";
+                        int vline_no = ctx.Database.SqlQuery<int>(sql2, new OracleParameter("p_trcmt_no", cmt_no.ToString())).SingleOrDefault();
+
+
                         OracleCommand oraCommandremdet = conn.CreateCommand();
                         OracleParameter[] paramremdet = new OracleParameter[]
                         {
                                     new OracleParameter("p_trcmt_no",cmt_no.ToString()),
                                     new OracleParameter("p_trcmt_desc", model.remark),
                                     new OracleParameter("p_user_code", model.user_code),
+                                    new OracleParameter("p_line_no", vline_no),
                         };
                         oraCommandremdet.BindByName = true;
                         oraCommandremdet.Parameters.AddRange(paramremdet);
-                        oraCommandremdet.CommandText = "insert into jotrcmt_det (trcmt_no , line_no , trcmt_desc , systemid , sys_date , user_code ) values ( :p_trcmt_no ,1, :p_trcmt_desc , 'PP' , sysdate , :p_user_code)";
+                        oraCommandremdet.CommandText = "insert into jotrcmt_det (trcmt_no , line_no , trcmt_desc , systemid , sys_date , user_code ) values ( :p_trcmt_no ,:p_line_no, :p_trcmt_desc , 'PP' , sysdate , :p_user_code)";
 
 
                         oraCommandremdet.ExecuteNonQuery();
@@ -133,9 +140,14 @@ namespace api.Services
                             vdsgn_no = "";
                         }
 
-                        OracleCommand oraCommanddet = conn.CreateCommand();
-                        OracleParameter[] paramdet = new OracleParameter[]
+                        string sql1 = "select prod_code from por_det where pd_entity = 'H10' and por_no = :p_por_no and prod_code = :p_prod_code";
+                        string prod_code = ctx.Database.SqlQuery<string>(sql1, new OracleParameter("p_por_no", model.doc_no), new OracleParameter("p_prod_code", saleItem.prod_code)).FirstOrDefault();
+
+                        if (prod_code == null)
                         {
+                            OracleCommand oraCommanddet = conn.CreateCommand();
+                            OracleParameter[] paramdet = new OracleParameter[]
+                            {
                                 new OracleParameter("p_por_no",model.doc_no),
                                 new OracleParameter("p_line_no", i),
                                 new OracleParameter("p_prod_code", saleItem.prod_code),
@@ -156,77 +168,221 @@ namespace api.Services
                                 new OracleParameter("p_size", product.pdsize_desc),
                                 new OracleParameter("p_size_uom", product.size_uom),
                                 new OracleParameter("p_dsgn_no", vdsgn_no)
-                        };
-                        oraCommanddet.BindByName = true;
-                        oraCommanddet.Parameters.AddRange(paramdet);
-                        oraCommanddet.CommandText = "insert into por_det ( pd_entity , por_no , line_no , prod_code , pdgrp_code , pdbrnd_code , pdtype_code , pddsgn_code , qty_ord , qty_req , qty_bal , remark , pdsize_code , pdcolor_code , skb_flag , gplabel_no , design , uom , prod_name , sizes , size_uom , dsgn_no , cr_flag ,wh_code) values ( 'H10' , :p_por_no , :p_line_no , :p_prod_code , :p_pdgrp_code , :p_pdbrnd_code , :p_pdtype_code , :p_pddsgn_code , :p_qty_ord , :p_qty_req , :p_qty_bal , :p_remark , :p_pdsize_code , :p_pdcolor_code , 'Y' , :p_gplabel_no , :p_design , :p_uom , :p_prod_name , :p_size , :p_size_uom , :p_dsgn_no , 'N' , 'FH')";
-
-
-                        oraCommanddet.ExecuteNonQuery();
-
-                        
-                        // Insert into POR_SPECIAL_DET
-                        if (saleItem.size_sp != null)
-                        {
-                            OracleCommand oraCommandspec = conn.CreateCommand();
-                            OracleParameter[] paramspec = new OracleParameter[]
-                            {
-                                    new OracleParameter("p_por_no",model.doc_no),
-                                    new OracleParameter("p_prod_code", saleItem.prod_code),
-                                    new OracleParameter("p_sp_size", saleItem.size_sp),
-                                    new OracleParameter("p_user_code", model.user_code),
-                                    new OracleParameter("p_pditem_no", i)
                             };
-                            oraCommandspec.BindByName = true;
-                            oraCommandspec.Parameters.AddRange(paramspec);
-                            oraCommandspec.CommandText = "insert into por_special_det ( pd_entity , por_no , prod_code , item , spc_code , spc_desc , sys_date , user_code , pditem_no ) values ( 'H10' , :p_por_no  , :p_prod_code , 1 , '00' , :p_sp_size , sysdate, :p_user_code , :p_pditem_no)";
+                            oraCommanddet.BindByName = true;
+                            oraCommanddet.Parameters.AddRange(paramdet);
+                            oraCommanddet.CommandText = "insert into por_det ( pd_entity , por_no , line_no , prod_code , pdgrp_code , pdbrnd_code , pdtype_code , pddsgn_code , qty_ord , qty_req , qty_bal , remark , pdsize_code , pdcolor_code , skb_flag , gplabel_no , design , uom , prod_name , sizes , size_uom , dsgn_no , cr_flag ,wh_code ,proc_code) values ( 'H10' , :p_por_no , :p_line_no , :p_prod_code , :p_pdgrp_code , :p_pdbrnd_code , :p_pdtype_code , :p_pddsgn_code , :p_qty_ord , :p_qty_req , :p_qty_bal , :p_remark , :p_pdsize_code , :p_pdcolor_code , 'Y' , :p_gplabel_no , :p_design , :p_uom , :p_prod_name , :p_size , :p_size_uom , :p_dsgn_no , 'N' , 'FH','S')";
 
-                            oraCommandspec.ExecuteNonQuery();
-                        }
 
-                        //query data
-                        string sql = "select a.prod_code , a.prod_code_sub bom_code , a.pack_qty pack , b.bom_name , b.width_inch , b.length_inch , b.height_inch from product_map_ctl a , bm_sub_bom_code b where a.prod_code_sub = b.bom_code";
-                        sql += " and a.prod_code = :p_prod_code and a.map_type='BP' and a.entity='H10'";
+                            oraCommanddet.ExecuteNonQuery();
 
-                        List<ProductDetailView> prod_det = ctx.Database.SqlQuery<ProductDetailView>(sql, new OracleParameter("p_prod_code", saleItem.prod_code)).ToList();
 
-                        var sub_item = 1;
-                        if(prod_det != null)
-                        {
-                            foreach (var sub_prod in prod_det)
+
+
+                            // Insert into POR_SPECIAL_DET
+                            if (saleItem.size_sp != null)
                             {
-                                OracleCommand oraCommandsub = conn.CreateCommand();
-                                OracleParameter[] paramssub = new OracleParameter[]
+                                string sql3 = "select nvl(max(item),0)+1 from por_special_det where pd_entity='H10' and por_no=:p_por_no and prod_code=:p_prod_code";
+                                int vitem = ctx.Database.SqlQuery<int>(sql3, new OracleParameter("p_por_no", model.doc_no), new OracleParameter("p_prod_code", saleItem.prod_code)).SingleOrDefault();
+
+
+                                OracleCommand oraCommandspec = conn.CreateCommand();
+                                OracleParameter[] paramspec = new OracleParameter[]
                                 {
                                         new OracleParameter("p_por_no",model.doc_no),
-                                        new OracleParameter("p_line_no", i),
-                                        new OracleParameter("p_item", sub_item),
-                                        new OracleParameter("p_description", sub_prod.bom_name),
-
-                                        new OracleParameter("p_qty_ord", saleItem.qty*sub_prod.pack ),
-
+                                        new OracleParameter("p_prod_code", saleItem.prod_code),
+                                        new OracleParameter("p_sp_size", saleItem.size_sp),
                                         new OracleParameter("p_user_code", model.user_code),
-                                        new OracleParameter("p_width", sub_prod.width_inch),
-                                        new OracleParameter("p_length", sub_prod.length_inch),
-                                        new OracleParameter("p_height", sub_prod.height_inch),
-                                        new OracleParameter("p_pack", sub_prod.pack),
-                                        new OracleParameter("p_bom_code", sub_prod.bom_code),
-                                        new OracleParameter("p_qty_bal", saleItem.qty*sub_prod.pack)
-
-
+                                        new OracleParameter("p_pditem_no", i),
+                                        new OracleParameter("p_item", vitem)
                                 };
-                                oraCommandsub.BindByName = true;
-                                oraCommandsub.Parameters.AddRange(paramssub);
-                                oraCommandsub.CommandText = "insert into por_det1 ( pd_entity , por_no ,  line_no, item , description , qty_ord , qty_rev , sys_date , user_code , uom_code , width , length , height , size_uom , pack , bom_code , qty_bal  ) " +
-                                                            "values ( 'H10' , :p_por_no , :p_line_no , :p_item , :p_description , :p_qty_ord , 0 , sysdate, :p_user_code  , 'PCS', :p_width , :p_length , :p_height , 'INCH', :p_pack , :p_bom_code , :p_qty_bal)";
+                                oraCommandspec.BindByName = true;
+                                oraCommandspec.Parameters.AddRange(paramspec);
+                                oraCommandspec.CommandText = "insert into por_special_det ( pd_entity , por_no , prod_code , item , spc_code , spc_desc , sys_date , user_code , pditem_no ) values ( 'H10' , :p_por_no  , :p_prod_code , :p_item , '00' , :p_sp_size , sysdate, :p_user_code , :p_pditem_no)";
 
-                                oraCommandsub.ExecuteNonQuery();
+                                oraCommandspec.ExecuteNonQuery();
+                            }
 
-                                sub_item++;
+
+                            if (saleItem.remark != null)
+                            {
+
+                                string sql5 = "select nvl(max(item),0)+1 from por_special_det where pd_entity='H10' and por_no=:p_por_no and prod_code=:p_prod_code";
+                                int vitem1 = ctx.Database.SqlQuery<int>(sql5, new OracleParameter("p_por_no", model.doc_no), new OracleParameter("p_prod_code", saleItem.prod_code)).SingleOrDefault();
+
+
+                                OracleCommand oraCommandrem = conn.CreateCommand();
+                                OracleParameter[] paramsrem = new OracleParameter[]
+                                {
+                                        new OracleParameter("p_por_no",model.doc_no),
+                                        new OracleParameter("p_prod_code", saleItem.prod_code),
+                                        new OracleParameter("p_sp_size", saleItem.remark),
+                                        new OracleParameter("p_user_code", model.user_code),
+                                        new OracleParameter("p_pditem_no", i),
+                                        new OracleParameter("p_item", vitem1)
+                                };
+                                oraCommandrem.BindByName = true;
+                                oraCommandrem.Parameters.AddRange(paramsrem);
+                                oraCommandrem.CommandText = "insert into por_special_det ( pd_entity , por_no , prod_code , item , spc_code , spc_desc , sys_date , user_code , pditem_no ) values ( 'H10' , :p_por_no  , :p_prod_code , :p_item , '00' , :p_sp_size , sysdate, :p_user_code , :p_pditem_no)";
+
+                                oraCommandrem.ExecuteNonQuery();
+                            }
+
+                            //query data
+                            string sql = "select a.prod_code , a.prod_code_sub bom_code , a.pack_qty pack , b.bom_name , b.width_inch , b.length_inch , b.height_inch from product_map_ctl a , bm_sub_bom_code b where a.prod_code_sub = b.bom_code";
+                            sql += " and a.prod_code = :p_prod_code and a.map_type='BP' and a.entity='H10'";
+
+                            List<ProductDetailView> prod_det = ctx.Database.SqlQuery<ProductDetailView>(sql, new OracleParameter("p_prod_code", saleItem.prod_code)).ToList();
+
+                            var sub_item = 1;
+                            if (prod_det != null)
+                            {
+                                foreach (var sub_prod in prod_det)
+                                {
+                                    OracleCommand oraCommandsub = conn.CreateCommand();
+                                    OracleParameter[] paramssub = new OracleParameter[]
+                                    {
+                                            new OracleParameter("p_por_no",model.doc_no),
+                                            new OracleParameter("p_line_no", i),
+                                            new OracleParameter("p_item", sub_item),
+                                            new OracleParameter("p_description", sub_prod.bom_name),
+
+                                            new OracleParameter("p_qty_ord", saleItem.qty*sub_prod.pack ),
+
+                                            new OracleParameter("p_user_code", model.user_code),
+                                            new OracleParameter("p_width", sub_prod.width_inch),
+                                            new OracleParameter("p_length", sub_prod.length_inch),
+                                            new OracleParameter("p_height", sub_prod.height_inch),
+                                            new OracleParameter("p_pack", sub_prod.pack),
+                                            new OracleParameter("p_bom_code", sub_prod.bom_code),
+                                            new OracleParameter("p_qty_bal", saleItem.qty*sub_prod.pack)
+
+
+                                    };
+                                    oraCommandsub.BindByName = true;
+                                    oraCommandsub.Parameters.AddRange(paramssub);
+                                    oraCommandsub.CommandText = "insert into por_det1 ( pd_entity , por_no ,  line_no, item , description , qty_ord , qty_rev , sys_date , user_code , uom_code , width , length , height , size_uom , pack , bom_code , qty_bal  ) " +
+                                                                "values ( 'H10' , :p_por_no , :p_line_no , :p_item , :p_description , :p_qty_ord , 0 , sysdate, :p_user_code  , 'PCS', :p_width , :p_length , :p_height , 'INCH', :p_pack , :p_bom_code , :p_qty_bal)";
+
+                                    oraCommandsub.ExecuteNonQuery();
+
+                                    sub_item++;
+
+                                }
+                            }
+
+                            i++;
+                        }
+                        else
+                        {
+                            OracleCommand oraCommanddet = conn.CreateCommand();
+                            OracleParameter[] paramdet = new OracleParameter[]
+                            {
+                                new OracleParameter("p_por_no",model.doc_no),
+                                new OracleParameter("p_prod_code", saleItem.prod_code),                              
+                                new OracleParameter("p_qty_ord", saleItem.qty),
+                                new OracleParameter("p_qty_req", saleItem.qty),
+                                new OracleParameter("p_qty_bal", saleItem.qty),
+                               
+                            };
+                            oraCommanddet.BindByName = true;
+                            oraCommanddet.Parameters.AddRange(paramdet);
+                            oraCommanddet.CommandText = "update por_det set qty_ord = qty_ord + :p_qty_ord , qty_req = qty_req + :p_qty_req  , qty_bal = qty_bal + :p_qty_bal where  pd_entity = 'H10' and por_no = :p_por_no and prod_code = :p_prod_code";
+
+
+                            oraCommanddet.ExecuteNonQuery();
+
+                            string sql4 = "select line_no from por_det where pd_entity='H10' and por_no=:p_por_no and prod_code = :p_prod_code";
+                            int vpd_item = ctx.Database.SqlQuery<int>(sql4, new OracleParameter("p_por_no", model.doc_no), new OracleParameter("p_prod_code", saleItem.prod_code)).SingleOrDefault();
+
+
+
+                            // Insert into POR_SPECIAL_DET
+                            if (saleItem.size_sp != null)
+                            {
+
+                                string sql3 = "select nvl(max(item),0)+1 from por_special_det where pd_entity='H10' and por_no=:p_por_no and prod_code=:p_prod_code";
+                                int vitem = ctx.Database.SqlQuery<int>(sql3, new OracleParameter("p_por_no", model.doc_no), new OracleParameter("p_prod_code", saleItem.prod_code)).SingleOrDefault();
+
+                                //string sql4 = "select line_no from por_det where pd_entity='H10' and por_no=:p_por_no and prod_code = :p_prod_code";
+                                //int vpd_item = ctx.Database.SqlQuery<int>(sql4, new OracleParameter("p_por_no", model.doc_no), new OracleParameter("p_prod_code", saleItem.prod_code)).SingleOrDefault();
+
+                                OracleCommand oraCommandspec = conn.CreateCommand();
+                                OracleParameter[] paramspec = new OracleParameter[]
+                                {
+                                        new OracleParameter("p_por_no",model.doc_no),
+                                        new OracleParameter("p_prod_code", saleItem.prod_code),
+                                        new OracleParameter("p_sp_size", saleItem.size_sp),
+                                        new OracleParameter("p_user_code", model.user_code),
+                                        new OracleParameter("p_pditem_no", vpd_item),
+                                        new OracleParameter("p_item", vitem)
+                                };
+                                oraCommandspec.BindByName = true;
+                                oraCommandspec.Parameters.AddRange(paramspec);
+                                oraCommandspec.CommandText = "insert into por_special_det ( pd_entity , por_no , prod_code , item , spc_code , spc_desc , sys_date , user_code , pditem_no ) values ( 'H10' , :p_por_no  , :p_prod_code , :p_item , '00' , :p_sp_size , sysdate, :p_user_code , :p_pditem_no)";
+
+                                oraCommandspec.ExecuteNonQuery();
+                            }
+
+                            if (saleItem.remark != null)
+                            {
+
+                                string sql5 = "select nvl(max(item),0)+1 from por_special_det where pd_entity='H10' and por_no=:p_por_no and prod_code=:p_prod_code";
+                                int vitem1 = ctx.Database.SqlQuery<int>(sql5, new OracleParameter("p_por_no", model.doc_no), new OracleParameter("p_prod_code", saleItem.prod_code)).SingleOrDefault();
+
+                                
+                                OracleCommand oraCommandrem = conn.CreateCommand();
+                                OracleParameter[] paramsrem = new OracleParameter[]
+                                {
+                                        new OracleParameter("p_por_no",model.doc_no),
+                                        new OracleParameter("p_prod_code", saleItem.prod_code),
+                                        new OracleParameter("p_sp_size", saleItem.remark),
+                                        new OracleParameter("p_user_code", model.user_code),
+                                        new OracleParameter("p_pditem_no", vpd_item),
+                                        new OracleParameter("p_item", vitem1)
+                                };
+                                oraCommandrem.BindByName = true;
+                                oraCommandrem.Parameters.AddRange(paramsrem);
+                                oraCommandrem.CommandText = "insert into por_special_det ( pd_entity , por_no , prod_code , item , spc_code , spc_desc , sys_date , user_code , pditem_no ) values ( 'H10' , :p_por_no  , :p_prod_code , :p_item , '00' , :p_sp_size , sysdate, :p_user_code , :p_pditem_no)";
+
+                                oraCommandrem.ExecuteNonQuery();
+                            }
+
+                            //query data
+                            string sql = "select por_no , line_no , item , pack from por_det1 where pd_entity='H10' and por_no=:p_por_no and line_no=:p_line_no";
+
+                            List<PorDet1View> prod_det = ctx.Database.SqlQuery<PorDet1View>(sql, new OracleParameter("p_por_no", model.doc_no), new OracleParameter("p_line_no", vpd_item)).ToList();
+
+                            //var sub_item = 1;
+                            if (prod_det != null)
+                            {
+                                foreach (var sub_prod in prod_det)
+                                {
+                                    OracleCommand oraCommandsub = conn.CreateCommand();
+                                    OracleParameter[] paramssub = new OracleParameter[]
+                                    {
+                                            new OracleParameter("p_por_no",model.doc_no),
+                                            new OracleParameter("p_line_no", vpd_item),
+                                            new OracleParameter("p_item", sub_prod.item),
+                                            new OracleParameter("p_qty_ord", saleItem.qty*sub_prod.pack ),
+                                            //new OracleParameter("p_user_code", model.user_code),
+                                            new OracleParameter("p_qty_bal", saleItem.qty*sub_prod.pack)
+
+
+                                    };
+                                    oraCommandsub.BindByName = true;
+                                    oraCommandsub.Parameters.AddRange(paramssub);
+                                    oraCommandsub.CommandText = "update por_det1 set qty_ord = qty_ord + :p_qty_ord , qty_bal = qty_bal + :p_qty_bal where  pd_entity = 'H10' and por_no = :p_por_no and line_no = :p_line_no and item = :p_item ";
+
+                                    oraCommandsub.ExecuteNonQuery();
+
+                                    //sub_item++;
+
+                                }
                             }
                         }
 
-                        i++;
+                        
 
 
 

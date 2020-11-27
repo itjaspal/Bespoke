@@ -610,7 +610,9 @@ namespace api.Services
                         string sqlp = "select bar_code from Product where prod_code = @p_prod_code ";
                         string barcode = ctx.Database.SqlQuery<string>(sqlp, new System.Data.SqlClient.SqlParameter("@p_prod_code", saleItem.prod_code)).SingleOrDefault();
 
-                        
+
+                        string sql = "select pic_base64 from catalog_pic where catalog_pic_id = @p_catalog_pic_id";
+                        string type_base64 = ctx.Database.SqlQuery<string>(sql, new System.Data.SqlClient.SqlParameter("@p_catalog_pic_id", saleItem.catalog_pic_id)).SingleOrDefault();
 
                         CO_TRNS_DET newDetObj = new CO_TRNS_DET()
                         {
@@ -635,7 +637,7 @@ namespace api.Services
                             catalog_size_id = saleItem.catalog_size_id,
                             catalog_type_code = saleItem.catalog_type_code,
                             catalog_type_id = saleItem.catalog_type_id,
-                            prod_pic_base64 = saleItem.type_base64
+                            prod_pic_base64 = type_base64
 
                         };
 
@@ -982,8 +984,8 @@ namespace api.Services
 
                 //var fromAddress = new MailAddress("consignmt@gmail.com", "Bespoke");
                 var fromAddress = new MailAddress("bespoke@jaspalhome.com", "Bespoke");
-                var toAddress = new MailAddress("bespoke@jaspalhome.com", "Bespoke Admin");
-                //var toAddress = new MailAddress("harudee@jaspalhome.com", "Bespoke Admin");
+                //var toAddress = new MailAddress("bespoke@jaspalhome.com", "Bespoke Admin");
+                var toAddress = new MailAddress("supansa@jaspalhome.com", "Bespoke Admin");
                 string url = ConfigurationManager.AppSettings["urlDetail"];
 
 
@@ -1338,6 +1340,10 @@ namespace api.Services
                         string sqlp = "select bar_code from Product where prod_code = @p_prod_code ";
                         string barcode = ctx.Database.SqlQuery<string>(sqlp, new System.Data.SqlClient.SqlParameter("@p_prod_code", saleItem.prod_code)).SingleOrDefault();
 
+                        string sql = "select pic_base64 from catalog_pic where catalog_pic_id = @p_catalog_pic_id";
+                        string type_base64 = ctx.Database.SqlQuery<string>(sql, new System.Data.SqlClient.SqlParameter("@p_catalog_pic_id", saleItem.catalog_pic_id)).SingleOrDefault();
+
+
                         CO_TRNS_DET newDetObj = new CO_TRNS_DET()
                         {
                             co_trns_mast_id = model.co_trns_mast_id,
@@ -1361,7 +1367,7 @@ namespace api.Services
                             catalog_size_id = saleItem.catalog_size_id,
                             catalog_type_code = saleItem.catalog_type_code,
                             catalog_type_id = saleItem.catalog_type_id,
-                            prod_pic_base64 = saleItem.type_base64
+                            prod_pic_base64 = type_base64
 
                         };
 

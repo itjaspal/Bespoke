@@ -146,4 +146,12 @@ namespace api.ModelViews
         public int pack { get; set; }
     }
 
+    public class PorDet1View
+    {
+        public string por_no { get; set; }
+        public int line_no { get; set; }
+        public int item { get; set; }
+        public int pack { get; set; }
+    }
+
 }

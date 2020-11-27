@@ -317,8 +317,10 @@ export class SalesAddSummaryComponent implements OnInit {
               this.model_item.embroidery  = this.salesList.embroidery;
               this.model_item.font_name = this.salesList.font_name;
               this.model_item.font_name_base64 = this.salesList.font_name_base64;
+              // this.model_item.font_name_base64 = "";
               this.model_item.font_color = this.salesList.font_color;
               this.model_item.font_color_base64 = this.salesList.font_color_base64;
+              // this.model_item.font_color_base64 = "";
               this.model_item.add_price = this.salesList.add_price;
 
               this.embroidery = this.salesList.embroidery;
@@ -443,12 +445,22 @@ export class SalesAddSummaryComponent implements OnInit {
     // }
     // else
     // {
+      for(var x = 0;x<this.model.transactionItem.length; x++)
+      {
+        this.model.transactionItem[x].color_base64 = "";
+        this.model.transactionItem[x].font_color_base64 = "";
+        this.model.transactionItem[x].font_name_base64 = "";
+        this.model.transactionItem[x].type_base64 = "";
+
+      }
+      console.log(this.model);
+
+
       await this._salesSvc.update(this.model);
 
       await this._msgSvc.successPopup("บันทึกข้อมูลเรียบร้อย");
       this._router.navigateByUrl('/app/sale'); 
-    // }
-    //console.log(this.model.file);
+    
   }
 
   close()

@@ -258,10 +258,10 @@ export class SalesSummaryComponent implements OnInit {
               this.model_item.font_color_base64 = "";
               this.model_item.add_price = 0;
 
-              this.embroidery = "";
-              this.font_name = 0;
-              this.font_color = 0; 
-              this.add_price = 0;
+              // this.embroidery = "";
+              // this.font_name = 0;
+              // this.font_color = 0; 
+              // this.add_price = 0;
               
             }
             else
@@ -269,8 +269,10 @@ export class SalesSummaryComponent implements OnInit {
               this.model_item.embroidery  = this.salesList.embroidery;
               this.model_item.font_name = this.salesList.font_name;
               this.model_item.font_name_base64 = this.salesList.font_name_base64;
+              // this.model_item.font_name_base64 = "";
               this.model_item.font_color = this.salesList.font_color;
               this.model_item.font_color_base64 = this.salesList.font_color_base64;
+              // this.model_item.font_color_base64 = "";
               this.model_item.add_price = this.salesList.add_price;
 
               this.embroidery = this.salesList.embroidery;
@@ -411,7 +413,7 @@ export class SalesSummaryComponent implements OnInit {
     this.model.doc_status = "PAL";
     
     this.model.transactionItem = this.confirmList;
-    console.log(this.model);
+    // console.log(this.model);
     
     if(this.model.sign_customer == "" || this.model.sign_manager == "")
     {
@@ -419,6 +421,16 @@ export class SalesSummaryComponent implements OnInit {
     }
     else
     {
+      for(var x = 0;x<this.model.transactionItem.length; x++)
+          {
+            this.model.transactionItem[x].color_base64 = "";
+            this.model.transactionItem[x].font_color_base64 = "";
+            this.model.transactionItem[x].font_name_base64 = "";
+            this.model.transactionItem[x].type_base64 = "";
+
+      }
+      console.log(this.model);
+
       await this._salesSvc.create(this.model);
 
       await this._msgSvc.successPopup("บันทึกข้อมูลเรียบร้อย");

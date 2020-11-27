@@ -263,13 +263,24 @@ export class SalesEditComponent implements OnInit {
     // }
     // else
     // {
+      this.model.font_color_base64 = "";
+      this.model.font_name_base64 = "";
+
+      for(var x = 0;x<this.model.transactionItem.length; x++)
+      {
+        this.model.transactionItem[x].color_base64 = "";
+        this.model.transactionItem[x].font_color_base64 = "";
+        this.model.transactionItem[x].font_name_base64 = "";
+        this.model.transactionItem[x].type_base64 = "";
+
+      }
+      console.log(this.model);
       
       await this._salesSvc.update(this.model);
 
       await this._msgSvc.successPopup("บันทึกข้อมูลเรียบร้อย");
       this._router.navigateByUrl('/app/sale'); 
-    // }
-    //console.log(this.model.file);
+   
   }
 
   close()
