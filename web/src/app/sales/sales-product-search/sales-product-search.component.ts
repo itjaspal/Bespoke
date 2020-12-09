@@ -62,6 +62,7 @@ export class SalesProductSearchComponent implements OnInit {
   
     this.catalog_id = this._actRoute.snapshot.params.catalog;
     this.catalog_color_id = this._actRoute.snapshot.params.color;
+    this.id = this._actRoute.snapshot.params.id;
 
     if(this.catalog_id != undefined)
     {
@@ -82,13 +83,13 @@ export class SalesProductSearchComponent implements OnInit {
     this.ref.detectChanges();
   }
 
-  // radioChange(catalog,color) {
-  //   //console.log($event.value);
-  //   console.log(catalog);
-  //   this._router.navigateByUrl('/', {skipLocationChange: true}).then(()=>
-  //     this._router.navigate(["/app/sale/product/"+catalog+"/"+color]));
+  radioChange(catalog,color) {
+    //console.log($event.value);
+    console.log(catalog);
+    this._router.navigateByUrl('/', {skipLocationChange: true}).then(()=>
+      this._router.navigate(["/app/sale/product-search/"+catalog+"/"+color+"/"+this.id]));
    
-  // }
+  }
 
   getCheckedItemList(){
     //console.log(this.type);

@@ -985,7 +985,7 @@ namespace api.Services
                 //var fromAddress = new MailAddress("consignmt@gmail.com", "Bespoke");
                 var fromAddress = new MailAddress("bespoke@jaspalhome.com", "Bespoke");
                 //var toAddress = new MailAddress("bespoke@jaspalhome.com", "Bespoke Admin");
-                var toAddress = new MailAddress("supansa@jaspalhome.com", "Bespoke Admin");
+                var toAddress = new MailAddress("harudee@jaspalhome.com", "Bespoke Admin");
                 string url = ConfigurationManager.AppSettings["urlDetail"];
 
 
