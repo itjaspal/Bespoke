@@ -107,10 +107,10 @@
                             <!-- <button mat-menu-item [routerLink]="['/app/catalog/view/'+x.catalog_id]">
                                 <mat-icon class="material-icons">search</mat-icon> <span>แสดง</span>
                             </button> -->
-                            <!-- <button mat-menu-item [routerLink]="['/app/catalog/update/'+x.catalog_id]">
+                            <button mat-menu-item [routerLink]="['/app/catalog-color/update/'+x.catalog_color_id]+'/'+x.catalog_id">
                                 <mat-icon class="material-icons">edit</mat-icon> <span>แก้ไข</span>
                             </button>
-                            <button mat-menu-item ng-click="delete(x)">
+                            <!-- <button mat-menu-item ng-click="delete(x)">
                               <mat-icon class="material-icons">delete</mat-icon> <span>ลบ</span>
                             </button> -->
                             <button mat-menu-item (click)="delete(x)">

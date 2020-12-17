@@ -170,7 +170,7 @@ const routes: Routes = [
       //Master Catalog Color
       { path: "catalog-color/:catalog_id", component: CatalogColorSearchComponent, canActivate: [AuthenGuard], data: { parentUrl: "/app/catalog-color" } },
       { path: "catalog-color/:catalog_id/create", component: CatalogColorCreateComponent, canActivate: [AuthenGuard], data: { parentUrl: "/app/catalog-color" } },
-      //{ path: "catalog-color/update/:id", component: CatalogColorUpdateComponent, canActivate: [AuthenGuard], data: { parentUrl: "/app/catalog-color" } },
+      { path: "catalog-color/update/:id/:catalog_id", component: CatalogColorUpdateComponent, canActivate: [AuthenGuard], data: { parentUrl: "/app/catalog-color" } },
 
       //Master Catalog Embroidery
       { path: "catalog-emb/:catalog_id", component: CatalogEmbColorSearchComponent, canActivate: [AuthenGuard], data: { parentUrl: "/app/catalog-emb" } },

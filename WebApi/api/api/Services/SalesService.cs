@@ -985,7 +985,7 @@ namespace api.Services
                 //var fromAddress = new MailAddress("consignmt@gmail.com", "Bespoke");
                 var fromAddress = new MailAddress("bespoke@jaspalhome.com", "Bespoke");
                 //var toAddress = new MailAddress("bespoke@jaspalhome.com", "Bespoke Admin");
-                var toAddress = new MailAddress("harudee@jaspalhome.com", "Bespoke Admin");
+                var toAddress = new MailAddress("supansa@jaspalhome.com", "Bespoke Admin");
                 string url = ConfigurationManager.AppSettings["urlDetail"];
 
 
@@ -1430,7 +1430,7 @@ namespace api.Services
 
                 CO_TRNS_ATTACH_FILE attach = ctx.CoTransAttachs
                         .Where(z => z.co_trns_mast_id == co_trns_mast_id)
-                        .SingleOrDefault();
+                        .FirstOrDefault();
 
                 if(attach == null)
                 {

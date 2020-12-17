@@ -69,11 +69,11 @@
              
               <div>
                 <mat-form-field>
-                  <input matInput placeholder="Special Size" name="other" [(ngModel)]="x.size_sp" maxlength="100">
+                  <input matInput placeholder="Special Size" name="other" [(ngModel)]="x.size_sp" maxlength="100" autocomplete="off">
                 </mat-form-field><br>
               </div>
               <mat-form-field class="full-width">
-                <input matInput placeholder="Remark" name="remark" [(ngModel)]="x.remark" maxlength="100">
+                <input matInput placeholder="สี/แบบตัวอักษร(ตัวพิมพ์/ตัวเขียน)" name="remark" [(ngModel)]="x.remark" maxlength="100" autocomplete="off">
               </mat-form-field>
 
               
@@ -99,7 +99,7 @@
           <div class="row">
             <div class="col-sm-2 col-2" style="margin-top: 10px;">
               <mat-form-field class="full-width">
-                <input matInput placeholder="Font" name="embroidery" [(ngModel)]="model_font.embroidery">
+                <input matInput placeholder="Font" name="embroidery" [(ngModel)]="model_font.embroidery" autocomplete="off">
               </mat-form-field>
             </div>
             <div class="col-sm-2 col-2" style="margin-top: 10px;">
@@ -118,7 +118,7 @@
               <div class="hiddenradio"  >
                 <label *ngFor="let emb of color">
                   <input type="radio" name="catalog_emb_color_id" [ngModel]="model_font.font_color" value="{{emb.catalog_emb_color_id}}" (change)="radioColorChange(emb)">
-                  <img src="{{emb.pic_base64}}" style="width: 25px;margin-top: 17px;" class="responsive">
+                  <img src="{{emb.pic_base64}}" style="width: 40px;margin-top: 17px;" class="responsive">
                   
                   &nbsp;
                 </label>

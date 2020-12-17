@@ -9,14 +9,14 @@
     <mat-card-content>
 
       <div class="row"  *ngFor="let x of data.datas">
-        <div class="col-sm-8">
+        <div class="col-sm-12">
           <div class="row">
-            <div class="col-sm-6 col-6" style="margin-top: 5px;">
+            <div class="col-sm-4 col-4" style="margin-top: 5px;">
               <!-- <div class="text-center" style="margin-bottom: 50px;"> -->
                 <img src="{{x.pic_base64}}"  class="responsive">
               <!-- </div> -->
             </div>
-            <div class="col-sm-6 col-6" >
+            <div class="col-sm-8 col-8" >
               <h5>{{x.dsgn_name}}</h5>
               <p>รายละเอียด</p>
               <p>{{x.dsgn_desc}}</p>
@@ -27,7 +27,7 @@
                 <img src="./assets/images-prod/ahana-titanium.png" style="width: 25px;margin-top: 17px;" class="responsive"/>
               </p> -->
               <div class="row">
-                <div class ="col-1 col-sm-1" *ngFor="let y of x.catalogColors">
+                <div class ="col-2 col-sm-2" style="margin-top: 5px;" *ngFor="let y of x.catalogColors">
                   <img src="{{y.pic_base64}}"  (click)="view(x.catalog_id,y)">
                 
                 </div>

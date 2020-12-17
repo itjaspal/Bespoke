@@ -388,15 +388,17 @@
         </div>
         <div class="col-sm-1 col-6">
           <small>สี</small>
-          <dd></dd><img src="{{x.color_base64}}" style="width: 25px;margin-top: 17px;" class="responsive"/>
+          <dd></dd><img src="{{x.color_base64}}" style="width: 40px;margin-top: 5px;" class="responsive"/>
         </div>
         <div class="col-sm-1 col-6">
-          <small>รายปัก</small>
+          <small>ลายปัก</small>
           <dd>{{x.embroidery}}</dd>
         </div>
         <div class="col-sm-2 col-6">
-          <small>แบบตัวอักษรและสี</small>
-          <dd></dd><img src="{{x.font_name_base64}}" class="responsive"/><img src="{{x.font_color_base64}}" style="width: 25px;margin-top: 17px;" class="responsive"/>
+          <small>สี/อักษร</small>
+          <!-- <dd></dd><img src="{{x.font_name_base64}}" class="responsive"/><img src="{{x.font_color_base64}}" style="width: 25px;margin-top: 17px;" class="responsive"/>
+          <br> {{x.remark}} -->
+          <dd>{{x.remark}}</dd>
         </div>
         <div class="col-sm-1 col-6">
           <small>จำนวน</small>
@@ -411,7 +413,7 @@
           <dd>{{x.amt | number:'1.2-2'}}</dd>
         </div>
         <div class="col-sm-3 col-3">Special Size : {{x.size_sp}}</div>
-        <div class="col-sm-9 col-9">หมายเหตุ : {{x.remark}}<br></div>
+        <!-- <div class="col-sm-9 col-9">สีตัวอักษร : {{x.remark}}<br></div> -->
       </div>
       <div class="row card-table-body">
         <hr />

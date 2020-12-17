@@ -30,6 +30,9 @@ export class SalesSearchView
 
 export class SalesTransactionView
 {
+        lenght(lenght: any) {
+          throw new Error('Method not implemented.');
+        }
         public co_trns_mast_id: number = 0;
         public embroidery: string="";
         public font_name: number = 0;

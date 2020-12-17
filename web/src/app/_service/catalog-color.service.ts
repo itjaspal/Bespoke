@@ -33,8 +33,8 @@ export class CatalogColorService {
     return await this.http.post<number>(environment.API_URL + 'catalog-color/postUpdate', _model).toPromise();
   }
 
-  public async getInfo(_id: number) {
-    return await this.http.get<CatalogColorView>(environment.API_URL + 'catalog-color/getInfo/' + _id).toPromise();
+  public async getInfo(_id: number , _catalog_id : number) {
+    return await this.http.get<CatalogColorView>(environment.API_URL + 'catalog-color/getInfo/' + _id+'/'+_catalog_id).toPromise();
   }
 
   public async delete(params) {

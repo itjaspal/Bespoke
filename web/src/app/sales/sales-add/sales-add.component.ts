@@ -8,6 +8,7 @@ import { SalesService } from '../../_service/sales.service';
 import { concat } from 'core-js/fn/array';
 import { CatalogDesignService } from '../../_service/catalog-design.service';
 import { CatalogMastView } from '../../_model/catalog-mast';
+import { MessageService } from '../../_service/message.service';
 
 @Component({
   selector: 'app-sales-add',
@@ -25,6 +26,7 @@ export class SalesAddComponent implements OnInit {
     private _authSvc: AuthenticationService,
     private sanitizer: DomSanitizer, 
     private _router: Router,
+    private _msgSvc: MessageService,
     private _data: ShareDataService
   ) { }
   
@@ -47,6 +49,8 @@ export class SalesAddComponent implements OnInit {
   //public selected = -1;
   public catalog_color_id : any;
   public designName : any;
+  public count : any;
+  public chkremark: any;
   
   async ngOnInit() {
 
@@ -111,22 +115,46 @@ export class SalesAddComponent implements OnInit {
 
   Confirm()
   {
-    this.catalog_id = this._actRoute.snapshot.params.catalog;
-    this.catalog_color_id = this._actRoute.snapshot.params.color;
-    this.model_sales.add_price = this.model_font.add_price;
-    this.model_sales.embroidery = this.model_font.embroidery;
-    this.model_sales.font_color = this.model_font.font_color;
-    this.model_sales.font_color_base64 = this.model_font.font_color_base64;
-    this.model_sales.font_name = this.model_font.font_name;
-    this.model_sales.font_name_base64 = this.model_font.font_name_base64;
+    
+    this.sales = this.model_sales;
+    
+    this.chkremark=[];
+    for (var i = 0; i < this.sales.length; i++) {
+    
+        if(this.sales[i].remark == "" || this.sales[i].remark == null )
+        {
+    
+          this.chkremark.push("N");
+                    
+        }
+    }
 
+    console.log(this.chkremark.length);
     
-    this._data.selectedSales.subscribe(message => this.sales = this.model_sales)
-    //console.log(this.message);
-    this._data.confirmSales(this.sales)
-    //console.log(this.sales.length);
+    if(this.chkremark.length > 0)
+    {
+      this._msgSvc.warningPopup("ต้องใส่สีตัวอักษรและแบบตัวอักษร");
+    }
+    else
+    {
+
+      this.catalog_id = this._actRoute.snapshot.params.catalog;
+      this.catalog_color_id = this._actRoute.snapshot.params.color;
+      this.model_sales.add_price = this.model_font.add_price;
+      this.model_sales.embroidery = this.model_font.embroidery;
+      this.model_sales.font_color = this.model_font.font_color;
+      this.model_sales.font_color_base64 = this.model_font.font_color_base64;
+      this.model_sales.font_name = this.model_font.font_name;
+      this.model_sales.font_name_base64 = this.model_font.font_name_base64;
+
+      
+      this._data.selectedSales.subscribe(message => this.sales = this.model_sales)
+      
+      this._data.confirmSales(this.sales)
     
-    this._router.navigateByUrl('/app/sale/summary/'+this.catalog_id+"/"+this.catalog_color_id);
+      
+      this._router.navigateByUrl('/app/sale/summary/'+this.catalog_id+"/"+this.catalog_color_id);
+    }
   }
 
   close()

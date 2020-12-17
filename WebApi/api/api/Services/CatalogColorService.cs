@@ -153,12 +153,25 @@ namespace api.Services
                 {
                     CATALOG_COLOR updateObj = ctx.CatalogColors.Where(z => z.catalog_color_id == model.catalog_color_id && z.catalog_id == model.catalog_id).SingleOrDefault();
 
-                    updateObj.pdcolor_code = model.pdcolor_code;
-                    updateObj.pic_file_path = model.pic_file_path;
-                    updateObj.pic_base64 = model.pic_base64;
-                    updateObj.catalog_file_path = model.catalog_file_path;
-                    updateObj.updated_by = model.updated_by;
-                    updateObj.updated_at = DateTime.Now;
+                    if(model.catalog_file_path == null)
+                    {
+                        updateObj.pdcolor_code = model.pdcolor_code;
+                        updateObj.pic_file_path = model.pic_file_path;
+                        updateObj.pic_base64 = model.pic_base64;
+                        //updateObj.catalog_file_path = model.catalog_file_path;
+                        updateObj.updated_by = model.updated_by;
+                        updateObj.updated_at = DateTime.Now;
+                    }
+                    else
+                    {
+                        updateObj.pdcolor_code = model.pdcolor_code;
+                        updateObj.pic_file_path = model.pic_file_path;
+                        updateObj.pic_base64 = model.pic_base64;
+                        updateObj.catalog_file_path = model.catalog_file_path;
+                        updateObj.updated_by = model.updated_by;
+                        updateObj.updated_at = DateTime.Now;
+                    }
+                    
 
 
                     ctx.SaveChanges();
