@@ -133,7 +133,7 @@ export class SalesAddComponent implements OnInit {
     
     if(this.chkremark.length > 0)
     {
-      this._msgSvc.warningPopup("ต้องใส่สีตัวอักษรและแบบตัวอักษร");
+      this._msgSvc.warningPopup("ต้องใส่สีไหมปัก,แบบตัวอักษรและขนาด");
     }
     else
     {
